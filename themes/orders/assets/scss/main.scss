@@ -22,6 +22,10 @@ $beige-lighter: #eff0eb;
 // Import the Google Font
 @import "../../../../node_modules/bulma/sass/utilities/initial-variables.scss";
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+
+:root {
+  --bulma-info-h: 212deg;
+}
 @include mixins.until($tablet) {
   :root {
     --bulma-size-3: 1.5rem;
