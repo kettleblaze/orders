@@ -9,8 +9,10 @@
     functions = "functions"
     publish = "public"
 
-[context.production]
+[build]
+    publish = "public"
+    command = "hugo"
+[build.environment]
     HUGO_VERSION = "0.129.0"
     DART_SASS_VERSION = "1.75.0"
-    publish = "public/"
-    command = "hugo"
+    
