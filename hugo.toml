@@ -1,0 +1,4 @@
+baseURL = 'https://orders.kettleblaze.store/'
+languageCode = 'it-it'
+title = 'Orders | Kettleblaze'
+theme = 'orders'

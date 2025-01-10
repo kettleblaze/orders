@@ -1,0 +1,14 @@
+[context.development.environment]
+    HUGO_VERSION = "0.129.0"
+    DART_SASS_VERSION = "1.75.0"
+
+[dev]
+    framework = "#custom"
+    command = "npm run dev"
+    targetPort = 1313
+    functions = "functions"
+    publish = "public"
+
+[context.production]
+    publish = "public/"
+    command = "hugo"
