@@ -10,5 +10,7 @@
     publish = "public"
 
 [context.production]
+    HUGO_VERSION = "0.129.0"
+    DART_SASS_VERSION = "1.75.0"
     publish = "public/"
     command = "hugo"
