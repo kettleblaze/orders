@@ -2,3 +2,10 @@ baseURL = 'https://orders.kettleblaze.store/'
 languageCode = 'it-it'
 title = 'Orders | Kettleblaze'
 theme = 'orders'
+
+
+
+[security.funcs]
+   getenv = ['^HUGO', 'ENV']
+[security.exec]
+    allow = ['^sass$', '^go$', '^npx$', '^postcss$', '^babel$']
