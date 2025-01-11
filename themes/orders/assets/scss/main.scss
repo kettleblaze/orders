@@ -16,7 +16,7 @@ $beige-lighter: #eff0eb;
   $input-shadow: none
 );
 
-@use  "../../../../node_modules/bulma/sass/helpers/flexbox.scss";
+@use "../../../../node_modules/bulma/sass/helpers/flexbox.scss";
 @use "../../../../node_modules/bulma/sass/utilities/mixins";
 
 // Import the Google Font
@@ -24,7 +24,9 @@ $beige-lighter: #eff0eb;
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,700;1,400;1,700&display=swap");
 
 :root {
-  --bulma-info-h: 212deg;
+  --bulma-info-h: 174deg;
+  --bulma-info-s: 36%;
+  --bulma-info-l: 64%;
 }
 @include mixins.until($tablet) {
   :root {

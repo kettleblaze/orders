@@ -1,1 +1,4 @@
+{{- with resources.Get "js/compiled/preorders-app.js"}}
+    <script src="{{.RelPermalink}}" defer></script>
+{{- end }}
 <p>Copyright {{ now.Year }}. All rights reserved.</p>
