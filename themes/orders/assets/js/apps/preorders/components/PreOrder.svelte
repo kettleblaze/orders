@@ -78,7 +78,7 @@
 {:then order}
   <div class="columns">
     <div class="column">
-      <h2 class="title my-6">Order Summary</h2>
+      <h2 class="title my-6 px-5">Order Summary</h2>
       <div class="box">
         {#if order.products.length > 0}
           <ul>

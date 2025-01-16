@@ -25,7 +25,6 @@ $beige-lighter: #eff0eb;
 
 @include mixins.until($tablet) {
   :root {
-    --bulma-size-3: 1.5rem;
     --bulma-title-line-height: 1;
     --bulma-block-spacing: 1rem;
     --bulma-navbar-background-color: #e5e5e5;
@@ -45,7 +44,6 @@ $beige-lighter: #eff0eb;
   --bulma-danger-h: 348deg;
   --bulma-danger-s: 80%;
   --bulma-danger-l: 52%;
-  --bulma-link-text: 
 }
 
 .navbar {
