@@ -3755,7 +3755,7 @@ var preOrdersApp = (function () {
 	var root_12 = template(`<li>- <a class="is-underlined" target="_blank"></a></li>`);
 	var root_11 = template(`<div class="mt-5"><div><span> </span></div> <div class="px-3"><span class="my-0">Tracking information</span> <div class="px-3 py-4"><ul><li> </li> <li> </li> <!></ul></div></div></div>`);
 	var root_13 = template(`<div class="mt-5"><div><span> </span></div> <div class="px-3"><span> </span></div></div>`);
-	var root_1 = template(`<div class="columns"><div class="column"><div class="box my-6"><!></div></div> <div class="column px-6"><div class="mt-6"><h2 class="title">Order details</h2> <ul><li> </li> <li> </li> <li>Payment status: <span class="has-text-info has-text-weight-bold">paid</span></li></ul> <h2 class="title mt-6">Order Status</h2> <h2 class="title has-text-info has-text-weight-bold"> </h2> <h2 class="title mt-6">Customer details</h2> <ul><li> </li> <li> </li> <li> </li></ul> <h2 class="title mt-6">Shipping Address</h2> <!></div> <div class="my-6"><h2 class="title pt-2">History</h2> <!></div></div></div>`);
+	var root_1 = template(`<div class="columns"><div class="column"><h2 class="title my-6">Order Summary</h2> <div class="box"><!></div></div> <div class="column px-6"><div class="mt-6"><h2 class="title">Order details</h2> <ul><li> </li> <li> </li> <li>Payment status: <span class="has-text-info has-text-weight-bold">paid</span></li></ul> <h2 class="title mt-6">Order Status</h2> <h2 class="title has-text-info has-text-weight-bold"> </h2> <h2 class="title mt-6">Customer details</h2> <ul><li> </li> <li> </li> <li> </li></ul> <h2 class="title mt-6">Shipping Address</h2> <!></div> <div class="my-6"><h2 class="title pt-2">History</h2> <!></div></div></div>`);
 	var root_14 = template(`<div class="sloader-container"><span class="sloader"></span> <h3 class="is-size-5">Please wait</h3></div>`);
 
 	function PreOrder($$anchor, $$props) {
@@ -3811,7 +3811,9 @@ var preOrdersApp = (function () {
 			let sum = 0;
 
 			for (let product of order.products) {
-				sum = sum + product.price;
+				if (product.price) {
+					sum = sum + product.price;
+				}
 			}
 
 			if (order.shippingCost) {
@@ -3848,7 +3850,7 @@ var preOrdersApp = (function () {
 			($$anchor, order) => {
 				var div = root_1();
 				var div_1 = child(div);
-				var div_2 = child(div_1);
+				var div_2 = sibling(child(div_1), 2);
 				var node_1 = child(div_2);
 
 				{

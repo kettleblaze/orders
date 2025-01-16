@@ -45,7 +45,9 @@
   function calculateTotal(order) {
     let sum = 0;
     for (let product of order.products) {
-      sum = sum + product.price;
+      if (product.price) {
+        sum = sum + product.price;
+      }
     }
     if (order.shippingCost) {
       sum = sum + order.shippingCost.amount_total;
@@ -76,7 +78,8 @@
 {:then order}
   <div class="columns">
     <div class="column">
-      <div class="box my-6">
+      <h2 class="title my-6">Order Summary</h2>
+      <div class="box">
         {#if order.products.length > 0}
           <ul>
             {#each order.products as product}
