@@ -21,6 +21,11 @@ const orderSchema = new Schema(
       type: String,
       unique: true,
     },
+    status: {
+      type: String,
+      enum: ["ready", "to-be-shipped", "shipped", "exception"],
+      default: "ready",
+    },
     kettleblazeId: String,
     stripeSessionId: String,
     customer: Object,

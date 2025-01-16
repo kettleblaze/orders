@@ -31,6 +31,17 @@
     }
     return (wallet ? `(${wallet}) ` : "") + type;
   }
+
+  function displayOrderStatus(status) {
+    switch (status) {
+      case "ready":
+        return "Ready";
+      case "to-be-shipped":
+        return "To be shipped";
+      case "shipped":
+        return "Shipped";
+    }
+  }
   function calculateTotal(order) {
     let sum = 0;
     for (let product of order.products) {
@@ -88,7 +99,7 @@
                       </h4>
                       <p class="is-size-6">{product.description}</p>
                       {#if product.price > 0}
-                        <p class="is-size-5 my-3 has-text-info">
+                        <p class="is-size-5 my-3">
                           {formatCurrency(product)}
                         </p>
                       {/if}
@@ -101,7 +112,7 @@
               <li>
                 <div class="column">
                   <h4 class="title has-text-info is-size-4">Shipping Cost</h4>
-                  <p class="is-size-5 my-3 has-text-info">
+                  <p class="is-size-5 my-3">
                     {formatCurrency(order.shippingCost)}
                   </p>
                 </div>
@@ -111,7 +122,7 @@
               <div class="column">
                 <hr />
                 <h4 class="title has-text-info is-size-4 mt-5">Order total</h4>
-                <p class="my-3 has-text-info">
+                <p class="my-3">
                   {calculateTotal(order)}
                 </p>
               </div>
@@ -126,7 +137,16 @@
         <ul>
           <li>Id: {order.kettleblazeId}</li>
           <li>Payment method: {displayPaymentMethod(order.paymentMethod)}</li>
+          <li>
+            Payment status: <span class="has-text-info has-text-weight-bold"
+              >paid</span
+            >
+          </li>
         </ul>
+        <h2 class="title mt-6">Order Status</h2>
+        <h2 class="title has-text-info has-text-weight-bold">
+          {displayOrderStatus(order.status)}
+        </h2>
         <h2 class="title mt-6">Customer details</h2>
         <ul>
           <li>Name: {order.customer.name}</li>

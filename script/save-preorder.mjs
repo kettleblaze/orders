@@ -115,6 +115,7 @@ function createOrderId(unixTs) {
 
     let order = {
       id: uuid,
+      status: "ready",
       kettleblazeId: createOrderId(session.created),
       stripeSessionId: session.id,
       products,
