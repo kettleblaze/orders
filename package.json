@@ -4,6 +4,7 @@
   "description": "kettleblaze orders website",
   "main": "index.js",
   "scripts": {
+    "build": "rollup --environment HUGO_ENV:production --config rollup.config.mjs && hugo",
     "dev": "hugo server",
     "apps": "rollup --environment HUGO_ENV:development --config rollup.config.mjs --watch"
   },

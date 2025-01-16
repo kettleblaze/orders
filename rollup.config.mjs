@@ -12,6 +12,7 @@ import terser from "@rollup/plugin-terser";
 
 let plugins = [];
 let cfg = {};
+/*
 if (process.env.HUGO_ENV !== "development") {
   plugins = plugins.concat(terser());
   config().parsed;
@@ -20,7 +21,7 @@ if (process.env.HUGO_ENV !== "development") {
 } else {
   cfg = config().parsed;
 }
-
+*/
 const preOrdersApp = {
   input: "./themes/orders/assets/js/apps/preorders/main.js",
   output: {
@@ -79,12 +80,6 @@ const preOrdersApp = {
     }),
     replace({
       preventAssignment: true,
-      process: JSON.stringify({
-        env: {
-          HUGO_ENV: process.env.HUGO_ENV,
-          ...cfg,
-        },
-      }),
     }),
     //css({ output: "product-page-price-app.css" }),
   ],

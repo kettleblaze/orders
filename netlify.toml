@@ -11,7 +11,7 @@
 
 [build]
     publish = "public"
-    command = "hugo"
+    command = "npm run build"
 [build.environment]
     HUGO_VERSION = "0.129.0"
     DART_SASS_VERSION = "1.75.0"

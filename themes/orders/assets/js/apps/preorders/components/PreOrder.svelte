@@ -2,10 +2,14 @@
   import { onMount } from "svelte";
   import SirvImage from "./SirvImage.svelte";
 
+  const trackingLinks = {
+    ups: "https://www.ups.com/track?loc=en_GB&tracknum=PARCELNUM&requester=WT/trackdetails",
+  };
+
   function formatCurrency(product) {
     return new Intl.NumberFormat("en-IT", {
       style: "currency",
-      currency: product.currency,
+      currency: product.currency || "EUR",
       maximumFractionDigits: 2,
     }).format((product.price || product.amount_total) / 100);
   }
@@ -38,14 +42,14 @@
 
     return formatCurrency({
       price: sum,
-      currency: order.shippingCost.currency,
+      currency: order.shippingCost?.currency || "EUR",
     });
   }
 
   async function getOrder() {
     const params = new URLSearchParams(window.location.search);
     const o = await fetch(
-      `/.netlify/functions/getOrder?id=${params.get("id")}`,
+      `https://kettleblaze-store-server.fly.dev/order/${params.get("id")}`,
       { method: "GET" }
     ).then((r) => r.json());
     //  order.customer = o.customer;
@@ -126,7 +130,10 @@
         <h2 class="title mt-6">Customer details</h2>
         <ul>
           <li>Name: {order.customer.name}</li>
-          <li>Phone: +{order.customer.address.country_data.phone[0]} {order.customer.phone}</li>
+          <li>
+            Phone: +{order.customer.address.country_data.phone[0]}
+            {order.customer.phone}
+          </li>
           <li>Email: {order.customer.email}</li>
         </ul>
         <h2 class="title mt-6">Shipping Address</h2>
@@ -168,13 +175,49 @@
       <div class="my-6">
         <h2 class="title pt-2">History</h2>
         {#each order.events as event}
-          <div class="mt-4">
-            <span class="has-text-{event.level}"
-              >{new Date(event.ts).toLocaleDateString()}</span
-            >
-            -
-            <span>{event.data.text}</span>
-          </div>
+          {#if event.type === "tracking-info"}
+            <div class="mt-5">
+              <div>
+                <span class="has-text-{event.level}"
+                  >• {new Date(event.ts).toLocaleDateString()}
+                  {new Date(event.ts).toLocaleTimeString()}</span
+                >
+              </div>
+              <div class="px-3">
+                <span class="my-0">Tracking information</span>
+                <div class="px-3 py-4">
+                  <ul>
+                    <li>Courier: {event.data.courier}</li>
+                    <li>Parcels: {event.data.parcels.length}</li>
+                    {#each event.data.parcels as parcel, index}
+                      <li>
+                        - <a
+                          class="is-underlined"
+                          target="_blank"
+                          href={trackingLinks[
+                            event.data.courier.toLowerCase()
+                          ].replace("PARCELNUM", parcel)}
+                          >Parcel {index + 1} tracking</a
+                        >
+                      </li>
+                    {/each}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          {:else}
+            <div class="mt-5">
+              <div>
+                <span class="has-text-{event.level}"
+                  >• {new Date(event.ts).toLocaleDateString()}
+                  {new Date(event.ts).toLocaleTimeString()}</span
+                >
+              </div>
+              <div class="px-3">
+                <span>{event.data.text}</span>
+              </div>
+            </div>
+          {/if}
         {/each}
       </div>
     </div>
