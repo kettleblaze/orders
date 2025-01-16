@@ -15,12 +15,17 @@
     "@rollup/plugin-strip": "^3.0.4",
     "@rollup/plugin-terser": "^0.4.4",
     "bulma": "^1.0.3",
+    "countries-list": "^3.1.1",
     "dotenv": "^16.4.7",
+    "mongoose": "^8.9.5",
+    "nanoid": "^5.0.9",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-css-only": "^4.5.2",
     "rollup-plugin-svelte": "^7.2.2",
     "rollup-plugin-svelte-svg": "^1.0.0-beta.6",
+    "stripe": "^17.5.0",
     "svelte": "^5.17.3",
-    "svelte-preprocess": "^6.0.3"
+    "svelte-preprocess": "^6.0.3",
+    "title-case": "^4.3.2"
   }
 }
