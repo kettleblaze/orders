@@ -1,6 +1,17 @@
 <script lang="js">
   import { onMount } from "svelte";
   import SirvImage from "./SirvImage.svelte";
+  let internationalPrefix = "",
+    phoneNumber = "";
+
+  let isUpdating = $state(false);
+  let order = $state({});
+
+  let event = $state({});
+
+  function isLocal() {
+    return window.location.host.includes("localhost");
+  }
 
   const trackingLinks = {
     ups: "https://www.ups.com/track?loc=en_GB&tracknum=PARCELNUM&requester=WT/trackdetails",
@@ -12,6 +23,27 @@
       currency: product.currency || "EUR",
       maximumFractionDigits: 2,
     }).format((product.price || product.amount_total) / 100);
+  }
+
+  function addEvent() {
+    order.events.push({
+      ts: Date.now(),
+      level: event.level,
+      type: event.type,
+      data: { text: event.text },
+    });
+    order = order;
+    updateOrder();
+  }
+
+  async function updateOrder() {
+    fetch(`https://kettleblaze-store-server.fly.dev/order/${order.id}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(order),
+    });
   }
 
   function displayPaymentMethod(pm) {
@@ -64,21 +96,55 @@
     const o = await fetch(
       `https://kettleblaze-store-server.fly.dev/order/${params.get("id")}`,
       { method: "GET" }
-    ).then((r) => r.json());
+    )
+      .then((r) => r.json())
+      .then((o) => {
+        internationalPrefix = "+" + o.customer.address.country_data.phone[0];
+        return o;
+      });
     //  order.customer = o.customer;
     return o;
   }
+
+  async function updatePhoneNumber() {
+    if (internationalPrefix.length > 0 && phoneNumber.length > 0) {
+      isUpdating = true;
+      fetch(
+        `https://kettleblaze-store-server.fly.dev/order/phone/${order.id}/${internationalPrefix}/${phoneNumber}`
+      )
+        .catch((e) => {
+          return { status: e.message };
+        })
+        .then((r) => {
+          if (r.ok) {
+            return r.json();
+          } else {
+            isUpdating = false;
+            return { status: "Error" };
+          }
+        })
+        .then((r) => {
+          if (r.status === "ok") {
+            order.customer.phone = phoneNumber;
+            isUpdating = false;
+          }
+        });
+    } else return false;
+  }
+  onMount(() => {
+    getOrder().then((o) => (order = o));
+  });
 </script>
 
-{#await getOrder()}
+{#if !order.id}
   <div class="sloader-container">
     <span class="sloader"></span>
     <h3 class="is-size-5">Please wait</h3>
   </div>
-{:then order}
+{:else}
   <div class="columns">
     <div class="column">
-      <h2 class="title my-6 px-5">Order Summary</h2>
+      <h2 class="title mt-6 px-5">Order Summary</h2>
       <div class="box">
         {#if order.products.length > 0}
           <ul>
@@ -154,8 +220,37 @@
         <ul>
           <li>Name: {order.customer.name}</li>
           <li>
-            Phone: +{order.customer.address.country_data.phone[0]}
-            {order.customer.phone}
+            {#if order.customer.phone}
+              Phone: +{order.customer.address.country_data.phone[0]}
+              {order.customer.phone}
+            {:else}
+              <form class="form my-4">
+                <div class="columns is-mobile is-1">
+                  <div class="column is-one-quarter">
+                    <input
+                      class="input is-info"
+                      type="text"
+                      placeholder="International prefix"
+                      bind:value={internationalPrefix}
+                    />
+                  </div>
+                  <div class="column is-two-thirds">
+                    <input
+                      class="input is-info"
+                      type="text"
+                      bind:value={phoneNumber}
+                      placeholder="Mobile phone number"
+                    />
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  class="button is-info has-text-white"
+                  disabled={isUpdating}
+                  on:click={updatePhoneNumber}>Update</button
+                >
+              </form>
+            {/if}
           </li>
           <li>Email: {order.customer.email}</li>
         </ul>
@@ -236,13 +331,42 @@
                   {new Date(event.ts).toLocaleTimeString()}</span
                 >
               </div>
-              <div class="px-3">
-                <span>{event.data.text}</span>
+              <div class:has-text-warning={event.level === "warning"}>
+                <div class="px-3">
+                  <span>{event.data.text}</span>
+                </div>
               </div>
             </div>
           {/if}
         {/each}
       </div>
+      {#if isLocal()}
+        <form class="form">
+          <label class="label" for="">Level</label>
+          <div class="select is-info mb-4">
+            <select bind:value={event.level}>
+              <option value="info">info</option>
+              <option value="warning">warning</option>
+              <option value="danger">danger</option>
+              <option value="success">success</option>
+            </select>
+          </div>
+          <label class="label" for="">Type</label>
+          <div class="select is-info mb-4">
+            <select bind:value={event.type}>
+              <option value="update">Update</option>
+              <option value="tracking-info">Tracking info</option>
+            </select>
+          </div>
+          <label class="label" for="">Message</label>
+          <textarea class="textarea is-info" bind:value={event.text}></textarea>
+          <button
+            class="button is-info has-text-white mt-6"
+            on:click={addEvent}
+            type="button">Add event</button
+          >
+        </form>
+      {/if}
     </div>
   </div>
-{/await}
+{/if}

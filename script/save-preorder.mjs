@@ -20,7 +20,7 @@ function createOrderId(unixTs) {
 
 (async () => {
   let sessions = [
-    "cs_live_a1V3UwLySI67XFc6aYLo9Pv7N8KEjP3Q6rXKO2Kz7ftiSYp5Iz5Iv065o4",
+    "cs_live_b1PeXZLYRiNaSAm7nreoLok3pW4NIt6cdziP1EIoOWyFh4cHHrcXuVLddb",
     "cs_live_b1SPu0dHM0Q9dNswFAfTAXhq90I9UNEVkoc1uuZVUWJBJkKxo1fKOzj5ty",
     "cs_live_b16b9zMShDaLUoBmtK9GQIcGnK3EjpeU0NvC8iMuQZqGSc5VZ0KbrNq4cE",
     "cs_live_b1bubo5ztY1vAa1Vq8AMo7YxrSxzRhF9cPGu6S2WDkGMAFwhnfzk7sLmVM",
@@ -140,6 +140,16 @@ function createOrderId(unixTs) {
         text: "Product is expected to arrive 27th/29th Jan 25. Delivery to our warehouse the following week and then priority shipping.",
       },
     });
+
+    order.events.push({
+      ts: Date.now(),
+      level: "warning",
+      type: "update",
+      data: {
+        text: "Please insert your mobile phone number in the fields above",
+      },
+    });
+    
     await connect();
     const ord = await Order.findOneAndUpdate(
       { stripeSessionId: order.stripeSessionId },
