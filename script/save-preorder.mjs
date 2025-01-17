@@ -72,10 +72,14 @@ function createOrderId(unixTs) {
         let [zerovibeType] = session.custom_fields.filter(
           (field) => field.key === "zerovibetype"
         );
+        let type =
+          zerovibeType.dropdown?.value === "3x25cm"
+            ? "3x2.5cm"
+            : "1x5cm + 1x2.5cm";
         extras = [
           {
             name: "type",
-            value: zerovibeType.dropdown?.value || "1x5cm + 1x2,5cm",
+            value: type,
           },
         ];
       } else if (item.price.product === "prod_RRlpGcJTAJgKAX") {
@@ -107,7 +111,7 @@ function createOrderId(unixTs) {
           sku: "prod_AI839Kll1kzw23",
           name: "Free Kettleblaze T-Shirt",
           description:
-            "Cotton t-shirt with front and back Kettleblaze logo embroidery. Example picture.",
+            "Cotton t-shirt with front and back Kettleblaze logo embroidery.",
           extras: [{ name: "size", value: tshirtSize.dropdown.value }],
         },
       ]);
@@ -115,7 +119,7 @@ function createOrderId(unixTs) {
 
     let order = {
       id: uuid,
-      status: "ready",
+      status: "waiting-product",
       kettleblazeId: createOrderId(session.created),
       stripeSessionId: session.id,
       products,
@@ -149,13 +153,12 @@ function createOrderId(unixTs) {
         text: "Please insert your mobile phone number in the fields above",
       },
     });
-    
+
     await connect();
     const ord = await Order.findOneAndUpdate(
       { stripeSessionId: order.stripeSessionId },
       order,
       { new: true, upsert: true }
     );
-    console.log(ord);
   }
 })();

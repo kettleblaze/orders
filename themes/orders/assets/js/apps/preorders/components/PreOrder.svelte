@@ -9,6 +9,10 @@
 
   let event = $state({});
 
+  function ucfirst(str) {
+    return str[0].toUpperCase() + str.substring(1, str.length);
+  }
+
   function isLocal() {
     return window.location.host.includes("localhost");
   }
@@ -43,6 +47,13 @@
         "Content-Type": "application/json",
       },
       body: JSON.stringify(order),
+    }).then((r) => {
+      if (r.ok) {
+        alert("eroieuoriu");
+        event.level = "info";
+        event.type = "update";
+        event.text = null;
+      }
     });
   }
 
@@ -68,6 +79,8 @@
     switch (status) {
       case "ready":
         return "Ready";
+      case "waiting-product":
+        return "Waiting product delivery";
       case "to-be-shipped":
         return "To be shipped";
       case "shipped":
@@ -171,6 +184,15 @@
                         <p class="is-size-5 my-3">
                           {formatCurrency(product)}
                         </p>
+                      {/if}
+                      {#if product.extras.length > 0}
+                        <ul class="mt-3">
+                          {#each product.extras as extra}
+                            <li>
+                              {ucfirst(extra.name)}: {ucfirst(extra.value)}
+                            </li>
+                          {/each}
+                        </ul>
                       {/if}
                     </div>
                   </div>

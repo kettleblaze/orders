@@ -25,6 +25,7 @@ $beige-lighter: #eff0eb;
 
 @include mixins.until($tablet) {
   :root {
+    --bulma-body-font-size: 1.15rem;
     --bulma-title-line-height: 1;
     --bulma-block-spacing: 1rem;
     --bulma-navbar-background-color: #e5e5e5;
@@ -32,7 +33,7 @@ $beige-lighter: #eff0eb;
 }
 @include mixins.from($tablet) {
   :root {
-    --bulma-body-font-size: 1.25rem;
+    --bulma-body-font-size: 1.15rem;
     --bulma-navbar-background-color: #e5e5e5;
   }
 }

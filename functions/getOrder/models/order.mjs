@@ -23,7 +23,7 @@ const orderSchema = new Schema(
     },
     status: {
       type: String,
-      enum: ["ready", "to-be-shipped", "shipped", "exception"],
+      enum: ["ready", "waiting-product", "to-be-shipped", "shipped", "exception"],
       default: "ready",
     },
     kettleblazeId: String,
