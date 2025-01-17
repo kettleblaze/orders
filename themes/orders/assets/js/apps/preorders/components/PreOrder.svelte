@@ -1,8 +1,9 @@
 <script lang="js">
   import { onMount } from "svelte";
   import SirvImage from "./SirvImage.svelte";
-  let internationalPrefix = "",
-    phoneNumber = "";
+  import { translate as T } from "../i18n/utils.js";
+  let internationalPrefix = $state(""),
+    phoneNumber = $state("");
 
   let isUpdating = $state(false);
   let order = $state({});
@@ -30,14 +31,16 @@
   }
 
   function addEvent() {
-    order.events.push({
-      ts: Date.now(),
-      level: event.level,
-      type: event.type,
-      data: { text: event.text },
-    });
-    order = order;
-    updateOrder();
+    if (event.text && event.text.length > 0) {
+      order.events.push({
+        ts: Date.now(),
+        level: event.level,
+        type: event.type,
+        data: { text: event.text },
+      });
+      order = order;
+      updateOrder();
+    }
   }
 
   async function updateOrder() {
@@ -49,7 +52,6 @@
       body: JSON.stringify(order),
     }).then((r) => {
       if (r.ok) {
-        alert("eroieuoriu");
         event.level = "info";
         event.type = "update";
         event.text = null;
@@ -76,6 +78,7 @@
   }
 
   function displayOrderStatus(status) {
+    return T(status);
     switch (status) {
       case "ready":
         return "Ready";
@@ -157,7 +160,7 @@
 {:else}
   <div class="columns">
     <div class="column">
-      <h2 class="title mt-6 px-5">Order Summary</h2>
+      <h2 class="title mt-6 px-5">{T("order-summary")}</h2>
       <div class="box">
         {#if order.products.length > 0}
           <ul>
@@ -202,7 +205,9 @@
             {#if order.shippingCost}
               <li>
                 <div class="column">
-                  <h4 class="title has-text-info is-size-4">Shipping Cost</h4>
+                  <h4 class="title has-text-info is-size-4">
+                    {T("shipping-cost")}
+                  </h4>
                   <p class="is-size-5 my-3">
                     {formatCurrency(order.shippingCost)}
                   </p>
@@ -212,7 +217,9 @@
             <li>
               <div class="column">
                 <hr />
-                <h4 class="title has-text-info is-size-4 mt-5">Order total</h4>
+                <h4 class="title has-text-info is-size-4 mt-5">
+                  {T("order-total")}
+                </h4>
                 <p class="my-3">
                   {calculateTotal(order)}
                 </p>
@@ -224,26 +231,27 @@
     </div>
     <div class="column px-6">
       <div class="mt-6">
-        <h2 class="title">Order details</h2>
+        <h2 class="title">{T("order-details")}</h2>
         <ul>
           <li>Id: {order.kettleblazeId}</li>
-          <li>Payment method: {displayPaymentMethod(order.paymentMethod)}</li>
           <li>
-            Payment status: <span class="has-text-info has-text-weight-bold"
-              >paid</span
-            >
+            {T("payment-method")}: {displayPaymentMethod(order.paymentMethod)}
+          </li>
+          <li>
+            {T("payment-status")}:
+            <span class="has-text-info has-text-weight-bold">paid</span>
           </li>
         </ul>
-        <h2 class="title mt-6">Order Status</h2>
+        <h2 class="title mt-6">{T("order-status")}</h2>
         <h2 class="title has-text-info has-text-weight-bold">
           {displayOrderStatus(order.status)}
         </h2>
-        <h2 class="title mt-6">Customer details</h2>
+        <h2 class="title mt-6">{T("customer-details")}</h2>
         <ul>
-          <li>Name: {order.customer.name}</li>
+          <li>{T("name")}: {order.customer.name}</li>
           <li>
             {#if order.customer.phone}
-              Phone: +{order.customer.address.country_data.phone[0]}
+              {T("phone")}: +{order.customer.address.country_data.phone[0]}
               {order.customer.phone}
             {:else}
               <form class="form my-4">
@@ -261,7 +269,7 @@
                       class="input is-info"
                       type="text"
                       bind:value={phoneNumber}
-                      placeholder="Mobile phone number"
+                      placeholder={T("mob-phone")}
                     />
                   </div>
                 </div>
@@ -269,14 +277,14 @@
                   type="button"
                   class="button is-info has-text-white"
                   disabled={isUpdating}
-                  on:click={updatePhoneNumber}>Update</button
+                  on:click={updatePhoneNumber}>{T("update")}</button
                 >
               </form>
             {/if}
           </li>
           <li>Email: {order.customer.email}</li>
         </ul>
-        <h2 class="title mt-6">Shipping Address</h2>
+        <h2 class="title mt-6">{T("shipping-address")}</h2>
         {#if order.customer.shipping_details}
           <ul>
             <li>{order.customer.shipping_details.name}</li>
@@ -313,7 +321,7 @@
         {/if}
       </div>
       <div class="my-6">
-        <h2 class="title pt-2">History</h2>
+        <h2 class="title pt-2">{T("history")}</h2>
         {#each order.events as event}
           {#if event.type === "tracking-info"}
             <div class="mt-5">
@@ -353,11 +361,13 @@
                   {new Date(event.ts).toLocaleTimeString()}</span
                 >
               </div>
-              <div class:has-text-warning={event.level === "warning"}>
-                <div class="px-3">
-                  <span>{event.data.text}</span>
+              {#if event.data}
+                <div class:has-text-warning={event.level === "warning"}>
+                  <div class="px-3">
+                    <span>{event.data.text}</span>
+                  </div>
                 </div>
-              </div>
+              {/if}
             </div>
           {/if}
         {/each}

@@ -1,0 +1,20 @@
+{
+  "order-summary": "Riepilogo Ordine",
+  "order-details": "Dettagli Ordine",
+  "order-status": "Stato dell'Ordine",
+  "payment-method": "Metodo di Pagamento",
+  "payment-status": "Stato del Pagamento",
+  "shipping-cost": "Costo di Spedizione",
+  "order-total": "Totale Ordine",
+  "customer-details": "Dettagli Cliente",
+  "shipping-address": "Indirizzo di Spedizione",
+  "history": "Storico",
+  "ready": "Pronto",
+  "waiting-product": "In attesa della consegna del prodotto",
+  "to-be-shipped": "Da spedire",
+  "shipped": "Spedito",
+  "name": "Nome",
+  "phone": "Telefono",
+  "mob-number": "Numero di telefono cellulare",
+  "update": "Aggiorna"
+}

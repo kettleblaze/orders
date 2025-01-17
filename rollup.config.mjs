@@ -7,6 +7,7 @@ import resolve from "@rollup/plugin-node-resolve";
 import scss from "svelte-preprocess";
 import commonjs from "rollup-plugin-commonjs";
 import css from "rollup-plugin-css-only";
+import json from "@rollup/plugin-json";
 import { svelteSVG } from "rollup-plugin-svelte-svg";
 import terser from "@rollup/plugin-terser";
 
@@ -31,11 +32,12 @@ const preOrdersApp = {
     plugins,
   },
   plugins: [
-   /* commonjs({
+    /* commonjs({
       namedExports: {
         "svelte-i18n": ["register", "_", "getLocaleFromNavigator"],
       },
     }),*/
+    json(),
     svelteSVG(),
     svelte({
       //  preprocess: [scss()],

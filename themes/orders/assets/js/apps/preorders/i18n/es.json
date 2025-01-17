@@ -1,0 +1,20 @@
+{
+  "order-summary": "Resumen del Pedido",
+  "order-details": "Detalles del Pedido",
+  "order-status": "Estado del Pedido",
+  "payment-method": "Método de Pago",
+  "payment-status": "Estado del Pago",
+  "shipping-cost": "Costo de Envío",
+  "order-total": "Total del Pedido",
+  "customer-details": "Detalles del Cliente",
+  "shipping-address": "Dirección de Envío",
+  "history": "Historial",
+  "ready": "Listo",
+  "waiting-product": "Esperando la entrega del producto",
+  "to-be-shipped": "Por enviar",
+  "shipped": "Enviado",
+  "name": "Nombre",
+  "phone": "Teléfono",
+  "mob-number": "Número de teléfono móvil",
+  "update": "Actualizar"
+}

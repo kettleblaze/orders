@@ -1,0 +1,20 @@
+{
+  "order-summary": "Order Summary",
+  "order-details": "Order Details",
+  "order-status": "Order Status",
+  "payment-method": "Payment Method",
+  "payment-status": "Payment Status",
+  "shipping-cost": "Shipping Cost",
+  "order-total": "Order Total",
+  "customer-details": "Customer Details",
+  "shipping-address": "Shipping Address",
+  "history": "History",
+  "ready": "Ready",
+  "waiting-product": "Waiting for product delivery",
+  "to-be-shipped": "To be shipped",
+  "shipped": "Shipped",
+  "name": "Name",
+  "phone": "Phone",
+  "mob-number": "Mobile Phone Number",
+  "update": "Update"
+}

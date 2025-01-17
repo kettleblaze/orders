@@ -1,0 +1,21 @@
+{
+    "order-summary": "Bestellübersicht",
+    "order-details": "Bestelldetails",
+    "order-status": "Bestellstatus",
+    "payment-method": "Zahlungsmethode",
+    "payment-status": "Zahlungsstatus",
+    "shipping-cost": "Versandkosten",
+    "order-total": "Gesamtbetrag",
+    "customer-details": "Kundendetails",
+    "shipping-address": "Versandadresse",
+    "history": "Verlauf",
+    "ready": "Bereit",
+    "waiting-product": "Warten auf Produktlieferung",
+    "to-be-shipped": "Zu versenden",
+    "shipped": "Versandt",
+    "name": "Name",
+    "phone": "Telefon",
+    "mob-number": "Handynummer",
+    "update": "Aktualisieren"
+  }
+  
