@@ -62,6 +62,9 @@
   function displayPaymentMethod(pm) {
     let type = "",
       wallet = "";
+    if (pm.type === "paypal") {
+      return "PayPal";
+    }
     if (pm.type === "card") {
       type = pm.card;
     }

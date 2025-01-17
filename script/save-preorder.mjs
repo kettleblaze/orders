@@ -22,6 +22,11 @@ function createOrderId(unixTs) {
   let sessions = [
     "cs_live_b1PeXZLYRiNaSAm7nreoLok3pW4NIt6cdziP1EIoOWyFh4cHHrcXuVLddb",
     "cs_live_b1SPu0dHM0Q9dNswFAfTAXhq90I9UNEVkoc1uuZVUWJBJkKxo1fKOzj5ty",
+    "cs_live_b16yDN1Z47JlllPMxxKmVbxiWv3FySN28kwRTn75Z89sLt8zRZbEAB1wbw",
+    "cs_live_b1BIh2of16v4kCpenaLnxrX8OOIBbXaZCZ65SE0LsaaQGhoIi5BLeGD3Be",
+    "cs_live_b11EVV2aYb6myOlOo4OFoGG5SRJiUbSYvEcua8TUgp2b5HTZCJF2uaDHgv",
+    "cs_live_b1A00cmNaMKREz340BX1AZOXkg4WHiP5OrkLZSl73emJe2v996Nf3YWaa9",
+    "cs_live_b1hKDlKYkygU7EhZVfAv7igXeZoG0I4zKM5pYU8jC7SXqCzlRTfrCLql6V",
     "cs_live_b16b9zMShDaLUoBmtK9GQIcGnK3EjpeU0NvC8iMuQZqGSc5VZ0KbrNq4cE",
     "cs_live_b1bubo5ztY1vAa1Vq8AMo7YxrSxzRhF9cPGu6S2WDkGMAFwhnfzk7sLmVM",
   ];
@@ -46,10 +51,11 @@ function createOrderId(unixTs) {
     let paymentMethod = null;
 
     if (method) {
+      console.log(method);
       paymentMethod = {
         type: method.type,
-        card: titleCase(method.card?.brand) || null,
-        wallet: method.card.wallet?.type || null,
+        card: method.card?.brand ? titleCase(method.card?.brand) : null,
+        wallet: method.card?.wallet?.type || null,
       };
     }
     if (session.shipping_cost) {
