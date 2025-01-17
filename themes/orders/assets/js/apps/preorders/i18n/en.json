@@ -16,5 +16,7 @@
   "name": "Name",
   "phone": "Phone",
   "mob-number": "Mobile Phone Number",
-  "update": "Update"
+  "update": "Update",
+  "type": "Type",
+  "size": "Size"
 }

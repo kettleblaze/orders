@@ -28,4 +28,4 @@ function translate(preferredLanguage) {
 }
 
 let t = translate();
-export { t as translate };
+export { t as translate, getPreferredLanguage };

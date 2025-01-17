@@ -1,7 +1,7 @@
 <script lang="js">
   import { onMount } from "svelte";
   import SirvImage from "./SirvImage.svelte";
-  import { translate as T } from "../i18n/utils.js";
+  import { translate as T, getPreferredLanguage } from "../i18n/utils.js";
   let internationalPrefix = $state(""),
     phoneNumber = $state("");
 
@@ -79,17 +79,8 @@
 
   function displayOrderStatus(status) {
     return T(status);
-    switch (status) {
-      case "ready":
-        return "Ready";
-      case "waiting-product":
-        return "Waiting product delivery";
-      case "to-be-shipped":
-        return "To be shipped";
-      case "shipped":
-        return "Shipped";
-    }
   }
+
   function calculateTotal(order) {
     let sum = 0;
     for (let product of order.products) {
@@ -109,8 +100,11 @@
 
   async function getOrder() {
     const params = new URLSearchParams(window.location.search);
+    const lang = getPreferredLanguage();
+    // `https://kettleblaze-store-server.fly.dev/order/${params.get("id")}/${lang}`
+    // `http://localhost:8080/order/${params.get("id")}/${lang}`,
     const o = await fetch(
-      `https://kettleblaze-store-server.fly.dev/order/${params.get("id")}`,
+      `https://kettleblaze-store-server.fly.dev/order/${params.get("id")}/${lang}`,
       { method: "GET" }
     )
       .then((r) => r.json())
@@ -192,7 +186,7 @@
                         <ul class="mt-3">
                           {#each product.extras as extra}
                             <li>
-                              {ucfirst(extra.name)}: {ucfirst(extra.value)}
+                              {T(extra.name)}: {ucfirst(extra.value)}
                             </li>
                           {/each}
                         </ul>

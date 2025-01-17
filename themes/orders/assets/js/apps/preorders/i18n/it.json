@@ -16,5 +16,7 @@
   "name": "Nome",
   "phone": "Telefono",
   "mob-number": "Numero di telefono cellulare",
-  "update": "Aggiorna"
+  "update": "Aggiorna",
+  "type": "Tipo",
+  "size": "Taglia"
 }

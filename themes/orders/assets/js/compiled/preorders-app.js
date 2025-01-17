@@ -3919,6 +3919,8 @@ var preOrdersApp = (function () {
 	var name$4 = "Name";
 	var phone$4 = "Phone";
 	var update$4 = "Update";
+	var type$4 = "Type";
+	var size$4 = "Size";
 	var en = {
 		"order-summary": "Order Summary",
 		"order-details": "Order Details",
@@ -3937,7 +3939,9 @@ var preOrdersApp = (function () {
 		name: name$4,
 		phone: phone$4,
 		"mob-number": "Mobile Phone Number",
-		update: update$4
+		update: update$4,
+		type: type$4,
+		size: size$4
 	};
 
 	var history$3 = "Storico";
@@ -3946,6 +3950,8 @@ var preOrdersApp = (function () {
 	var name$3 = "Nome";
 	var phone$3 = "Telefono";
 	var update$3 = "Aggiorna";
+	var type$3 = "Tipo";
+	var size$3 = "Taglia";
 	var it = {
 		"order-summary": "Riepilogo Ordine",
 		"order-details": "Dettagli Ordine",
@@ -3964,7 +3970,9 @@ var preOrdersApp = (function () {
 		name: name$3,
 		phone: phone$3,
 		"mob-number": "Numero di telefono cellulare",
-		update: update$3
+		update: update$3,
+		type: type$3,
+		size: size$3
 	};
 
 	var history$2 = "Historial";
@@ -3973,6 +3981,8 @@ var preOrdersApp = (function () {
 	var name$2 = "Nombre";
 	var phone$2 = "Teléfono";
 	var update$2 = "Actualizar";
+	var type$2 = "Tipo";
+	var size$2 = "Talla";
 	var es = {
 		"order-summary": "Resumen del Pedido",
 		"order-details": "Detalles del Pedido",
@@ -3991,7 +4001,9 @@ var preOrdersApp = (function () {
 		name: name$2,
 		phone: phone$2,
 		"mob-number": "Número de teléfono móvil",
-		update: update$2
+		update: update$2,
+		type: type$2,
+		size: size$2
 	};
 
 	var history$1 = "Verlauf";
@@ -4000,6 +4012,8 @@ var preOrdersApp = (function () {
 	var name$1 = "Name";
 	var phone$1 = "Telefon";
 	var update$1 = "Aktualisieren";
+	var type$1 = "Typ";
+	var size$1 = "Größe";
 	var de = {
 		"order-summary": "Bestellübersicht",
 		"order-details": "Bestelldetails",
@@ -4018,7 +4032,9 @@ var preOrdersApp = (function () {
 		name: name$1,
 		phone: phone$1,
 		"mob-number": "Handynummer",
-		update: update$1
+		update: update$1,
+		type: type$1,
+		size: size$1
 	};
 
 	var history = "Historique";
@@ -4027,6 +4043,8 @@ var preOrdersApp = (function () {
 	var name = "Nom";
 	var phone = "Téléphone";
 	var update = "Mettre à jour";
+	var type = "Type";
+	var size = "Taille";
 	var fr = {
 		"order-summary": "Résumé de la Commande",
 		"order-details": "Détails de la Commande",
@@ -4045,7 +4063,9 @@ var preOrdersApp = (function () {
 		name: name,
 		phone: phone,
 		"mob-number": "Numéro de téléphone portable",
-		update: update
+		update: update,
+		type: type,
+		size: size
 	};
 
 	const languages = {
@@ -4194,8 +4214,11 @@ var preOrdersApp = (function () {
 
 		async function getOrder() {
 			const params = new URLSearchParams(window.location.search);
+			const lang = getPreferredLanguage();
 
-			const o = await fetch(`https://kettleblaze-store-server.fly.dev/order/${params.get("id")}`, { method: "GET" }).then((r) => r.json()).then((o) => {
+			// `https://kettleblaze-store-server.fly.dev/order/${params.get("id")}/${lang}`
+			// `http://localhost:8080/order/${params.get("id")}/${lang}`,
+			const o = await fetch(`https://kettleblaze-store-server.fly.dev/order/${params.get("id")}/${lang}`, { method: "GET" }).then((r) => r.json()).then((o) => {
 				set(internationalPrefix, "+" + o.customer.address.country_data.phone[0]);
 				return o;
 			});
@@ -4312,7 +4335,7 @@ var preOrdersApp = (function () {
 
 									each(ul_1, 21, () => get(product).extras, index, ($$anchor, extra) => {
 										var li_1 = root_8();
-										const stringified_text = derived(() => ucfirst(get(extra).name) ?? "");
+										const stringified_text = derived(() => t(get(extra).name) ?? "");
 										const stringified_text_1 = derived(() => ucfirst(get(extra).value) ?? "");
 										var text_4 = child(li_1);
 
