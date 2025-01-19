@@ -10,7 +10,7 @@ import css from "rollup-plugin-css-only";
 import json from "@rollup/plugin-json";
 import { svelteSVG } from "rollup-plugin-svelte-svg";
 import terser from "@rollup/plugin-terser";
-
+import jscc from "rollup-plugin-jscc";
 let plugins = [];
 let cfg = {};
 /*
@@ -39,8 +39,12 @@ const preOrdersApp = {
     }),*/
     json(),
     svelteSVG(),
+    replace({
+      //preventAssignment: true,
+      "process.env.isLocal": JSON.stringify(true),
+    }),
     svelte({
-      //  preprocess: [scss()],
+      // preprocess: [],
       // Optionally, preprocess components with svelte.preprocess:
       // https://svelte.dev/docs#svelte_preprocess
       /*preprocess: {
@@ -80,9 +84,7 @@ const preOrdersApp = {
       exportConditions: ["svelte"],
       extensions: [".svelte"],
     }),
-    replace({
-      preventAssignment: true,
-    }),
+
     //css({ output: "product-page-price-app.css" }),
   ],
 };

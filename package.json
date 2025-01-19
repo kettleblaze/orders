@@ -23,6 +23,7 @@
     "nanoid": "^5.0.9",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-css-only": "^4.5.2",
+    "rollup-plugin-jscc": "^2.0.0",
     "rollup-plugin-svelte": "^7.2.2",
     "rollup-plugin-svelte-svg": "^1.0.0-beta.6",
     "stripe": "^17.5.0",

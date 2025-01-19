@@ -14,10 +14,6 @@
     return str[0].toUpperCase() + str.substring(1, str.length);
   }
 
-  function isLocal() {
-    return window.location.host.includes("localhost");
-  }
-
   const trackingLinks = {
     ups: "https://www.ups.com/track?loc=en_GB&tracknum=PARCELNUM&requester=WT/trackdetails",
   };
@@ -240,9 +236,34 @@
           </li>
         </ul>
         <h2 class="title mt-6">{T("order-status")}</h2>
-        <h2 class="title has-text-info has-text-weight-bold">
-          {displayOrderStatus(order.status)}
-        </h2>
+        {#if process.env.isLocal}
+          <form class="form">
+            <div class="select is-info">
+              <select name="order-status" id="order-status">
+                <option value="ready" selected={order.status === "ready"}
+                  >{T("ready")}</option
+                >
+                <option
+                  value="waiting-product"
+                  selected={order.status === "waiting-product"}
+                  >{T("waiting-product")}</option
+                >
+                <option
+                  value="to-be-shipped"
+                  selected={order.status === "to-be-shipped"}
+                  >{T("to-be-shipped")}</option
+                >
+                <option value="shipped" selected={order.status === "shipped"}
+                  >{T("shipped")}</option
+                >
+              </select>
+            </div>
+          </form>
+        {:else}
+          <h2 class="title has-text-info has-text-weight-bold">
+            {displayOrderStatus(order.status)}
+          </h2>
+        {/if}
         <h2 class="title mt-6">{T("customer-details")}</h2>
         <ul>
           <li>{T("name")}: {order.customer.name}</li>
@@ -369,7 +390,7 @@
           {/if}
         {/each}
       </div>
-      {#if isLocal()}
+      {#if process.env.isLocal}
         <form class="form">
           <label class="label" for="">Level</label>
           <div class="select is-info mb-4">
