@@ -41,7 +41,9 @@ const preOrdersApp = {
     svelteSVG(),
     replace({
       //preventAssignment: true,
-      "process.env.isLocal": JSON.stringify(true),
+      "process.env.isLocal": JSON.stringify(
+        process.env.HUGO_ENV === "development" ? true : false
+      ),
     }),
     svelte({
       // preprocess: [],
