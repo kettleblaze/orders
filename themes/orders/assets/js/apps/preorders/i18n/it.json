@@ -18,5 +18,10 @@
   "mob-number": "Numero di telefono cellulare",
   "update": "Aggiorna",
   "type": "Tipo",
-  "size": "Taglia"
+  "size": "Taglia",
+  "payment-type": "Tipo di pagamento",
+  "three-installments": "Tre rate mensili tasso zero",
+  "start-date": "Data di inizio",
+  "end-date": "Data di fine",
+  "installment-amount": "Importo della rata"
 }

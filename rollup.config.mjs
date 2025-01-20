@@ -41,6 +41,10 @@ const preOrdersApp = {
     svelteSVG(),
     replace({
       //preventAssignment: true,
+      "process.env.storeServer":
+        process.env.HUGO_ENV === "development"
+          ? "http://localhost:8080"
+          : "https://kettleblaze-store-server.fly.dev",
       "process.env.isLocal": JSON.stringify(
         process.env.HUGO_ENV === "development" ? true : false
       ),

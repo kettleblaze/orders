@@ -6,8 +6,8 @@
     phoneNumber = $state("");
 
   let isUpdating = $state(false);
-  let order = $state({});
-
+  let order = $state(null);
+  let errorOrNotFound = $state(false);
   let event = $state({});
 
   function ucfirst(str) {
@@ -40,7 +40,7 @@
   }
 
   async function updateOrder() {
-    fetch(`https://kettleblaze-store-server.fly.dev/order/${order.id}`, {
+    fetch(`process.env.storeServer/order/${order.id}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -80,6 +80,10 @@
     return T(status);
   }
 
+  if (process.env.isLocal) {
+    function updateOrderStatus(status) {}
+  }
+
   function calculateTotal(order) {
     let sum = 0;
     for (let product of order.products) {
@@ -103,10 +107,18 @@
     // `https://kettleblaze-store-server.fly.dev/order/${params.get("id")}/${lang}`
     // `http://localhost:8080/order/${params.get("id")}/${lang}`,
     const o = await fetch(
-      `https://kettleblaze-store-server.fly.dev/order/${params.get("id")}/${lang}`,
+      `process.env.storeServer/order/${params.get("id")}/${lang}`,
       { method: "GET" }
     )
-      .then((r) => r.json())
+      .then((r) => {
+        if (r.ok) {
+          errorOrNotFound = false;
+          return r.json();
+        } else {
+          errorOrNotFound = true;
+          return {};
+        }
+      })
       .then((o) => {
         internationalPrefix = "+" + o.customer.address.country_data.phone[0];
         return o;
@@ -145,12 +157,16 @@
   });
 </script>
 
-{#if !order.id}
-  <div class="sloader-container">
-    <span class="sloader"></span>
-    <h3 class="is-size-5">Please wait</h3>
-  </div>
-{:else}
+{#if !order}
+  {#if errorOrNotFound}
+    <h1 class="title">Order not found</h1>
+  {:else}
+    <div class="sloader-container">
+      <span class="sloader"></span>
+      <h3 class="is-size-5">Please wait</h3>
+    </div>
+  {/if}
+{:else if order}
   <div class="columns">
     <div class="column">
       <h2 class="title mt-6 px-5">{T("order-summary")}</h2>
@@ -230,33 +246,67 @@
           <li>
             {T("payment-method")}: {displayPaymentMethod(order.paymentMethod)}
           </li>
-          <li>
-            {T("payment-status")}:
-            <span class="has-text-info has-text-weight-bold">paid</span>
-          </li>
+          {#if order.paymentMethod.subscription}
+            <li class="pt-5">
+              {T("payment-type")}: {T("three-installments")}
+            </li>
+            <li>
+              {T("start-date")}: {new Date(
+                order.paymentMethod.subscription.start_date
+              ).toLocaleDateString()}
+            </li>
+            <li>
+              {T("end-date")}: {new Date(
+                order.paymentMethod.subscription.cancel_at
+              ).toLocaleDateString()}
+            </li>
+            <li>
+              {T("installment-amount")}: {formatCurrency({
+                amount_total: order.paymentMethod.subscription.plan.amount,
+                currency: order.paymentMethod.subscription.plan.currency,
+              })}
+            </li>
+          {:else}
+            <li>
+              {T("payment-status")}:
+              <span class="has-text-info has-text-weight-bold">paid</span>
+            </li>
+          {/if}
         </ul>
         <h2 class="title mt-6">{T("order-status")}</h2>
         {#if process.env.isLocal}
           <form class="form">
-            <div class="select is-info">
-              <select name="order-status" id="order-status">
-                <option value="ready" selected={order.status === "ready"}
-                  >{T("ready")}</option
+            <div class="columns">
+              <div class="column">
+                <div class="select is-info">
+                  <select name="order-status" id="order-status">
+                    <option value="ready" selected={order.status === "ready"}
+                      >{T("ready")}</option
+                    >
+                    <option
+                      value="waiting-product"
+                      selected={order.status === "waiting-product"}
+                      >{T("waiting-product")}</option
+                    >
+                    <option
+                      value="to-be-shipped"
+                      selected={order.status === "to-be-shipped"}
+                      >{T("to-be-shipped")}</option
+                    >
+                    <option
+                      value="shipped"
+                      selected={order.status === "shipped"}
+                      >{T("shipped")}</option
+                    >
+                  </select>
+                </div>
+              </div>
+
+              <div class="column">
+                <button type="button" class="button is-info has-text-white"
+                  >{T("update")}</button
                 >
-                <option
-                  value="waiting-product"
-                  selected={order.status === "waiting-product"}
-                  >{T("waiting-product")}</option
-                >
-                <option
-                  value="to-be-shipped"
-                  selected={order.status === "to-be-shipped"}
-                  >{T("to-be-shipped")}</option
-                >
-                <option value="shipped" selected={order.status === "shipped"}
-                  >{T("shipped")}</option
-                >
-              </select>
+              </div>
             </div>
           </form>
         {:else}

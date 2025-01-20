@@ -20,15 +20,24 @@ function createOrderId(unixTs) {
 
 (async () => {
   let sessions = [
-    "cs_live_b1PeXZLYRiNaSAm7nreoLok3pW4NIt6cdziP1EIoOWyFh4cHHrcXuVLddb",
     "cs_live_b1SPu0dHM0Q9dNswFAfTAXhq90I9UNEVkoc1uuZVUWJBJkKxo1fKOzj5ty",
-    "cs_live_b16yDN1Z47JlllPMxxKmVbxiWv3FySN28kwRTn75Z89sLt8zRZbEAB1wbw",
-    "cs_live_b1BIh2of16v4kCpenaLnxrX8OOIBbXaZCZ65SE0LsaaQGhoIi5BLeGD3Be",
-    "cs_live_b11EVV2aYb6myOlOo4OFoGG5SRJiUbSYvEcua8TUgp2b5HTZCJF2uaDHgv",
-    "cs_live_b1A00cmNaMKREz340BX1AZOXkg4WHiP5OrkLZSl73emJe2v996Nf3YWaa9",
-    "cs_live_b1hKDlKYkygU7EhZVfAv7igXeZoG0I4zKM5pYU8jC7SXqCzlRTfrCLql6V",
     "cs_live_b16b9zMShDaLUoBmtK9GQIcGnK3EjpeU0NvC8iMuQZqGSc5VZ0KbrNq4cE",
+    "cs_live_b1hKDlKYkygU7EhZVfAv7igXeZoG0I4zKM5pYU8jC7SXqCzlRTfrCLql6V",
+    "cs_live_b1A00cmNaMKREz340BX1AZOXkg4WHiP5OrkLZSl73emJe2v996Nf3YWaa9",
+    "cs_live_b11EVV2aYb6myOlOo4OFoGG5SRJiUbSYvEcua8TUgp2b5HTZCJF2uaDHgv",
+    "cs_live_b1BIh2of16v4kCpenaLnxrX8OOIBbXaZCZ65SE0LsaaQGhoIi5BLeGD3Be",
+    "cs_live_b1iVBQeOQsb2g5IIzr6RqDnh9FaUHkHTTt1VRbbsoesBHzxnEbEtJWT1HH",
+    "cs_live_b16yDN1Z47JlllPMxxKmVbxiWv3FySN28kwRTn75Z89sLt8zRZbEAB1wbw",
+    "cs_live_b1C6lWXvp99PuMNNEONSLlYzSFAJk5JSidH2WCKvBCZr85kSdHSFGdFQKr",
+    "cs_live_b1ywUWb7IttoWI9qQAyZzJzr1DSQNk3soc9rVYJNrYJPMaPQqxJS4493nl",
+    "cs_live_b1PeXZLYRiNaSAm7nreoLok3pW4NIt6cdziP1EIoOWyFh4cHHrcXuVLddb",
+    "cs_live_b12QVAqwR8YLYJ10z0NtYtgalweDfudpmEjX3joXuTsjktt7hqTqCDdoev",
+    "cs_live_b1WfDK3wU7V8f4hYJzPsQVazvp8hBID9X1ZnJfRb3ffPBlo13pjaYJ9RVQ",
+    "cs_live_b1FyQEzerSVkKqAtymeeDP2U7DsrFfDoBjzM93Zu9TUaXMhNorZdr4osEJ",
+    "cs_live_b1DV5VxFYLOOVXTwgEXpN1qyoH7bEAs3CqfPhapQCFXMYC8aTJvtD1KJvc",
     "cs_live_b1bubo5ztY1vAa1Vq8AMo7YxrSxzRhF9cPGu6S2WDkGMAFwhnfzk7sLmVM",
+    "cs_live_b1Lr7Os9WEHOhBewOLPKWORuo3ggarO5fIS2AFjWgbNGtdU7ET70rzPABP",
+    "cs_live_b16adZTgayjcXj6nIB9BpGP8q8pXs8KidgccArr6dxRMzPK5QKo88loct3",
   ];
   for (let s of sessions) {
     const uuid = nanoid(8);

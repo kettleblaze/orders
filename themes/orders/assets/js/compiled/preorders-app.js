@@ -185,6 +185,8 @@ var preOrdersApp = (function () {
 	const PROPS_IS_UPDATED = 1 << 2;
 	const PROPS_IS_BINDABLE = 1 << 3;
 	const PROPS_IS_LAZY_INITIAL = 1 << 4;
+
+	const TEMPLATE_FRAGMENT = 1;
 	const TEMPLATE_USE_IMPORT_NODE = 1 << 1;
 
 	const UNINITIALIZED = Symbol();
@@ -2545,6 +2547,7 @@ var preOrdersApp = (function () {
 	 */
 	/*#__NO_SIDE_EFFECTS__*/
 	function template(content, flags) {
+		var is_fragment = (flags & TEMPLATE_FRAGMENT) !== 0;
 		var use_import_node = (flags & TEMPLATE_USE_IMPORT_NODE) !== 0;
 
 		/** @type {Node} */
@@ -2560,14 +2563,19 @@ var preOrdersApp = (function () {
 
 			if (node === undefined) {
 				node = create_fragment_from_html(has_start ? content : '<!>' + content);
-				node = /** @type {Node} */ (get_first_child(node));
+				if (!is_fragment) node = /** @type {Node} */ (get_first_child(node));
 			}
 
 			var clone = /** @type {TemplateNode} */ (
 				use_import_node ? document.importNode(node, true) : node.cloneNode(true)
 			);
 
-			{
+			if (is_fragment) {
+				var start = /** @type {TemplateNode} */ (get_first_child(clone));
+				var end = /** @type {TemplateNode} */ (clone.lastChild);
+
+				assign_nodes(start, end);
+			} else {
 				assign_nodes(clone, clone);
 			}
 
@@ -3991,7 +3999,12 @@ var preOrdersApp = (function () {
 		"mob-number": "Numero di telefono cellulare",
 		update: update$3,
 		type: type$3,
-		size: size$3
+		size: size$3,
+		"payment-type": "Tipo di pagamento",
+		"three-installments": "Tre rate mensili tasso zero",
+		"start-date": "Data di inizio",
+		"end-date": "Data di fine",
+		"installment-amount": "Importo della rata"
 	};
 
 	var history$2 = "Historial";
@@ -4112,23 +4125,26 @@ var preOrdersApp = (function () {
 
 	let t = translate();
 
-	var root_1 = template(`<div class="sloader-container"><span class="sloader"></span> <h3 class="is-size-5">Please wait</h3></div>`);
-	var root_6 = template(`<p class="is-size-5 my-3"> </p>`);
-	var root_8 = template(`<li> </li>`);
-	var root_7 = template(`<ul class="mt-3"></ul>`);
-	var root_4 = template(`<li><div class="columns is-align-items-center"><div class="column"><!> <div class="column"><h4 class="title has-text-info is-size-4"> </h4> <p class="is-size-6"> </p> <!> <!></div></div></div></li>`);
-	var root_9 = template(`<li><div class="column"><h4 class="title has-text-info is-size-4"> </h4> <p class="is-size-5 my-3"> </p></div></li>`);
-	var root_3 = template(`<ul><!> <!> <li><div class="column"><hr> <h4 class="title has-text-info is-size-4 mt-5"> </h4> <p class="my-3"> </p></div></li></ul>`);
-	var root_10 = template(`<form class="form"><div class="select is-info"><select name="order-status" id="order-status"><option> </option><option> </option><option> </option><option> </option></select></div></form>`);
-	var root_13 = template(`<form class="form my-4"><div class="columns is-mobile is-1"><div class="column is-one-quarter"><input class="input is-info" type="text" placeholder="International prefix"></div> <div class="column is-two-thirds"><input class="input is-info" type="text"></div></div> <button type="button" class="button is-info has-text-white"> </button></form>`);
-	var root_14 = template(`<ul><li> </li> <li> </li> <li> </li> <li> </li> <li> </li></ul>`);
-	var root_16 = template(`<ul><li> </li> <li> </li> <li> </li> <li> </li></ul>`);
-	var root_19 = template(`<li>- <a class="is-underlined" target="_blank"></a></li>`);
-	var root_18 = template(`<div class="mt-5"><div><span> </span></div> <div class="px-3"><span class="my-0">Tracking information</span> <div class="px-3 py-4"><ul><li> </li> <li> </li> <!></ul></div></div></div>`);
-	var root_21 = template(`<div><div class="px-3"><span> </span></div></div>`);
-	var root_20 = template(`<div class="mt-5"><div><span> </span></div> <!></div>`);
-	var root_22 = template(`<form class="form"><label class="label" for="">Level</label> <div class="select is-info mb-4"><select><option>info</option><option>warning</option><option>danger</option><option>success</option></select></div> <label class="label" for="">Type</label> <div class="select is-info mb-4"><select><option>Update</option><option>Tracking info</option></select></div> <label class="label" for="">Message</label> <textarea class="textarea is-info"></textarea> <button class="button is-info has-text-white mt-6" type="button">Add event</button></form>`);
-	var root_2 = template(`<div class="columns"><div class="column"><h2 class="title mt-6 px-5"> </h2> <div class="box"><!></div></div> <div class="column px-6"><div class="mt-6"><h2 class="title"> </h2> <ul><li> </li> <li> </li> <li> <span class="has-text-info has-text-weight-bold">paid</span></li></ul> <h2 class="title mt-6"> </h2> <!> <h2 class="title mt-6"> </h2> <ul><li> </li> <li><!></li> <li> </li></ul> <h2 class="title mt-6"> </h2> <!></div> <div class="my-6"><h2 class="title pt-2"> </h2> <!></div> <!></div></div>`);
+	var root_2 = template(`<h1 class="title">Order not found</h1>`);
+	var root_3 = template(`<div class="sloader-container"><span class="sloader"></span> <h3 class="is-size-5">Please wait</h3></div>`);
+	var root_9 = template(`<p class="is-size-5 my-3"> </p>`);
+	var root_11 = template(`<li> </li>`);
+	var root_10 = template(`<ul class="mt-3"></ul>`);
+	var root_7 = template(`<li><div class="columns is-align-items-center"><div class="column"><!> <div class="column"><h4 class="title has-text-info is-size-4"> </h4> <p class="is-size-6"> </p> <!> <!></div></div></div></li>`);
+	var root_12 = template(`<li><div class="column"><h4 class="title has-text-info is-size-4"> </h4> <p class="is-size-5 my-3"> </p></div></li>`);
+	var root_6 = template(`<ul><!> <!> <li><div class="column"><hr> <h4 class="title has-text-info is-size-4 mt-5"> </h4> <p class="my-3"> </p></div></li></ul>`);
+	var root_13 = template(`<li class="pt-5"> </li> <li> </li> <li> </li> <li> </li>`, 1);
+	var root_14 = template(`<li> <span class="has-text-info has-text-weight-bold">paid</span></li>`);
+	var root_15 = template(`<form class="form"><div class="columns"><div class="column"><div class="select is-info"><select name="order-status" id="order-status"><option> </option><option> </option><option> </option><option> </option></select></div></div> <div class="column"><button type="button" class="button is-info has-text-white"> </button></div></div></form>`);
+	var root_18 = template(`<form class="form my-4"><div class="columns is-mobile is-1"><div class="column is-one-quarter"><input class="input is-info" type="text" placeholder="International prefix"></div> <div class="column is-two-thirds"><input class="input is-info" type="text"></div></div> <button type="button" class="button is-info has-text-white"> </button></form>`);
+	var root_19 = template(`<ul><li> </li> <li> </li> <li> </li> <li> </li> <li> </li></ul>`);
+	var root_21 = template(`<ul><li> </li> <li> </li> <li> </li> <li> </li></ul>`);
+	var root_24 = template(`<li>- <a class="is-underlined" target="_blank"></a></li>`);
+	var root_23 = template(`<div class="mt-5"><div><span> </span></div> <div class="px-3"><span class="my-0">Tracking information</span> <div class="px-3 py-4"><ul><li> </li> <li> </li> <!></ul></div></div></div>`);
+	var root_26 = template(`<div><div class="px-3"><span> </span></div></div>`);
+	var root_25 = template(`<div class="mt-5"><div><span> </span></div> <!></div>`);
+	var root_27 = template(`<form class="form"><label class="label" for="">Level</label> <div class="select is-info mb-4"><select><option>info</option><option>warning</option><option>danger</option><option>success</option></select></div> <label class="label" for="">Type</label> <div class="select is-info mb-4"><select><option>Update</option><option>Tracking info</option></select></div> <label class="label" for="">Message</label> <textarea class="textarea is-info"></textarea> <button class="button is-info has-text-white mt-6" type="button">Add event</button></form>`);
+	var root_5 = template(`<div class="columns"><div class="column"><h2 class="title mt-6 px-5"> </h2> <div class="box"><!></div></div> <div class="column px-6"><div class="mt-6"><h2 class="title"> </h2> <ul><li> </li> <li> </li> <!></ul> <h2 class="title mt-6"> </h2> <!> <h2 class="title mt-6"> </h2> <ul><li> </li> <li><!></li> <li> </li></ul> <h2 class="title mt-6"> </h2> <!></div> <div class="my-6"><h2 class="title pt-2"> </h2> <!></div> <!></div></div>`);
 
 	function PreOrder($$anchor, $$props) {
 		push($$props, true);
@@ -4137,7 +4153,8 @@ var preOrdersApp = (function () {
 			phoneNumber = state("");
 
 		let isUpdating = state(false);
-		let order = state(proxy({}));
+		let order = state(null);
+		let errorOrNotFound = state(false);
 		let event$1 = proxy({});
 
 		function ucfirst(str) {
@@ -4171,7 +4188,7 @@ var preOrdersApp = (function () {
 		}
 
 		async function updateOrder() {
-			fetch(`https://kettleblaze-store-server.fly.dev/order/${get(order).id}`, {
+			fetch(`http://localhost:8080/order/${get(order).id}`, {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify(get(order))
@@ -4234,7 +4251,15 @@ var preOrdersApp = (function () {
 
 			// `https://kettleblaze-store-server.fly.dev/order/${params.get("id")}/${lang}`
 			// `http://localhost:8080/order/${params.get("id")}/${lang}`,
-			const o = await fetch(`https://kettleblaze-store-server.fly.dev/order/${params.get("id")}/${lang}`, { method: "GET" }).then((r) => r.json()).then((o) => {
+			const o = await fetch(`http://localhost:8080/order/${params.get("id")}/${lang}`, { method: "GET" }).then((r) => {
+				if (r.ok) {
+					set(errorOrNotFound, false);
+					return r.json();
+				} else {
+					set(errorOrNotFound, true);
+					return {};
+				}
+			}).then((o) => {
 				set(internationalPrefix, "+" + o.customer.address.country_data.phone[0]);
 				return o;
 			});
@@ -4273,530 +4298,622 @@ var preOrdersApp = (function () {
 		var node = first_child(fragment);
 
 		{
-			var consequent = ($$anchor) => {
-				var div = root_1();
-
-				append($$anchor, div);
-			};
-
-			var alternate_4 = ($$anchor) => {
-				var div_1 = root_2();
-				var div_2 = child(div_1);
-				var h2 = child(div_2);
-				var text$1 = child(h2);
-
-				template_effect(() => set_text(text$1, t("order-summary")));
-
-				var div_3 = sibling(h2, 2);
-				var node_1 = child(div_3);
+			var consequent_1 = ($$anchor) => {
+				var fragment_1 = comment();
+				var node_1 = first_child(fragment_1);
 
 				{
-					var consequent_5 = ($$anchor) => {
-						var ul = root_3();
-						var node_2 = child(ul);
+					var consequent = ($$anchor) => {
+						var h1 = root_2();
 
-						each(node_2, 17, () => get(order).products, index, ($$anchor, product) => {
-							var li = root_4();
-							var div_4 = child(li);
-							var div_5 = child(div_4);
-							var node_3 = child(div_5);
+						append($$anchor, h1);
+					};
 
-							{
-								var consequent_1 = ($$anchor) => {
-									SirvImage($$anchor, {
-										get src() {
-											return `https://cdn.kettleblaze.store/orders/${get(product).sku ?? ""}.jpg`;
-										},
-										width: "480",
-										height: "480",
-										displayWidth: "120",
-										displayHeight: "120",
-										quality: "98"
-									});
-								};
+					var alternate = ($$anchor) => {
+						var div = root_3();
 
-								if_block(node_3, ($$render) => {
-									if (get(product).sku !== "prod_AI839Kll1kzw23") $$render(consequent_1);
-								});
-							}
-
-							var div_6 = sibling(node_3, 2);
-							var h4 = child(div_6);
-							var text_1 = child(h4);
-
-							var p = sibling(h4, 2);
-							var text_2 = child(p);
-
-							var node_4 = sibling(p, 2);
-
-							{
-								var consequent_2 = ($$anchor) => {
-									var p_1 = root_6();
-									var text_3 = child(p_1);
-
-									template_effect(() => set_text(text_3, formatCurrency(get(product))));
-									append($$anchor, p_1);
-								};
-
-								if_block(node_4, ($$render) => {
-									if (get(product).price > 0) $$render(consequent_2);
-								});
-							}
-
-							var node_5 = sibling(node_4, 2);
-
-							{
-								var consequent_3 = ($$anchor) => {
-									var ul_1 = root_7();
-
-									each(ul_1, 21, () => get(product).extras, index, ($$anchor, extra) => {
-										var li_1 = root_8();
-										const stringified_text = derived(() => t(get(extra).name) ?? "");
-										const stringified_text_1 = derived(() => ucfirst(get(extra).value) ?? "");
-										var text_4 = child(li_1);
-
-										template_effect(() => set_text(text_4, `${get(stringified_text)}: ${get(stringified_text_1)}`));
-										append($$anchor, li_1);
-									});
-									append($$anchor, ul_1);
-								};
-
-								if_block(node_5, ($$render) => {
-									if (get(product).extras.length > 0) $$render(consequent_3);
-								});
-							}
-
-							template_effect(() => {
-								set_text(text_1, `${get(product).quantity ?? ""} x ${get(product).name ?? ""}`);
-								set_text(text_2, get(product).description);
-							});
-
-							append($$anchor, li);
-						});
-
-						var node_6 = sibling(node_2, 2);
-
-						{
-							var consequent_4 = ($$anchor) => {
-								var li_2 = root_9();
-								var div_7 = child(li_2);
-								var h4_1 = child(div_7);
-								var text_5 = child(h4_1);
-
-								template_effect(() => set_text(text_5, t("shipping-cost")));
-
-								var p_2 = sibling(h4_1, 2);
-								var text_6 = child(p_2);
-
-								template_effect(() => set_text(text_6, formatCurrency(get(order).shippingCost)));
-								append($$anchor, li_2);
-							};
-
-							if_block(node_6, ($$render) => {
-								if (get(order).shippingCost) $$render(consequent_4);
-							});
-						}
-
-						var li_3 = sibling(node_6, 2);
-						var div_8 = child(li_3);
-						var h4_2 = sibling(child(div_8), 2);
-						var text_7 = child(h4_2);
-
-						template_effect(() => set_text(text_7, t("order-total")));
-
-						var p_3 = sibling(h4_2, 2);
-						var text_8 = child(p_3);
-
-						template_effect(() => set_text(text_8, calculateTotal(get(order))));
-						append($$anchor, ul);
+						append($$anchor, div);
 					};
 
 					if_block(node_1, ($$render) => {
-						if (get(order).products.length > 0) $$render(consequent_5);
+						if (get(errorOrNotFound)) $$render(consequent); else $$render(alternate, false);
 					});
 				}
 
-				var div_9 = sibling(div_2, 2);
-				var div_10 = child(div_9);
-				var h2_1 = child(div_10);
-				var text_9 = child(h2_1);
+				append($$anchor, fragment_1);
+			};
 
-				template_effect(() => set_text(text_9, t("order-details")));
-
-				var ul_2 = sibling(h2_1, 2);
-				var li_4 = child(ul_2);
-				var text_10 = child(li_4);
-
-				var li_5 = sibling(li_4, 2);
-				const stringified_text_2 = derived(() => t("payment-method") ?? "");
-				const stringified_text_3 = derived(() => displayPaymentMethod(get(order).paymentMethod) ?? "");
-				var text_11 = child(li_5);
-
-				template_effect(() => set_text(text_11, `${get(stringified_text_2)}: ${get(stringified_text_3)}`));
-
-				var li_6 = sibling(li_5, 2);
-				var text_12 = child(li_6);
-
-				template_effect(() => set_text(text_12, `${t("payment-status") ?? ""}: `));
-
-				var h2_2 = sibling(ul_2, 2);
-				var text_13 = child(h2_2);
-
-				template_effect(() => set_text(text_13, t("order-status")));
-
-				var node_7 = sibling(h2_2, 2);
+			var alternate_6 = ($$anchor) => {
+				var fragment_2 = comment();
+				var node_2 = first_child(fragment_2);
 
 				{
-					var consequent_6 = ($$anchor) => {
-						var form = root_10();
-						var div_11 = child(form);
-						var select = child(div_11);
-						var option = child(select);
+					var consequent_15 = ($$anchor) => {
+						var div_1 = root_5();
+						var div_2 = child(div_1);
+						var h2 = child(div_2);
+						var text$1 = child(h2);
 
-						option.value = null == (option.__value = "ready") ? "" : "ready";
+						template_effect(() => set_text(text$1, t("order-summary")));
 
-						var text_14 = child(option);
+						var div_3 = sibling(h2, 2);
+						var node_3 = child(div_3);
 
-						template_effect(() => set_text(text_14, t("ready")));
+						{
+							var consequent_6 = ($$anchor) => {
+								var ul = root_6();
+								var node_4 = child(ul);
 
-						var option_1 = sibling(option);
+								each(node_4, 17, () => get(order).products, index, ($$anchor, product) => {
+									var li = root_7();
+									var div_4 = child(li);
+									var div_5 = child(div_4);
+									var node_5 = child(div_5);
 
-						option_1.value = null == (option_1.__value = "waiting-product") ? "" : "waiting-product";
+									{
+										var consequent_2 = ($$anchor) => {
+											SirvImage($$anchor, {
+												get src() {
+													return `https://cdn.kettleblaze.store/orders/${get(product).sku ?? ""}.jpg`;
+												},
+												width: "480",
+												height: "480",
+												displayWidth: "120",
+												displayHeight: "120",
+												quality: "98"
+											});
+										};
 
-						var text_15 = child(option_1);
+										if_block(node_5, ($$render) => {
+											if (get(product).sku !== "prod_AI839Kll1kzw23") $$render(consequent_2);
+										});
+									}
 
-						template_effect(() => set_text(text_15, t("waiting-product")));
+									var div_6 = sibling(node_5, 2);
+									var h4 = child(div_6);
+									var text_1 = child(h4);
 
-						var option_2 = sibling(option_1);
+									var p = sibling(h4, 2);
+									var text_2 = child(p);
 
-						option_2.value = null == (option_2.__value = "to-be-shipped") ? "" : "to-be-shipped";
+									var node_6 = sibling(p, 2);
 
-						var text_16 = child(option_2);
+									{
+										var consequent_3 = ($$anchor) => {
+											var p_1 = root_9();
+											var text_3 = child(p_1);
 
-						template_effect(() => set_text(text_16, t("to-be-shipped")));
+											template_effect(() => set_text(text_3, formatCurrency(get(product))));
+											append($$anchor, p_1);
+										};
 
-						var option_3 = sibling(option_2);
+										if_block(node_6, ($$render) => {
+											if (get(product).price > 0) $$render(consequent_3);
+										});
+									}
 
-						option_3.value = null == (option_3.__value = "shipped") ? "" : "shipped";
+									var node_7 = sibling(node_6, 2);
 
-						var text_17 = child(option_3);
+									{
+										var consequent_4 = ($$anchor) => {
+											var ul_1 = root_10();
 
-						template_effect(() => set_text(text_17, t("shipped")));
+											each(ul_1, 21, () => get(product).extras, index, ($$anchor, extra) => {
+												var li_1 = root_11();
+												const stringified_text = derived(() => t(get(extra).name) ?? "");
+												const stringified_text_1 = derived(() => ucfirst(get(extra).value) ?? "");
+												var text_4 = child(li_1);
 
-						template_effect(() => {
-							set_selected(option, get(order).status === "ready");
-							set_selected(option_1, get(order).status === "waiting-product");
-							set_selected(option_2, get(order).status === "to-be-shipped");
-							set_selected(option_3, get(order).status === "shipped");
-						});
+												template_effect(() => set_text(text_4, `${get(stringified_text)}: ${get(stringified_text_1)}`));
+												append($$anchor, li_1);
+											});
+											append($$anchor, ul_1);
+										};
 
-						append($$anchor, form);
-					};
+										if_block(node_7, ($$render) => {
+											if (get(product).extras.length > 0) $$render(consequent_4);
+										});
+									}
 
-					if_block(node_7, ($$render) => {
-						$$render(consequent_6);
-					});
-				}
+									template_effect(() => {
+										set_text(text_1, `${get(product).quantity ?? ""} x ${get(product).name ?? ""}`);
+										set_text(text_2, get(product).description);
+									});
 
-				var h2_4 = sibling(node_7, 2);
-				var text_19 = child(h2_4);
+									append($$anchor, li);
+								});
 
-				template_effect(() => set_text(text_19, t("customer-details")));
+								var node_8 = sibling(node_4, 2);
 
-				var ul_3 = sibling(h2_4, 2);
-				var li_7 = child(ul_3);
-				var text_20 = child(li_7);
+								{
+									var consequent_5 = ($$anchor) => {
+										var li_2 = root_12();
+										var div_7 = child(li_2);
+										var h4_1 = child(div_7);
+										var text_5 = child(h4_1);
 
-				template_effect(() => set_text(text_20, `${t("name") ?? ""}: ${get(order).customer.name ?? ""}`));
+										template_effect(() => set_text(text_5, t("shipping-cost")));
 
-				var li_8 = sibling(li_7, 2);
-				var node_8 = child(li_8);
+										var p_2 = sibling(h4_1, 2);
+										var text_6 = child(p_2);
 
-				{
-					var consequent_7 = ($$anchor) => {
-						var text_21 = text();
+										template_effect(() => set_text(text_6, formatCurrency(get(order).shippingCost)));
+										append($$anchor, li_2);
+									};
 
-						template_effect(() => set_text(text_21, `${t("phone") ?? ""}: +${get(order).customer.address.country_data.phone[0] ?? ""}
-              ${get(order).customer.phone ?? ""}`));
+									if_block(node_8, ($$render) => {
+										if (get(order).shippingCost) $$render(consequent_5);
+									});
+								}
 
-						append($$anchor, text_21);
-					};
+								var li_3 = sibling(node_8, 2);
+								var div_8 = child(li_3);
+								var h4_2 = sibling(child(div_8), 2);
+								var text_7 = child(h4_2);
 
-					var alternate_1 = ($$anchor) => {
-						var form_1 = root_13();
-						var div_12 = child(form_1);
-						var div_13 = child(div_12);
-						var input = child(div_13);
+								template_effect(() => set_text(text_7, t("order-total")));
 
-						var div_14 = sibling(div_13, 2);
-						var input_1 = child(div_14);
-						template_effect(() => set_attribute(input_1, "placeholder", t("mob-phone")));
+								var p_3 = sibling(h4_2, 2);
+								var text_8 = child(p_3);
 
-						var button = sibling(div_12, 2);
-						var text_22 = child(button);
+								template_effect(() => set_text(text_8, calculateTotal(get(order))));
+								append($$anchor, ul);
+							};
 
-						template_effect(() => set_text(text_22, t("update")));
-						template_effect(() => button.disabled = get(isUpdating));
-						bind_value(input, () => get(internationalPrefix), ($$value) => set(internationalPrefix, $$value));
-						bind_value(input_1, () => get(phoneNumber), ($$value) => set(phoneNumber, $$value));
-						event("click", button, updatePhoneNumber);
-						append($$anchor, form_1);
-					};
+							if_block(node_3, ($$render) => {
+								if (get(order).products.length > 0) $$render(consequent_6);
+							});
+						}
 
-					if_block(node_8, ($$render) => {
-						if (get(order).customer.phone) $$render(consequent_7); else $$render(alternate_1, false);
-					});
-				}
+						var div_9 = sibling(div_2, 2);
+						var div_10 = child(div_9);
+						var h2_1 = child(div_10);
+						var text_9 = child(h2_1);
 
-				var li_9 = sibling(li_8, 2);
-				var text_23 = child(li_9);
+						template_effect(() => set_text(text_9, t("order-details")));
 
-				var h2_5 = sibling(ul_3, 2);
-				var text_24 = child(h2_5);
+						var ul_2 = sibling(h2_1, 2);
+						var li_4 = child(ul_2);
+						var text_10 = child(li_4);
 
-				template_effect(() => set_text(text_24, t("shipping-address")));
+						var li_5 = sibling(li_4, 2);
+						const stringified_text_2 = derived(() => t("payment-method") ?? "");
+						const stringified_text_3 = derived(() => displayPaymentMethod(get(order).paymentMethod) ?? "");
+						var text_11 = child(li_5);
 
-				var node_9 = sibling(h2_5, 2);
+						template_effect(() => set_text(text_11, `${get(stringified_text_2)}: ${get(stringified_text_3)}`));
 
-				{
-					var consequent_8 = ($$anchor) => {
-						var ul_4 = root_14();
-						var li_10 = child(ul_4);
-						var text_25 = child(li_10);
+						var node_9 = sibling(li_5, 2);
 
-						var li_11 = sibling(li_10, 2);
-						var text_26 = child(li_11);
+						{
+							var consequent_7 = ($$anchor) => {
+								var fragment_4 = root_13();
+								var li_6 = first_child(fragment_4);
+								const stringified_text_4 = derived(() => t("payment-type") ?? "");
+								const stringified_text_5 = derived(() => t("three-installments") ?? "");
+								var text_12 = child(li_6);
+
+								template_effect(() => set_text(text_12, `${get(stringified_text_4)}: ${get(stringified_text_5)}`));
+
+								var li_7 = sibling(li_6, 2);
+								const stringified_text_6 = derived(() => t("start-date") ?? "");
+								const stringified_text_7 = derived(() => new Date(get(order).paymentMethod.subscription.start_date).toLocaleDateString() ?? "");
+								var text_13 = child(li_7);
+
+								template_effect(() => set_text(text_13, `${get(stringified_text_6)}: ${get(stringified_text_7)}`));
+
+								var li_8 = sibling(li_7, 2);
+								const stringified_text_8 = derived(() => t("end-date") ?? "");
+								const stringified_text_9 = derived(() => new Date(get(order).paymentMethod.subscription.cancel_at).toLocaleDateString() ?? "");
+								var text_14 = child(li_8);
+
+								template_effect(() => set_text(text_14, `${get(stringified_text_8)}: ${get(stringified_text_9)}`));
+
+								var li_9 = sibling(li_8, 2);
+								const stringified_text_10 = derived(() => t("installment-amount") ?? "");
+
+								const stringified_text_11 = derived(() => formatCurrency({
+									amount_total: get(order).paymentMethod.subscription.plan.amount,
+									currency: get(order).paymentMethod.subscription.plan.currency
+								}) ?? "");
+
+								var text_15 = child(li_9);
+
+								template_effect(() => set_text(text_15, `${get(stringified_text_10)}: ${get(stringified_text_11)}`));
+								append($$anchor, fragment_4);
+							};
+
+							var alternate_1 = ($$anchor) => {
+								var li_10 = root_14();
+								var text_16 = child(li_10);
+
+								template_effect(() => set_text(text_16, `${t("payment-status") ?? ""}: `));
+								append($$anchor, li_10);
+							};
+
+							if_block(node_9, ($$render) => {
+								if (get(order).paymentMethod.subscription) $$render(consequent_7); else $$render(alternate_1, false);
+							});
+						}
+
+						var h2_2 = sibling(ul_2, 2);
+						var text_17 = child(h2_2);
+
+						template_effect(() => set_text(text_17, t("order-status")));
+
+						var node_10 = sibling(h2_2, 2);
+
+						{
+							var consequent_8 = ($$anchor) => {
+								var form = root_15();
+								var div_11 = child(form);
+								var div_12 = child(div_11);
+								var div_13 = child(div_12);
+								var select = child(div_13);
+								var option = child(select);
+
+								option.value = null == (option.__value = "ready") ? "" : "ready";
+
+								var text_18 = child(option);
+
+								template_effect(() => set_text(text_18, t("ready")));
+
+								var option_1 = sibling(option);
+
+								option_1.value = null == (option_1.__value = "waiting-product") ? "" : "waiting-product";
+
+								var text_19 = child(option_1);
+
+								template_effect(() => set_text(text_19, t("waiting-product")));
+
+								var option_2 = sibling(option_1);
+
+								option_2.value = null == (option_2.__value = "to-be-shipped") ? "" : "to-be-shipped";
+
+								var text_20 = child(option_2);
+
+								template_effect(() => set_text(text_20, t("to-be-shipped")));
+
+								var option_3 = sibling(option_2);
+
+								option_3.value = null == (option_3.__value = "shipped") ? "" : "shipped";
+
+								var text_21 = child(option_3);
+
+								template_effect(() => set_text(text_21, t("shipped")));
+
+								var div_14 = sibling(div_12, 2);
+								var button = child(div_14);
+								var text_22 = child(button);
+
+								template_effect(() => set_text(text_22, t("update")));
+
+								template_effect(() => {
+									set_selected(option, get(order).status === "ready");
+									set_selected(option_1, get(order).status === "waiting-product");
+									set_selected(option_2, get(order).status === "to-be-shipped");
+									set_selected(option_3, get(order).status === "shipped");
+								});
+
+								append($$anchor, form);
+							};
+
+							if_block(node_10, ($$render) => {
+								$$render(consequent_8);
+							});
+						}
+
+						var h2_4 = sibling(node_10, 2);
+						var text_24 = child(h2_4);
+
+						template_effect(() => set_text(text_24, t("customer-details")));
+
+						var ul_3 = sibling(h2_4, 2);
+						var li_11 = child(ul_3);
+						var text_25 = child(li_11);
+
+						template_effect(() => set_text(text_25, `${t("name") ?? ""}: ${get(order).customer.name ?? ""}`));
 
 						var li_12 = sibling(li_11, 2);
-						var text_27 = child(li_12);
+						var node_11 = child(li_12);
+
+						{
+							var consequent_9 = ($$anchor) => {
+								var text_26 = text();
+
+								template_effect(() => set_text(text_26, `${t("phone") ?? ""}: +${get(order).customer.address.country_data.phone[0] ?? ""}
+              ${get(order).customer.phone ?? ""}`));
+
+								append($$anchor, text_26);
+							};
+
+							var alternate_3 = ($$anchor) => {
+								var form_1 = root_18();
+								var div_15 = child(form_1);
+								var div_16 = child(div_15);
+								var input = child(div_16);
+
+								var div_17 = sibling(div_16, 2);
+								var input_1 = child(div_17);
+								template_effect(() => set_attribute(input_1, "placeholder", t("mob-phone")));
+
+								var button_1 = sibling(div_15, 2);
+								var text_27 = child(button_1);
+
+								template_effect(() => set_text(text_27, t("update")));
+								template_effect(() => button_1.disabled = get(isUpdating));
+								bind_value(input, () => get(internationalPrefix), ($$value) => set(internationalPrefix, $$value));
+								bind_value(input_1, () => get(phoneNumber), ($$value) => set(phoneNumber, $$value));
+								event("click", button_1, updatePhoneNumber);
+								append($$anchor, form_1);
+							};
+
+							if_block(node_11, ($$render) => {
+								if (get(order).customer.phone) $$render(consequent_9); else $$render(alternate_3, false);
+							});
+						}
 
 						var li_13 = sibling(li_12, 2);
 						var text_28 = child(li_13);
 
-						var li_14 = sibling(li_13, 2);
-						var text_29 = child(li_14);
+						var h2_5 = sibling(ul_3, 2);
+						var text_29 = child(h2_5);
 
-						template_effect(() => {
-							set_text(text_25, get(order).customer.shipping_details.name);
-							set_text(text_26, get(order).customer.shipping_details.address.line1);
-							set_text(text_27, get(order).customer.shipping_details.address.line2);
+						template_effect(() => set_text(text_29, t("shipping-address")));
 
-							set_text(text_28, `${get(order).customer.shipping_details.address.postal_code ?? ""}
+						var node_12 = sibling(h2_5, 2);
+
+						{
+							var consequent_10 = ($$anchor) => {
+								var ul_4 = root_19();
+								var li_14 = child(ul_4);
+								var text_30 = child(li_14);
+
+								var li_15 = sibling(li_14, 2);
+								var text_31 = child(li_15);
+
+								var li_16 = sibling(li_15, 2);
+								var text_32 = child(li_16);
+
+								var li_17 = sibling(li_16, 2);
+								var text_33 = child(li_17);
+
+								var li_18 = sibling(li_17, 2);
+								var text_34 = child(li_18);
+
+								template_effect(() => {
+									set_text(text_30, get(order).customer.shipping_details.name);
+									set_text(text_31, get(order).customer.shipping_details.address.line1);
+									set_text(text_32, get(order).customer.shipping_details.address.line2);
+
+									set_text(text_33, `${get(order).customer.shipping_details.address.postal_code ?? ""}
               ${get(order).customer.shipping_details.address.city ?? ""}
               ${(get(order).customer.shipping_details.address.state ? `(${get(order).customer.shipping_details.address.state})` : "") ?? ""}`);
 
-							set_text(text_29, `${get(order).customer.address.country_data.native ?? ""} - ${get(order).customer.address.country ?? ""}`);
-						});
+									set_text(text_34, `${get(order).customer.address.country_data.native ?? ""} - ${get(order).customer.address.country ?? ""}`);
+								});
 
-						append($$anchor, ul_4);
-					};
+								append($$anchor, ul_4);
+							};
 
-					var alternate_2 = ($$anchor) => {
-						var fragment_3 = comment();
-						var node_10 = first_child(fragment_3);
+							var alternate_4 = ($$anchor) => {
+								var fragment_6 = comment();
+								var node_13 = first_child(fragment_6);
 
-						{
-							var consequent_9 = ($$anchor) => {
-								var ul_5 = root_16();
-								var li_15 = child(ul_5);
-								var text_30 = child(li_15);
+								{
+									var consequent_11 = ($$anchor) => {
+										var ul_5 = root_21();
+										var li_19 = child(ul_5);
+										var text_35 = child(li_19);
 
-								var li_16 = sibling(li_15, 2);
-								var text_31 = child(li_16);
+										var li_20 = sibling(li_19, 2);
+										var text_36 = child(li_20);
 
-								var li_17 = sibling(li_16, 2);
-								var text_32 = child(li_17);
+										var li_21 = sibling(li_20, 2);
+										var text_37 = child(li_21);
 
-								var li_18 = sibling(li_17, 2);
-								var text_33 = child(li_18);
+										var li_22 = sibling(li_21, 2);
+										var text_38 = child(li_22);
 
-								template_effect(() => {
-									set_text(text_30, get(order).customer.address.line1);
-									set_text(text_31, get(order).customer.address.line2);
+										template_effect(() => {
+											set_text(text_35, get(order).customer.address.line1);
+											set_text(text_36, get(order).customer.address.line2);
 
-									set_text(text_32, `${get(order).customer.address.postal_code ?? ""}
+											set_text(text_37, `${get(order).customer.address.postal_code ?? ""}
               ${get(order).customer.address.city ?? ""}
               ${(get(order).customer.address.state ? `(${get(order).customer.address.state})` : "") ?? ""}`);
 
-									set_text(text_33, `${get(order).customer.address.country_data.native ?? ""} - ${get(order).customer.address.country ?? ""}`);
-								});
+											set_text(text_38, `${get(order).customer.address.country_data.native ?? ""} - ${get(order).customer.address.country ?? ""}`);
+										});
 
-								append($$anchor, ul_5);
+										append($$anchor, ul_5);
+									};
+
+									if_block(
+										node_13,
+										($$render) => {
+											if (get(order).customer.address) $$render(consequent_11);
+										},
+										true
+									);
+								}
+
+								append($$anchor, fragment_6);
 							};
 
-							if_block(
-								node_10,
-								($$render) => {
-									if (get(order).customer.address) $$render(consequent_9);
-								},
-								true
-							);
+							if_block(node_12, ($$render) => {
+								if (get(order).customer.shipping_details) $$render(consequent_10); else $$render(alternate_4, false);
+							});
 						}
 
-						append($$anchor, fragment_3);
-					};
+						var div_18 = sibling(div_10, 2);
+						var h2_6 = child(div_18);
+						var text_39 = child(h2_6);
 
-					if_block(node_9, ($$render) => {
-						if (get(order).customer.shipping_details) $$render(consequent_8); else $$render(alternate_2, false);
-					});
-				}
+						template_effect(() => set_text(text_39, t("history")));
 
-				var div_15 = sibling(div_10, 2);
-				var h2_6 = child(div_15);
-				var text_34 = child(h2_6);
+						var node_14 = sibling(h2_6, 2);
+						const $$array = () => get(order).events;
 
-				template_effect(() => set_text(text_34, t("history")));
-
-				var node_11 = sibling(h2_6, 2);
-				const $$array = () => get(order).events;
-
-				each(node_11, 17, $$array, index, ($$anchor, event) => {
-					var fragment_4 = comment();
-					var node_12 = first_child(fragment_4);
-
-					{
-						var consequent_10 = ($$anchor) => {
-							var div_16 = root_18();
-							var div_17 = child(div_16);
-							var span = child(div_17);
-							const stringified_text_4 = derived(() => new Date(get(event).ts).toLocaleDateString() ?? "");
-							const stringified_text_5 = derived(() => new Date(get(event).ts).toLocaleTimeString() ?? "");
-							var text_35 = child(span);
-
-							template_effect(() => set_text(text_35, `• ${get(stringified_text_4)}
-                  ${get(stringified_text_5)}`));
-
-							var div_18 = sibling(div_17, 2);
-							var div_19 = sibling(child(div_18), 2);
-							var ul_6 = child(div_19);
-							var li_19 = child(ul_6);
-							var text_36 = child(li_19);
-
-							var li_20 = sibling(li_19, 2);
-							var text_37 = child(li_20);
-
-							var node_13 = sibling(li_20, 2);
-
-							each(node_13, 17, () => get(event).data.parcels, index, ($$anchor, parcel, index) => {
-								var li_21 = root_19();
-								var a = sibling(child(li_21));
-
-								template_effect(() => set_attribute(a, "href", trackingLinks[get(event).data.courier.toLowerCase()].replace("PARCELNUM", get(parcel))));
-								a.textContent = `Parcel ${index + 1 ?? ""} tracking`;
-								append($$anchor, li_21);
-							});
-
-							template_effect(() => {
-								set_class(span, `has-text-${get(event).level ?? ""}`);
-								set_text(text_36, `Courier: ${get(event).data.courier ?? ""}`);
-								set_text(text_37, `Parcels: ${get(event).data.parcels.length ?? ""}`);
-							});
-
-							append($$anchor, div_16);
-						};
-
-						var alternate_3 = ($$anchor) => {
-							var div_20 = root_20();
-							var div_21 = child(div_20);
-							var span_1 = child(div_21);
-							const stringified_text_6 = derived(() => new Date(get(event).ts).toLocaleDateString() ?? "");
-							const stringified_text_7 = derived(() => new Date(get(event).ts).toLocaleTimeString() ?? "");
-							var text_38 = child(span_1);
-
-							template_effect(() => set_text(text_38, `• ${get(stringified_text_6)}
-                  ${get(stringified_text_7)}`));
-
-							var node_14 = sibling(div_21, 2);
+						each(node_14, 17, $$array, index, ($$anchor, event) => {
+							var fragment_7 = comment();
+							var node_15 = first_child(fragment_7);
 
 							{
-								var consequent_11 = ($$anchor) => {
-									var div_22 = root_21();
-									var div_23 = child(div_22);
-									var span_2 = child(div_23);
-									var text_39 = child(span_2);
+								var consequent_12 = ($$anchor) => {
+									var div_19 = root_23();
+									var div_20 = child(div_19);
+									var span = child(div_20);
+									const stringified_text_12 = derived(() => new Date(get(event).ts).toLocaleDateString() ?? "");
+									const stringified_text_13 = derived(() => new Date(get(event).ts).toLocaleTimeString() ?? "");
+									var text_40 = child(span);
 
-									template_effect(() => {
-										toggle_class(div_22, "has-text-warning", get(event).level === "warning");
-										set_text(text_39, get(event).data.text);
+									template_effect(() => set_text(text_40, `• ${get(stringified_text_12)}
+                  ${get(stringified_text_13)}`));
+
+									var div_21 = sibling(div_20, 2);
+									var div_22 = sibling(child(div_21), 2);
+									var ul_6 = child(div_22);
+									var li_23 = child(ul_6);
+									var text_41 = child(li_23);
+
+									var li_24 = sibling(li_23, 2);
+									var text_42 = child(li_24);
+
+									var node_16 = sibling(li_24, 2);
+
+									each(node_16, 17, () => get(event).data.parcels, index, ($$anchor, parcel, index) => {
+										var li_25 = root_24();
+										var a = sibling(child(li_25));
+
+										template_effect(() => set_attribute(a, "href", trackingLinks[get(event).data.courier.toLowerCase()].replace("PARCELNUM", get(parcel))));
+										a.textContent = `Parcel ${index + 1 ?? ""} tracking`;
+										append($$anchor, li_25);
 									});
 
-									append($$anchor, div_22);
+									template_effect(() => {
+										set_class(span, `has-text-${get(event).level ?? ""}`);
+										set_text(text_41, `Courier: ${get(event).data.courier ?? ""}`);
+										set_text(text_42, `Parcels: ${get(event).data.parcels.length ?? ""}`);
+									});
+
+									append($$anchor, div_19);
 								};
 
-								if_block(node_14, ($$render) => {
-									if (get(event).data) $$render(consequent_11);
+								var alternate_5 = ($$anchor) => {
+									var div_23 = root_25();
+									var div_24 = child(div_23);
+									var span_1 = child(div_24);
+									const stringified_text_14 = derived(() => new Date(get(event).ts).toLocaleDateString() ?? "");
+									const stringified_text_15 = derived(() => new Date(get(event).ts).toLocaleTimeString() ?? "");
+									var text_43 = child(span_1);
+
+									template_effect(() => set_text(text_43, `• ${get(stringified_text_14)}
+                  ${get(stringified_text_15)}`));
+
+									var node_17 = sibling(div_24, 2);
+
+									{
+										var consequent_13 = ($$anchor) => {
+											var div_25 = root_26();
+											var div_26 = child(div_25);
+											var span_2 = child(div_26);
+											var text_44 = child(span_2);
+
+											template_effect(() => {
+												toggle_class(div_25, "has-text-warning", get(event).level === "warning");
+												set_text(text_44, get(event).data.text);
+											});
+
+											append($$anchor, div_25);
+										};
+
+										if_block(node_17, ($$render) => {
+											if (get(event).data) $$render(consequent_13);
+										});
+									}
+									template_effect(() => set_class(span_1, `has-text-${get(event).level ?? ""}`));
+									append($$anchor, div_23);
+								};
+
+								if_block(node_15, ($$render) => {
+									if (get(event).type === "tracking-info") $$render(consequent_12); else $$render(alternate_5, false);
 								});
 							}
-							template_effect(() => set_class(span_1, `has-text-${get(event).level ?? ""}`));
-							append($$anchor, div_20);
-						};
 
-						if_block(node_12, ($$render) => {
-							if (get(event).type === "tracking-info") $$render(consequent_10); else $$render(alternate_3, false);
+							append($$anchor, fragment_7);
 						});
-					}
 
-					append($$anchor, fragment_4);
-				});
+						var node_18 = sibling(div_18, 2);
 
-				var node_15 = sibling(div_15, 2);
+						{
+							var consequent_14 = ($$anchor) => {
+								var form_2 = root_27();
+								var div_27 = sibling(child(form_2), 2);
+								var select_1 = child(div_27);
+								var option_4 = child(select_1);
 
-				{
-					var consequent_12 = ($$anchor) => {
-						var form_2 = root_22();
-						var div_24 = sibling(child(form_2), 2);
-						var select_1 = child(div_24);
-						var option_4 = child(select_1);
+								option_4.value = null == (option_4.__value = "info") ? "" : "info";
 
-						option_4.value = null == (option_4.__value = "info") ? "" : "info";
+								var option_5 = sibling(option_4);
 
-						var option_5 = sibling(option_4);
+								option_5.value = null == (option_5.__value = "warning") ? "" : "warning";
 
-						option_5.value = null == (option_5.__value = "warning") ? "" : "warning";
+								var option_6 = sibling(option_5);
 
-						var option_6 = sibling(option_5);
+								option_6.value = null == (option_6.__value = "danger") ? "" : "danger";
 
-						option_6.value = null == (option_6.__value = "danger") ? "" : "danger";
+								var option_7 = sibling(option_6);
 
-						var option_7 = sibling(option_6);
+								option_7.value = null == (option_7.__value = "success") ? "" : "success";
 
-						option_7.value = null == (option_7.__value = "success") ? "" : "success";
+								var div_28 = sibling(div_27, 4);
+								var select_2 = child(div_28);
+								var option_8 = child(select_2);
 
-						var div_25 = sibling(div_24, 4);
-						var select_2 = child(div_25);
-						var option_8 = child(select_2);
+								option_8.value = null == (option_8.__value = "update") ? "" : "update";
 
-						option_8.value = null == (option_8.__value = "update") ? "" : "update";
+								var option_9 = sibling(option_8);
 
-						var option_9 = sibling(option_8);
+								option_9.value = null == (option_9.__value = "tracking-info") ? "" : "tracking-info";
 
-						option_9.value = null == (option_9.__value = "tracking-info") ? "" : "tracking-info";
+								var textarea = sibling(div_28, 4);
 
-						var textarea = sibling(div_25, 4);
+								var button_2 = sibling(textarea, 2);
+								bind_select_value(select_1, () => event$1.level, ($$value) => event$1.level = $$value);
+								bind_select_value(select_2, () => event$1.type, ($$value) => event$1.type = $$value);
+								bind_value(textarea, () => event$1.text, ($$value) => event$1.text = $$value);
+								event("click", button_2, addEvent);
+								append($$anchor, form_2);
+							};
 
-						var button_1 = sibling(textarea, 2);
-						bind_select_value(select_1, () => event$1.level, ($$value) => event$1.level = $$value);
-						bind_select_value(select_2, () => event$1.type, ($$value) => event$1.type = $$value);
-						bind_value(textarea, () => event$1.text, ($$value) => event$1.text = $$value);
-						event("click", button_1, addEvent);
-						append($$anchor, form_2);
+							if_block(node_18, ($$render) => {
+								$$render(consequent_14);
+							});
+						}
+
+						template_effect(() => {
+							set_text(text_10, `Id: ${get(order).kettleblazeId ?? ""}`);
+							set_text(text_28, `Email: ${get(order).customer.email ?? ""}`);
+						});
+
+						append($$anchor, div_1);
 					};
 
-					if_block(node_15, ($$render) => {
-						$$render(consequent_12);
-					});
+					if_block(
+						node_2,
+						($$render) => {
+							if (get(order)) $$render(consequent_15);
+						},
+						true
+					);
 				}
 
-				template_effect(() => {
-					set_text(text_10, `Id: ${get(order).kettleblazeId ?? ""}`);
-					set_text(text_23, `Email: ${get(order).customer.email ?? ""}`);
-				});
-
-				append($$anchor, div_1);
+				append($$anchor, fragment_2);
 			};
 
 			if_block(node, ($$render) => {
-				if (!get(order).id) $$render(consequent); else $$render(alternate_4, false);
+				if (!get(order)) $$render(consequent_1); else $$render(alternate_6, false);
 			});
 		}
 
