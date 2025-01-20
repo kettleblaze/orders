@@ -9,7 +9,7 @@
   let order = $state(null);
   let errorOrNotFound = $state(false);
   let event = $state({});
-
+  let orderStatus = $state({});
   function ucfirst(str) {
     return str[0].toUpperCase() + str.substring(1, str.length);
   }
@@ -80,8 +80,10 @@
     return T(status);
   }
 
-  if (process.env.isLocal) {
-    function updateOrderStatus(status) {}
+  function updateOrderStatus() {
+    isUpdating = true;
+    order.status = orderStatus;
+    updateOrder().then(() => setTimeout(() => (isUpdating = false), 1000));
   }
 
   function calculateTotal(order) {
@@ -121,6 +123,7 @@
       })
       .then((o) => {
         internationalPrefix = "+" + o.customer.address.country_data.phone[0];
+        orderStatus = o.status;
         return o;
       });
     //  order.customer = o.customer;
@@ -279,23 +282,26 @@
             <div class="columns">
               <div class="column">
                 <div class="select is-info">
-                  <select name="order-status" id="order-status">
-                    <option value="ready" selected={order.status === "ready"}
+                  <select
+                    name="order-status"
+                    id="order-status"
+                    bind:value={orderStatus}
+                    disabled={isUpdating ? "disabled" : ""}
+                  >
+                    <option value="ready" selected={orderStatus === "ready"}
                       >{T("ready")}</option
                     >
                     <option
                       value="waiting-product"
-                      selected={order.status === "waiting-product"}
+                      selected={orderStatus === "waiting-product"}
                       >{T("waiting-product")}</option
                     >
                     <option
                       value="to-be-shipped"
-                      selected={order.status === "to-be-shipped"}
+                      selected={orderStatus === "to-be-shipped"}
                       >{T("to-be-shipped")}</option
                     >
-                    <option
-                      value="shipped"
-                      selected={order.status === "shipped"}
+                    <option value="shipped" selected={orderStatus === "shipped"}
                       >{T("shipped")}</option
                     >
                   </select>
@@ -303,8 +309,10 @@
               </div>
 
               <div class="column">
-                <button type="button" class="button is-info has-text-white"
-                  >{T("update")}</button
+                <button
+                  type="button"
+                  class="button is-info has-text-white"
+                  on:click={updateOrderStatus}>{T("update")}</button
                 >
               </div>
             </div>

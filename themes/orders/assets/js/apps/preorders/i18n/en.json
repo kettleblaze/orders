@@ -18,5 +18,10 @@
   "mob-number": "Mobile Phone Number",
   "update": "Update",
   "type": "Type",
-  "size": "Size"
+  "size": "Size",
+  "payment-type": "Payment type",
+  "three-installments": "Three monthly installments at zero interest",
+  "start-date": "Start date",
+  "end-date": "End date",
+  "installment-amount": "Installment amount"
 }

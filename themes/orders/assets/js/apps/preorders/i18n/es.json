@@ -18,5 +18,10 @@
   "mob-number": "Número de teléfono móvil",
   "update": "Actualizar",
   "type": "Tipo",
-  "size": "Talla"
+  "size": "Talla",
+  "payment-type": "Tipo de pago",
+  "three-installments": "Tres cuotas mensuales sin interés",
+  "start-date": "Fecha de inicio",
+  "end-date": "Fecha de fin",
+  "installment-amount": "Monto de la cuota"
 }

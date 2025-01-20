@@ -18,5 +18,10 @@
   "mob-number": "Handynummer",
   "update": "Aktualisieren",
   "type": "Typ",
-  "size": "Größe"
+  "size": "Größe",
+  "payment-type": "Zahlungsart",
+  "three-installments": "Drei monatliche Raten ohne Zinsen",
+  "start-date": "Anfangsdatum",
+  "end-date": "Enddatum",
+  "installment-amount": "Ratenbetrag"
 }

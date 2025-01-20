@@ -3968,7 +3968,12 @@ var preOrdersApp = (function () {
 		"mob-number": "Mobile Phone Number",
 		update: update$4,
 		type: type$4,
-		size: size$4
+		size: size$4,
+		"payment-type": "Payment type",
+		"three-installments": "Three monthly installments at zero interest",
+		"start-date": "Start date",
+		"end-date": "End date",
+		"installment-amount": "Installment amount"
 	};
 
 	var history$3 = "Storico";
@@ -4035,7 +4040,12 @@ var preOrdersApp = (function () {
 		"mob-number": "Número de teléfono móvil",
 		update: update$2,
 		type: type$2,
-		size: size$2
+		size: size$2,
+		"payment-type": "Tipo de pago",
+		"three-installments": "Tres cuotas mensuales sin interés",
+		"start-date": "Fecha de inicio",
+		"end-date": "Fecha de fin",
+		"installment-amount": "Monto de la cuota"
 	};
 
 	var history$1 = "Verlauf";
@@ -4066,7 +4076,12 @@ var preOrdersApp = (function () {
 		"mob-number": "Handynummer",
 		update: update$1,
 		type: type$1,
-		size: size$1
+		size: size$1,
+		"payment-type": "Zahlungsart",
+		"three-installments": "Drei monatliche Raten ohne Zinsen",
+		"start-date": "Anfangsdatum",
+		"end-date": "Enddatum",
+		"installment-amount": "Ratenbetrag"
 	};
 
 	var history = "Historique";
@@ -4097,7 +4112,12 @@ var preOrdersApp = (function () {
 		"mob-number": "Numéro de téléphone portable",
 		update: update,
 		type: type,
-		size: size
+		size: size,
+		"payment-type": "Type de paiement",
+		"three-installments": "Trois versements mensuels à taux zéro",
+		"start-date": "Date de début",
+		"end-date": "Date de fin",
+		"installment-amount": "Montant de l'échéance"
 	};
 
 	const languages = {
@@ -4156,6 +4176,7 @@ var preOrdersApp = (function () {
 		let order = state(null);
 		let errorOrNotFound = state(false);
 		let event$1 = proxy({});
+		let orderStatus = state(proxy({}));
 
 		function ucfirst(str) {
 			return str[0].toUpperCase() + str.substring(1, str.length);
@@ -4226,6 +4247,12 @@ var preOrdersApp = (function () {
 			return (wallet ? `(${wallet}) ` : "") + type;
 		}
 
+		function updateOrderStatus() {
+			set(isUpdating, true);
+			get(order).status = get(orderStatus);
+			updateOrder().then(() => setTimeout(() => set(isUpdating, false), 1000));
+		}
+
 		function calculateTotal(order) {
 			let sum = 0;
 
@@ -4261,6 +4288,7 @@ var preOrdersApp = (function () {
 				}
 			}).then((o) => {
 				set(internationalPrefix, "+" + o.customer.address.country_data.phone[0]);
+				set(orderStatus, proxy(o.status));
 				return o;
 			});
 
@@ -4589,12 +4617,15 @@ var preOrdersApp = (function () {
 								template_effect(() => set_text(text_22, t("update")));
 
 								template_effect(() => {
-									set_selected(option, get(order).status === "ready");
-									set_selected(option_1, get(order).status === "waiting-product");
-									set_selected(option_2, get(order).status === "to-be-shipped");
-									set_selected(option_3, get(order).status === "shipped");
+									select.disabled = get(isUpdating) ? "disabled" : "";
+									set_selected(option, get(orderStatus) === "ready");
+									set_selected(option_1, get(orderStatus) === "waiting-product");
+									set_selected(option_2, get(orderStatus) === "to-be-shipped");
+									set_selected(option_3, get(orderStatus) === "shipped");
 								});
 
+								bind_select_value(select, () => get(orderStatus), ($$value) => set(orderStatus, $$value));
+								event("click", button, updateOrderStatus);
 								append($$anchor, form);
 							};
 
