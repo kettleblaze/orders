@@ -217,10 +217,23 @@
             {#if order.shippingCost}
               <li>
                 <div class="column">
-                  <h4 class="title has-text-info is-size-4">
+                  <h4 class="title has-text-info is-size-4 mb-2">
                     {T("shipping-cost")}
                   </h4>
-                  <p class="is-size-5 my-3">
+                  {#if order.shippingCost.display_name}
+                    <div class="is-flex is-align-items-center is-justify-content-flex-start mt-3">
+                      <span class="icon pr-3"
+                        ><i class="material-symbols-outlined">
+                          delivery_truck_speed
+                        </i></span
+                      >
+                      <p class="is-size-6">
+                        {order.shippingCost.display_name}
+                      </p>
+                    </div>
+                  {/if}
+
+                  <p class="is-size-5">
                     {formatCurrency(order.shippingCost)}
                   </p>
                 </div>

@@ -23,11 +23,20 @@ const orderSchema = new Schema(
     },
     status: {
       type: String,
-      enum: ["ready", "waiting-product", "to-be-shipped", "shipped", "exception"],
+      enum: [
+        "ready",
+        "waiting-product",
+        "to-be-shipped",
+        "shipped",
+        "exception",
+      ],
       default: "ready",
     },
     kettleblazeId: String,
-    stripeSessionId: String,
+    stripeSessionId: {
+      type: String,
+      unique: true,
+    },
     customer: Object,
     products: Array,
     shippingCost: Object,
