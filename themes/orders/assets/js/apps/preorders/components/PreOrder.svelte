@@ -453,7 +453,7 @@
               {#if event.data}
                 <div class:has-text-warning={event.level === "warning"}>
                   <div class="px-3">
-                    <span>{event.data.text}</span>
+                    <span>{@html event.data.text}</span>
                   </div>
                 </div>
               {/if}

@@ -3304,6 +3304,57 @@ var preOrdersApp = (function () {
 		}
 	}
 
+	/** @import { Effect, TemplateNode } from '#client' */
+
+	/**
+	 * @param {Element | Text | Comment} node
+	 * @param {() => string} get_value
+	 * @param {boolean} svg
+	 * @param {boolean} mathml
+	 * @param {boolean} [skip_warning]
+	 * @returns {void}
+	 */
+	function html(node, get_value, svg, mathml, skip_warning) {
+		var anchor = node;
+
+		var value = '';
+
+		/** @type {Effect | undefined} */
+		var effect;
+
+		block(() => {
+			if (value === (value = get_value() ?? '')) {
+				return;
+			}
+
+			if (effect !== undefined) {
+				destroy_effect(effect);
+				effect = undefined;
+			}
+
+			if (value === '') return;
+
+			effect = branch(() => {
+
+				var html = value + '';
+
+				// Don't use create_fragment_with_script_from_html here because that would mean script tags are executed.
+				// @html is basically `.innerHTML = ...` and that doesn't execute scripts either due to security reasons.
+				/** @type {DocumentFragment | Element} */
+				var node = create_fragment_from_html(html);
+
+				assign_nodes(
+					/** @type {TemplateNode} */ (get_first_child(node)),
+					/** @type {TemplateNode} */ (node.lastChild)
+				);
+
+				{
+					anchor.before(node);
+				}
+			});
+		});
+	}
+
 	/**
 	 * Sets the `selected` attribute on an `option` element.
 	 * Not set through the property because that doesn't reflect to the DOM,
@@ -4162,7 +4213,7 @@ var preOrdersApp = (function () {
 	var root_22 = template(`<ul><li> </li> <li> </li> <li> </li> <li> </li></ul>`);
 	var root_25 = template(`<li>- <a class="is-underlined" target="_blank"></a></li>`);
 	var root_24 = template(`<div class="mt-5"><div><span> </span></div> <div class="px-3"><span class="my-0">Tracking information</span> <div class="px-3 py-4"><ul><li> </li> <li> </li> <!></ul></div></div></div>`);
-	var root_27 = template(`<div><div class="px-3"><span> </span></div></div>`);
+	var root_27 = template(`<div><div class="px-3"><span><!></span></div></div>`);
 	var root_26 = template(`<div class="mt-5"><div><span> </span></div> <!></div>`);
 	var root_28 = template(`<form class="form"><label class="label" for="">Level</label> <div class="select is-info mb-4"><select><option>info</option><option>warning</option><option>danger</option><option>success</option></select></div> <label class="label" for="">Type</label> <div class="select is-info mb-4"><select><option>Update</option><option>Tracking info</option></select></div> <label class="label" for="">Message</label> <textarea class="textarea is-info"></textarea> <button class="button is-info has-text-white mt-6" type="button">Add event</button></form>`);
 	var root_5 = template(`<div class="columns"><div class="column"><h2 class="title mt-6 px-5"> </h2> <div class="box"><!></div></div> <div class="column px-6"><div class="mt-6"><h2 class="title"> </h2> <ul><li> </li> <li> </li> <!></ul> <h2 class="title mt-6"> </h2> <!> <h2 class="title mt-6"> </h2> <ul><li> </li> <li><!></li> <li> </li></ul> <h2 class="title mt-6"> </h2> <!></div> <div class="my-6"><h2 class="title pt-2"> </h2> <!></div> <!></div></div>`);
@@ -4866,13 +4917,10 @@ var preOrdersApp = (function () {
 											var div_26 = root_27();
 											var div_27 = child(div_26);
 											var span_2 = child(div_27);
-											var text_45 = child(span_2);
+											var node_19 = child(span_2);
 
-											template_effect(() => {
-												toggle_class(div_26, "has-text-warning", get(event).level === "warning");
-												set_text(text_45, get(event).data.text);
-											});
-
+											html(node_19, () => get(event).data.text);
+											template_effect(() => toggle_class(div_26, "has-text-warning", get(event).level === "warning"));
 											append($$anchor, div_26);
 										};
 
@@ -4892,7 +4940,7 @@ var preOrdersApp = (function () {
 							append($$anchor, fragment_7);
 						});
 
-						var node_19 = sibling(div_19, 2);
+						var node_20 = sibling(div_19, 2);
 
 						{
 							var consequent_15 = ($$anchor) => {
@@ -4935,7 +4983,7 @@ var preOrdersApp = (function () {
 								append($$anchor, form_2);
 							};
 
-							if_block(node_19, ($$render) => {
+							if_block(node_20, ($$render) => {
 								$$render(consequent_15);
 							});
 						}
