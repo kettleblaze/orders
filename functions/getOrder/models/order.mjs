@@ -25,6 +25,7 @@ const orderSchema = new Schema(
       type: String,
       enum: [
         "ready",
+        "in-preparation",
         "waiting-product",
         "to-be-shipped",
         "shipped",

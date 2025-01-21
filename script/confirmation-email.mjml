@@ -1,0 +1,26 @@
+<mjml>
+  <mj-body>
+    <mj-section>
+      <mj-column>
+
+       
+<mj-text align="center" font-size="24px" font-weight="bold" color="#82c5bd">Ordine confermato!</mj-text>
+        <mj-text align="center" color="#6a6a6a" line-height="1.5" font-size="18px">Gentile {CUSTOMER_NAME}, il tuo ordine è confermato!</mj-text>
+        <mj-text padding-bottom="40px" align="center" color="#6a6a6a" line-height="1.5" font-size="18px">D'ora in poi potrai seguirne i progressi dalla pagina che raggiungerai cliccando sul pulsante qui di seguito.</mj-text>
+			<mj-button align="center" padding="8px 12px" font-size="18px" width="100%" background-color="#82c5bd" color="#FFFFFF" href="{TARGET_URL}" target="_blank">IL TUO ORDINE</mj-button>
+        
+         <mj-image padding-top="100px" padding-bottom="4px"  align="center" width="240px" src="https://kettleblaze.store/icons/kettleblaze-italy-logo.svg"></mj-image>
+        <mj-text line-height="1.15" align="center" color="#b0b0b0" font-size="16px">
+          <ul style="list-style:none;">
+            <li>Via lavino 195</li>
+            <li>40050 Monte San Pietro (BO)</li>
+            <li>PIVA 02645100393</li>
+            <li>+39 351 666 410 3</li>
+            <li>kettleblaze@kettleblaze.store</li>
+            <li>https://kettleblaze.store</li>
+          </ul>
+</mj-text>
+      </mj-column>
+    </mj-section>
+  </mj-body>
+</mjml>

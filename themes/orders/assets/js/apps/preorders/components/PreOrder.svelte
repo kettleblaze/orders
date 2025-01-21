@@ -304,6 +304,9 @@
                     <option value="ready" selected={orderStatus === "ready"}
                       >{T("ready")}</option
                     >
+                    <option value="in-preparation" selected={orderStatus === "in-preparation"}
+                    >{T("in-preparation")}</option
+                  >
                     <option
                       value="waiting-product"
                       selected={orderStatus === "waiting-product"}

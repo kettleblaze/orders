@@ -41,7 +41,13 @@ function createOrderId(unixTs) {
 
     let customer = session.customer_details;
 
-    customer.shipping_details = session.shipping_details;
+    const cust = await stripe.customers.retrieve(session.customer);
+
+    if (!session.shipping_details) {
+      customer.shipping_details = cust.shipping;
+    } else {
+      customer.shipping_details = session.shipping_details;
+    }
     customer.address.country_data = getCountryData(customer.address.country);
 
     let products = [];
@@ -50,7 +56,6 @@ function createOrderId(unixTs) {
     let paymentMethod = null;
 
     if (method) {
-      console.log(method);
       paymentMethod = {
         type: method.type,
         card: method.card?.brand ? titleCase(method.card?.brand) : null,
@@ -143,24 +148,7 @@ function createOrderId(unixTs) {
       ts: session.created * 1000,
       type: "created",
       data: {
-        text: "Pre-order created successfully!",
-      },
-    });
-
-    order.events.push({
-      ts: Date.now(),
-      type: "update",
-      data: {
-        text: "Product is expected to arrive 27th/29th Jan 25. Delivery to our warehouse the following week and then priority shipping.",
-      },
-    });
-
-    order.events.push({
-      ts: Date.now(),
-      level: "warning",
-      type: "update",
-      data: {
-        text: "Please insert your mobile phone number in the fields above",
+        text: "Order created successfully!",
       },
     });
 

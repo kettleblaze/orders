@@ -21,6 +21,7 @@
     "dotenv": "^16.4.7",
     "mongoose": "^8.9.5",
     "nanoid": "^5.0.9",
+    "nodemailer": "^6.9.16",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-css-only": "^4.5.2",
     "rollup-plugin-jscc": "^2.0.0",
