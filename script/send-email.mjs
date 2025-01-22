@@ -3,6 +3,27 @@ dotenv.config();
 import Order from "../functions/getOrder/models/order.mjs";
 import mongoose from "mongoose";
 import nodemailer from "nodemailer";
+import fs from "node:fs";
+import path from "node:path";
+
+import * as CloudTranslate from "@google-cloud/translate";
+const { Translate } = CloudTranslate.v2;
+
+const confirmationEmailStrings = {
+  title1: "Order Confirmed",
+  intro1: "Gentile {CUSTOMER_NAME}, il tuo ordine è confermato!",
+  text1:
+    "D'ora in poi potrai seguirne i progressi dalla pagina che raggiungerai cliccando sul pulsante qui di seguito.",
+  text2: "IL TUO ORDINE",
+  status_text: "Stato",
+};
+
+const updateOrderEmailStrings = {
+  title1: "Ordine Aggiornato",
+  intro1: "Gentile {CUSTOMER_NAME}, il tuo ordine è stato aggiornato:",
+  status_text: "Stato",
+  text1: "IL TUO ORDINE",
+};
 
 async function connect() {
   const connection = await mongoose.connect(
@@ -14,21 +35,73 @@ async function connect() {
 }
 
 (async () => {
+  const emailType = process.argv[2] ? process.argv[2] : "confirmation";
+
   let sessionId =
-    "cs_live_b1iHHKeSaWB9DD5KsBnBXHroFH0XFy3b1CAuHbv0L6b11WVdA6FONC6XcR";
+    "cs_live_b1p0xjZycuV10hEzReMANsRRdjnUSTXTp2sKPzkhzYfmIddGFMhpb0BsOI";
+  let lang = "en";
+  let tplName =
+    emailType === "confirmation"
+      ? "confirmation-email.html"
+      : "update-order-email.html";
+
+  let emailStrings =
+    emailType === "confirmation"
+      ? confirmationEmailStrings
+      : updateOrderEmailStrings;
+
+  const translate = new Translate({
+    key: "AIzaSyCFuex1NpkEg-bF853f93g_SHhuaUCfCaQ",
+  });
+
   const disconnect = await connect();
   const o = await Order.findOne({ stripeSessionId: sessionId });
   await disconnect();
 
-  let compiled = emailTpl().replace("{CUSTOMER_NAME}", o.customer.name);
+  let [h1] = await translate.translate(emailStrings.title1, lang);
+  let [i1] = await translate.translate(
+    emailStrings.intro1.replace("{CUSTOMER_NAME}", o.customer.name),
+    lang
+  );
+
+  let [t1] = await translate.translate(emailStrings.text1, lang);
+
+  let [statusText] = await translate.translate(emailStrings.status_text, lang);
+
+  let tpl = loadTpl(tplName);
+  let compiled = tpl.replace("{INTRO1}", i1);
+  compiled = compiled.replace("{TITLE1}", h1);
+  compiled = compiled.replace("{TEXT1}", t1);
+
+  if (emailType === "confirmation") {
+    let [t2] = await translate.translate(emailStrings.text2, lang);
+    compiled = compiled.replace("{TEXT2}", t2);
+  }
+  if (emailType === "update") {
+    let [eventText] = await translate.translate(
+      o.events[o.events.length - 1].data.text,
+      lang
+    );
+    compiled = compiled.replace("{EVENT_TEXT}", eventText);
+  }
+  compiled = compiled.replace("{STATUS_TEXT}", statusText);
   compiled = compiled.replace(
     "{TARGET_URL}",
     `https://orders.kettleblaze.it/order?id=${o.id}`
   );
-  await sendConfirmationMail(o, compiled);
+  compiled = compiled.replace("{KETTLEBLAZE_ID}", o.kettleblazeId);
+  compiled = compiled.replace("{STATUS}", o.status);
+
+
+  let title = `Conferma ordine ${o.kettleblazeId}`;
+  if (emailType === "update") {
+    title = `Aggiornamento: ordine ${o.kettleblazeId} su Kettleblaze.store`
+  }
+  let [translatedTitle] = await translate.translate(title, lang);
+  await sendEmailTemplate(o, translatedTitle, compiled);
 })();
 
-async function sendConfirmationMail(order, template) {
+async function sendEmailTemplate(order, title, template) {
   const transport = nodemailer.createTransport({
     host: "smtp.zoho.com",
     port: "465",
@@ -41,191 +114,18 @@ async function sendConfirmationMail(order, template) {
 
   const msg = {
     from: '"Kettleblaze" <kettleblaze@kettleblaze.store>',
+    // to: order.customer.email,
     to: "kettleblaze@kettleblaze.store",
-    /*to: order.order_data.order_data
-        ? order.order_data.order_data.customer.email
-        : order.order_data.customer.email,*/
     bcc: ["kettleblaze@kettleblaze.store"],
-    subject: `Conferma ordine ${order.kettleblazeId}`,
+    subject: title,
     html: template,
   };
-
-  /*if (type === "confirmation") {
-        msg.bcc.push("kettleblaze.store+c4f6475236@invite.trustpilot.com");
-      }*/
 
   return transport.sendMail(msg);
 }
 
-function emailTpl() {
-  return `<!doctype html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
-
-<head>
-  <title>
-  </title>
-  <!--[if !mso]><!-->
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <!--<![endif]-->
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style type="text/css">
-    #outlook a {
-      padding: 0;
-    }
-
-    body {
-      margin: 0;
-      padding: 0;
-      -webkit-text-size-adjust: 100%;
-      -ms-text-size-adjust: 100%;
-    }
-
-    table,
-    td {
-      border-collapse: collapse;
-      mso-table-lspace: 0pt;
-      mso-table-rspace: 0pt;
-    }
-
-    img {
-      border: 0;
-      height: auto;
-      line-height: 100%;
-      outline: none;
-      text-decoration: none;
-      -ms-interpolation-mode: bicubic;
-    }
-
-    p {
-      display: block;
-      margin: 13px 0;
-    }
-  </style>
-  <!--[if mso]>
-        <noscript>
-        <xml>
-        <o:OfficeDocumentSettings>
-          <o:AllowPNG/>
-          <o:PixelsPerInch>96</o:PixelsPerInch>
-        </o:OfficeDocumentSettings>
-        </xml>
-        </noscript>
-        <![endif]-->
-  <!--[if lte mso 11]>
-        <style type="text/css">
-          .mj-outlook-group-fix { width:100% !important; }
-        </style>
-        <![endif]-->
-  <!--[if !mso]><!-->
-  <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700" rel="stylesheet" type="text/css">
-  <style type="text/css">
-    @import url(https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700);
-  </style>
-  <!--<![endif]-->
-  <style type="text/css">
-    @media only screen and (min-width:480px) {
-      .mj-column-per-100 {
-        width: 100% !important;
-        max-width: 100%;
-      }
-    }
-  </style>
-  <style media="screen and (min-width:480px)">
-    .moz-text-html .mj-column-per-100 {
-      width: 100% !important;
-      max-width: 100%;
-    }
-  </style>
-  <style type="text/css">
-    @media only screen and (max-width:480px) {
-      table.mj-full-width-mobile {
-        width: 100% !important;
-      }
-
-      td.mj-full-width-mobile {
-        width: auto !important;
-      }
-    }
-  </style>
-</head>
-
-<body style="word-spacing:normal;">
-  <div style="">
-    <!--[if mso | IE]><table align="center" border="0" cellpadding="0" cellspacing="0" class="" style="width:600px;" width="600" ><tr><td style="line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-->
-    <div style="margin:0px auto;max-width:600px;">
-      <table align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
-        <tbody>
-          <tr>
-            <td style="direction:ltr;font-size:0px;padding:20px 0;text-align:center;">
-              <!--[if mso | IE]><table role="presentation" border="0" cellpadding="0" cellspacing="0"><tr><td class="" style="vertical-align:top;width:600px;" ><![endif]-->
-              <div class="mj-column-per-100 mj-outlook-group-fix" style="font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">
-                <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="vertical-align:top;" width="100%">
-                  <tbody>
-                    <tr>
-                      <td align="center" style="font-size:0px;padding:10px 25px;word-break:break-word;">
-                        <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:24px;font-weight:bold;line-height:1;text-align:center;color:#82c5bd;">Ordine confermato!</div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td align="center" style="font-size:0px;padding:10px 25px;word-break:break-word;">
-                        <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:18px;line-height:1.5;text-align:center;color:#6a6a6a;">Gentile {CUSTOMER_NAME}, il tuo ordine è confermato!</div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td align="center" style="font-size:0px;padding:10px 25px;padding-bottom:40px;word-break:break-word;">
-                        <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:18px;line-height:1.5;text-align:center;color:#6a6a6a;">D'ora in poi potrai seguirne i progressi dalla pagina che raggiungerai cliccando sul pulsante qui di seguito.</div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td align="center" vertical-align="middle" style="font-size:0px;padding:8px 12px;word-break:break-word;">
-                        <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:separate;width:100%;line-height:100%;">
-                          <tr>
-                            <td align="center" bgcolor="#82c5bd" role="presentation" style="border:none;border-radius:3px;cursor:auto;mso-padding-alt:10px 25px;background:#82c5bd;" valign="middle">
-                              <a href="{TARGET_URL}" style="display:inline-block;background:#82c5bd;color:#FFFFFF;font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:18px;font-weight:normal;line-height:120%;margin:0;text-decoration:none;text-transform:none;padding:10px 25px;mso-padding-alt:0px;border-radius:3px;" target="_blank"> IL TUO ORDINE </a>
-                            </td>
-                          </tr>
-                        </table>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td align="center" style="font-size:0px;padding:10px 25px;padding-top:100px;padding-bottom:4px;word-break:break-word;">
-                        <table border="0" cellpadding="0" cellspacing="0" role="presentation" style="border-collapse:collapse;border-spacing:0px;">
-                          <tbody>
-                            <tr>
-                              <td style="width:240px;">
-                                <img height="auto" src="https://kettleblaze.store/icons/kettleblaze-italy-logo.svg" style="border:0;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;" width="240" />
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td align="center" style="font-size:0px;padding:10px 25px;word-break:break-word;">
-                        <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:16px;line-height:1.15;text-align:center;color:#b0b0b0;">
-                          <ul style="list-style:none;">
-                            <li>Via lavino 195</li>
-                            <li>40050 Monte San Pietro (BO)</li>
-                            <li>PIVA 02645100393</li>
-                            <li>+39 351 666 410 3</li>
-                            <li>kettleblaze@kettleblaze.store</li>
-                            <li>https://kettleblaze.store</li>
-                          </ul>
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <!--[if mso | IE]></td></tr></table><![endif]-->
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <!--[if mso | IE]></td></tr></table><![endif]-->
-  </div>
-</body>
-</html>`;
+function loadTpl(name) {
+  let p = path.resolve("script", name);
+  const file = fs.readFileSync(p);
+  return file.toString("utf-8");
 }

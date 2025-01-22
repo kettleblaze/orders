@@ -412,7 +412,7 @@
           </ul>
         {/if}
       </div>
-      <div class="my-6">
+      <div id="history" class="my-6">
         <h2 class="title pt-2">{T("history")}</h2>
         {#each order.events as event}
           {#if event.type === "tracking-info"}

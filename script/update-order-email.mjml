@@ -4,9 +4,9 @@
       <mj-column>
 
        
-<mj-text align="center" font-size="30px" font-weight="bold" color="#82c5bd">Ordine confermato!</mj-text>
-        <mj-text align="center" color="#6a6a6a" line-height="1.5" font-size="18px">Gentile {CUSTOMER_NAME}, il tuo ordine è confermato!</mj-text>
-        <mj-text padding-bottom="40px" align="center" color="#6a6a6a" line-height="1.5" font-size="18px">D'ora in poi potrai seguirne i progressi dalla pagina che raggiungerai cliccando sul pulsante qui di seguito.</mj-text>
+<mj-text align="center" font-size="30px" font-weight="bold" color="#82c5bd">Ordine aggiornato!</mj-text>
+        <mj-text align="center" color="#6a6a6a" line-height="1.5" font-size="18px">Gentile {CUSTOMER_NAME}, il tuo ordine è stato aggiornato:</mj-text>
+        <mj-text padding-bottom="40px" align="center" color="#6a6a6a" line-height="1.5" font-style="italic" font-size="18px">"{EVENT_TEXT}"</mj-text>
         <mj-text align="center" line-height="1.25" font-size="18px" color="#6a6a6a"><div>
           ID: <span style="color:#82c5bd!important">{KETTLEBLAZE_ID}</span>
           </div>
