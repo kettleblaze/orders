@@ -103,6 +103,28 @@
     });
   }
 
+  function timeZoneDifferenceToGMT(d) {
+    let offset = d.getTimezoneOffset();
+    console.log(d.toString())
+    return `GMT${offset < 0 ? "+" : "-"}${(offset / 60) * -1}`;
+  }
+
+  async function sendUpdateEmail(stripeSessionId, eventIndex) {
+    if (confirm("Vuoi inviare la mail di aggiornamento?")) {
+      const lang = getPreferredLanguage();
+      const o = await fetch(
+        `process.env.storeServer/send-update-email/${stripeSessionId}/${eventIndex}/${lang}`,
+        { method: "GET" }
+      ).then((r) => {
+        if (r.ok) {
+          alert("Email inviata");
+        } else {
+          alert("Errore invio email");
+        }
+      });
+    }
+  }
+
   async function getOrder() {
     const params = new URLSearchParams(window.location.search);
     const lang = getPreferredLanguage();
@@ -171,7 +193,7 @@
   {/if}
 {:else if order}
   <div class="columns">
-    <div class="column">
+    <div class="column is-half">
       <h2 class="title mt-6 px-5">{T("order-summary")}</h2>
       <div class="box">
         {#if order.products.length > 0}
@@ -221,7 +243,9 @@
                     {T("shipping-cost")}
                   </h4>
                   {#if order.shippingCost.display_name}
-                    <div class="is-flex is-align-items-center is-justify-content-flex-start mt-3">
+                    <div
+                      class="is-flex is-align-items-center is-justify-content-flex-start mt-3"
+                    >
                       <span class="icon pr-3"
                         ><i class="material-symbols-outlined">
                           delivery_truck_speed
@@ -304,9 +328,11 @@
                     <option value="ready" selected={orderStatus === "ready"}
                       >{T("ready")}</option
                     >
-                    <option value="in-preparation" selected={orderStatus === "in-preparation"}
-                    >{T("in-preparation")}</option
-                  >
+                    <option
+                      value="in-preparation"
+                      selected={orderStatus === "in-preparation"}
+                      >{T("in-preparation")}</option
+                    >
                     <option
                       value="waiting-product"
                       selected={orderStatus === "waiting-product"}
@@ -414,7 +440,7 @@
       </div>
       <div id="history" class="my-6">
         <h2 class="title pt-2">{T("history")}</h2>
-        {#each order.events as event}
+        {#each order.events as event, index}
           {#if event.type === "tracking-info"}
             <div class="mt-5">
               <div>
@@ -450,14 +476,36 @@
               <div>
                 <span class="has-text-{event.level}"
                   >• {new Date(event.ts).toLocaleDateString()}
-                  {new Date(event.ts).toLocaleTimeString()}</span
-                >
+                  {new Date(event.ts).toLocaleTimeString()}
               </div>
               {#if event.data}
                 <div class:has-text-warning={event.level === "warning"}>
                   <div class="px-3">
                     <span>{@html event.data.text}</span>
                   </div>
+                </div>
+              {/if}
+              {#if process.env.isLocal}
+                <hr />
+
+                <div class="pb-6">
+                  <span
+                    class="tag is-large"
+                    class:is-info={event.emailSent}
+                    class:has-text-white={event.emailSent}
+                    >Email {#if event.emailSent}inviata{:else}NON inviata{/if}</span
+                  >
+
+                  <button
+                    type="button"
+                    class="button"
+                    on:click={() =>
+                      sendUpdateEmail(order.stripeSessionId, index)}
+                  >
+                    <span class="icon p-3"
+                      ><i class="material-symbols-outlined"> send </i></span
+                    >
+                  </button>
                 </div>
               {/if}
             </div>

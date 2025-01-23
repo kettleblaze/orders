@@ -11,6 +11,10 @@ const orderEventSchema = new Schema({
     enum: ["info", "warning", "danger", "success"],
     default: "info",
   },
+  emailSent: {
+    type: Boolean,
+    default: false,
+  },
   type: String,
   data: Object,
 });

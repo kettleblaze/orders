@@ -5,7 +5,7 @@ import mongoose from "mongoose";
 import nodemailer from "nodemailer";
 import fs from "node:fs";
 import path from "node:path";
-
+import mjml2html from 'mjml'
 import * as CloudTranslate from "@google-cloud/translate";
 const { Translate } = CloudTranslate.v2;
 
@@ -19,10 +19,11 @@ const confirmationEmailStrings = {
 };
 
 const updateOrderEmailStrings = {
-  title1: "Ordine Aggiornato",
-  intro1: "Gentile {CUSTOMER_NAME}, il tuo ordine è stato aggiornato:",
-  status_text: "Stato",
-  text1: "IL TUO ORDINE",
+  TITLE1: "Ordine Aggiornato",
+  INTRO1: "Gentile {CUSTOMER_NAME}, il tuo ordine è stato aggiornato:",
+  STATUS_TEXT: "Stato",
+  TEXT1: "IL TUO ORDINE",
+  TITLE2: "I nostri prodotti più amati"
 };
 
 async function connect() {
@@ -38,12 +39,12 @@ async function connect() {
   const emailType = process.argv[2] ? process.argv[2] : "confirmation";
 
   let sessionId =
-    "cs_live_b1p0xjZycuV10hEzReMANsRRdjnUSTXTp2sKPzkhzYfmIddGFMhpb0BsOI";
+    "cs_live_a1V3UwLySI67XFc6aYLo9Pv7N8KEjP3Q6rXKO2Kz7ftiSYp5Iz5Iv065o4";
   let lang = "en";
   let tplName =
     emailType === "confirmation"
-      ? "confirmation-email.html"
-      : "update-order-email.html";
+      ? "confirmation-email.mjml"
+      : "update-order-email.mjml";
 
   let emailStrings =
     emailType === "confirmation"
@@ -58,15 +59,15 @@ async function connect() {
   const o = await Order.findOne({ stripeSessionId: sessionId });
   await disconnect();
 
-  let [h1] = await translate.translate(emailStrings.title1, lang);
+  let [h1] = await translate.translate(emailStrings.TITLE1, lang);
   let [i1] = await translate.translate(
-    emailStrings.intro1.replace("{CUSTOMER_NAME}", o.customer.name),
+    emailStrings.INTRO1.replace("{CUSTOMER_NAME}", o.customer.name),
     lang
   );
 
-  let [t1] = await translate.translate(emailStrings.text1, lang);
+  let [t1] = await translate.translate(emailStrings.TEXT1, lang);
 
-  let [statusText] = await translate.translate(emailStrings.status_text, lang);
+  let [statusText] = await translate.translate(emailStrings.STATUS_TEXT, lang);
 
   let tpl = loadTpl(tplName);
   let compiled = tpl.replace("{INTRO1}", i1);
@@ -83,6 +84,9 @@ async function connect() {
       lang
     );
     compiled = compiled.replace("{EVENT_TEXT}", eventText);
+
+    let [h2] = await translate.translate(emailStrings.TITLE2, lang);
+    compiled = compiled.replace("{TITLE2}", h2);
   }
   compiled = compiled.replace("{STATUS_TEXT}", statusText);
   compiled = compiled.replace(
@@ -114,8 +118,8 @@ async function sendEmailTemplate(order, title, template) {
 
   const msg = {
     from: '"Kettleblaze" <kettleblaze@kettleblaze.store>',
-    // to: order.customer.email,
-    to: "kettleblaze@kettleblaze.store",
+    to: order.customer.email,
+    //to: "kettleblaze@kettleblaze.store",
     bcc: ["kettleblaze@kettleblaze.store"],
     subject: title,
     html: template,
@@ -127,5 +131,5 @@ async function sendEmailTemplate(order, title, template) {
 function loadTpl(name) {
   let p = path.resolve("script", name);
   const file = fs.readFileSync(p);
-  return file.toString("utf-8");
+  return mjml2html(file.toString("utf-8")).html
 }
