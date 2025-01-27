@@ -24,5 +24,6 @@
   "three-installments": "Tres cuotas mensuales sin interés",
   "start-date": "Fecha de inicio",
   "end-date": "Fecha de fin",
-  "installment-amount": "Monto de la cuota"
+  "installment-amount": "Monto de la cuota",
+  "color": "Color"
 }

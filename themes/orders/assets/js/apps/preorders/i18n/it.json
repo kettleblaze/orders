@@ -24,5 +24,6 @@
   "three-installments": "Tre rate mensili tasso zero",
   "start-date": "Data di inizio",
   "end-date": "Data di fine",
-  "installment-amount": "Importo della rata"
+  "installment-amount": "Importo della rata",
+  "color": "Colore"
 }

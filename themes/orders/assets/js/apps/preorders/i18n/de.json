@@ -24,5 +24,6 @@
   "three-installments": "Drei monatliche Raten ohne Zinsen",
   "start-date": "Anfangsdatum",
   "end-date": "Enddatum",
-  "installment-amount": "Ratenbetrag"
+  "installment-amount": "Ratenbetrag",
+  "color": "Farbe"
 }

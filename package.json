@@ -11,6 +11,9 @@
   "author": "Cristian Gabbanini",
   "license": "ISC",
   "dependencies": {
+    "@editorjs/editorjs": "^2.30.7",
+    "@editorjs/header": "^2.8.8",
+    "@editorjs/list": "^2.0.3",
     "@google-cloud/translate": "^8.5.0",
     "@rollup/plugin-json": "^6.1.0",
     "@rollup/plugin-node-resolve": "^16.0.0",

@@ -88,7 +88,7 @@ function createOrderId(unixTs) {
           (field) => field.key === "zerovibetype"
         );
         let type =
-          zerovibeType.dropdown?.value === "3x25cm"
+          zerovibeType?.dropdown?.value === "3x25cm"
             ? "3x2.5cm"
             : "1x5cm + 1x2.5cm";
         extras = [

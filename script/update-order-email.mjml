@@ -5,9 +5,9 @@
 
        
 <mj-text align="center" font-size="30px" font-weight="bold" color="#82c5bd">{TITLE1}</mj-text>
-        <mj-text align="center" color="#6a6a6a" line-height="1.5" font-size="18px">{INTRO1}</mj-text>
-        <mj-text padding-bottom="40px" align="center" color="#6a6a6a" line-height="1.5" font-style="italic" font-size="18px">"{EVENT_TEXT}"</mj-text>
-        <mj-text align="center" line-height="1.25" font-size="18px" color="#6a6a6a"><div>
+        <mj-text align="center" color="#6a6a6a" line-height="1.5" font-size="18px" padding-bottom="40px">{INTRO1}</mj-text>
+        <mj-text padding="40px 20px" container-background-color	="#fafafa" align="center" color="#6a6a6a" line-height="1.5" font-style="italic" font-size="18px">"{EVENT_TEXT}"</mj-text>
+        <mj-text padding-top="40px" align="center" line-height="1.25" font-size="18px" color="#6a6a6a"><div>
           ID: <span style="color:#82c5bd!important">{KETTLEBLAZE_ID}</span>
           </div>
         

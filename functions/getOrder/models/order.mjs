@@ -37,6 +37,11 @@ const orderSchema = new Schema(
       ],
       default: "ready",
     },
+    language: {
+      type: String,
+      enum: ["it", "en"],
+      default: "en",
+    },
     kettleblazeId: String,
     stripeSessionId: {
       type: String,

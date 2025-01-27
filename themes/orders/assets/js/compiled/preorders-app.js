@@ -3710,6 +3710,63 @@ var preOrdersApp = (function () {
 		}
 	}
 
+	/**
+	 * @param {any} bound_value
+	 * @param {Element} element_or_component
+	 * @returns {boolean}
+	 */
+	function is_bound_this(bound_value, element_or_component) {
+		return (
+			bound_value === element_or_component || bound_value?.[STATE_SYMBOL] === element_or_component
+		);
+	}
+
+	/**
+	 * @param {any} element_or_component
+	 * @param {(value: unknown, ...parts: unknown[]) => void} update
+	 * @param {(...parts: unknown[]) => unknown} get_value
+	 * @param {() => unknown[]} [get_parts] Set if the this binding is used inside an each block,
+	 * 										returns all the parts of the each block context that are used in the expression
+	 * @returns {void}
+	 */
+	function bind_this(element_or_component = {}, update, get_value, get_parts) {
+		effect(() => {
+			/** @type {unknown[]} */
+			var old_parts;
+
+			/** @type {unknown[]} */
+			var parts;
+
+			render_effect(() => {
+				old_parts = parts;
+				// We only track changes to the parts, not the value itself to avoid unnecessary reruns.
+				parts = get_parts?.() || [];
+
+				untrack(() => {
+					if (element_or_component !== get_value(...parts)) {
+						update(element_or_component, ...parts);
+						// If this is an effect rerun (cause: each block context changes), then nullfiy the binding at
+						// the previous position if it isn't already taken over by a different effect.
+						if (old_parts && is_bound_this(get_value(...old_parts), element_or_component)) {
+							update(null, ...old_parts);
+						}
+					}
+				});
+			});
+
+			return () => {
+				// We cannot use effects in the teardown phase, we we use a microtask instead.
+				queue_micro_task(() => {
+					if (parts && is_bound_this(get_value(...parts), element_or_component)) {
+						update(null, ...parts);
+					}
+				});
+			};
+		});
+
+		return element_or_component;
+	}
+
 	/** @import { StoreReferencesContainer } from '#client' */
 	/** @import { Store } from '#shared' */
 
@@ -3999,6 +4056,7 @@ var preOrdersApp = (function () {
 	var update$4 = "Update";
 	var type$4 = "Type";
 	var size$4 = "Size";
+	var color$4 = "Color";
 	var en = {
 		"order-summary": "Order Summary",
 		"order-details": "Order Details",
@@ -4025,7 +4083,8 @@ var preOrdersApp = (function () {
 		"three-installments": "Three monthly installments at zero interest",
 		"start-date": "Start date",
 		"end-date": "End date",
-		"installment-amount": "Installment amount"
+		"installment-amount": "Installment amount",
+		color: color$4
 	};
 
 	var history$3 = "Storico";
@@ -4036,6 +4095,7 @@ var preOrdersApp = (function () {
 	var update$3 = "Aggiorna";
 	var type$3 = "Tipo";
 	var size$3 = "Taglia";
+	var color$3 = "Colore";
 	var it = {
 		"order-summary": "Riepilogo Ordine",
 		"order-details": "Dettagli Ordine",
@@ -4062,7 +4122,8 @@ var preOrdersApp = (function () {
 		"three-installments": "Tre rate mensili tasso zero",
 		"start-date": "Data di inizio",
 		"end-date": "Data di fine",
-		"installment-amount": "Importo della rata"
+		"installment-amount": "Importo della rata",
+		color: color$3
 	};
 
 	var history$2 = "Historial";
@@ -4073,6 +4134,7 @@ var preOrdersApp = (function () {
 	var update$2 = "Actualizar";
 	var type$2 = "Tipo";
 	var size$2 = "Talla";
+	var color$2 = "Color";
 	var es = {
 		"order-summary": "Resumen del Pedido",
 		"order-details": "Detalles del Pedido",
@@ -4099,7 +4161,8 @@ var preOrdersApp = (function () {
 		"three-installments": "Tres cuotas mensuales sin interés",
 		"start-date": "Fecha de inicio",
 		"end-date": "Fecha de fin",
-		"installment-amount": "Monto de la cuota"
+		"installment-amount": "Monto de la cuota",
+		color: color$2
 	};
 
 	var history$1 = "Verlauf";
@@ -4110,6 +4173,7 @@ var preOrdersApp = (function () {
 	var update$1 = "Aktualisieren";
 	var type$1 = "Typ";
 	var size$1 = "Größe";
+	var color$1 = "Farbe";
 	var de = {
 		"order-summary": "Bestellübersicht",
 		"order-details": "Bestelldetails",
@@ -4136,7 +4200,8 @@ var preOrdersApp = (function () {
 		"three-installments": "Drei monatliche Raten ohne Zinsen",
 		"start-date": "Anfangsdatum",
 		"end-date": "Enddatum",
-		"installment-amount": "Ratenbetrag"
+		"installment-amount": "Ratenbetrag",
+		color: color$1
 	};
 
 	var history = "Historique";
@@ -4147,6 +4212,7 @@ var preOrdersApp = (function () {
 	var update = "Mettre à jour";
 	var type = "Type";
 	var size = "Taille";
+	var color = "Couleur";
 	var fr = {
 		"order-summary": "Résumé de la Commande",
 		"order-details": "Détails de la Commande",
@@ -4173,7 +4239,8 @@ var preOrdersApp = (function () {
 		"three-installments": "Trois versements mensuels à taux zéro",
 		"start-date": "Date de début",
 		"end-date": "Date de fin",
-		"installment-amount": "Montant de l'échéance"
+		"installment-amount": "Montant de l'échéance",
+		color: color
 	};
 
 	const languages = {
@@ -4218,10 +4285,11 @@ var preOrdersApp = (function () {
 	var root_22 = template(`<ul><li> </li> <li> </li> <li> </li> <li> </li></ul>`);
 	var root_25 = template(`<li>- <a class="is-underlined" target="_blank"></a></li>`);
 	var root_24 = template(`<div class="mt-5"><div><span> </span></div> <div class="px-3"><span class="my-0">Tracking information</span> <div class="px-3 py-4"><ul><li> </li> <li> </li> <!></ul></div></div></div>`);
-	var root_27 = template(`<div><div class="px-3"><span><!></span></div></div>`);
-	var root_26 = template(`<div class="mt-5"><div><span> </span></div> <!></div>`);
-	var root_28 = template(`<form class="form"><label class="label" for="">Level</label> <div class="select is-info mb-4"><select><option>info</option><option>warning</option><option>danger</option><option>success</option></select></div> <label class="label" for="">Type</label> <div class="select is-info mb-4"><select><option>Update</option><option>Tracking info</option></select></div> <label class="label" for="">Message</label> <textarea class="textarea is-info"></textarea> <button class="button is-info has-text-white mt-6" type="button">Add event</button></form>`);
-	var root_5 = template(`<div class="columns"><div class="column"><h2 class="title mt-6 px-5"> </h2> <div class="box"><!></div></div> <div class="column px-6"><div class="mt-6"><h2 class="title"> </h2> <ul><li> </li> <li> </li> <!></ul> <h2 class="title mt-6"> </h2> <!> <h2 class="title mt-6"> </h2> <ul><li> </li> <li><!></li> <li> </li></ul> <h2 class="title mt-6"> </h2> <!></div> <div id="history" class="my-6"><h2 class="title pt-2"> </h2> <!></div> <!></div></div>`);
+	var root_27 = template(`<div><div class="px-3"><span><!></span> <textarea class="textarea"></textarea></div></div>`);
+	var root_28 = template(`<hr> <div class="pb-6"><span class="tag is-large">Email <!></span> <button type="button" class="button"><span class="icon p-3"><i class="material-symbols-outlined">send</i></span></button> <button type="button" class="button"><span class="icon p-3"><i class="material-symbols-outlined"><!></i></span></button></div>`, 1);
+	var root_26 = template(`<div class="mt-5"><div><span> </span></div> <!> <!></div>`);
+	var root_33 = template(`<form class="form"><label class="label" for="">Level</label> <div class="select is-info mb-4"><select><option>info</option><option>warning</option><option>danger</option><option>success</option></select></div> <label class="label" for="">Type</label> <div class="select is-info mb-4"><select><option>Update</option><option>Tracking info</option></select></div> <label class="label" for="">Message</label> <textarea class="textarea is-info"></textarea> <button class="button is-info has-text-white mt-6" type="button">Add event</button></form>`);
+	var root_5 = template(`<div class="columns"><div class="column is-half"><h2 class="title mt-6 px-5"> </h2> <div class="box"><!></div></div> <div class="column px-6"><div class="mt-6"><h2 class="title"> </h2> <ul><li> </li> <li> </li> <!></ul> <h2 class="title mt-6"> </h2> <!> <h2 class="title mt-6"> </h2> <ul><li> </li> <li><!></li> <li> </li></ul> <h2 class="title mt-6"> </h2> <!></div> <div id="history" class="my-6"><h2 class="title pt-2"> </h2> <!></div> <!></div></div>`);
 
 	function PreOrder($$anchor, $$props) {
 		push($$props, true);
@@ -4234,9 +4302,15 @@ var preOrdersApp = (function () {
 		let errorOrNotFound = state(false);
 		let event$1 = proxy({});
 		let orderStatus = state(proxy({}));
+		let openEditors = proxy({});
+		let editors = proxy({});
 
 		function ucfirst(str) {
-			return str[0].toUpperCase() + str.substring(1, str.length);
+			if (typeof str === "String") {
+				return str[0].toUpperCase() + str.substring(1, str.length);
+			}
+
+			return str;
 		}
 
 		const trackingLinks = {
@@ -4261,6 +4335,17 @@ var preOrdersApp = (function () {
 				});
 
 				set(order, proxy(get(order)));
+				updateOrder();
+			}
+		}
+
+		function switchEditor(index) {
+			if (openEditors[index] !== true) {
+				openEditors[index] = true;
+				editors[index].value = get(order).events[index].data.text;
+			} else {
+				get(order).events[index].data.text = editors[index].value;
+				openEditors[index] = false;
 				updateOrder();
 			}
 		}
@@ -4327,6 +4412,20 @@ var preOrdersApp = (function () {
 				price: sum,
 				currency: order.shippingCost?.currency || "EUR"
 			});
+		}
+
+		async function sendUpdateEmail(stripeSessionId, eventIndex) {
+			if (confirm("Vuoi inviare la mail di aggiornamento?")) {
+				getPreferredLanguage();
+
+				await fetch(`http://localhost:8080/send-update-email/${stripeSessionId}/${eventIndex}/`, { method: "GET" }).then((r) => {
+					if (r.ok) {
+						alert("Email inviata");
+					} else {
+						alert("Errore invio email");
+					}
+				});
+			}
 		}
 
 		async function getOrder() {
@@ -4408,12 +4507,12 @@ var preOrdersApp = (function () {
 				append($$anchor, fragment_1);
 			};
 
-			var alternate_6 = ($$anchor) => {
+			var alternate_8 = ($$anchor) => {
 				var fragment_2 = comment();
 				var node_2 = first_child(fragment_2);
 
 				{
-					var consequent_16 = ($$anchor) => {
+					var consequent_19 = ($$anchor) => {
 						var div_1 = root_5();
 						var div_2 = child(div_1);
 						var h2 = child(div_2);
@@ -4866,9 +4965,9 @@ var preOrdersApp = (function () {
 						template_effect(() => set_text(text_41, t("history")));
 
 						var node_15 = sibling(h2_6, 2);
-						const $$array = () => get(order).events;
+						const $$array_1 = () => get(order).events;
 
-						each(node_15, 17, $$array, index, ($$anchor, event) => {
+						each(node_15, 17, $$array_1, index, ($$anchor, event$1, index$1) => {
 							var fragment_7 = comment();
 							var node_16 = first_child(fragment_7);
 
@@ -4877,8 +4976,8 @@ var preOrdersApp = (function () {
 									var div_20 = root_24();
 									var div_21 = child(div_20);
 									var span = child(div_21);
-									const stringified_text_12 = derived(() => new Date(get(event).ts).toLocaleDateString() ?? "");
-									const stringified_text_13 = derived(() => new Date(get(event).ts).toLocaleTimeString() ?? "");
+									const stringified_text_12 = derived(() => new Date(get(event$1).ts).toLocaleDateString() ?? "");
+									const stringified_text_13 = derived(() => new Date(get(event$1).ts).toLocaleTimeString() ?? "");
 									var text_42 = child(span);
 
 									template_effect(() => set_text(text_42, `• ${get(stringified_text_12)}
@@ -4894,31 +4993,32 @@ var preOrdersApp = (function () {
 									var text_44 = child(li_24);
 
 									var node_17 = sibling(li_24, 2);
+									const $$array = () => get(event$1).data.parcels;
 
-									each(node_17, 17, () => get(event).data.parcels, index, ($$anchor, parcel, index) => {
+									each(node_17, 17, $$array, index, ($$anchor, parcel, index) => {
 										var li_25 = root_25();
 										var a = sibling(child(li_25));
 
-										template_effect(() => set_attribute(a, "href", trackingLinks[get(event).data.courier.toLowerCase()].replace("PARCELNUM", get(parcel))));
+										template_effect(() => set_attribute(a, "href", trackingLinks[get(event$1).data.courier.toLowerCase()].replace("PARCELNUM", get(parcel))));
 										a.textContent = `Parcel ${index + 1 ?? ""} tracking`;
 										append($$anchor, li_25);
 									});
 
 									template_effect(() => {
-										set_class(span, `has-text-${get(event).level ?? ""}`);
-										set_text(text_43, `Courier: ${get(event).data.courier ?? ""}`);
-										set_text(text_44, `Parcels: ${get(event).data.parcels.length ?? ""}`);
+										set_class(span, `has-text-${get(event$1).level ?? ""}`);
+										set_text(text_43, `Courier: ${get(event$1).data.courier ?? ""}`);
+										set_text(text_44, `Parcels: ${get(event$1).data.parcels.length ?? ""}`);
 									});
 
 									append($$anchor, div_20);
 								};
 
-								var alternate_5 = ($$anchor) => {
+								var alternate_7 = ($$anchor) => {
 									var div_24 = root_26();
 									var div_25 = child(div_24);
 									var span_1 = child(div_25);
-									const stringified_text_14 = derived(() => new Date(get(event).ts).toLocaleDateString() ?? "");
-									const stringified_text_15 = derived(() => new Date(get(event).ts).toLocaleTimeString() ?? "");
+									const stringified_text_14 = derived(() => new Date(get(event$1).ts).toLocaleDateString() ?? "");
+									const stringified_text_15 = derived(() => new Date(get(event$1).ts).toLocaleTimeString() ?? "");
 									var text_45 = child(span_1);
 
 									template_effect(() => set_text(text_45, `• ${get(stringified_text_14)}
@@ -4931,36 +5031,117 @@ var preOrdersApp = (function () {
 											var div_26 = root_27();
 											var div_27 = child(div_26);
 											var span_2 = child(div_27);
+
+											set_attribute(span_2, "id", `event-${index$1}`);
+
 											var node_19 = child(span_2);
 
-											html(node_19, () => get(event).data.text);
-											template_effect(() => toggle_class(div_26, "has-text-warning", get(event).level === "warning"));
+											html(node_19, () => get(event$1).data.text);
+
+											var textarea = sibling(span_2, 2);
+
+											set_attribute(textarea, "name", `editor-${index$1 ?? ""}`);
+											set_attribute(textarea, "id", `edit-event-${index$1 ?? ""}`);
+											bind_this(textarea, ($$value, index) => editors[index] = $$value, (index) => editors?.[index], () => [index$1]);
+
+											template_effect(() => {
+												toggle_class(div_26, "has-text-warning", get(event$1).level === "warning");
+												toggle_class(span_2, "is-hidden", openEditors[index$1] === true);
+												toggle_class(textarea, "is-hidden", openEditors[index$1] !== true);
+											});
+
 											append($$anchor, div_26);
 										};
 
 										if_block(node_18, ($$render) => {
-											if (get(event).data) $$render(consequent_14);
+											if (get(event$1).data) $$render(consequent_14);
 										});
 									}
-									template_effect(() => set_class(span_1, `has-text-${get(event).level ?? ""}`));
+
+									var node_20 = sibling(node_18, 2);
+
+									{
+										var consequent_17 = ($$anchor) => {
+											var fragment_8 = root_28();
+											var div_28 = sibling(first_child(fragment_8), 2);
+											var span_3 = child(div_28);
+											var node_21 = sibling(child(span_3));
+
+											{
+												var consequent_15 = ($$anchor) => {
+													var text_46 = text("inviata");
+
+													append($$anchor, text_46);
+												};
+
+												var alternate_5 = ($$anchor) => {
+													var text_47 = text("NON inviata");
+
+													append($$anchor, text_47);
+												};
+
+												if_block(node_21, ($$render) => {
+													if (get(event$1).emailSent) $$render(consequent_15); else $$render(alternate_5, false);
+												});
+											}
+
+											var button_2 = sibling(span_3, 2);
+											var button_3 = sibling(button_2, 2);
+											var span_4 = child(button_3);
+											var i = child(span_4);
+											var node_22 = child(i);
+
+											{
+												var consequent_16 = ($$anchor) => {
+													var text_48 = text("edit");
+
+													append($$anchor, text_48);
+												};
+
+												var alternate_6 = ($$anchor) => {
+													var text_49 = text("close");
+
+													append($$anchor, text_49);
+												};
+
+												if_block(node_22, ($$render) => {
+													if (!openEditors[index$1]) $$render(consequent_16); else $$render(alternate_6, false);
+												});
+											}
+
+											template_effect(() => {
+												toggle_class(span_3, "is-info", get(event$1).emailSent);
+												toggle_class(span_3, "has-text-white", get(event$1).emailSent);
+											});
+
+											event("click", button_2, () => sendUpdateEmail(get(order).stripeSessionId, index$1));
+											event("click", button_3, () => switchEditor(index$1));
+											append($$anchor, fragment_8);
+										};
+
+										if_block(node_20, ($$render) => {
+											$$render(consequent_17);
+										});
+									}
+									template_effect(() => set_class(span_1, `has-text-${get(event$1).level ?? ""}`));
 									append($$anchor, div_24);
 								};
 
 								if_block(node_16, ($$render) => {
-									if (get(event).type === "tracking-info") $$render(consequent_13); else $$render(alternate_5, false);
+									if (get(event$1).type === "tracking-info") $$render(consequent_13); else $$render(alternate_7, false);
 								});
 							}
 
 							append($$anchor, fragment_7);
 						});
 
-						var node_20 = sibling(div_19, 2);
+						var node_23 = sibling(div_19, 2);
 
 						{
-							var consequent_15 = ($$anchor) => {
-								var form_2 = root_28();
-								var div_28 = sibling(child(form_2), 2);
-								var select_1 = child(div_28);
+							var consequent_18 = ($$anchor) => {
+								var form_2 = root_33();
+								var div_29 = sibling(child(form_2), 2);
+								var select_1 = child(div_29);
 								var option_5 = child(select_1);
 
 								option_5.value = null == (option_5.__value = "info") ? "" : "info";
@@ -4977,8 +5158,8 @@ var preOrdersApp = (function () {
 
 								option_8.value = null == (option_8.__value = "success") ? "" : "success";
 
-								var div_29 = sibling(div_28, 4);
-								var select_2 = child(div_29);
+								var div_30 = sibling(div_29, 4);
+								var select_2 = child(div_30);
 								var option_9 = child(select_2);
 
 								option_9.value = null == (option_9.__value = "update") ? "" : "update";
@@ -4987,18 +5168,18 @@ var preOrdersApp = (function () {
 
 								option_10.value = null == (option_10.__value = "tracking-info") ? "" : "tracking-info";
 
-								var textarea = sibling(div_29, 4);
+								var textarea_1 = sibling(div_30, 4);
 
-								var button_2 = sibling(textarea, 2);
+								var button_4 = sibling(textarea_1, 2);
 								bind_select_value(select_1, () => event$1.level, ($$value) => event$1.level = $$value);
 								bind_select_value(select_2, () => event$1.type, ($$value) => event$1.type = $$value);
-								bind_value(textarea, () => event$1.text, ($$value) => event$1.text = $$value);
-								event("click", button_2, addEvent);
+								bind_value(textarea_1, () => event$1.text, ($$value) => event$1.text = $$value);
+								event("click", button_4, addEvent);
 								append($$anchor, form_2);
 							};
 
-							if_block(node_20, ($$render) => {
-								$$render(consequent_15);
+							if_block(node_23, ($$render) => {
+								$$render(consequent_18);
 							});
 						}
 
@@ -5013,7 +5194,7 @@ var preOrdersApp = (function () {
 					if_block(
 						node_2,
 						($$render) => {
-							if (get(order)) $$render(consequent_16);
+							if (get(order)) $$render(consequent_19);
 						},
 						true
 					);
@@ -5023,7 +5204,7 @@ var preOrdersApp = (function () {
 			};
 
 			if_block(node, ($$render) => {
-				if (!get(order)) $$render(consequent_1); else $$render(alternate_6, false);
+				if (!get(order)) $$render(consequent_1); else $$render(alternate_8, false);
 			});
 		}
 

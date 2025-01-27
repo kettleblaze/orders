@@ -10,8 +10,15 @@
   let errorOrNotFound = $state(false);
   let event = $state({});
   let orderStatus = $state({});
+
+  let openEditors = $state({});
+  let editors = $state({});
+
   function ucfirst(str) {
-    return str[0].toUpperCase() + str.substring(1, str.length);
+    if (typeof str === "String") {
+      return str[0].toUpperCase() + str.substring(1, str.length);
+    }
+    return str;
   }
 
   const trackingLinks = {
@@ -35,6 +42,17 @@
         data: { text: event.text },
       });
       order = order;
+      updateOrder();
+    }
+  }
+
+  function switchEditor(index) {
+    if (openEditors[index] !== true) {
+      openEditors[index] = true;
+      editors[index].value = order.events[index].data.text;
+    } else {
+      order.events[index].data.text = editors[index].value;
+      openEditors[index] = false;
       updateOrder();
     }
   }
@@ -105,7 +123,7 @@
 
   function timeZoneDifferenceToGMT(d) {
     let offset = d.getTimezoneOffset();
-    console.log(d.toString())
+    console.log(d.toString());
     return `GMT${offset < 0 ? "+" : "-"}${(offset / 60) * -1}`;
   }
 
@@ -113,7 +131,7 @@
     if (confirm("Vuoi inviare la mail di aggiornamento?")) {
       const lang = getPreferredLanguage();
       const o = await fetch(
-        `process.env.storeServer/send-update-email/${stripeSessionId}/${eventIndex}/${lang}`,
+        `process.env.storeServer/send-update-email/${stripeSessionId}/${eventIndex}/`,
         { method: "GET" }
       ).then((r) => {
         if (r.ok) {
@@ -477,11 +495,23 @@
                 <span class="has-text-{event.level}"
                   >• {new Date(event.ts).toLocaleDateString()}
                   {new Date(event.ts).toLocaleTimeString()}
+                </span>
               </div>
               {#if event.data}
                 <div class:has-text-warning={event.level === "warning"}>
                   <div class="px-3">
-                    <span>{@html event.data.text}</span>
+                    <span
+                      id={`event-${index}`}
+                      class:is-hidden={openEditors[index] === true}
+                      >{@html event.data.text}</span
+                    >
+                    <textarea
+                      class="textarea"
+                      class:is-hidden={openEditors[index] !== true}
+                      bind:this={editors[index]}
+                      name="editor-{index}"
+                      id="edit-event-{index}"
+                    ></textarea>
                   </div>
                 </div>
               {/if}
@@ -504,6 +534,17 @@
                   >
                     <span class="icon p-3"
                       ><i class="material-symbols-outlined"> send </i></span
+                    >
+                  </button>
+                  <button
+                    type="button"
+                    class="button"
+                    on:click={() => switchEditor(index)}
+                  >
+                    <span class="icon p-3"
+                      ><i class="material-symbols-outlined">
+                        {#if !openEditors[index]}edit{:else}close{/if}
+                      </i></span
                     >
                   </button>
                 </div>

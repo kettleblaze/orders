@@ -24,5 +24,6 @@
   "three-installments": "Trois versements mensuels à taux zéro",
   "start-date": "Date de début",
   "end-date": "Date de fin",
-  "installment-amount": "Montant de l'échéance"
+  "installment-amount": "Montant de l'échéance",
+  "color": "Couleur"
 }

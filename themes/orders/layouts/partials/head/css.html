@@ -1,16 +1,19 @@
-{{/*}}
-{{- with resources.Get "css/main.css" }}
-  {{- if eq hugo.Environment "development" }}
-    <link rel="stylesheet" href="{{ .RelPermalink }}">
-  {{- else }}
-    {{- with . | minify | fingerprint }}
-      <link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous">
-    {{- end }}
-  {{- end }}
-{{- end }}
-{{*/}}
-{{ $opts := dict "transpiler" "dartsass" }}
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+{{/*}} {{- with resources.Get "css/main.css" }} {{- if eq hugo.Environment
+"development" }}
+<link rel="stylesheet" href="{{ .RelPermalink }}" />
+{{- else }} {{- with . | minify | fingerprint }}
+<link
+  rel="stylesheet"
+  href="{{ .RelPermalink }}"
+  integrity="{{ .Data.Integrity }}"
+  crossorigin="anonymous"
+/>
+{{- end }} {{- end }} {{- end }} {{*/}} {{ $opts := dict "transpiler" "dartsass"
+}}
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+/>
 {{- with resources.Get "scss/main.scss" | toCSS $opts | minify}}
-  <link rel="stylesheet" href="{{ .RelPermalink }}">
+<link rel="stylesheet" href="{{ .RelPermalink }}" />
 {{- end }}
