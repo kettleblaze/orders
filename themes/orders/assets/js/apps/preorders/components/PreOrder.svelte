@@ -459,62 +459,38 @@
       <div id="history" class="my-6">
         <h2 class="title pt-2">{T("history")}</h2>
         {#each order.events as event, index}
-          {#if event.type === "tracking-info"}
-            <div class="mt-5">
-              <div>
-                <span class="has-text-{event.level}"
-                  >• {new Date(event.ts).toLocaleDateString()}
-                  {new Date(event.ts).toLocaleTimeString()}</span
-                >
-              </div>
-              <div class="px-3">
-                <span class="my-0">Tracking information</span>
-                <div class="px-3 py-4">
-                  <ul>
-                    <li>Courier: {event.data.courier}</li>
-                    <li>Parcels: {event.data.parcels.length}</li>
-                    {#each event.data.parcels as parcel, index}
-                      <li>
-                        - <a
-                          class="is-underlined"
-                          target="_blank"
-                          href={trackingLinks[
-                            event.data.courier.toLowerCase()
-                          ].replace("PARCELNUM", parcel)}
-                          >Parcel {index + 1} tracking</a
-                        >
-                      </li>
-                    {/each}
-                  </ul>
-                </div>
-              </div>
+          <div
+            class="mt-5"
+            class:is-tracking={event.type === "tracking-info"}
+            class:pt-4={event.type === "tracking-info"}
+          >
+            {#if event.type === "tracking-info"}
+              <h3 class="has-text-info title is-size-3">Tracking</h3>
+            {/if}
+            <div>
+              <span class="has-text-{event.level}"
+                >• {new Date(event.ts).toLocaleDateString()}
+                {new Date(event.ts).toLocaleTimeString()}
+              </span>
             </div>
-          {:else}
-            <div class="mt-5">
-              <div>
-                <span class="has-text-{event.level}"
-                  >• {new Date(event.ts).toLocaleDateString()}
-                  {new Date(event.ts).toLocaleTimeString()}
-                </span>
-              </div>
-              {#if event.data}
-                <div class:has-text-warning={event.level === "warning"}>
-                  <div class="px-3">
-                    <span
-                      id={`event-${index}`}
-                      class:is-hidden={openEditors[index] === true}
-                      >{@html event.data.text}</span
-                    >
-                    <textarea
-                      class="textarea"
-                      class:is-hidden={openEditors[index] !== true}
-                      bind:this={editors[index]}
-                      name="editor-{index}"
-                      id="edit-event-{index}"
-                    ></textarea>
-                  </div>
+            {#if event.data}
+              <div class:has-text-warning={event.level === "warning"}>
+                <div class="px-3">
+                  <span
+                    id={`event-${index}`}
+                    class:is-hidden={openEditors[index] === true}
+                    >{@html event.data.text}</span
+                  >
+                  <textarea
+                    class="textarea"
+                    class:is-hidden={openEditors[index] !== true}
+                    bind:this={editors[index]}
+                    name="editor-{index}"
+                    id="edit-event-{index}"
+                  ></textarea>
                 </div>
-              {/if}
+              </div>
+
               {#if process.env.isLocal}
                 <hr />
 
@@ -549,8 +525,8 @@
                   </button>
                 </div>
               {/if}
-            </div>
-          {/if}
+            {/if}
+          </div>
         {/each}
       </div>
       {#if process.env.isLocal}

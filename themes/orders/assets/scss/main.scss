@@ -94,3 +94,8 @@ $beige-lighter: #eff0eb;
     transform: rotate(360deg);
   }
 }
+
+.is-tracking {
+  border-top: 8px solid
+    hsl(var(--bulma-info-h), var(--bulma-info-s), var(--bulma-info-l)) !important;
+}
