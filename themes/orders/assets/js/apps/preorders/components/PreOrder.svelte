@@ -14,6 +14,8 @@
   let openEditors = $state({});
   let editors = $state({});
 
+  let tracking = $state({ courier: "ups", parcels: [] });
+
   function ucfirst(str) {
     if (typeof str === "String") {
       return str[0].toUpperCase() + str.substring(1, str.length);
@@ -34,6 +36,18 @@
   }
 
   function addEvent() {
+    if (event.type === "tracking-info") {
+      let parcels = tracking.parcels.filter((v) => v.length > 0);
+      let tpl = `Corriere: ${tracking.courier.toUpperCase()}<br> Pacchi: ${parcels.length}<br><ul>${parcels
+        .map((parcel, index) => {
+          let pattern = /(?:tracknum=)(\w+)&/gim;
+          let matches = pattern.exec(parcel);
+
+          return `<li><a href="${parcel}" target="_blank">Pacco ${index + 1}: ${matches[1]} </a></li>`;
+        })
+        .join("")}</ul>`;
+      event.text = tpl;
+    }
     if (event.text && event.text.length > 0) {
       order.events.push({
         ts: Date.now(),
@@ -108,7 +122,7 @@
     let sum = 0;
     for (let product of order.products) {
       if (product.price) {
-        sum = sum + product.price;
+        sum = sum + product.quantity * product.price;
       }
     }
     if (order.shippingCost) {
@@ -547,6 +561,45 @@
               <option value="tracking-info">Tracking info</option>
             </select>
           </div>
+          {#if event.type === "tracking-info"}
+            <label class="label" for="">Courier</label>
+            <div class="select is-info mb-4">
+              <select bind:value={tracking.courier}>
+                <option value="ups" selected={tracking.courier === "ups"}
+                  >UPS</option
+                >
+                <option value="brt" selected={tracking.courier === "brr"}
+                  >BRT</option
+                >
+                <option value="dpd" selected={tracking.courier === "dpd"}
+                  >DPD</option
+                >
+              </select>
+            </div>
+            <div class="mb-5">
+              <label class="label" for="">Parcels</label>
+              <input
+                type="text"
+                class="input mt-3"
+                bind:value={tracking.parcels[0]}
+              />
+              <input
+                type="text"
+                class="input mt-3"
+                bind:value={tracking.parcels[1]}
+              />
+              <input
+                type="text"
+                class="input mt-3"
+                bind:value={tracking.parcels[2]}
+              />
+              <input
+                type="text"
+                class="input mt-3"
+                bind:value={tracking.parcels[3]}
+              />
+            </div>
+          {/if}
           <label class="label" for="">Message</label>
           <textarea class="textarea is-info" bind:value={event.text}></textarea>
           <button

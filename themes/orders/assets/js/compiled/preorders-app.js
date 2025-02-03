@@ -4287,7 +4287,8 @@ var preOrdersApp = (function () {
 	var root_26 = template(`<hr> <div class="pb-6"><span class="tag is-large">Email <!></span> <button type="button" class="button"><span class="icon p-3"><i class="material-symbols-outlined">send</i></span></button> <button type="button" class="button"><span class="icon p-3"><i class="material-symbols-outlined"><!></i></span></button></div>`, 1);
 	var root_25 = template(`<div><div class="px-3"><span><!></span> <textarea class="textarea"></textarea></div></div> <!>`, 1);
 	var root_23 = template(`<div class="mt-5"><!> <div><span> </span></div> <!></div>`);
-	var root_31 = template(`<form class="form"><label class="label" for="">Level</label> <div class="select is-info mb-4"><select><option>info</option><option>warning</option><option>danger</option><option>success</option></select></div> <label class="label" for="">Type</label> <div class="select is-info mb-4"><select><option>Update</option><option>Tracking info</option></select></div> <label class="label" for="">Message</label> <textarea class="textarea is-info"></textarea> <button class="button is-info has-text-white mt-6" type="button">Add event</button></form>`);
+	var root_32 = template(`<label class="label" for="">Courier</label> <div class="select is-info mb-4"><select><option>UPS</option><option>BRT</option><option>DPD</option></select></div> <div class="mb-5"><label class="label" for="">Parcels</label> <input type="text" class="input mt-3"> <input type="text" class="input mt-3"> <input type="text" class="input mt-3"> <input type="text" class="input mt-3"></div>`, 1);
+	var root_31 = template(`<form class="form"><label class="label" for="">Level</label> <div class="select is-info mb-4"><select><option>info</option><option>warning</option><option>danger</option><option>success</option></select></div> <label class="label" for="">Type</label> <div class="select is-info mb-4"><select><option>Update</option><option>Tracking info</option></select></div> <!> <label class="label" for="">Message</label> <textarea class="textarea is-info"></textarea> <button class="button is-info has-text-white mt-6" type="button">Add event</button></form>`);
 	var root_5 = template(`<div class="columns"><div class="column is-half"><h2 class="title mt-6 px-5"> </h2> <div class="box"><!></div></div> <div class="column px-6"><div class="mt-6"><h2 class="title"> </h2> <ul><li> </li> <li> </li> <!></ul> <h2 class="title mt-6"> </h2> <!> <h2 class="title mt-6"> </h2> <ul><li> </li> <li><!></li> <li> </li></ul> <h2 class="title mt-6"> </h2> <!></div> <div id="history" class="my-6"><h2 class="title pt-2"> </h2> <!></div> <!></div></div>`);
 
 	function PreOrder($$anchor, $$props) {
@@ -4303,6 +4304,7 @@ var preOrdersApp = (function () {
 		let orderStatus = state(proxy({}));
 		let openEditors = proxy({});
 		let editors = proxy({});
+		let tracking = proxy({ courier: "ups", parcels: [] });
 
 		function ucfirst(str) {
 			if (typeof str === "String") {
@@ -4321,6 +4323,19 @@ var preOrdersApp = (function () {
 		}
 
 		function addEvent() {
+			if (event$1.type === "tracking-info") {
+				let parcels = tracking.parcels.filter((v) => v.length > 0);
+
+				let tpl = `Corriere: ${tracking.courier.toUpperCase()}<br> Pacchi: ${parcels.length}<br><ul>${parcels.map((parcel, index) => {
+				let pattern = /(?:tracknum=)(\w+)&/gim;
+				let matches = pattern.exec(parcel);
+
+				return `<li><a href="${parcel}" target="_blank">Pacco ${index + 1}: ${matches[1]} </a></li>`;
+			}).join("")}</ul>`;
+
+				event$1.text = tpl;
+			}
+
 			if (event$1.text && event$1.text.length > 0) {
 				get(order).events.push({
 					ts: Date.now(),
@@ -4395,7 +4410,7 @@ var preOrdersApp = (function () {
 
 			for (let product of order.products) {
 				if (product.price) {
-					sum = sum + product.price;
+					sum = sum + product.quantity * product.price;
 				}
 			}
 
@@ -4507,7 +4522,7 @@ var preOrdersApp = (function () {
 				var node_2 = first_child(fragment_2);
 
 				{
-					var consequent_19 = ($$anchor) => {
+					var consequent_20 = ($$anchor) => {
 						var div_1 = root_5();
 						var div_2 = child(div_1);
 						var h2 = child(div_2);
@@ -5100,7 +5115,7 @@ var preOrdersApp = (function () {
 						var node_22 = sibling(div_19, 2);
 
 						{
-							var consequent_18 = ($$anchor) => {
+							var consequent_19 = ($$anchor) => {
 								var form_2 = root_31();
 								var div_25 = sibling(child(form_2), 2);
 								var select_1 = child(div_25);
@@ -5130,7 +5145,54 @@ var preOrdersApp = (function () {
 
 								option_10.value = null == (option_10.__value = "tracking-info") ? "" : "tracking-info";
 
-								var textarea_1 = sibling(div_26, 4);
+								var node_23 = sibling(div_26, 2);
+
+								{
+									var consequent_18 = ($$anchor) => {
+										var fragment_9 = root_32();
+										var div_27 = sibling(first_child(fragment_9), 2);
+										var select_3 = child(div_27);
+										var option_11 = child(select_3);
+
+										option_11.value = null == (option_11.__value = "ups") ? "" : "ups";
+
+										var option_12 = sibling(option_11);
+
+										option_12.value = null == (option_12.__value = "brt") ? "" : "brt";
+
+										var option_13 = sibling(option_12);
+
+										option_13.value = null == (option_13.__value = "dpd") ? "" : "dpd";
+
+										var div_28 = sibling(div_27, 2);
+										var input_2 = sibling(child(div_28), 2);
+
+										var input_3 = sibling(input_2, 2);
+
+										var input_4 = sibling(input_3, 2);
+
+										var input_5 = sibling(input_4, 2);
+
+										template_effect(() => {
+											set_selected(option_11, tracking.courier === "ups");
+											set_selected(option_12, tracking.courier === "brr");
+											set_selected(option_13, tracking.courier === "dpd");
+										});
+
+										bind_select_value(select_3, () => tracking.courier, ($$value) => tracking.courier = $$value);
+										bind_value(input_2, () => tracking.parcels[0], ($$value) => tracking.parcels[0] = $$value);
+										bind_value(input_3, () => tracking.parcels[1], ($$value) => tracking.parcels[1] = $$value);
+										bind_value(input_4, () => tracking.parcels[2], ($$value) => tracking.parcels[2] = $$value);
+										bind_value(input_5, () => tracking.parcels[3], ($$value) => tracking.parcels[3] = $$value);
+										append($$anchor, fragment_9);
+									};
+
+									if_block(node_23, ($$render) => {
+										if (event$1.type === "tracking-info") $$render(consequent_18);
+									});
+								}
+
+								var textarea_1 = sibling(node_23, 4);
 
 								var button_4 = sibling(textarea_1, 2);
 								bind_select_value(select_1, () => event$1.level, ($$value) => event$1.level = $$value);
@@ -5141,7 +5203,7 @@ var preOrdersApp = (function () {
 							};
 
 							if_block(node_22, ($$render) => {
-								$$render(consequent_18);
+								$$render(consequent_19);
 							});
 						}
 
@@ -5156,7 +5218,7 @@ var preOrdersApp = (function () {
 					if_block(
 						node_2,
 						($$render) => {
-							if (get(order)) $$render(consequent_19);
+							if (get(order)) $$render(consequent_20);
 						},
 						true
 					);
