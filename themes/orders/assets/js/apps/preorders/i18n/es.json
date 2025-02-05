@@ -25,5 +25,6 @@
   "start-date": "Fecha de inicio",
   "end-date": "Fecha de fin",
   "installment-amount": "Monto de la cuota",
-  "color": "Color"
+  "color": "Color",
+  "customer_balance": "Transferencia Bancaria"
 }

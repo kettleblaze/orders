@@ -25,5 +25,6 @@
   "start-date": "Data di inizio",
   "end-date": "Data di fine",
   "installment-amount": "Importo della rata",
-  "color": "Colore"
+  "color": "Colore",
+  "customer_balance": "Bonifico Bancario"
 }

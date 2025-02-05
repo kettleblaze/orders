@@ -25,5 +25,6 @@
   "start-date": "Anfangsdatum",
   "end-date": "Enddatum",
   "installment-amount": "Ratenbetrag",
-  "color": "Farbe"
+  "color": "Farbe",
+  "customer_balance": "Banküberweisung"
 }

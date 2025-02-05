@@ -25,5 +25,6 @@
   "start-date": "Start date",
   "end-date": "End date",
   "installment-amount": "Installment amount",
-  "color": "Color"
+  "color": "Color",
+  "customer_balance": "Bank Transfer"
 }

@@ -4057,6 +4057,7 @@ var preOrdersApp = (function () {
 	var type$4 = "Type";
 	var size$4 = "Size";
 	var color$4 = "Color";
+	var customer_balance$4 = "Bank Transfer";
 	var en = {
 		"order-summary": "Order Summary",
 		"order-details": "Order Details",
@@ -4084,7 +4085,8 @@ var preOrdersApp = (function () {
 		"start-date": "Start date",
 		"end-date": "End date",
 		"installment-amount": "Installment amount",
-		color: color$4
+		color: color$4,
+		customer_balance: customer_balance$4
 	};
 
 	var history$3 = "Storico";
@@ -4096,6 +4098,7 @@ var preOrdersApp = (function () {
 	var type$3 = "Tipo";
 	var size$3 = "Taglia";
 	var color$3 = "Colore";
+	var customer_balance$3 = "Bonifico Bancario";
 	var it = {
 		"order-summary": "Riepilogo Ordine",
 		"order-details": "Dettagli Ordine",
@@ -4123,7 +4126,8 @@ var preOrdersApp = (function () {
 		"start-date": "Data di inizio",
 		"end-date": "Data di fine",
 		"installment-amount": "Importo della rata",
-		color: color$3
+		color: color$3,
+		customer_balance: customer_balance$3
 	};
 
 	var history$2 = "Historial";
@@ -4135,6 +4139,7 @@ var preOrdersApp = (function () {
 	var type$2 = "Tipo";
 	var size$2 = "Talla";
 	var color$2 = "Color";
+	var customer_balance$2 = "Transferencia Bancaria";
 	var es = {
 		"order-summary": "Resumen del Pedido",
 		"order-details": "Detalles del Pedido",
@@ -4162,7 +4167,8 @@ var preOrdersApp = (function () {
 		"start-date": "Fecha de inicio",
 		"end-date": "Fecha de fin",
 		"installment-amount": "Monto de la cuota",
-		color: color$2
+		color: color$2,
+		customer_balance: customer_balance$2
 	};
 
 	var history$1 = "Verlauf";
@@ -4174,6 +4180,7 @@ var preOrdersApp = (function () {
 	var type$1 = "Typ";
 	var size$1 = "Größe";
 	var color$1 = "Farbe";
+	var customer_balance$1 = "Banküberweisung";
 	var de = {
 		"order-summary": "Bestellübersicht",
 		"order-details": "Bestelldetails",
@@ -4201,7 +4208,8 @@ var preOrdersApp = (function () {
 		"start-date": "Anfangsdatum",
 		"end-date": "Enddatum",
 		"installment-amount": "Ratenbetrag",
-		color: color$1
+		color: color$1,
+		customer_balance: customer_balance$1
 	};
 
 	var history = "Historique";
@@ -4213,6 +4221,7 @@ var preOrdersApp = (function () {
 	var type = "Type";
 	var size = "Taille";
 	var color = "Couleur";
+	var customer_balance = "Virement Bancaire";
 	var fr = {
 		"order-summary": "Résumé de la Commande",
 		"order-details": "Détails de la Commande",
@@ -4240,7 +4249,8 @@ var preOrdersApp = (function () {
 		"start-date": "Date de début",
 		"end-date": "Date de fin",
 		"installment-amount": "Montant de l'échéance",
-		color: color
+		color: color,
+		customer_balance: customer_balance
 	};
 
 	const languages = {
@@ -4326,8 +4336,13 @@ var preOrdersApp = (function () {
 			if (event$1.type === "tracking-info") {
 				let parcels = tracking.parcels.filter((v) => v.length > 0);
 
-				let tpl = `Corriere: ${tracking.courier.toUpperCase()}<br> Pacchi: ${parcels.length}<br><ul>${parcels.map((parcel, index) => {
+				let tpl = `Informazioni di tracking<br>Corriere: ${tracking.courier.toUpperCase()}<br> Pacchi: ${parcels.length}<br><ul style="list-style-type:none;margin:10px auto;">${parcels.map((parcel, index) => {
 				let pattern = /(?:tracknum=)(\w+)&/gim;
+
+				if (tracking.courier === "brt") {
+					pattern = /(?:chisono=)(\d*)/;
+				}
+
 				let matches = pattern.exec(parcel);
 
 				return `<li><a href="${parcel}" target="_blank">Pacco ${index + 1}: ${matches[1]} </a></li>`;
@@ -4383,6 +4398,10 @@ var preOrdersApp = (function () {
 
 			if (pm.type === "card") {
 				type = pm.card;
+			}
+
+			if (pm.type === "customer_balance") {
+				type = t("customer_balance");
 			}
 
 			if (pm.wallet) {

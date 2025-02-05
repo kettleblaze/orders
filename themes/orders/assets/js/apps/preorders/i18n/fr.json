@@ -25,5 +25,6 @@
   "start-date": "Date de début",
   "end-date": "Date de fin",
   "installment-amount": "Montant de l'échéance",
-  "color": "Couleur"
+  "color": "Couleur",
+  "customer_balance": "Virement Bancaire"
 }

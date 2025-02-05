@@ -38,9 +38,13 @@
   function addEvent() {
     if (event.type === "tracking-info") {
       let parcels = tracking.parcels.filter((v) => v.length > 0);
-      let tpl = `Corriere: ${tracking.courier.toUpperCase()}<br> Pacchi: ${parcels.length}<br><ul>${parcels
+
+      let tpl = `Informazioni di tracking<br>Corriere: ${tracking.courier.toUpperCase()}<br> Pacchi: ${parcels.length}<br><ul style="list-style-type:none;margin:10px auto;">${parcels
         .map((parcel, index) => {
           let pattern = /(?:tracknum=)(\w+)&/gim;
+          if (tracking.courier === "brt") {
+            pattern = /(?:chisono=)(\d*)/;
+          }
           let matches = pattern.exec(parcel);
 
           return `<li><a href="${parcel}" target="_blank">Pacco ${index + 1}: ${matches[1]} </a></li>`;
@@ -95,6 +99,9 @@
     }
     if (pm.type === "card") {
       type = pm.card;
+    }
+    if (pm.type === "customer_balance") {
+      type = T("customer_balance");
     }
     if (pm.wallet) {
       let v = "";
