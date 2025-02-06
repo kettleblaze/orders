@@ -406,6 +406,9 @@
         <h2 class="title mt-6">{T("customer-details")}</h2>
         <ul>
           <li>{T("name")}: {order.customer.name}</li>
+          {#if order.customer.fiscal_code}
+            <li>Codice fiscale: {order.customer.fiscal_code}</li>
+          {/if}
           <li>
             {#if order.customer.phone}
               {T("phone")}: +{order.customer.address.country_data.phone[0]}
