@@ -42,8 +42,11 @@
       let tpl = `Informazioni di tracking<br>Corriere: ${tracking.courier.toUpperCase()}<br> Pacchi: ${parcels.length}<br><ul style="list-style-type:none;margin:10px auto;">${parcels
         .map((parcel, index) => {
           let pattern = /(?:tracknum=)(\w+)&/gim;
-          if (tracking.courier === "brt") {
+          if (tracking.courier === "brt" || tracking.courier === "dpd") {
             pattern = /(?:chisono=)(\d*)/;
+          }
+          if (tracking.courier === "sda") {
+            pattern = /(?:risultati-spedizioni\/)(\w+)/;
           }
           let matches = pattern.exec(parcel);
 
@@ -482,7 +485,77 @@
       </div>
       <div id="history" class="my-6">
         <h2 class="title pt-2">{T("history")}</h2>
-        {#each order.events as event, index}
+        {#each order.events.filter((e) => e.type !== "tracking-info") as event, index}
+          <div
+            class="mt-5"
+            class:is-tracking={event.type === "tracking-info"}
+            class:pt-4={event.type === "tracking-info"}
+          >
+            {#if event.type === "tracking-info"}
+              <h3 class="has-text-info title is-size-3">Tracking</h3>
+            {/if}
+            <div>
+              <span class="has-text-{event.level}"
+                >• {new Date(event.ts).toLocaleDateString()}
+                {new Date(event.ts).toLocaleTimeString()}
+              </span>
+            </div>
+            {#if event.data}
+              <div class:has-text-warning={event.level === "warning"}>
+                <div class="px-3">
+                  <span
+                    id={`event-${index}`}
+                    class:is-hidden={openEditors[index] === true}
+                    >{@html event.data.text}</span
+                  >
+                  <textarea
+                    class="textarea"
+                    class:is-hidden={openEditors[index] !== true}
+                    bind:this={editors[index]}
+                    name="editor-{index}"
+                    id="edit-event-{index}"
+                  ></textarea>
+                </div>
+              </div>
+
+              {#if process.env.isLocal}
+                <hr />
+
+                <div class="pb-6">
+                  <span
+                    class="tag is-large"
+                    class:is-info={event.emailSent}
+                    class:has-text-white={event.emailSent}
+                    >Email {#if event.emailSent}inviata{:else}NON inviata{/if}</span
+                  >
+
+                  <button
+                    type="button"
+                    class="button"
+                    on:click={() =>
+                      sendUpdateEmail(order.stripeSessionId, index)}
+                  >
+                    <span class="icon p-3"
+                      ><i class="material-symbols-outlined"> send </i></span
+                    >
+                  </button>
+                  <button
+                    type="button"
+                    class="button"
+                    on:click={() => switchEditor(index)}
+                  >
+                    <span class="icon p-3"
+                      ><i class="material-symbols-outlined">
+                        {#if !openEditors[index]}edit{:else}close{/if}
+                      </i></span
+                    >
+                  </button>
+                </div>
+              {/if}
+            {/if}
+          </div>
+        {/each}
+        {#each order.events.filter((e) => e.type === "tracking-info") as event, index}
           <div
             class="mt-5"
             class:is-tracking={event.type === "tracking-info"}
@@ -578,8 +651,11 @@
                 <option value="ups" selected={tracking.courier === "ups"}
                   >UPS</option
                 >
-                <option value="brt" selected={tracking.courier === "brr"}
+                <option value="brt" selected={tracking.courier === "brt"}
                   >BRT</option
+                >
+                <option value="sda" selected={tracking.courier === "sda"}
+                  >SDA</option
                 >
                 <option value="dpd" selected={tracking.courier === "dpd"}
                   >DPD</option
