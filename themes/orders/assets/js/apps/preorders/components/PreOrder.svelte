@@ -63,6 +63,7 @@
         data: { text: event.text },
       });
       order = order;
+
       updateOrder();
     }
   }
@@ -70,9 +71,12 @@
   function switchEditor(index) {
     if (openEditors[index] !== true) {
       openEditors[index] = true;
-      editors[index].value = order.events[index].data.text;
+      editors[index].value = order.events.find(
+        (e) => e._id === index
+      ).data.text;
     } else {
-      order.events[index].data.text = editors[index].value;
+      order.events.find((e) => e._id === index).data.text =
+        editors[index].value;
       openEditors[index] = false;
       updateOrder();
     }
@@ -151,11 +155,11 @@
     return `GMT${offset < 0 ? "+" : "-"}${(offset / 60) * -1}`;
   }
 
-  async function sendUpdateEmail(stripeSessionId, eventIndex) {
+  async function sendUpdateEmail(stripeSessionId, eventId) {
     if (confirm("Vuoi inviare la mail di aggiornamento?")) {
       const lang = getPreferredLanguage();
       const o = await fetch(
-        `process.env.storeServer/send-update-email/${stripeSessionId}/${eventIndex}/`,
+        `process.env.storeServer/send-update-email/${stripeSessionId}/${eventId}/`,
         { method: "GET" }
       ).then((r) => {
         if (r.ok) {
@@ -246,7 +250,7 @@
                   <div class="column">
                     {#if product.sku !== "prod_AI839Kll1kzw23"}
                       <SirvImage
-                        src="https://cdn.kettleblaze.store/orders/{product.sku}.jpg"
+                        src="https://kettleblaze.sirv.com/orders/{product.sku}.jpg"
                         width="480"
                         height="480"
                         displayWidth="120"
@@ -504,16 +508,16 @@
               <div class:has-text-warning={event.level === "warning"}>
                 <div class="px-3">
                   <span
-                    id={`event-${index}`}
-                    class:is-hidden={openEditors[index] === true}
+                    id={`event-${event._id}`}
+                    class:is-hidden={openEditors[event._id] === true}
                     >{@html event.data.text}</span
                   >
                   <textarea
                     class="textarea"
-                    class:is-hidden={openEditors[index] !== true}
-                    bind:this={editors[index]}
-                    name="editor-{index}"
-                    id="edit-event-{index}"
+                    class:is-hidden={openEditors[event._id] !== true}
+                    bind:this={editors[event._id]}
+                    name="editor-{event._id}"
+                    id="edit-event-{event._id}"
                   ></textarea>
                 </div>
               </div>
@@ -533,7 +537,7 @@
                     type="button"
                     class="button"
                     on:click={() =>
-                      sendUpdateEmail(order.stripeSessionId, index)}
+                      sendUpdateEmail(order.stripeSessionId, event._id)}
                   >
                     <span class="icon p-3"
                       ><i class="material-symbols-outlined"> send </i></span
@@ -542,11 +546,11 @@
                   <button
                     type="button"
                     class="button"
-                    on:click={() => switchEditor(index)}
+                    on:click={() => switchEditor(event._id)}
                   >
                     <span class="icon p-3"
                       ><i class="material-symbols-outlined">
-                        {#if !openEditors[index]}edit{:else}close{/if}
+                        {#if !openEditors[event._id]}edit{:else}close{/if}
                       </i></span
                     >
                   </button>
@@ -574,16 +578,16 @@
               <div class:has-text-warning={event.level === "warning"}>
                 <div class="px-3">
                   <span
-                    id={`event-${index}`}
-                    class:is-hidden={openEditors[index] === true}
+                    id={`event-${event._id}`}
+                    class:is-hidden={openEditors[event._id] === true}
                     >{@html event.data.text}</span
                   >
                   <textarea
                     class="textarea"
-                    class:is-hidden={openEditors[index] !== true}
-                    bind:this={editors[index]}
-                    name="editor-{index}"
-                    id="edit-event-{index}"
+                    class:is-hidden={openEditors[event._id] !== true}
+                    bind:this={editors[event._id]}
+                    name="editor-{event._id}"
+                    id="edit-event-{event._id}"
                   ></textarea>
                 </div>
               </div>
@@ -612,11 +616,11 @@
                   <button
                     type="button"
                     class="button"
-                    on:click={() => switchEditor(index)}
+                    on:click={() => switchEditor(event._id)}
                   >
                     <span class="icon p-3"
                       ><i class="material-symbols-outlined">
-                        {#if !openEditors[index]}edit{:else}close{/if}
+                        {#if !openEditors[event._id]}edit{:else}close{/if}
                       </i></span
                     >
                   </button>

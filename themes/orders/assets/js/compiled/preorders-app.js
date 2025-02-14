@@ -4376,9 +4376,9 @@ var preOrdersApp = (function () {
 		function switchEditor(index) {
 			if (openEditors[index] !== true) {
 				openEditors[index] = true;
-				editors[index].value = get(order).events[index].data.text;
+				editors[index].value = get(order).events.find((e) => e._id === index).data.text;
 			} else {
-				get(order).events[index].data.text = editors[index].value;
+				get(order).events.find((e) => e._id === index).data.text = editors[index].value;
 				openEditors[index] = false;
 				updateOrder();
 			}
@@ -4452,11 +4452,11 @@ var preOrdersApp = (function () {
 			});
 		}
 
-		async function sendUpdateEmail(stripeSessionId, eventIndex) {
+		async function sendUpdateEmail(stripeSessionId, eventId) {
 			if (confirm("Vuoi inviare la mail di aggiornamento?")) {
 				getPreferredLanguage();
 
-				await fetch(`http://localhost:8080/send-update-email/${stripeSessionId}/${eventIndex}/`, { method: "GET" }).then((r) => {
+				await fetch(`http://localhost:8080/send-update-email/${stripeSessionId}/${eventId}/`, { method: "GET" }).then((r) => {
 					if (r.ok) {
 						alert("Email inviata");
 					} else {
@@ -4576,7 +4576,7 @@ var preOrdersApp = (function () {
 										var consequent_2 = ($$anchor) => {
 											SirvImage($$anchor, {
 												get src() {
-													return `https://cdn.kettleblaze.store/orders/${get(product).sku ?? ""}.jpg`;
+													return `https://kettleblaze.sirv.com/orders/${get(product).sku ?? ""}.jpg`;
 												},
 												width: "480",
 												height: "480",
@@ -5020,7 +5020,7 @@ var preOrdersApp = (function () {
 						var node_16 = sibling(h2_6, 2);
 						const $$array = () => get(order).events.filter((e) => e.type !== "tracking-info");
 
-						each(node_16, 17, $$array, index, ($$anchor, event$1, index) => {
+						each(node_16, 17, $$array, index, ($$anchor, event$1) => {
 							var div_20 = root_24();
 							var node_17 = child(div_20);
 
@@ -5053,18 +5053,13 @@ var preOrdersApp = (function () {
 									var div_22 = first_child(fragment_7);
 									var div_23 = child(div_22);
 									var span_1 = child(div_23);
-
-									set_attribute(span_1, "id", `event-${index}`);
-
 									var node_19 = child(span_1);
 
 									html(node_19, () => get(event$1).data.text);
 
 									var textarea = sibling(span_1, 2);
 
-									set_attribute(textarea, "name", `editor-${index ?? ""}`);
-									set_attribute(textarea, "id", `edit-event-${index ?? ""}`);
-									bind_this(textarea, ($$value, index) => editors[index] = $$value, (index) => editors?.[index], () => [index]);
+									bind_this(textarea, ($$value, event) => editors[event._id] = $$value, (event) => editors?.[event._id], () => [get(event$1)]);
 
 									var node_20 = sibling(div_22, 2);
 
@@ -5113,7 +5108,7 @@ var preOrdersApp = (function () {
 												};
 
 												if_block(node_22, ($$render) => {
-													if (!openEditors[index]) $$render(consequent_16); else $$render(alternate_6, false);
+													if (!openEditors[get(event$1)._id]) $$render(consequent_16); else $$render(alternate_6, false);
 												});
 											}
 
@@ -5122,8 +5117,8 @@ var preOrdersApp = (function () {
 												toggle_class(span_2, "has-text-white", get(event$1).emailSent);
 											});
 
-											event("click", button_2, () => sendUpdateEmail(get(order).stripeSessionId, index));
-											event("click", button_3, () => switchEditor(index));
+											event("click", button_2, () => sendUpdateEmail(get(order).stripeSessionId, get(event$1)._id));
+											event("click", button_3, () => switchEditor(get(event$1)._id));
 											append($$anchor, fragment_8);
 										};
 
@@ -5134,8 +5129,11 @@ var preOrdersApp = (function () {
 
 									template_effect(() => {
 										toggle_class(div_22, "has-text-warning", get(event$1).level === "warning");
-										toggle_class(span_1, "is-hidden", openEditors[index] === true);
-										toggle_class(textarea, "is-hidden", openEditors[index] !== true);
+										set_attribute(span_1, "id", `event-${get(event$1)._id}`);
+										toggle_class(span_1, "is-hidden", openEditors[get(event$1)._id] === true);
+										set_attribute(textarea, "name", `editor-${get(event$1)._id ?? ""}`);
+										set_attribute(textarea, "id", `edit-event-${get(event$1)._id ?? ""}`);
+										toggle_class(textarea, "is-hidden", openEditors[get(event$1)._id] !== true);
 									});
 
 									append($$anchor, fragment_7);
@@ -5191,18 +5189,13 @@ var preOrdersApp = (function () {
 									var div_27 = first_child(fragment_9);
 									var div_28 = child(div_27);
 									var span_5 = child(div_28);
-
-									set_attribute(span_5, "id", `event-${index}`);
-
 									var node_26 = child(span_5);
 
 									html(node_26, () => get(event$1).data.text);
 
 									var textarea_1 = sibling(span_5, 2);
 
-									set_attribute(textarea_1, "name", `editor-${index ?? ""}`);
-									set_attribute(textarea_1, "id", `edit-event-${index ?? ""}`);
-									bind_this(textarea_1, ($$value, index) => editors[index] = $$value, (index) => editors?.[index], () => [index]);
+									bind_this(textarea_1, ($$value, event) => editors[event._id] = $$value, (event) => editors?.[event._id], () => [get(event$1)]);
 
 									var node_27 = sibling(div_27, 2);
 
@@ -5251,7 +5244,7 @@ var preOrdersApp = (function () {
 												};
 
 												if_block(node_29, ($$render) => {
-													if (!openEditors[index]) $$render(consequent_21); else $$render(alternate_8, false);
+													if (!openEditors[get(event$1)._id]) $$render(consequent_21); else $$render(alternate_8, false);
 												});
 											}
 
@@ -5261,7 +5254,7 @@ var preOrdersApp = (function () {
 											});
 
 											event("click", button_4, () => sendUpdateEmail(get(order).stripeSessionId, index));
-											event("click", button_5, () => switchEditor(index));
+											event("click", button_5, () => switchEditor(get(event$1)._id));
 											append($$anchor, fragment_10);
 										};
 
@@ -5272,8 +5265,11 @@ var preOrdersApp = (function () {
 
 									template_effect(() => {
 										toggle_class(div_27, "has-text-warning", get(event$1).level === "warning");
-										toggle_class(span_5, "is-hidden", openEditors[index] === true);
-										toggle_class(textarea_1, "is-hidden", openEditors[index] !== true);
+										set_attribute(span_5, "id", `event-${get(event$1)._id}`);
+										toggle_class(span_5, "is-hidden", openEditors[get(event$1)._id] === true);
+										set_attribute(textarea_1, "name", `editor-${get(event$1)._id ?? ""}`);
+										set_attribute(textarea_1, "id", `edit-event-${get(event$1)._id ?? ""}`);
+										toggle_class(textarea_1, "is-hidden", openEditors[get(event$1)._id] !== true);
 									});
 
 									append($$anchor, fragment_9);
