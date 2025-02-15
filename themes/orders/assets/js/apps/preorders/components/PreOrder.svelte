@@ -250,7 +250,7 @@
                   <div class="column">
                     {#if product.sku !== "prod_AI839Kll1kzw23"}
                       <SirvImage
-                        src="https://kettleblaze.sirv.com/orders/{product.sku}.jpg"
+                        src="https://cdn.kettleblaze.store/orders/{product.sku}.jpg"
                         width="480"
                         height="480"
                         displayWidth="120"

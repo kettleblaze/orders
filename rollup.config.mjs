@@ -23,11 +23,11 @@ if (process.env.HUGO_ENV !== "development") {
   cfg = config().parsed;
 }
 */
-const preOrdersApp = {
+const reviewPageApp = {
   input: "./themes/orders/assets/js/apps/preorders/main.js",
   output: {
-    name: "preOrdersApp",
-    file: "themes/orders/assets/js/compiled/preorders-app.js",
+    name: "reviewPageApp",
+    file: "themes/orders/assets/js/compiled/review-page-app.js",
     format: "iife",
     plugins,
   },
@@ -37,6 +37,7 @@ const preOrdersApp = {
         "svelte-i18n": ["register", "_", "getLocaleFromNavigator"],
       },
     }),*/
+
     json(),
     svelteSVG(),
     replace({
@@ -50,7 +51,6 @@ const preOrdersApp = {
       ),
     }),
     svelte({
-      // preprocess: [],
       // Optionally, preprocess components with svelte.preprocess:
       // https://svelte.dev/docs#svelte_preprocess
       /*preprocess: {
@@ -103,8 +103,8 @@ if (process.env.HUGO_ENV !== "development") {
 
   const minify = terser();
 
-  preOrdersApp.plugins.push(stripConsole);
-  preOrdersApp.plugins.push(minify);
+  reviewPageApp.plugins.push(stripConsole);
+  reviewPageApp.plugins.push(minify);
 }
 
-export default [preOrdersApp];
+export default [reviewPageApp];

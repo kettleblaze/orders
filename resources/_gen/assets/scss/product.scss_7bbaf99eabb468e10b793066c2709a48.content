@@ -1,0 +1,115 @@
+:root {
+  --primary-color: $primary-color;
+  --accent-color: #e65a50;
+  /* Sfumatura per le stelle */ }
+
+body {
+  background-color: #f8f8f8;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  font-size: 1.125rem;
+  line-height: 1.6; }
+
+h1,
+h2,
+h3 {
+  font-family: "Bebas Neue", sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 1.5px; }
+
+.button.is-primary {
+  background-color: var(--primary-color);
+  border: none;
+  font-family: "Bebas Neue", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 1.5rem;
+  padding: 18px 0;
+  margin-top: 2rem;
+  /* Maggiore distanziamento */ }
+
+.button.is-primary:hover {
+  background-color: #ad3027; }
+
+.tag.is-danger {
+  background-color: var(--primary-color);
+  border-radius: 0; }
+
+.original-price {
+  text-decoration: line-through;
+  color: #777;
+  font-size: 1.2rem;
+  margin-right: 10px; }
+
+.product-images img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  padding: 15px;
+  background: white; }
+
+.cross-sell {
+  overflow-x: auto;
+  white-space: nowrap;
+  display: flex;
+  gap: 20px;
+  padding-bottom: 15px; }
+
+.cross-sell .card {
+  min-width: 220px;
+  flex: 1;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ccc;
+  border-radius: 0;
+  padding: 15px;
+  text-align: center; }
+
+.star-rating {
+  display: flex;
+  align-items: center;
+  gap: 5px; }
+
+.star {
+  width: 20px;
+  height: 20px;
+  fill: #e65a50;
+  /* Colore personalizzato */ }
+
+.star-half {
+  fill: url(#halfGradient); }
+
+.review-box {
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 15px;
+  margin-bottom: 15px; }
+
+.section {
+  padding-top: 50px;
+  padding-bottom: 50px; }
+
+.box {
+  padding: 25px;
+  border-radius: 0;
+  border: 1px solid #ddd; }
+
+details-toggle {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--primary-color);
+  display: flex;
+  align-items: center;
+  gap: 8px; }
+
+.details-content {
+  display: none;
+  margin-top: 10px; }
+
+.details-toggle i {
+  transition: transform 0.3s ease; }
+
+.details-toggle.active i {
+  transform: rotate(180deg); }
+
+.details-content.active {
+  display: block; }

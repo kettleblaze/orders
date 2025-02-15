@@ -1,8 +1,9 @@
 import { mount } from "svelte";
-import PreOrderApp from "./components/PreOrder.svelte";
+import ReviewPage from "./components/ReviewPage.svelte";
 
-let preOrderApp = mount(PreOrderApp, {
-  target: document.getElementById("preorder-app"),
+let reviewPageApp = mount(ReviewPage, {
+  target: document.getElementById("review-page-app"),
+   
 });
 
-export default preOrderApp;
+export default reviewPageApp;

@@ -20,8 +20,9 @@ $beige-lighter: #eff0eb;
 @use "../../../../node_modules/bulma/sass/utilities/mixins";
 
 // Import the Google Font
+
 @import "../../../../node_modules/bulma/sass/utilities/initial-variables.scss";
-@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap");
 
 @include mixins.until($tablet) {
   :root {
@@ -45,48 +46,106 @@ $beige-lighter: #eff0eb;
   --bulma-danger-h: 348deg;
   --bulma-danger-s: 80%;
   --bulma-danger-l: 52%;
+  --bulma-family-primary: "Poppins", sans-serif !important;
 }
 
-.navbar {
-  --bulma-navbar-background-color: #e7e7e7;
+.section {
+  padding: 2.5rem 0;
+}
+.box,
+.input,
+.textarea,
+.select,
+.button {
+  border-radius: 0;
+  font-size: 1rem;
+  margin-bottom: 2rem;
+}
+.title {
+  font-weight: 600;
+  margin-bottom: 2rem;
+}
+.subtitle {
+  font-weight: 400;
+  margin-bottom: 2.5rem;
+}
+.label {
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+.button {
+  font-weight: 600;
 }
 
-#history {
-  word-break: break-word;
-}
-
-.sloader-container {
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: calc(100vh - 52px);
-  width: 100%;
-}
-.sloader {
-  width: 48px;
-  height: 48px;
-  border: 3px solid #eaeaea;
-  border-radius: 50%;
-  display: inline-block;
-  position: relative;
-  box-sizing: border-box;
-  animation: rotation 1s linear infinite;
-}
-.sloader::after {
-  content: "";
-  box-sizing: border-box;
-  position: absolute;
-  left: 0;
-  top: 0;
-  background: #ff3d00;
-  width: 16px;
-  height: 16px;
-  transform: translate(-50%, 50%);
-  border-radius: 50%;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+  z-index: 100;
 }
 
-@keyframes rotation {
+.modal-overlay.show {
+  opacity: 1;
+  visibility: visible;
+  .feedback-modal {
+    bottom: 0;
+  }
+}
+
+.feedback-modal {
+  background: white;
+  padding: 2rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+
+  border-radius: 8px;
+}
+.feedback-modal {
+  position: fixed;
+  bottom: -100%;
+  left: 0;
+  width: 100%;
+  background: white;
+  padding: 2rem;
+  box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: bottom 0.3s ease-in-out;
+}
+
+.feedback-modal p {
+  margin-bottom: 1.5rem;
+}
+
+.title {
+  margin-bottom: 2rem;
+}
+
+.button.is-primary {
+  background-color: #2abf43;
+  border-color: #2abf43;
+}
+
+.loader {
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top: 3px solid white;
+  width: 16px;
+  height: 16px;
+  animation: spin 1s linear infinite;
+  display: inline-block;
+}
+
+@keyframes spin {
   0% {
     transform: rotate(0deg);
   }
@@ -95,7 +154,35 @@ $beige-lighter: #eff0eb;
   }
 }
 
-.is-tracking {
-  border-top: 8px solid
-    hsl(var(--bulma-info-h), var(--bulma-info-s), var(--bulma-info-l)) !important;
+// Thank you page
+
+.thank-you-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  text-align: center;
+  padding: 0 20px;
+}
+
+.thank-you-title {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.thank-you-message {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  max-width: 500px;
+}
+
+.button {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
 }
