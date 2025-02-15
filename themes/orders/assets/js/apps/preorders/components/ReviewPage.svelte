@@ -91,7 +91,7 @@
   async function submitReview() {
     if (!rating || !recensione.trim() || !ordine.trim()) {
       messaggio = traduzioni[lingua].errorMessage;
-      return;
+      return; 
     }
 
     if (parseInt(rating) <= 3 && !showSecondFeedbackPrompt) {
