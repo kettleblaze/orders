@@ -203,7 +203,7 @@
         <li>{order.customerData.address.line2}</li>
         <li>
           {order.customerData.address.city}, {order.customerData.address
-            .postal_code}
+            .postal_code}{#if order.customerData.address.state}({order.customerData.address.state}){/if}
         </li>
         <li>{order.customerData.address.country}</li>
       </ul>

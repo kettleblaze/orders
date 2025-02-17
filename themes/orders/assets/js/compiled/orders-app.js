@@ -2747,6 +2747,18 @@ var preOrdersApp = (function () {
 		};
 	}
 
+	/**
+	 * Don't mark this as side-effect-free, hydration needs to walk all nodes
+	 * @param {any} value
+	 */
+	function text(value = '') {
+		{
+			var t = create_text(value + '');
+			assign_nodes(t, t);
+			return t;
+		}
+	}
+
 	function comment() {
 
 		var frag = document.createDocumentFragment();
@@ -4221,7 +4233,7 @@ var preOrdersApp = (function () {
 	var root_5 = template(`<li><div class="columns is-align-items-center"><div class="column"><!> <div class="column"><h4 class="title has-text-info iss-size-4"> </h4> <!> <p class="is-size-6"> </p></div></div></div></li>`);
 	var root_8 = template(`<form class="form mt-5"><div class="columns"><div class="column"><div class="select is-info"><select name="order-status" id="order-status"><option> </option><option> </option><option> </option><option> </option><option> </option><option> </option></select></div></div> <div class="column"><button type="button" class="button is-info has-text-white"> </button></div></div></form>`);
 	var root_10 = template(`<li> </li>`);
-	var root_4 = template(`<div class="columns"><div class="column is-half"><h2 class="title mt-6 px-5"> </h2> <div class="box"><ul></ul> <h4 class="title has-text-info is-size-4 mt-5"> </h4> <p class="my-3"> </p></div></div> <div class="column px-6"><h2 class="title"> </h2> <ul><li> </li> <li> </li> <li> <span class="has-text-info has-text-weight-bold"> </span></li></ul> <!> <h2 class="title mt-6"> </h2> <ul><li> </li> <!> <li> </li></ul> <h2 class="title mt-6"> </h2> <ul><li> </li> <li> </li> <li> </li> <li> </li></ul></div></div>`);
+	var root_4 = template(`<div class="columns"><div class="column is-half"><h2 class="title mt-6 px-5"> </h2> <div class="box"><ul></ul> <h4 class="title has-text-info is-size-4 mt-5"> </h4> <p class="my-3"> </p></div></div> <div class="column px-6"><h2 class="title"> </h2> <ul><li> </li> <li> </li> <li> <span class="has-text-info has-text-weight-bold"> </span></li></ul> <!> <h2 class="title mt-6"> </h2> <ul><li> </li> <!> <li> </li></ul> <h2 class="title mt-6"> </h2> <ul><li> </li> <li> </li> <li> <!></li> <li> </li></ul></div></div>`);
 
 	function PreOrder2($$anchor, $$props) {
 		push($$props, false);
@@ -4314,7 +4326,7 @@ var preOrdersApp = (function () {
 				var div_1 = root_4();
 				var div_2 = child(div_1);
 				var h2 = child(div_2);
-				var text = child(h2);
+				var text$1 = child(h2);
 
 				var div_3 = sibling(h2, 2);
 				var ul = child(div_3);
@@ -4544,13 +4556,27 @@ var preOrdersApp = (function () {
 
 				var li_10 = sibling(li_9, 2);
 				var text_27 = child(li_10);
+				var node_6 = sibling(text_27);
+
+				{
+					var consequent_5 = ($$anchor) => {
+						var text_28 = text();
+
+						template_effect(() => set_text(text_28, `(${get(order).customerData.address.state ?? ''})`));
+						append($$anchor, text_28);
+					};
+
+					if_block(node_6, ($$render) => {
+						if (get(order).customerData.address.state) $$render(consequent_5);
+					});
+				}
 
 				var li_11 = sibling(li_10, 2);
-				var text_28 = child(li_11);
+				var text_29 = child(li_11);
 
 				template_effect(
 					($0, $1, $2, $3, $4, $5, $6, $7, $8) => {
-						set_text(text, $0);
+						set_text(text$1, $0);
 						set_text(text_4, $1);
 						set_text(text_5, $2);
 						set_text(text_6, $3);
@@ -4565,7 +4591,7 @@ var preOrdersApp = (function () {
 						set_text(text_25, get(order).customerData.address.line1);
 						set_text(text_26, get(order).customerData.address.line2);
 						set_text(text_27, `${get(order).customerData.address.city ?? ''}, ${get(order).customerData.address.postal_code ?? ''}`);
-						set_text(text_28, get(order).customerData.address.country);
+						set_text(text_29, get(order).customerData.address.country);
 					},
 					[
 						() => t("order-summary"),
