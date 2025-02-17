@@ -180,6 +180,9 @@ var preOrdersApp = (function () {
 
 	const EACH_ITEM_REACTIVE = 1;
 	const EACH_INDEX_REACTIVE = 1 << 1;
+	/** See EachBlock interface metadata.is_controlled for an explanation what this is */
+	const EACH_IS_CONTROLLED = 1 << 2;
+	const EACH_IS_ANIMATED = 1 << 3;
 	const EACH_ITEM_IMMUTABLE = 1 << 4;
 
 	const PROPS_IS_IMMUTABLE = 1;
@@ -3063,7 +3066,9 @@ var preOrdersApp = (function () {
 		/** @type {EachState} */
 		var state = { flags, items: new Map(), first: null };
 
-		{
+		var is_controlled = (flags & EACH_IS_CONTROLLED) !== 0;
+
+		if (is_controlled) {
 			var parent_node = /** @type {Element} */ (node);
 
 			anchor = parent_node.appendChild(create_text());
@@ -3135,6 +3140,8 @@ var preOrdersApp = (function () {
 	 * @returns {void}
 	 */
 	function reconcile(array, state, anchor, render_fn, flags, get_key, get_collection) {
+		var is_animated = (flags & EACH_IS_ANIMATED) !== 0;
+		var should_update = (flags & (EACH_ITEM_REACTIVE | EACH_INDEX_REACTIVE)) !== 0;
 
 		var length = array.length;
 		var items = state.items;
@@ -3146,6 +3153,9 @@ var preOrdersApp = (function () {
 
 		/** @type {EachItem | null} */
 		var prev = null;
+
+		/** @type {undefined | Set<EachItem>} */
+		var to_animate;
 
 		/** @type {EachItem[]} */
 		var matched = [];
@@ -3164,6 +3174,19 @@ var preOrdersApp = (function () {
 
 		/** @type {number} */
 		var i;
+
+		if (is_animated) {
+			for (i = 0; i < length; i += 1) {
+				value = array[i];
+				key = get_key(value, i);
+				item = items.get(key);
+
+				if (item !== undefined) {
+					item.a?.measure();
+					(to_animate ??= new Set()).add(item);
+				}
+			}
+		}
 
 		for (i = 0; i < length; i += 1) {
 			value = array[i];
@@ -3195,12 +3218,16 @@ var preOrdersApp = (function () {
 				continue;
 			}
 
-			{
-				update_item(item, value, i);
+			if (should_update) {
+				update_item(item, value, i, flags);
 			}
 
 			if ((item.e.f & INERT) !== 0) {
 				resume_effect(item.e);
+				if (is_animated) {
+					item.a?.unfix();
+					(to_animate ??= new Set()).delete(item);
+				}
 			}
 
 			if (item !== current) {
@@ -3287,10 +3314,29 @@ var preOrdersApp = (function () {
 			var destroy_length = to_destroy.length;
 
 			if (destroy_length > 0) {
-				var controlled_anchor = length === 0 ? anchor : null;
+				var controlled_anchor = (flags & EACH_IS_CONTROLLED) !== 0 && length === 0 ? anchor : null;
+
+				if (is_animated) {
+					for (i = 0; i < destroy_length; i += 1) {
+						to_destroy[i].a?.measure();
+					}
+
+					for (i = 0; i < destroy_length; i += 1) {
+						to_destroy[i].a?.fix();
+					}
+				}
 
 				pause_effects(state, to_destroy, controlled_anchor, items);
 			}
+		}
+
+		if (is_animated) {
+			queue_micro_task(() => {
+				if (to_animate === undefined) return;
+				for (item of to_animate) {
+					item.a?.apply();
+				}
+			});
 		}
 
 		/** @type {Effect} */ (active_effect).first = state.first && state.first.e;
@@ -3305,11 +3351,13 @@ var preOrdersApp = (function () {
 	 * @returns {void}
 	 */
 	function update_item(item, value, index, type) {
-		{
+		if ((type & EACH_ITEM_REACTIVE) !== 0) {
 			internal_set(item.v, value);
 		}
 
-		{
+		if ((type & EACH_INDEX_REACTIVE) !== 0) {
+			internal_set(/** @type {Value<number>} */ (item.i), index);
+		} else {
 			item.i = index;
 		}
 	}
@@ -3497,6 +3545,88 @@ var preOrdersApp = (function () {
 		}
 
 		return setters;
+	}
+
+	/**
+	 * @param {HTMLInputElement} input
+	 * @param {() => unknown} get
+	 * @param {(value: unknown) => void} set
+	 * @returns {void}
+	 */
+	function bind_value(input, get, set = get) {
+		var runes = is_runes();
+
+		listen_to_event_and_reset_event(input, 'input', (is_reset) => {
+
+			/** @type {any} */
+			var value = is_reset ? input.defaultValue : input.value;
+			value = is_numberlike_input(input) ? to_number(value) : value;
+			set(value);
+
+			// In runes mode, respect any validation in accessors (doesn't apply in legacy mode,
+			// because we use mutable state which ensures the render effect always runs)
+			if (runes && value !== (value = get())) {
+				var start = input.selectionStart;
+				var end = input.selectionEnd;
+
+				// the value is coerced on assignment
+				input.value = value ?? '';
+
+				// Restore selection
+				if (end !== null) {
+					input.selectionStart = start;
+					input.selectionEnd = Math.min(end, input.value.length);
+				}
+			}
+		});
+
+		if (
+			// If we are hydrating and the value has since changed,
+			// then use the updated value from the input instead.
+			// If defaultValue is set, then value == defaultValue
+			// TODO Svelte 6: remove input.value check and set to empty string?
+			(untrack(get) == null && input.value)
+		) {
+			set(is_numberlike_input(input) ? to_number(input.value) : input.value);
+		}
+
+		render_effect(() => {
+
+			var value = get();
+
+			if (is_numberlike_input(input) && value === to_number(input.value)) {
+				// handles 0 vs 00 case (see https://github.com/sveltejs/svelte/issues/9959)
+				return;
+			}
+
+			if (input.type === 'date' && !value && !input.value) {
+				// Handles the case where a temporarily invalid date is set (while typing, for example with a leading 0 for the day)
+				// and prevents this state from clearing the other parts of the date input (see https://github.com/sveltejs/svelte/issues/7897)
+				return;
+			}
+
+			// don't set the value of the input if it's the same to allow
+			// minlength to work properly
+			if (value !== input.value) {
+				// @ts-expect-error the value is coerced on assignment
+				input.value = value ?? '';
+			}
+		});
+	}
+
+	/**
+	 * @param {HTMLInputElement} input
+	 */
+	function is_numberlike_input(input) {
+		var type = input.type;
+		return type === 'number' || type === 'range';
+	}
+
+	/**
+	 * @param {string} value
+	 */
+	function to_number(value) {
+		return value === '' ? null : +value;
 	}
 
 	/**
@@ -4039,6 +4169,14 @@ var preOrdersApp = (function () {
 	var customer_balance$3 = "Bonifico Bancario";
 	var paid$3 = "Pagamento completato";
 	var black = "Nero";
+	var add = "Aggiungi";
+	var status = "Stato";
+	var message = "Messaggio";
+	var order_placed = "Ordine confermato";
+	var in_preparation = "Ordine in preparazione";
+	var ready_to_ship = "Ordine pronto per essere spedito";
+	var delivered = "Ordine consegnato";
+	var canceled = "Ordine cancellato";
 	var it = {
 		"order-summary": "Riepilogo Ordine",
 		"order-details": "Dettagli Ordine",
@@ -4069,7 +4207,18 @@ var preOrdersApp = (function () {
 		color: color$3,
 		customer_balance: customer_balance$3,
 		paid: paid$3,
-		black: black
+		black: black,
+		"add-tracking": "Aggiungi Tracking",
+		"tracking-number": "Numero di Tracking",
+		"add-event": "Aggiungi evento",
+		add: add,
+		status: status,
+		message: message,
+		order_placed: order_placed,
+		in_preparation: in_preparation,
+		ready_to_ship: ready_to_ship,
+		delivered: delivered,
+		canceled: canceled
 	};
 
 	var history$2 = "Historial";
@@ -4233,7 +4382,12 @@ var preOrdersApp = (function () {
 	var root_5 = template(`<li><div class="columns is-align-items-center"><div class="column"><!> <div class="column"><h4 class="title has-text-info iss-size-4"> </h4> <!> <p class="is-size-6"> </p></div></div></div></li>`);
 	var root_8 = template(`<form class="form mt-5"><div class="columns"><div class="column"><div class="select is-info"><select name="order-status" id="order-status"><option> </option><option> </option><option> </option><option> </option><option> </option><option> </option></select></div></div> <div class="column"><button type="button" class="button is-info has-text-white"> </button></div></div></form>`);
 	var root_10 = template(`<li> </li>`);
-	var root_4 = template(`<div class="columns"><div class="column is-half"><h2 class="title mt-6 px-5"> </h2> <div class="box"><ul></ul> <h4 class="title has-text-info is-size-4 mt-5"> </h4> <p class="my-3"> </p></div></div> <div class="column px-6"><h2 class="title"> </h2> <ul><li> </li> <li> </li> <li> <span class="has-text-info has-text-weight-bold"> </span></li></ul> <!> <h2 class="title mt-6"> </h2> <ul><li> </li> <!> <li> </li></ul> <h2 class="title mt-6"> </h2> <ul><li> </li> <li> </li> <li> <!></li> <li> </li></ul></div></div>`);
+	var root_12 = template(`<li> </li>`);
+	var root_14 = template(`<option> </option>`);
+	var root_13 = template(`<div class="field my-6"><label class="label"> </label> <div class="select"><select><option disabled selected> </option><!></select></div> <input class="input mt-2" type="text"> <button class="button is-info mt-2"> </button></div>`);
+	var root_15 = template(`<li><a target="_blank"> </a></li>`);
+	var root_16 = template(`<div class="field"><label class="label"> </label> <input class="input" type="text"> <button class="button is-info mt-2"> </button></div>`);
+	var root_4 = template(`<div class="columns"><div class="column is-half"><h2 class="title mt-6 px-5"> </h2> <div class="box"><ul></ul> <h4 class="title has-text-info is-size-4 mt-5"> </h4> <p class="my-3"> </p></div></div> <div class="column px-6"><h2 class="title"> </h2> <ul><li> </li> <li> </li> <li> <span class="has-text-info has-text-weight-bold"> </span></li></ul> <!> <h2 class="title mt-6"> </h2> <ul><li> </li> <!> <li> </li></ul> <h2 class="title mt-6"> </h2> <ul><li> </li> <li> </li> <li> <!></li> <li> </li></ul></div> <div class="column px-6"><h2 class="title"> </h2> <ul></ul> <!> <h2 class="title mt-6"> </h2> <ul></ul> <!></div></div>`);
 
 	function PreOrder2($$anchor, $$props) {
 		push($$props, false);
@@ -4241,7 +4395,18 @@ var preOrdersApp = (function () {
 		let isUpdating = mutable_state(false);
 		let order = mutable_state(null);
 		let errorOrNotFound = mutable_state(false);
+		let event$1 = mutable_state({});
 		let orderStatus = mutable_state("");
+		let newTrackingLink = mutable_state("");
+
+		const statusOptions = [
+			"order_placed",
+			"in_preparation",
+			"ready_to_ship",
+			"shipped",
+			"delivered",
+			"canceled"
+		];
 
 		function formatCurrency(price, currency) {
 			return new Intl.NumberFormat("en-IT", {
@@ -4274,11 +4439,32 @@ var preOrdersApp = (function () {
 		async function updateOrder() {
 			if (!get(order)) return;
 
-			await fetch(`http://localhost:8080/order/${get(order).orderId}`, {
+			await fetch(`http://localhost:8080/order2/${get(order).orderId}`, {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify(get(order))
 			});
+		}
+
+		function addHistoryEvent() {
+			if (get(event$1).status && get(event$1).message) {
+				get(order).history.push({
+					timestamp: new Date(),
+					status: get(event$1).status,
+					message: get(event$1).message
+				});
+
+				updateOrder();
+				set(event$1, { status: "", message: "" });
+			}
+		}
+
+		function addTrackingLink() {
+			if (get(newTrackingLink)) {
+				get(order).tracking.tracking_links.push(get(newTrackingLink));
+				updateOrder();
+				set(newTrackingLink, "");
+			}
 		}
 
 		function calculateTotal(order) {
@@ -4574,8 +4760,182 @@ var preOrdersApp = (function () {
 				var li_11 = sibling(li_10, 2);
 				var text_29 = child(li_11);
 
+				var div_12 = sibling(div_7, 2);
+				var h2_6 = child(div_12);
+				var text_30 = child(h2_6);
+
+				var ul_5 = sibling(h2_6, 2);
+
+				each(ul_5, 5, () => get(order).history, index, ($$anchor, historyEvent) => {
+					var li_12 = root_12();
+					var text_31 = child(li_12);
+
+					template_effect(
+						($0, $1) => set_text(text_31, `${$0 ?? ''} - ${$1 ?? ''}: ${get(historyEvent).message ?? ''}`),
+						[
+							() => new Date(get(historyEvent).timestamp).toLocaleString("it-IT", {
+								year: "numeric",
+								month: "2-digit",
+								day: "2-digit",
+								hour: "2-digit",
+								minute: "2-digit",
+								second: "2-digit"
+							}),
+							() => t(get(historyEvent).status)
+						],
+						derived_safe_equal
+					);
+
+					append($$anchor, li_12);
+				});
+
+				var node_7 = sibling(ul_5, 2);
+
+				{
+					var consequent_6 = ($$anchor) => {
+						var div_13 = root_13();
+						var label = child(div_13);
+						var text_32 = child(label);
+
+						var div_14 = sibling(label, 2);
+						var select_1 = child(div_14);
+
+						template_effect(() => {
+							get(event$1);
+
+							invalidate_inner_signals(() => {
+							});
+						});
+
+						var option_6 = child(select_1);
+
+						option_6.value = null == (option_6.__value = '') ? '' : '';
+
+						var text_33 = child(option_6);
+
+						var node_8 = sibling(option_6);
+
+						each(node_8, 1, () => statusOptions, index, ($$anchor, status) => {
+							var option_7 = root_14();
+							var option_7_value = {};
+							var text_34 = child(option_7);
+
+							template_effect(
+								($0) => {
+									if (option_7_value !== (option_7_value = get(status))) {
+										option_7.value = null == (option_7.__value = get(status)) ? '' : get(status);
+									}
+
+									set_text(text_34, $0);
+								},
+								[() => t(get(status))],
+								derived_safe_equal
+							);
+
+							append($$anchor, option_7);
+						});
+
+						var input = sibling(div_14, 2);
+
+						var button_1 = sibling(input, 2);
+						var text_35 = child(button_1);
+
+						template_effect(
+							($0, $1, $2, $3) => {
+								set_text(text_32, $0);
+								set_text(text_33, $1);
+								set_attribute(input, 'placeholder', $2);
+								set_text(text_35, $3);
+							},
+							[
+								() => t("add-event"),
+								() => t("select-status"),
+								() => t("message"),
+								() => t("add")
+							],
+							derived_safe_equal
+						);
+
+						bind_select_value(select_1, () => get(event$1).status, ($$value) => mutate(event$1, get(event$1).status = $$value));
+						bind_value(input, () => get(event$1).message, ($$value) => mutate(event$1, get(event$1).message = $$value));
+						event('click', button_1, addHistoryEvent);
+						append($$anchor, div_13);
+					};
+
+					if_block(node_7, ($$render) => {
+						$$render(consequent_6);
+					});
+				}
+
+				var h2_7 = sibling(node_7, 2);
+				var text_36 = child(h2_7);
+
+				var ul_6 = sibling(h2_7, 2);
+
+				each(ul_6, 5, () => get(order).tracking.tracking_links, index, ($$anchor, link) => {
+					var li_13 = root_15();
+					var a = child(li_13);
+					var text_37 = child(a);
+
+					template_effect(() => {
+						set_attribute(a, 'href', get(link));
+						set_text(text_37, get(link));
+					});
+
+					append($$anchor, li_13);
+				});
+
+				var node_9 = sibling(ul_6, 2);
+
+				{
+					var consequent_7 = ($$anchor) => {
+						var div_15 = root_16();
+						var label_1 = child(div_15);
+						var text_38 = child(label_1);
+
+						var input_1 = sibling(label_1, 2);
+
+						var button_2 = sibling(input_1, 2);
+						var text_39 = child(button_2);
+
+						template_effect(
+							($0, $1, $2) => {
+								set_text(text_38, $0);
+								set_attribute(input_1, 'placeholder', $1);
+								set_text(text_39, $2);
+							},
+							[
+								() => t("add-tracking"),
+								() => t("tracking-link"),
+								() => t("add")
+							],
+							derived_safe_equal
+						);
+
+						bind_value(input_1, () => get(newTrackingLink), ($$value) => set(newTrackingLink, $$value));
+						event('click', button_2, addTrackingLink);
+						append($$anchor, div_15);
+					};
+
+					if_block(node_9, ($$render) => {
+						$$render(consequent_7);
+					});
+				}
+
 				template_effect(
-					($0, $1, $2, $3, $4, $5, $6, $7, $8) => {
+					(
+						$0,
+						$1,
+						$2,
+						$3,
+						$4,
+						$5,
+						$6,
+						$7,
+						$8,
+						$9,
+						$10
+					) => {
 						set_text(text$1, $0);
 						set_text(text_4, $1);
 						set_text(text_5, $2);
@@ -4592,6 +4952,8 @@ var preOrdersApp = (function () {
 						set_text(text_26, get(order).customerData.address.line2);
 						set_text(text_27, `${get(order).customerData.address.city ?? ''}, ${get(order).customerData.address.postal_code ?? ''}`);
 						set_text(text_29, get(order).customerData.address.country);
+						set_text(text_30, $9);
+						set_text(text_36, $10);
 					},
 					[
 						() => t("order-summary"),
@@ -4602,7 +4964,9 @@ var preOrdersApp = (function () {
 						() => t("payment-status"),
 						() => t("customer-details"),
 						() => t("name"),
-						() => t("shipping-address")
+						() => t("shipping-address"),
+						() => t("order-history"),
+						() => t("tracking")
 					],
 					derived_safe_equal
 				);

@@ -8,7 +8,17 @@
   let errorOrNotFound = false;
   let event = {};
   let orderStatus = "";
-  let tracking = { courier: "ups", parcels: [] };
+  let tracking = { courier: "", tracking_links: [] };
+  let newTrackingLink = "";
+
+  const statusOptions = [
+    "order_placed",
+    "in_preparation",
+    "ready_to_ship",
+    "shipped",
+    "delivered",
+    "canceled",
+  ];
 
   const trackingLinks = {
     ups: "https://www.ups.com/track?loc=en_GB&tracknum=PARCELNUM&requester=WT/trackdetails",
@@ -48,11 +58,31 @@
 
   async function updateOrder() {
     if (!order) return;
-    await fetch(`process.env.storeServer/order/${order.orderId}`, {
+    await fetch(`process.env.storeServer/order2/${order.orderId}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(order),
     });
+  }
+
+  function addHistoryEvent() {
+    if (event.status && event.message) {
+      order.history.push({
+        timestamp: new Date(),
+        status: event.status,
+        message: event.message,
+      });
+      updateOrder();
+      event = { status: "", message: "" };
+    }
+  }
+
+  function addTrackingLink() {
+    if (newTrackingLink) {
+      order.tracking.tracking_links.push(newTrackingLink);
+      updateOrder();
+      newTrackingLink = "";
+    }
   }
 
   function calculateTotal(order) {
@@ -103,7 +133,9 @@
                       <ul>
                         {#each Object.entries(item.selected_attributes) as [name, value]}
                           <li>
-                            {T(name)}: {name === "size" ? value.toUpperCase() : T(value)}
+                            {T(name)}: {name === "size"
+                              ? value.toUpperCase()
+                              : T(value)}
                           </li>
                         {/each}
                       </ul>
@@ -203,10 +235,70 @@
         <li>{order.customerData.address.line2}</li>
         <li>
           {order.customerData.address.city}, {order.customerData.address
-            .postal_code}{#if order.customerData.address.state}({order.customerData.address.state}){/if}
+            .postal_code}{#if order.customerData.address.state}({order
+              .customerData.address.state}){/if}
         </li>
         <li>{order.customerData.address.country}</li>
       </ul>
+    </div>
+    <div class="column px-6">
+      <h2 class="title">{T("order-history")}</h2>
+      <ul>
+        {#each order.history as historyEvent}
+          <li>
+            {new Date(historyEvent.timestamp).toLocaleString("it-IT", {
+              year: "numeric",
+              month: "2-digit",
+              day: "2-digit",
+              hour: "2-digit",
+              minute: "2-digit",
+              second: "2-digit",
+            })} - {T(historyEvent.status)}: {historyEvent.message}
+          </li>
+        {/each}
+      </ul>
+      {#if process.env.isLocal}
+        <div class="field my-6">
+          <label class="label">{T("add-event")}</label>
+          <div class="select">
+            <select bind:value={event.status}>
+              <option value="" disabled selected>{T("select-status")}</option>
+              {#each statusOptions as status}
+                <option value={status}>{T(status)}</option>
+              {/each}
+            </select>
+          </div>
+          <input
+            class="input mt-2"
+            type="text"
+            placeholder={T("message")}
+            bind:value={event.message}
+          />
+          <button class="button is-info mt-2" on:click={addHistoryEvent}
+            >{T("add")}</button
+          >
+        </div>
+      {/if}
+      <h2 class="title mt-6">{T("tracking")}</h2>
+      <ul>
+        {#each order.tracking.tracking_links as link}
+          <li><a href={link} target="_blank">{link}</a></li>
+        {/each}
+      </ul>
+      {#if process.env.isLocal}
+        <div class="field">
+          <label class="label">{T("add-tracking")}</label>
+          <input
+            class="input"
+            type="text"
+            placeholder={T("tracking-link")}
+            bind:value={newTrackingLink}
+          />
+          <button class="button is-info mt-2" on:click={addTrackingLink}
+            >{T("add")}</button
+          >
+        </div>
+      {/if}
     </div>
   </div>
 {/if}

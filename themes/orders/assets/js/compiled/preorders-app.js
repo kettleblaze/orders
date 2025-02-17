@@ -4106,6 +4106,14 @@ var preOrdersApp = (function () {
 	var customer_balance$3 = "Bonifico Bancario";
 	var paid$3 = "Pagamento completato";
 	var black = "Nero";
+	var add = "Aggiungi";
+	var status = "Stato";
+	var message = "Messaggio";
+	var order_placed = "Ordine confermato";
+	var in_preparation = "Ordine in preparazione";
+	var ready_to_ship = "Ordine pronto per essere spedito";
+	var delivered = "Ordine consegnato";
+	var canceled = "Ordine cancellato";
 	var it = {
 		"order-summary": "Riepilogo Ordine",
 		"order-details": "Dettagli Ordine",
@@ -4136,7 +4144,18 @@ var preOrdersApp = (function () {
 		color: color$3,
 		customer_balance: customer_balance$3,
 		paid: paid$3,
-		black: black
+		black: black,
+		"add-tracking": "Aggiungi Tracking",
+		"tracking-number": "Numero di Tracking",
+		"add-event": "Aggiungi evento",
+		add: add,
+		status: status,
+		message: message,
+		order_placed: order_placed,
+		in_preparation: in_preparation,
+		ready_to_ship: ready_to_ship,
+		delivered: delivered,
+		canceled: canceled
 	};
 
 	var history$2 = "Historial";
@@ -4317,10 +4336,16 @@ var preOrdersApp = (function () {
 	var root_35 = template(`<hr> <div class="pb-6"><span class="tag is-large">Email <!></span> <button type="button" class="button"><span class="icon p-3"><i class="material-symbols-outlined">send</i></span></button> <button type="button" class="button"><span class="icon p-3"><i class="material-symbols-outlined"><!></i></span></button></div>`, 1);
 	var root_34 = template(`<div><div class="px-3"><span><!></span> <textarea class="textarea"></textarea></div></div> <!>`, 1);
 	var root_32 = template(`<div class="mt-5"><!> <div><span> </span></div> <!></div>`);
-	var root_41 = template(`<label class="label mt-4" for="">Message</label> <textarea class="textarea is-info"></textarea>`, 1);
+	var root_41 = template(`<option> </option>`);
+	var root_43 = template(`<li> <button class="button is-small is-danger ml-3">X</button></li>`);
+	var root_42 = template(`<h3 class="title mt-5"> </h3> <ul></ul>`, 1);
+	var root_44 = template(`<label class="label mt-4" for="">Message</label> <textarea class="textarea is-info"></textarea>`, 1);
 
-	var root_40 = template(`<form class="form"><label class="label" for="">Level</label> <div class="select is-info mb-4"><select><option>info</option><option>warning</option><option>danger</option><option>success</option></select></div> <div class="field"><label class="label">Messaggi predefiniti</label> <div class="select is-info"><select><option>Seleziona un messaggio</option><option>Il tuo ordine è in preparazione.</option><option>Il tuo ordine è pronto per essere spedito.</option><option>Il tuo ordine è stato spedito.</option></select></div></div> <label class="checkbox mt-4"><input type="checkbox"> Usa messaggio
-            personalizzato</label> <!> <div class="mt-5"><button class="button is-info has-text-white" type="button">Aggiungi messaggio</button></div></form>`);
+	var root_40 = template(
+		`<div class="box"><h2 class="title"> </h2> <div class="field"><label class="label"> </label> <div class="select is-info"><select><option disabled selected> </option><!></select></div></div> <div class="field"><label class="label"> </label> <input class="input is-info" type="text"></div> <button class="button is-info has-text-white"> </button> <!></div> <form class="form"><label class="label" for="">Level</label> <div class="select is-info mb-4"><select><option>info</option><option>warning</option><option>danger</option><option>success</option></select></div> <div class="field"><label class="label">Messaggi predefiniti</label> <div class="select is-info"><select><option>Seleziona un messaggio</option><option>Il tuo ordine è in preparazione.</option><option>Il tuo ordine è pronto per essere spedito.</option><option>Il tuo ordine è stato spedito.</option></select></div></div> <label class="checkbox mt-4"><input type="checkbox"> Usa messaggio
+            personalizzato</label> <!> <div class="mt-5"><button class="button is-info has-text-white" type="button">Aggiungi messaggio</button></div></form>`,
+		1
+	);
 
 	var root_5 = template(`<div class="columns"><div class="column is-half"><h2 class="title mt-6 px-5"> </h2> <div class="box"><!></div></div> <div class="column px-6"><div class="mt-6"><h2 class="title"> </h2> <ul><li> </li> <li> </li> <!></ul> <h2 class="title mt-6"> </h2> <!> <h2 class="title mt-6"> </h2> <ul><li> </li> <!> <li><!></li> <li> </li></ul> <h2 class="title mt-6"> </h2> <!></div> <div id="history" class="my-6"><h2 class="title pt-2"> </h2> <!> <!></div> <!></div></div>`);
 
@@ -4339,7 +4364,17 @@ var preOrdersApp = (function () {
 		let openEditors = proxy({});
 		let editors = proxy({});
 		let useCustomMessage = state(false);
-		let tracking = proxy({ courier: "ups", parcels: [] });
+		let tracking = proxy({ courier: "", parcels: [] });
+		let newParcel = "";
+
+		let couriers = [
+			"UPS",
+			"DHL",
+			"BRT",
+			"DPD",
+			"SDA",
+			"FedEx"
+		];
 
 		function ucfirst(str) {
 			if (typeof str === "String") {
@@ -4347,6 +4382,46 @@ var preOrdersApp = (function () {
 			}
 
 			return str;
+		}
+
+		const trackingLinks = {
+			ups: "https://www.ups.com/track?loc=en_GB&tracknum=PARCELNUM&requester=WT/trackdetails",
+			dpd: "https://vas.brt.it/vas/sped_det_show.hsm?chisono=PARCELNUM"
+		};
+
+		function addTrackingInfo() {
+			if (tracking.courier && newParcel.trim()) {
+				tracking.parcels.push(newParcel.trim());
+				newParcel = "";
+				updateTracking();
+			}
+		}
+
+		function removeParcel(index) {
+			tracking.parcels.splice(index, 1);
+			updateTracking();
+		}
+
+		function updateTracking() {
+			if (tracking.parcels.length > 0) {
+				let trackingMessage = `Informazioni di tracking<br>Corriere: ${tracking.courier.toUpperCase()}<br>Pacchi: ${tracking.parcels.length}<br><ul>`;
+
+				tracking.parcels.forEach((parcel, index) => {
+					trackingMessage += `<li><a href="${trackingLinks[tracking.courier].replace("PARCELNUM", parcel)}" target="_blank">Pacco ${index + 1}: ${parcel}</li></a>`;
+				});
+
+				trackingMessage += "</ul>";
+
+				get(order).events.push({
+					ts: Date.now(),
+					level: "info",
+					type: "tracking-info",
+					data: { text: trackingMessage }
+				});
+
+				set(order, proxy(get(order)));
+				updateOrder();
+			}
 		}
 
 		function formatCurrency(product) {
@@ -4572,7 +4647,7 @@ var preOrdersApp = (function () {
 				var node_2 = first_child(fragment_2);
 
 				{
-					var consequent_26 = ($$anchor) => {
+					var consequent_27 = ($$anchor) => {
 						var div_1 = root_5();
 						var div_2 = child(div_1);
 						var h2 = child(div_2);
@@ -5336,74 +5411,169 @@ var preOrdersApp = (function () {
 						var node_30 = sibling(div_19, 2);
 
 						{
-							var consequent_25 = ($$anchor) => {
-								var form_2 = root_40();
-								var div_30 = sibling(child(form_2), 2);
-								var select_1 = child(div_30);
+							var consequent_26 = ($$anchor) => {
+								var fragment_11 = root_40();
+								var div_30 = first_child(fragment_11);
+								var h2_7 = child(div_30);
+								var text_53 = child(h2_7);
+
+								var div_31 = sibling(h2_7, 2);
+								var label = child(div_31);
+								var text_54 = child(label);
+
+								var div_32 = sibling(label, 2);
+								var select_1 = child(div_32);
 								var option_5 = child(select_1);
 
-								option_5.value = null == (option_5.__value = 'info') ? '' : 'info';
+								option_5.value = null == (option_5.__value = '') ? '' : '';
 
-								var option_6 = sibling(option_5);
+								var text_55 = child(option_5);
 
-								option_6.value = null == (option_6.__value = 'warning') ? '' : 'warning';
+								var node_31 = sibling(option_5);
 
-								var option_7 = sibling(option_6);
+								each(node_31, 17, () => couriers, index, ($$anchor, courier) => {
+									var option_6 = root_41();
+									var option_6_value = {};
+									var text_56 = child(option_6);
 
-								option_7.value = null == (option_7.__value = 'danger') ? '' : 'danger';
+									template_effect(
+										($0) => {
+											if (option_6_value !== (option_6_value = $0)) {
+												option_6.value = null == (option_6.__value = $0) ? '' : $0;
+											}
 
-								var option_8 = sibling(option_7);
+											set_text(text_56, get(courier));
+										},
+										[() => get(courier).toLowerCase()]
+									);
 
-								option_8.value = null == (option_8.__value = 'success') ? '' : 'success';
+									append($$anchor, option_6);
+								});
 
-								var div_31 = sibling(div_30, 2);
-								var div_32 = sibling(child(div_31), 2);
-								var select_2 = child(div_32);
-								var option_9 = child(select_2);
+								var div_33 = sibling(div_31, 2);
+								var label_1 = child(div_33);
+								var text_57 = child(label_1);
 
-								option_9.value = null == (option_9.__value = '') ? '' : '';
+								var input_2 = sibling(label_1, 2);
 
-								var option_10 = sibling(option_9);
+								var button_6 = sibling(div_33, 2);
+								var text_58 = child(button_6);
 
-								option_10.value = null == (option_10.__value = 'Il tuo ordine è in preparazione.') ? '' : 'Il tuo ordine è in preparazione.';
-
-								var option_11 = sibling(option_10);
-
-								option_11.value = null == (option_11.__value = 'Il tuo ordine è pronto per essere spedito.') ? '' : 'Il tuo ordine è pronto per essere spedito.';
-
-								var option_12 = sibling(option_11);
-
-								option_12.value = null == (option_12.__value = 'Il tuo ordine è stato spedito.') ? '' : 'Il tuo ordine è stato spedito.';
-
-								var label = sibling(div_31, 2);
-								var input_2 = child(label);
-
-								var node_31 = sibling(label, 2);
+								var node_32 = sibling(button_6, 2);
 
 								{
 									var consequent_24 = ($$anchor) => {
-										var fragment_11 = root_41();
-										var textarea_2 = sibling(first_child(fragment_11), 2);
-										bind_value(textarea_2, () => event$1.text, ($$value) => event$1.text = $$value);
-										append($$anchor, fragment_11);
+										var fragment_12 = root_42();
+										var h3_2 = first_child(fragment_12);
+										var text_59 = child(h3_2);
+
+										var ul_6 = sibling(h3_2, 2);
+
+										each(ul_6, 21, () => tracking.parcels, index, ($$anchor, parcel, index) => {
+											var li_24 = root_43();
+											var text_60 = child(li_24);
+											var button_7 = sibling(text_60);
+											template_effect(() => set_text(text_60, `${get(parcel) ?? ''} `));
+											event('click', button_7, () => removeParcel(index));
+											append($$anchor, li_24);
+										});
+										template_effect(($0) => set_text(text_59, $0), [() => t("tracking-details")]);
+										append($$anchor, fragment_12);
 									};
 
-									if_block(node_31, ($$render) => {
-										if (get(useCustomMessage)) $$render(consequent_24);
+									if_block(node_32, ($$render) => {
+										if (tracking.parcels.length > 0) $$render(consequent_24);
 									});
 								}
 
-								var div_33 = sibling(node_31, 2);
-								var button_6 = child(div_33);
-								bind_select_value(select_1, () => event$1.level, ($$value) => event$1.level = $$value);
-								bind_select_value(select_2, () => get(predefinedMessage), ($$value) => set(predefinedMessage, $$value));
-								bind_checked(input_2, () => get(useCustomMessage), ($$value) => set(useCustomMessage, $$value));
-								event('click', button_6, addEvent);
-								append($$anchor, form_2);
+								var form_2 = sibling(div_30, 2);
+								var div_34 = sibling(child(form_2), 2);
+								var select_2 = child(div_34);
+								var option_7 = child(select_2);
+
+								option_7.value = null == (option_7.__value = 'info') ? '' : 'info';
+
+								var option_8 = sibling(option_7);
+
+								option_8.value = null == (option_8.__value = 'warning') ? '' : 'warning';
+
+								var option_9 = sibling(option_8);
+
+								option_9.value = null == (option_9.__value = 'danger') ? '' : 'danger';
+
+								var option_10 = sibling(option_9);
+
+								option_10.value = null == (option_10.__value = 'success') ? '' : 'success';
+
+								var div_35 = sibling(div_34, 2);
+								var div_36 = sibling(child(div_35), 2);
+								var select_3 = child(div_36);
+								var option_11 = child(select_3);
+
+								option_11.value = null == (option_11.__value = '') ? '' : '';
+
+								var option_12 = sibling(option_11);
+
+								option_12.value = null == (option_12.__value = 'Il tuo ordine è in preparazione.') ? '' : 'Il tuo ordine è in preparazione.';
+
+								var option_13 = sibling(option_12);
+
+								option_13.value = null == (option_13.__value = 'Il tuo ordine è pronto per essere spedito.') ? '' : 'Il tuo ordine è pronto per essere spedito.';
+
+								var option_14 = sibling(option_13);
+
+								option_14.value = null == (option_14.__value = 'Il tuo ordine è stato spedito.') ? '' : 'Il tuo ordine è stato spedito.';
+
+								var label_2 = sibling(div_35, 2);
+								var input_3 = child(label_2);
+
+								var node_33 = sibling(label_2, 2);
+
+								{
+									var consequent_25 = ($$anchor) => {
+										var fragment_13 = root_44();
+										var textarea_2 = sibling(first_child(fragment_13), 2);
+										bind_value(textarea_2, () => event$1.text, ($$value) => event$1.text = $$value);
+										append($$anchor, fragment_13);
+									};
+
+									if_block(node_33, ($$render) => {
+										if (get(useCustomMessage)) $$render(consequent_25);
+									});
+								}
+
+								var div_37 = sibling(node_33, 2);
+								var button_8 = child(div_37);
+
+								template_effect(
+									($0, $1, $2, $3, $4) => {
+										set_text(text_53, $0);
+										set_text(text_54, $1);
+										set_text(text_55, $2);
+										set_text(text_57, $3);
+										set_text(text_58, $4);
+									},
+									[
+										() => t("add-tracking-info"),
+										() => t("courier"),
+										() => t("select-courier"),
+										() => t("tracking-number"),
+										() => t("add-tracking")
+									]
+								);
+
+								bind_select_value(select_1, () => tracking.courier, ($$value) => tracking.courier = $$value);
+								bind_value(input_2, () => newParcel, ($$value) => newParcel = $$value);
+								event('click', button_6, addTrackingInfo);
+								bind_select_value(select_2, () => event$1.level, ($$value) => event$1.level = $$value);
+								bind_select_value(select_3, () => get(predefinedMessage), ($$value) => set(predefinedMessage, $$value));
+								bind_checked(input_3, () => get(useCustomMessage), ($$value) => set(useCustomMessage, $$value));
+								event('click', button_8, addEvent);
+								append($$anchor, fragment_11);
 							};
 
 							if_block(node_30, ($$render) => {
-								$$render(consequent_25);
+								$$render(consequent_26);
 							});
 						}
 
@@ -5439,7 +5609,7 @@ var preOrdersApp = (function () {
 					if_block(
 						node_2,
 						($$render) => {
-							if (get(order)) $$render(consequent_26);
+							if (get(order)) $$render(consequent_27);
 						},
 						true
 					);

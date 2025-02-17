@@ -28,5 +28,16 @@
   "color": "Colore",
   "customer_balance": "Bonifico Bancario",
   "paid": "Pagamento completato",
-  "black": "Nero"
+  "black": "Nero",
+  "add-tracking": "Aggiungi Tracking",
+  "tracking-number": "Numero di Tracking",
+  "add-event": "Aggiungi evento",
+  "add": "Aggiungi",
+  "status": "Stato",
+  "message": "Messaggio",
+  "order_placed": "Ordine confermato",
+  "in_preparation": "Ordine in preparazione",
+  "ready_to_ship": "Ordine pronto per essere spedito",
+  "delivered": "Ordine consegnato",
+  "canceled": "Ordine cancellato"
 }

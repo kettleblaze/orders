@@ -14,7 +14,10 @@
   let openEditors = $state({});
   let editors = $state({});
   let useCustomMessage = $state(false);
-  let tracking = $state({ courier: "ups", parcels: [] });
+
+  let tracking = $state({ courier: "", parcels: [] });
+  let newParcel = "";
+  let couriers = ["UPS", "DHL", "BRT", "DPD", "SDA", "FedEx"];
 
   function ucfirst(str) {
     if (typeof str === "String") {
@@ -25,7 +28,39 @@
 
   const trackingLinks = {
     ups: "https://www.ups.com/track?loc=en_GB&tracknum=PARCELNUM&requester=WT/trackdetails",
+    dpd: "https://vas.brt.it/vas/sped_det_show.hsm?chisono=PARCELNUM"
   };
+
+  function addTrackingInfo() {
+    if (tracking.courier && newParcel.trim()) {
+      tracking.parcels.push(newParcel.trim());
+      newParcel = "";
+      updateTracking();
+    }
+  }
+
+  function removeParcel(index) {
+    tracking.parcels.splice(index, 1);
+    updateTracking();
+  }
+
+  function updateTracking() {
+    if (tracking.parcels.length > 0) {
+      let trackingMessage = `Informazioni di tracking<br>Corriere: ${tracking.courier.toUpperCase()}<br>Pacchi: ${tracking.parcels.length}<br><ul>`;
+      tracking.parcels.forEach((parcel, index) => {
+        trackingMessage += `<li><a href="${trackingLinks[tracking.courier].replace("PARCELNUM",parcel)}" target="_blank">Pacco ${index + 1}: ${parcel}</li></a>`;
+      });
+      trackingMessage += "</ul>";
+      order.events.push({
+        ts: Date.now(),
+        level: "info",
+        type: "tracking-info",
+        data: { text: trackingMessage },
+      });
+      order = order;
+      updateOrder();
+    }
+  }
 
   function formatCurrency(product) {
     return new Intl.NumberFormat("en-IT", {
@@ -633,6 +668,50 @@
         {/each}
       </div>
       {#if process.env.isLocal}
+        <div class="box">
+          <h2 class="title">{T("add-tracking-info")}</h2>
+          <div class="field">
+            <label class="label">{T("courier")}</label>
+            <div class="select is-info">
+              <select bind:value={tracking.courier}>
+                <option value="" disabled selected>{T("select-courier")}</option
+                >
+                {#each couriers as courier}
+                  <option value={courier.toLowerCase()}>{courier}</option>
+                {/each}
+              </select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="label">{T("tracking-number")}</label>
+            <input
+              class="input is-info"
+              type="text"
+              bind:value={newParcel}
+            />
+          </div>
+
+          <button
+            class="button is-info has-text-white"
+            on:click={addTrackingInfo}>{T("add-tracking")}</button
+          >
+
+          {#if tracking.parcels.length > 0}
+            <h3 class="title mt-5">{T("tracking-details")}</h3>
+            <ul>
+              {#each tracking.parcels as parcel, index}
+                <li>
+                  {parcel}
+                  <button
+                    class="button is-small is-danger ml-3"
+                    on:click={() => removeParcel(index)}>X</button
+                  >
+                </li>
+              {/each}
+            </ul>
+          {/if}
+        </div>
         <form class="form">
           <label class="label" for="">Level</label>
           <div class="select is-info mb-4">
