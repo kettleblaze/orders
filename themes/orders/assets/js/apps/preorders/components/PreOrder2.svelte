@@ -240,9 +240,8 @@
         </li>
         <li>{order.customerData.address.country}</li>
       </ul>
-    </div>
-    <div class="column px-6">
-      <h2 class="title">{T("order-history")}</h2>
+
+      <h2 class="title mt-5">{T("order-history")}</h2>
       <ul>
         {#each order.history as historyEvent}
           <li>

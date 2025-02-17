@@ -4387,7 +4387,7 @@ var preOrdersApp = (function () {
 	var root_13 = template(`<div class="field my-6"><label class="label"> </label> <div class="select"><select><option disabled selected> </option><!></select></div> <input class="input mt-2" type="text"> <button class="button is-info mt-2"> </button></div>`);
 	var root_15 = template(`<li><a target="_blank"> </a></li>`);
 	var root_16 = template(`<div class="field"><label class="label"> </label> <input class="input" type="text"> <button class="button is-info mt-2"> </button></div>`);
-	var root_4 = template(`<div class="columns"><div class="column is-half"><h2 class="title mt-6 px-5"> </h2> <div class="box"><ul></ul> <h4 class="title has-text-info is-size-4 mt-5"> </h4> <p class="my-3"> </p></div></div> <div class="column px-6"><h2 class="title"> </h2> <ul><li> </li> <li> </li> <li> <span class="has-text-info has-text-weight-bold"> </span></li></ul> <!> <h2 class="title mt-6"> </h2> <ul><li> </li> <!> <li> </li></ul> <h2 class="title mt-6"> </h2> <ul><li> </li> <li> </li> <li> <!></li> <li> </li></ul></div> <div class="column px-6"><h2 class="title"> </h2> <ul></ul> <!> <h2 class="title mt-6"> </h2> <ul></ul> <!></div></div>`);
+	var root_4 = template(`<div class="columns"><div class="column is-half"><h2 class="title mt-6 px-5"> </h2> <div class="box"><ul></ul> <h4 class="title has-text-info is-size-4 mt-5"> </h4> <p class="my-3"> </p></div></div> <div class="column px-6"><h2 class="title"> </h2> <ul><li> </li> <li> </li> <li> <span class="has-text-info has-text-weight-bold"> </span></li></ul> <!> <h2 class="title mt-6"> </h2> <ul><li> </li> <!> <li> </li></ul> <h2 class="title mt-6"> </h2> <ul><li> </li> <li> </li> <li> <!></li> <li> </li></ul> <h2 class="title mt-5"> </h2> <ul></ul> <!> <h2 class="title mt-6"> </h2> <ul></ul> <!></div></div>`);
 
 	function PreOrder2($$anchor, $$props) {
 		push($$props, false);
@@ -4760,8 +4760,7 @@ var preOrdersApp = (function () {
 				var li_11 = sibling(li_10, 2);
 				var text_29 = child(li_11);
 
-				var div_12 = sibling(div_7, 2);
-				var h2_6 = child(div_12);
+				var h2_6 = sibling(ul_4, 2);
 				var text_30 = child(h2_6);
 
 				var ul_5 = sibling(h2_6, 2);
@@ -4793,12 +4792,12 @@ var preOrdersApp = (function () {
 
 				{
 					var consequent_6 = ($$anchor) => {
-						var div_13 = root_13();
-						var label = child(div_13);
+						var div_12 = root_13();
+						var label = child(div_12);
 						var text_32 = child(label);
 
-						var div_14 = sibling(label, 2);
-						var select_1 = child(div_14);
+						var div_13 = sibling(label, 2);
+						var select_1 = child(div_13);
 
 						template_effect(() => {
 							get(event$1);
@@ -4835,7 +4834,7 @@ var preOrdersApp = (function () {
 							append($$anchor, option_7);
 						});
 
-						var input = sibling(div_14, 2);
+						var input = sibling(div_13, 2);
 
 						var button_1 = sibling(input, 2);
 						var text_35 = child(button_1);
@@ -4859,7 +4858,7 @@ var preOrdersApp = (function () {
 						bind_select_value(select_1, () => get(event$1).status, ($$value) => mutate(event$1, get(event$1).status = $$value));
 						bind_value(input, () => get(event$1).message, ($$value) => mutate(event$1, get(event$1).message = $$value));
 						event('click', button_1, addHistoryEvent);
-						append($$anchor, div_13);
+						append($$anchor, div_12);
 					};
 
 					if_block(node_7, ($$render) => {
@@ -4889,8 +4888,8 @@ var preOrdersApp = (function () {
 
 				{
 					var consequent_7 = ($$anchor) => {
-						var div_15 = root_16();
-						var label_1 = child(div_15);
+						var div_14 = root_16();
+						var label_1 = child(div_14);
 						var text_38 = child(label_1);
 
 						var input_1 = sibling(label_1, 2);
@@ -4914,7 +4913,7 @@ var preOrdersApp = (function () {
 
 						bind_value(input_1, () => get(newTrackingLink), ($$value) => set(newTrackingLink, $$value));
 						event('click', button_2, addTrackingLink);
-						append($$anchor, div_15);
+						append($$anchor, div_14);
 					};
 
 					if_block(node_9, ($$render) => {
