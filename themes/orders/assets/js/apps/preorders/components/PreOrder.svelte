@@ -10,10 +10,10 @@
   let errorOrNotFound = $state(false);
   let event = $state({});
   let orderStatus = $state({});
-
+  let predefinedMessage = $state("");
   let openEditors = $state({});
   let editors = $state({});
-
+  let useCustomMessage = $state(false);
   let tracking = $state({ courier: "ups", parcels: [] });
 
   function ucfirst(str) {
@@ -55,12 +55,14 @@
         .join("")}</ul>`;
       event.text = tpl;
     }
-    if (event.text && event.text.length > 0) {
+
+    let messageToAdd = useCustomMessage ? event.text : predefinedMessage;
+    if (messageToAdd && messageToAdd.length > 0) {
       order.events.push({
         ts: Date.now(),
         level: event.level,
         type: event.type,
-        data: { text: event.text },
+        data: { text: messageToAdd },
       });
       order = order;
 
@@ -641,62 +643,39 @@
               <option value="success">success</option>
             </select>
           </div>
-          <label class="label" for="">Type</label>
-          <div class="select is-info mb-4">
-            <select bind:value={event.type}>
-              <option value="update">Update</option>
-              <option value="tracking-info">Tracking info</option>
-            </select>
-          </div>
-          {#if event.type === "tracking-info"}
-            <label class="label" for="">Courier</label>
-            <div class="select is-info mb-4">
-              <select bind:value={tracking.courier}>
-                <option value="ups" selected={tracking.courier === "ups"}
-                  >UPS</option
+          <div class="field">
+            <label class="label">Messaggi predefiniti</label>
+            <div class="select is-info">
+              <select bind:value={predefinedMessage}>
+                <option value="">Seleziona un messaggio</option>
+                <option value="Il tuo ordine è in preparazione."
+                  >Il tuo ordine è in preparazione.</option
                 >
-                <option value="brt" selected={tracking.courier === "brt"}
-                  >BRT</option
+                <option value="Il tuo ordine è pronto per essere spedito."
+                  >Il tuo ordine è pronto per essere spedito.</option
                 >
-                <option value="sda" selected={tracking.courier === "sda"}
-                  >SDA</option
-                >
-                <option value="dpd" selected={tracking.courier === "dpd"}
-                  >DPD</option
+                <option value="Il tuo ordine è stato spedito."
+                  >Il tuo ordine è stato spedito.</option
                 >
               </select>
             </div>
-            <div class="mb-5">
-              <label class="label" for="">Parcels</label>
-              <input
-                type="text"
-                class="input mt-3"
-                bind:value={tracking.parcels[0]}
-              />
-              <input
-                type="text"
-                class="input mt-3"
-                bind:value={tracking.parcels[1]}
-              />
-              <input
-                type="text"
-                class="input mt-3"
-                bind:value={tracking.parcels[2]}
-              />
-              <input
-                type="text"
-                class="input mt-3"
-                bind:value={tracking.parcels[3]}
-              />
-            </div>
+          </div>
+          <label class="checkbox mt-4">
+            <input type="checkbox" bind:checked={useCustomMessage} /> Usa messaggio
+            personalizzato
+          </label>
+          {#if useCustomMessage}
+            <label class="label mt-4" for="">Message</label>
+            <textarea class="textarea is-info" bind:value={event.text}
+            ></textarea>
           {/if}
-          <label class="label" for="">Message</label>
-          <textarea class="textarea is-info" bind:value={event.text}></textarea>
-          <button
-            class="button is-info has-text-white mt-6"
-            on:click={addEvent}
-            type="button">Add event</button
-          >
+          <div class="mt-5">
+            <button
+              class="button is-info has-text-white"
+              on:click={addEvent}
+              type="button">Aggiungi messaggio</button
+            >
+          </div>
         </form>
       {/if}
     </div>

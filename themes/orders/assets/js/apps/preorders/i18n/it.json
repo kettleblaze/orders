@@ -26,5 +26,7 @@
   "end-date": "Data di fine",
   "installment-amount": "Importo della rata",
   "color": "Colore",
-  "customer_balance": "Bonifico Bancario"
+  "customer_balance": "Bonifico Bancario",
+  "paid": "Pagamento completato",
+  "black": "Nero"
 }

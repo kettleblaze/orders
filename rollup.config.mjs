@@ -95,6 +95,78 @@ const preOrdersApp = {
   ],
 };
 
+const ordersApp = {
+  input: "./themes/orders/assets/js/apps/preorders/order.js",
+  output: {
+    name: "preOrdersApp",
+    file: "themes/orders/assets/js/compiled/orders-app.js",
+    format: "iife",
+    plugins,
+  },
+  plugins: [
+    /* commonjs({
+      namedExports: {
+        "svelte-i18n": ["register", "_", "getLocaleFromNavigator"],
+      },
+    }),*/
+    json(),
+    svelteSVG(),
+    replace({
+      //preventAssignment: true,
+      "process.env.storeServer":
+        process.env.HUGO_ENV === "development"
+          ? "http://localhost:8080"
+          : "https://kettleblaze-store-server.fly.dev",
+      "process.env.isLocal": JSON.stringify(
+        process.env.HUGO_ENV === "development" ? true : false
+      ),
+    }),
+    svelte({
+      // preprocess: [],
+      // Optionally, preprocess components with svelte.preprocess:
+      // https://svelte.dev/docs#svelte_preprocess
+      /*preprocess: {
+        style: ({ content }) => {
+          return transformStyles(content);
+        }
+      },*/
+
+      // Emit CSS as "files" for other plugins to process. default is true
+      emitCss: false,
+
+      // Warnings are normally passed straight to Rollup. You can
+      // optionally handle them here, for example to squelch
+      // warnings with a particular code
+      onwarn: (warning, handler) => {
+        // e.g. don't warn on <marquee> elements, cos they're cool
+        if (warning.code === "a11y-distracting-elements") return;
+
+        // let Rollup handle all other warnings normally
+        handler(warning);
+      },
+
+      // You can pass any of the Svelte compiler options
+      compilerOptions: {
+        // ensure that extra attributes are added to head
+        // elements for hydration (used with generate: 'ssr')
+        hydratable: false,
+
+        // You can optionally set 'customElement' to 'true' to compile
+        // your components to custom elements (aka web elements)
+        customElement: false,
+      },
+    }),
+    // see NOTICE below
+    resolve({
+      browser: true,
+      exportConditions: ["svelte"],
+      extensions: [".svelte"],
+    }),
+
+    //css({ output: "product-page-price-app.css" }),
+  ],
+};
+
 if (process.env.HUGO_ENV !== "development") {
   const stripConsole = strip({
     include: ["**/*.js", "**/*.svelte"],
@@ -105,6 +177,9 @@ if (process.env.HUGO_ENV !== "development") {
 
   preOrdersApp.plugins.push(stripConsole);
   preOrdersApp.plugins.push(minify);
+
+  ordersApp.plugins.push(stripConsole);
+  ordersApp.plugins.push(minify);
 }
 
-export default [preOrdersApp];
+export default [preOrdersApp, ordersApp];

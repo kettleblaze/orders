@@ -16,7 +16,14 @@
         </ul>
     </div>
 </footer>
-{{- with resources.Get "js/compiled/preorders-app.js"}}
-<script src="{{.RelPermalink}}" defer></script>
+{{- if eq .Type "order"}}
+    {{- with resources.Get "js/compiled/orders-app.js"}}
+    <script src="{{.RelPermalink}}" defer></script>
+    {{- end }}
+{{- else}}
+    {{- with resources.Get "js/compiled/preorders-app.js"}}
+    <script src="{{.RelPermalink}}" defer></script>
+    {{- end }}
 {{- end }}
+
 <script src="//code.tidio.co/ybp2atis8ov0v4ebxq9gk7n9owowwyoy.js" async></script>
