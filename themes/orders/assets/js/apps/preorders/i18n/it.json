@@ -39,5 +39,7 @@
   "in_preparation": "Ordine in preparazione",
   "ready_to_ship": "Ordine pronto per essere spedito",
   "delivered": "Ordine consegnato",
-  "canceled": "Ordine cancellato"
+  "canceled": "Ordine cancellato",
+  "edit": "Modifica",
+  "save": "Salva"
 }

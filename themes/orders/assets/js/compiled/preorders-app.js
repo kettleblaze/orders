@@ -4114,6 +4114,8 @@ var preOrdersApp = (function () {
 	var ready_to_ship = "Ordine pronto per essere spedito";
 	var delivered = "Ordine consegnato";
 	var canceled = "Ordine cancellato";
+	var edit = "Modifica";
+	var save = "Salva";
 	var it = {
 		"order-summary": "Riepilogo Ordine",
 		"order-details": "Dettagli Ordine",
@@ -4155,7 +4157,9 @@ var preOrdersApp = (function () {
 		in_preparation: in_preparation,
 		ready_to_ship: ready_to_ship,
 		delivered: delivered,
-		canceled: canceled
+		canceled: canceled,
+		edit: edit,
+		save: save
 	};
 
 	var history$2 = "Historial";

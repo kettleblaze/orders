@@ -10,7 +10,8 @@
   let orderStatus = "";
   let tracking = { courier: "", tracking_links: [] };
   let newTrackingLink = "";
-
+  let editingIndex;
+  let editedEvent = { status: "", message: "" };
   const statusOptions = [
     "order_placed",
     "in_preparation",
@@ -75,6 +76,17 @@
       updateOrder();
       event = { status: "", message: "" };
     }
+  }
+
+  function editHistoryEvent(index) {
+    editingIndex = index;
+    editedEvent = { ...order.history[index] };
+  }
+
+  function saveHistoryEvent(index) {
+    order.history[index] = editedEvent;
+    updateOrder();
+    editingIndex = null;
   }
 
   function addTrackingLink() {
@@ -242,12 +254,45 @@
       </ul>
       <h2 class="title mt-5">{T("order-history")}</h2>
       <ul>
-        {#each order.history as historyEvent}
-          <li class=" mb-2 py-3">
-            <span class="has-text-grey is-size-6">{new Date(historyEvent.timestamp).toLocaleString('it-IT', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' })}</span>
-            <br>
-            <strong class="has-text-info">{T(historyEvent.status)}</strong>
-            <p class="mt-2">{historyEvent.message}</p>
+        {#each order.history as historyEvent, index}
+          <li class="mb-2 py-3">
+            <span class="has-text-grey is-size-6"
+              >{new Date(historyEvent.timestamp).toLocaleString("it-IT", {
+                year: "numeric",
+                month: "2-digit",
+                day: "2-digit",
+                hour: "2-digit",
+                minute: "2-digit",
+                second: "2-digit",
+              })}</span
+            >
+            <br />
+            {#if editingIndex === index}
+              <div class="select">
+                <select bind:value={editedEvent.status}>
+                  {#each statusOptions as status}
+                    <option value={status}>{T(status)}</option>
+                  {/each}
+                </select>
+              </div>
+              <input
+                class="input mt-2"
+                type="text"
+                bind:value={editedEvent.message}
+              />
+              <button
+                class="button is-success mt-2"
+                on:click={() => saveHistoryEvent(index)}>{T("save")}</button
+              >
+            {:else}
+              <strong class="has-text-info">{T(historyEvent.status)}</strong>
+              <p class="mt-2">{historyEvent.message}</p>
+              {#if process.env.isLocal}<button
+                  class="button is-warning mt-3"
+                  on:click={() => editHistoryEvent(index)}>{T("edit")}</button
+                >
+              {/if}
+            {/if}
           </li>
         {/each}
       </ul>
