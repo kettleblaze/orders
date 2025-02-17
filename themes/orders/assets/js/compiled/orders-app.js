@@ -4382,7 +4382,7 @@ var preOrdersApp = (function () {
 	var root_5 = template(`<li><div class="columns is-align-items-center"><div class="column"><!> <div class="column"><h4 class="title has-text-info iss-size-4"> </h4> <!> <p class="is-size-6"> </p></div></div></div></li>`);
 	var root_8 = template(`<form class="form mt-5"><div class="columns"><div class="column"><div class="select is-info"><select name="order-status" id="order-status"><option> </option><option> </option><option> </option><option> </option><option> </option><option> </option></select></div></div> <div class="column"><button type="button" class="button is-info has-text-white"> </button></div></div></form>`);
 	var root_10 = template(`<li> </li>`);
-	var root_12 = template(`<li> </li>`);
+	var root_12 = template(`<li class=" mb-2 py-3"><span class="has-text-grey is-size-6"> </span> <br> <strong class="has-text-info"> </strong> <p class="mt-2"> </p></li>`);
 	var root_14 = template(`<option> </option>`);
 	var root_13 = template(`<div class="field my-6"><label class="label"> </label> <div class="select"><select><option disabled selected> </option><!></select></div> <input class="input mt-2" type="text"> <button class="button is-info mt-2"> </button></div>`);
 	var root_15 = template(`<li><a target="_blank"> </a></li>`);
@@ -4767,18 +4767,29 @@ var preOrdersApp = (function () {
 
 				each(ul_5, 5, () => get(order).history, index, ($$anchor, historyEvent) => {
 					var li_12 = root_12();
-					var text_31 = child(li_12);
+					var span_1 = child(li_12);
+					var text_31 = child(span_1);
+
+					var strong = sibling(span_1, 4);
+					var text_32 = child(strong);
+
+					var p_2 = sibling(strong, 2);
+					var text_33 = child(p_2);
 
 					template_effect(
-						($0, $1) => set_text(text_31, `${$0 ?? ''} - ${$1 ?? ''}: ${get(historyEvent).message ?? ''}`),
+						($0, $1) => {
+							set_text(text_31, $0);
+							set_text(text_32, $1);
+							set_text(text_33, get(historyEvent).message);
+						},
 						[
-							() => new Date(get(historyEvent).timestamp).toLocaleString("it-IT", {
-								year: "numeric",
-								month: "2-digit",
-								day: "2-digit",
-								hour: "2-digit",
-								minute: "2-digit",
-								second: "2-digit"
+							() => new Date(get(historyEvent).timestamp).toLocaleString('it-IT', {
+								year: 'numeric',
+								month: '2-digit',
+								day: '2-digit',
+								hour: '2-digit',
+								minute: '2-digit',
+								second: '2-digit'
 							}),
 							() => t(get(historyEvent).status)
 						],
@@ -4794,7 +4805,7 @@ var preOrdersApp = (function () {
 					var consequent_6 = ($$anchor) => {
 						var div_12 = root_13();
 						var label = child(div_12);
-						var text_32 = child(label);
+						var text_34 = child(label);
 
 						var div_13 = sibling(label, 2);
 						var select_1 = child(div_13);
@@ -4810,14 +4821,14 @@ var preOrdersApp = (function () {
 
 						option_6.value = null == (option_6.__value = '') ? '' : '';
 
-						var text_33 = child(option_6);
+						var text_35 = child(option_6);
 
 						var node_8 = sibling(option_6);
 
 						each(node_8, 1, () => statusOptions, index, ($$anchor, status) => {
 							var option_7 = root_14();
 							var option_7_value = {};
-							var text_34 = child(option_7);
+							var text_36 = child(option_7);
 
 							template_effect(
 								($0) => {
@@ -4825,7 +4836,7 @@ var preOrdersApp = (function () {
 										option_7.value = null == (option_7.__value = get(status)) ? '' : get(status);
 									}
 
-									set_text(text_34, $0);
+									set_text(text_36, $0);
 								},
 								[() => t(get(status))],
 								derived_safe_equal
@@ -4837,14 +4848,14 @@ var preOrdersApp = (function () {
 						var input = sibling(div_13, 2);
 
 						var button_1 = sibling(input, 2);
-						var text_35 = child(button_1);
+						var text_37 = child(button_1);
 
 						template_effect(
 							($0, $1, $2, $3) => {
-								set_text(text_32, $0);
-								set_text(text_33, $1);
+								set_text(text_34, $0);
+								set_text(text_35, $1);
 								set_attribute(input, 'placeholder', $2);
-								set_text(text_35, $3);
+								set_text(text_37, $3);
 							},
 							[
 								() => t("add-event"),
@@ -4867,18 +4878,18 @@ var preOrdersApp = (function () {
 				}
 
 				var h2_7 = sibling(node_7, 2);
-				var text_36 = child(h2_7);
+				var text_38 = child(h2_7);
 
 				var ul_6 = sibling(h2_7, 2);
 
 				each(ul_6, 5, () => get(order).tracking.tracking_links, index, ($$anchor, link) => {
 					var li_13 = root_15();
 					var a = child(li_13);
-					var text_37 = child(a);
+					var text_39 = child(a);
 
 					template_effect(() => {
 						set_attribute(a, 'href', get(link));
-						set_text(text_37, get(link));
+						set_text(text_39, get(link));
 					});
 
 					append($$anchor, li_13);
@@ -4890,18 +4901,18 @@ var preOrdersApp = (function () {
 					var consequent_7 = ($$anchor) => {
 						var div_14 = root_16();
 						var label_1 = child(div_14);
-						var text_38 = child(label_1);
+						var text_40 = child(label_1);
 
 						var input_1 = sibling(label_1, 2);
 
 						var button_2 = sibling(input_1, 2);
-						var text_39 = child(button_2);
+						var text_41 = child(button_2);
 
 						template_effect(
 							($0, $1, $2) => {
-								set_text(text_38, $0);
+								set_text(text_40, $0);
 								set_attribute(input_1, 'placeholder', $1);
-								set_text(text_39, $2);
+								set_text(text_41, $2);
 							},
 							[
 								() => t("add-tracking"),
@@ -4952,7 +4963,7 @@ var preOrdersApp = (function () {
 						set_text(text_27, `${get(order).customerData.address.city ?? ''}, ${get(order).customerData.address.postal_code ?? ''}`);
 						set_text(text_29, get(order).customerData.address.country);
 						set_text(text_30, $9);
-						set_text(text_36, $10);
+						set_text(text_38, $10);
 					},
 					[
 						() => t("order-summary"),

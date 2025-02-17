@@ -240,19 +240,14 @@
         </li>
         <li>{order.customerData.address.country}</li>
       </ul>
-
       <h2 class="title mt-5">{T("order-history")}</h2>
       <ul>
         {#each order.history as historyEvent}
-          <li>
-            {new Date(historyEvent.timestamp).toLocaleString("it-IT", {
-              year: "numeric",
-              month: "2-digit",
-              day: "2-digit",
-              hour: "2-digit",
-              minute: "2-digit",
-              second: "2-digit",
-            })} - {T(historyEvent.status)}: {historyEvent.message}
+          <li class=" mb-2 py-3">
+            <span class="has-text-grey is-size-6">{new Date(historyEvent.timestamp).toLocaleString('it-IT', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' })}</span>
+            <br>
+            <strong class="has-text-info">{T(historyEvent.status)}</strong>
+            <p class="mt-2">{historyEvent.message}</p>
           </li>
         {/each}
       </ul>
