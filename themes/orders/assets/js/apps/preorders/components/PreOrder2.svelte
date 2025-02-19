@@ -389,57 +389,58 @@
             >{T("add")}</button
           >
         </div>
-      {/if}
-      <div class="tracking-section">
-        <h2 class="title">Tracking</h2>
-        <div class="field">
-          <label class="label">Corriere</label>
-          <div class="select">
-            <select bind:value={tracking.courier}>
-              {#each courierOptions as courier}
-                <option value={courier}>{courier}</option>
-              {/each}
-            </select>
+
+        <div class="tracking-section">
+          <h2 class="title">Tracking</h2>
+          <div class="field">
+            <label class="label">Corriere</label>
+            <div class="select">
+              <select bind:value={tracking.courier}>
+                {#each courierOptions as courier}
+                  <option value={courier}>{courier}</option>
+                {/each}
+              </select>
+            </div>
           </div>
-        </div>
-        <div class="field">
-          <label class="label">Numero colli</label>
-          <input
-            class="input"
-            type="number"
-            min="1"
-            bind:value={tracking.packages}
-          />
-        </div>
-        <div class="field">
-          <label class="label">Link di tracking</label>
-          <ul>
-            {#each tracking.tracking_links as link, index}
-              <li>
-                <a href={link} target="_blank">{link}</a>
-                <button
-                  class="button is-small is-danger ml-2"
-                  on:click={() => tracking.tracking_links.splice(index, 1)}
-                >
-                  {T("remove")}
-                </button>
-              </li>
-            {/each}
-          </ul>
-          <input
-            class="input mt-2"
-            type="text"
-            placeholder={T("add-tracking-link")}
-            bind:value={newTrackingLink}
-          />
-          <button class="button is-info mt-2" on:click={addTrackingLink}
-            >{T("add")}</button
+          <div class="field">
+            <label class="label">Numero colli</label>
+            <input
+              class="input"
+              type="number"
+              min="1"
+              bind:value={tracking.packages}
+            />
+          </div>
+          <div class="field">
+            <label class="label">Link di tracking</label>
+            <ul>
+              {#each tracking.tracking_links as link, index}
+                <li>
+                  <a href={link} target="_blank">{link}</a>
+                  <button
+                    class="button is-small is-danger ml-2"
+                    on:click={() => tracking.tracking_links.splice(index, 1)}
+                  >
+                    {T("remove")}
+                  </button>
+                </li>
+              {/each}
+            </ul>
+            <input
+              class="input mt-2"
+              type="text"
+              placeholder={T("add-tracking-link")}
+              bind:value={newTrackingLink}
+            />
+            <button class="button is-info mt-2" on:click={addTrackingLink}
+              >{T("add")}</button
+            >
+          </div>
+          <button class="button is-success mt-4" on:click={updateTracking}
+            >Salva Tracking</button
           >
         </div>
-        <button class="button is-success mt-4" on:click={updateTracking}
-          >Salva Tracking</button
-        >
-      </div>
+      {/if}
     </div>
   </div>
 {/if}
