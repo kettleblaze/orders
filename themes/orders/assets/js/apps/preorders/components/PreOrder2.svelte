@@ -332,15 +332,15 @@
                 >
                   {T("edit")}
                 </button>
-              {/if}
 
-              <!-- Pulsante per inviare la mail manualmente -->
-              <button
-                class="button is-info mt-3 ml-3"
-                on:click={() => sendNotificationEmail(historyEvent._id)}
-              >
-                📧 {T("send-notification")}
-              </button>
+                <!-- Pulsante per inviare la mail manualmente -->
+                <button
+                  class="button is-info mt-3 ml-3"
+                  on:click={() => sendNotificationEmail(historyEvent._id)}
+                >
+                  📧 {T("send-notification")}
+                </button>
+              {/if}
             {/if}
           </li>
         {/each}
