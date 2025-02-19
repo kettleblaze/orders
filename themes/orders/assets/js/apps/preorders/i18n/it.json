@@ -41,5 +41,9 @@
   "delivered": "Ordine consegnato",
   "canceled": "Ordine cancellato",
   "edit": "Modifica",
-  "save": "Salva"
+  "save": "Salva",
+  "tracking_details": "Tracking",
+  "courier": "Corriere",
+  "number_of_packages": "Numero Colli",
+  "tracking_links": "Link di Tracking"
 }

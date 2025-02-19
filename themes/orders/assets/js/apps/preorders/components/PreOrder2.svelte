@@ -8,7 +8,7 @@
   let errorOrNotFound = false;
   let event = {};
   let orderStatus = "";
-  let tracking = { courier: "", tracking_links: [] };
+  let tracking = { courier: "", packages: 1, tracking_links: [] };
   let newTrackingLink = "";
   let editingIndex;
   let editedEvent = { status: "", message: "" };
@@ -20,10 +20,36 @@
     "delivered",
     "canceled",
   ];
+  const courierOptions = ["BRT", "DPD", "UPS", "FedEx", "PosteItaliane"];
 
-  const trackingLinks = {
-    ups: "https://www.ups.com/track?loc=en_GB&tracknum=PARCELNUM&requester=WT/trackdetails",
-  };
+  async function sendNotificationEmail(eventId) {
+    if (!order) return;
+
+    const emailPayload = {
+      orderId: order.orderId,
+      eventId: eventId, // Invia solo l'ID dell'evento
+    };
+
+    try {
+      const response = await fetch(
+        `process.env.storeServer/send-notification`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(emailPayload),
+        }
+      );
+
+      if (response.ok) {
+        alert("Email inviata con successo!");
+      } else {
+        alert("Errore nell'invio dell'email.");
+      }
+    } catch (error) {
+      console.error("Errore nell'invio dell'email:", error);
+      alert("Errore imprevisto. Riprova.");
+    }
+  }
 
   function formatCurrency(price, currency) {
     return new Intl.NumberFormat("en-IT", {
@@ -68,12 +94,14 @@
 
   function addHistoryEvent() {
     if (event.status && event.message) {
-      order.history.push({
+      const newEvent = {
         timestamp: new Date(),
         status: event.status,
         message: event.message,
-      });
-      updateOrder();
+      };
+
+      order.history.push(newEvent);
+      updateOrder().then(() => sendNotificationEmail(newEvent));
       event = { status: "", message: "" };
     }
   }
@@ -85,16 +113,22 @@
 
   function saveHistoryEvent(index) {
     order.history[index] = editedEvent;
-    updateOrder();
+    updateOrder().then(() => sendNotificationEmail(editedEvent));
     editingIndex = null;
   }
 
   function addTrackingLink() {
     if (newTrackingLink) {
-      order.tracking.tracking_links.push(newTrackingLink);
-      updateOrder();
+      tracking.tracking_links.push(newTrackingLink);
+      tracking = tracking;
       newTrackingLink = "";
     }
+  }
+
+  function updateTracking() {
+    if (!order) return;
+    order.tracking = { ...tracking };
+    updateOrder();
   }
 
   function calculateTotal(order) {
@@ -254,19 +288,20 @@
       </ul>
       <h2 class="title mt-5">{T("order-history")}</h2>
       <ul>
-        {#each order.history as historyEvent, index}
+        {#each order.history as historyEvent, index (historyEvent._id)}
           <li class="mb-2 py-3">
-            <span class="has-text-grey is-size-6"
-              >{new Date(historyEvent.timestamp).toLocaleString("it-IT", {
+            <span class="has-text-grey is-size-6">
+              {new Date(historyEvent.timestamp).toLocaleString("it-IT", {
                 year: "numeric",
                 month: "2-digit",
                 day: "2-digit",
                 hour: "2-digit",
                 minute: "2-digit",
                 second: "2-digit",
-              })}</span
-            >
+              })}
+            </span>
             <br />
+
             {#if editingIndex === index}
               <div class="select">
                 <select bind:value={editedEvent.status}>
@@ -282,20 +317,57 @@
               />
               <button
                 class="button is-success mt-2"
-                on:click={() => saveHistoryEvent(index)}>{T("save")}</button
+                on:click={() => saveHistoryEvent(index)}
               >
+                {T("save")}
+              </button>
             {:else}
               <strong class="has-text-info">{T(historyEvent.status)}</strong>
               <p class="mt-2">{historyEvent.message}</p>
-              {#if process.env.isLocal}<button
+
+              {#if process.env.isLocal}
+                <button
                   class="button is-warning mt-3"
-                  on:click={() => editHistoryEvent(index)}>{T("edit")}</button
+                  on:click={() => editHistoryEvent(index)}
                 >
+                  {T("edit")}
+                </button>
               {/if}
+
+              <!-- Pulsante per inviare la mail manualmente -->
+              <button
+                class="button is-info mt-3 ml-3"
+                on:click={() => sendNotificationEmail(historyEvent._id)}
+              >
+                📧 {T("send-notification")}
+              </button>
             {/if}
           </li>
         {/each}
       </ul>
+      {#if order.tracking.length > 0}
+        <h2 class="title mt-6">{T("tracking_details")}</h2>
+        {#each order.tracking as tracking}
+          <div class="field">
+            <label class="label">{T("courier")}</label>
+            <p class="is-size-5">{tracking.courier}</p>
+          </div>
+          <div class="field">
+            <label class="label">{T("number_of_packages")}:</label>
+            <p>{tracking.packages}</p>
+          </div>
+          <div class="field">
+            <label class="label">{T("tracking_links")}</label>
+            <ul>
+              {#each tracking.tracking_links as link, index}
+                <li>
+                  <a href={link} target="_blank">{link}</a>
+                </li>
+              {/each}
+            </ul>
+          </div>
+        {/each}
+      {/if}
       {#if process.env.isLocal}
         <div class="field my-6">
           <label class="label">{T("add-event")}</label>
@@ -318,26 +390,56 @@
           >
         </div>
       {/if}
-      <h2 class="title mt-6">{T("tracking")}</h2>
-      <ul>
-        {#each order.tracking.tracking_links as link}
-          <li><a href={link} target="_blank">{link}</a></li>
-        {/each}
-      </ul>
-      {#if process.env.isLocal}
+      <div class="tracking-section">
+        <h2 class="title">Tracking</h2>
         <div class="field">
-          <label class="label">{T("add-tracking")}</label>
+          <label class="label">Corriere</label>
+          <div class="select">
+            <select bind:value={tracking.courier}>
+              {#each courierOptions as courier}
+                <option value={courier}>{courier}</option>
+              {/each}
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Numero colli</label>
           <input
             class="input"
+            type="number"
+            min="1"
+            bind:value={tracking.packages}
+          />
+        </div>
+        <div class="field">
+          <label class="label">Link di tracking</label>
+          <ul>
+            {#each tracking.tracking_links as link, index}
+              <li>
+                <a href={link} target="_blank">{link}</a>
+                <button
+                  class="button is-small is-danger ml-2"
+                  on:click={() => tracking.tracking_links.splice(index, 1)}
+                >
+                  {T("remove")}
+                </button>
+              </li>
+            {/each}
+          </ul>
+          <input
+            class="input mt-2"
             type="text"
-            placeholder={T("tracking-link")}
+            placeholder={T("add-tracking-link")}
             bind:value={newTrackingLink}
           />
           <button class="button is-info mt-2" on:click={addTrackingLink}
             >{T("add")}</button
           >
         </div>
-      {/if}
+        <button class="button is-success mt-4" on:click={updateTracking}
+          >Salva Tracking</button
+        >
+      </div>
     </div>
   </div>
 {/if}

@@ -4116,6 +4116,10 @@ var preOrdersApp = (function () {
 	var canceled = "Ordine cancellato";
 	var edit = "Modifica";
 	var save = "Salva";
+	var tracking_details = "Tracking";
+	var courier = "Corriere";
+	var number_of_packages = "Numero Colli";
+	var tracking_links = "Link di Tracking";
 	var it = {
 		"order-summary": "Riepilogo Ordine",
 		"order-details": "Dettagli Ordine",
@@ -4159,7 +4163,11 @@ var preOrdersApp = (function () {
 		delivered: delivered,
 		canceled: canceled,
 		edit: edit,
-		save: save
+		save: save,
+		tracking_details: tracking_details,
+		courier: courier,
+		number_of_packages: number_of_packages,
+		tracking_links: tracking_links
 	};
 
 	var history$2 = "Historial";
