@@ -22,12 +22,13 @@
   ];
   const courierOptions = ["BRT", "DPD", "UPS", "FedEx", "PosteItaliane"];
 
-  async function sendNotificationEmail(eventId) {
+  async function sendNotificationEmail(eventId, type = "event") {
     if (!order) return;
 
     const emailPayload = {
       orderId: order.orderId,
-      eventId: eventId, // Invia solo l'ID dell'evento
+      eventId: eventId,
+      type: type,
     };
 
     try {
@@ -127,8 +128,8 @@
 
   function updateTracking() {
     if (!order) return;
-    order.tracking = { ...tracking };
-    updateOrder();
+   // order.tracking = { ...tracking };
+    updateOrder().then(() => sendNotificationEmail(order.orderId, "tracking"));
   }
 
   function calculateTotal(order) {
@@ -366,6 +367,12 @@
               {/each}
             </ul>
           </div>
+          {#if process.env.isLocal}
+            <button
+              class="button is-info mt-3 has-text-white"
+              on:click={updateTracking}>Invia mail di tracking</button
+            >
+          {/if}
         {/each}
       {/if}
       {#if process.env.isLocal}
