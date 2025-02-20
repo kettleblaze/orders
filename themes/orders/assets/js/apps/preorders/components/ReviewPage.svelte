@@ -19,7 +19,7 @@
       leaveReview: "Lascia una recensione",
       feedbackMessage:
         "Il tuo feedback è prezioso per noi e per i futuri clienti.",
-      name: "Nome (opzionale)",
+      name: "Nome",
       email: "Email (opzionale, non verrà pubblicata)",
       orderNumber: "Numero ordine",
       required: "*",
@@ -41,7 +41,7 @@
     en: {
       leaveReview: "Leave a Review",
       feedbackMessage: "Your feedback is valuable to us and future customers.",
-      name: "Name (optional)",
+      name: "Name",
       email: "Email (optional, will not be published)",
       orderNumber: "Order Number",
       required: "*",
