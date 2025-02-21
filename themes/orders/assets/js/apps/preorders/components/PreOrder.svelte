@@ -28,7 +28,7 @@
 
   const trackingLinks = {
     ups: "https://www.ups.com/track?loc=en_GB&tracknum=PARCELNUM&requester=WT/trackdetails",
-    dpd: "https://vas.brt.it/vas/sped_det_show.hsm?chisono=PARCELNUM"
+    dpd: "https://vas.brt.it/vas/sped_det_show.hsm?chisono=PARCELNUM",
   };
 
   function addTrackingInfo() {
@@ -48,7 +48,7 @@
     if (tracking.parcels.length > 0) {
       let trackingMessage = `Informazioni di tracking<br>Corriere: ${tracking.courier.toUpperCase()}<br>Pacchi: ${tracking.parcels.length}<br><ul>`;
       tracking.parcels.forEach((parcel, index) => {
-        trackingMessage += `<li><a href="${trackingLinks[tracking.courier].replace("PARCELNUM",parcel)}" target="_blank">Pacco ${index + 1}: ${parcel}</li></a>`;
+        trackingMessage += `<li><a href="${trackingLinks[tracking.courier].replace("PARCELNUM", parcel)}" target="_blank">Pacco ${index + 1}: ${parcel}</li></a>`;
       });
       trackingMessage += "</ul>";
       order.events.push({
@@ -67,7 +67,9 @@
       style: "currency",
       currency: product.currency || "EUR",
       maximumFractionDigits: 2,
-    }).format((product.price || product.amount_total) / 100);
+    }).format(
+      ((product.quantity || 1) * (product.price || product.amount_total)) / 100
+    );
   }
 
   function addEvent() {
@@ -685,11 +687,7 @@
 
           <div class="field">
             <label class="label">{T("tracking-number")}</label>
-            <input
-              class="input is-info"
-              type="text"
-              bind:value={newParcel}
-            />
+            <input class="input is-info" type="text" bind:value={newParcel} />
           </div>
 
           <button

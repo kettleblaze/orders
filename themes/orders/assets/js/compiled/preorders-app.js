@@ -4441,7 +4441,7 @@ var preOrdersApp = (function () {
 				style: "currency",
 				currency: product.currency || "EUR",
 				maximumFractionDigits: 2
-			}).format((product.price || product.amount_total) / 100);
+			}).format((product.quantity || 1) * (product.price || product.amount_total) / 100);
 		}
 
 		function addEvent() {
