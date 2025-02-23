@@ -4630,7 +4630,7 @@ var preOrdersApp = (function () {
 									($0, $1) => set_text(text_2, `${$0 ?? ''}: ${$1 ?? ''}`),
 									[
 										() => t(name()),
-										() => name() === "size" ? value().toUpperCase() : t(value())
+										() => name() === "size" ? value().toUpperCase() : t(value()) || value()
 									],
 									derived_safe_equal
 								);

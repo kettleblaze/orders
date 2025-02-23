@@ -182,7 +182,7 @@
                           <li>
                             {T(name)}: {name === "size"
                               ? value.toUpperCase()
-                              : T(value)}
+                              : T(value) || value}
                           </li>
                         {/each}
                       </ul>
