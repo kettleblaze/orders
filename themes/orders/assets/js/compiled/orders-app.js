@@ -4407,7 +4407,7 @@ var preOrdersApp = (function () {
 	var root_23 = template(`<option> </option>`);
 	var root_24 = template(`<li><a target="_blank"> </a> <button class="button is-small is-danger ml-2"> </button></li>`);
 	var root_21 = template(`<div class="field my-6"><label class="label"> </label> <div class="select"><select><option disabled selected> </option><!></select></div> <input class="input mt-2" type="text"> <button class="button is-info mt-2"> </button></div> <div class="tracking-section"><h2 class="title">Tracking</h2> <div class="field"><label class="label">Corriere</label> <div class="select"><select></select></div></div> <div class="field"><label class="label">Numero colli</label> <input class="input" type="number" min="1"></div> <div class="field"><label class="label">Link di tracking</label> <ul></ul> <input class="input mt-2" type="text"> <button class="button is-info mt-2"> </button></div> <button class="button is-success mt-4">Salva Tracking</button></div>`, 1);
-	var root_4 = template(`<div class="columns"><div class="column is-half"><h2 class="title mt-6 px-5"> </h2> <div class="box"><ul></ul> <h4 class="title has-text-info is-size-4 mt-5"> </h4> <p class="my-3"> </p></div></div> <div class="column px-6"><h2 class="title"> </h2> <ul><li> </li> <li> </li> <li> <span class="has-text-info has-text-weight-bold"> </span></li></ul> <!> <h2 class="title mt-6"> </h2> <ul><li> </li> <!> <li> </li></ul> <h2 class="title mt-6"> </h2> <ul><li> </li> <li> </li> <li> <!></li> <li> </li></ul> <h2 class="title mt-5"> </h2> <ul></ul> <!> <!></div></div>`);
+	var root_4 = template(`<div class="columns"><div class="column is-half"><h2 class="title mt-6 px-5"> </h2> <div class="box"><ul></ul> <h4 class="title has-text-info is-size-4 mt-5"> </h4> <p class="my-3"> </p></div></div> <div class="column px-6"><h2 class="title"> </h2> <ul><li> </li> <li> </li> <li> <span class="has-text-info has-text-weight-bold"> </span></li></ul> <!> <h2 class="title mt-6"> </h2> <ul><li> </li> <!> <li> </li> <li> </li></ul> <h2 class="title mt-6"> </h2> <ul><li> </li> <li> </li> <li> <!></li> <li> </li></ul> <h2 class="title mt-5"> </h2> <ul></ul> <!> <!></div></div>`);
 
 	function PreOrder2($$anchor, $$props) {
 		push($$props, false);
@@ -4438,6 +4438,10 @@ var preOrdersApp = (function () {
 			"FedEx",
 			"PosteItaliane"
 		];
+
+		async function sendTrackingNotificaton() {
+			return sendNotificationEmail(null, "tracking");
+		}
 
 		async function sendNotificationEmail(eventId, type = "event") {
 			if (!get(order)) return;
@@ -4539,8 +4543,8 @@ var preOrdersApp = (function () {
 
 		function updateTracking() {
 			if (!get(order)) return;
-			// order.tracking = { ...tracking };
-			updateOrder().then(() => sendNotificationEmail(get(order).orderId, "tracking"));
+			mutate(order, get(order).tracking = { ...get(tracking) });
+			updateOrder(); //.then(() => sendNotificationEmail(order.orderId, "tracking"));
 		}
 
 		function calculateTotal(order) {
@@ -4641,7 +4645,7 @@ var preOrdersApp = (function () {
 						};
 
 						if_block(node_3, ($$render) => {
-							if (Object.keys(get(item).selected_attributes).length > 0) $$render(consequent_2);
+							if (Object.keys(get(item).selected_attributes ?? {}).length > 0) $$render(consequent_2);
 						});
 					}
 
@@ -4806,26 +4810,29 @@ var preOrdersApp = (function () {
 				var li_7 = sibling(node_5, 2);
 				var text_23 = child(li_7);
 
+				var li_8 = sibling(li_7, 2);
+				var text_24 = child(li_8);
+
 				var h2_5 = sibling(ul_3, 2);
-				var text_24 = child(h2_5);
+				var text_25 = child(h2_5);
 
 				var ul_4 = sibling(h2_5, 2);
-				var li_8 = child(ul_4);
-				var text_25 = child(li_8);
-
-				var li_9 = sibling(li_8, 2);
+				var li_9 = child(ul_4);
 				var text_26 = child(li_9);
 
 				var li_10 = sibling(li_9, 2);
 				var text_27 = child(li_10);
-				var node_6 = sibling(text_27);
+
+				var li_11 = sibling(li_10, 2);
+				var text_28 = child(li_11);
+				var node_6 = sibling(text_28);
 
 				{
 					var consequent_5 = ($$anchor) => {
-						var text_28 = text();
+						var text_29 = text();
 
-						template_effect(() => set_text(text_28, `(${get(order).customerData.address.state ?? ''})`));
-						append($$anchor, text_28);
+						template_effect(() => set_text(text_29, `(${get(order).customerData.address.state ?? ''})`));
+						append($$anchor, text_29);
 					};
 
 					if_block(node_6, ($$render) => {
@@ -4833,18 +4840,18 @@ var preOrdersApp = (function () {
 					});
 				}
 
-				var li_11 = sibling(li_10, 2);
-				var text_29 = child(li_11);
+				var li_12 = sibling(li_11, 2);
+				var text_30 = child(li_12);
 
 				var h2_6 = sibling(ul_4, 2);
-				var text_30 = child(h2_6);
+				var text_31 = child(h2_6);
 
 				var ul_5 = sibling(h2_6, 2);
 
 				each(ul_5, 7, () => get(order).history, (historyEvent) => historyEvent._id, ($$anchor, historyEvent, index$1) => {
-					var li_12 = root_12();
-					var span_1 = child(li_12);
-					var text_31 = child(span_1);
+					var li_13 = root_12();
+					var span_1 = child(li_13);
+					var text_32 = child(span_1);
 
 					var node_7 = sibling(span_1, 4);
 
@@ -4864,7 +4871,7 @@ var preOrdersApp = (function () {
 							each(select_1, 5, () => statusOptions, index, ($$anchor, status) => {
 								var option_6 = root_14();
 								var option_6_value = {};
-								var text_32 = child(option_6);
+								var text_33 = child(option_6);
 
 								template_effect(
 									($0) => {
@@ -4872,7 +4879,7 @@ var preOrdersApp = (function () {
 											option_6.value = null == (option_6.__value = get(status)) ? '' : get(status);
 										}
 
-										set_text(text_32, $0);
+										set_text(text_33, $0);
 									},
 									[() => t(get(status))],
 									derived_safe_equal
@@ -4884,8 +4891,8 @@ var preOrdersApp = (function () {
 							var input = sibling(div_12, 2);
 
 							var button_1 = sibling(input, 2);
-							var text_33 = child(button_1);
-							template_effect(($0) => set_text(text_33, $0), [() => t("save")], derived_safe_equal);
+							var text_34 = child(button_1);
+							template_effect(($0) => set_text(text_34, $0), [() => t("save")], derived_safe_equal);
 							bind_select_value(select_1, () => get(editedEvent).status, ($$value) => mutate(editedEvent, get(editedEvent).status = $$value));
 							bind_value(input, () => get(editedEvent).message, ($$value) => mutate(editedEvent, get(editedEvent).message = $$value));
 							event('click', button_1, () => saveHistoryEvent(get(index$1)));
@@ -4895,10 +4902,10 @@ var preOrdersApp = (function () {
 						var alternate_2 = ($$anchor) => {
 							var fragment_5 = root_15();
 							var strong = first_child(fragment_5);
-							var text_34 = child(strong);
+							var text_35 = child(strong);
 
 							var p_2 = sibling(strong, 2);
-							var text_35 = child(p_2);
+							var text_36 = child(p_2);
 
 							var node_8 = sibling(p_2, 2);
 
@@ -4906,15 +4913,15 @@ var preOrdersApp = (function () {
 								var consequent_7 = ($$anchor) => {
 									var fragment_6 = root_16();
 									var button_2 = first_child(fragment_6);
-									var text_36 = child(button_2);
+									var text_37 = child(button_2);
 
 									var button_3 = sibling(button_2, 2);
-									var text_37 = child(button_3);
+									var text_38 = child(button_3);
 
 									template_effect(
 										($0, $1) => {
-											set_text(text_36, $0);
-											set_text(text_37, `📧 ${$1 ?? ''}`);
+											set_text(text_37, $0);
+											set_text(text_38, `📧 ${$1 ?? ''}`);
 										},
 										[
 											() => t("edit"),
@@ -4935,8 +4942,8 @@ var preOrdersApp = (function () {
 
 							template_effect(
 								($0) => {
-									set_text(text_34, $0);
-									set_text(text_35, get(historyEvent).message);
+									set_text(text_35, $0);
+									set_text(text_36, get(historyEvent).message);
 								},
 								[() => t(get(historyEvent).status)],
 								derived_safe_equal
@@ -4951,7 +4958,7 @@ var preOrdersApp = (function () {
 					}
 
 					template_effect(
-						($0) => set_text(text_31, $0),
+						($0) => set_text(text_32, $0),
 						[
 							() => new Date(get(historyEvent).timestamp).toLocaleString("it-IT", {
 								year: "numeric",
@@ -4965,7 +4972,7 @@ var preOrdersApp = (function () {
 						derived_safe_equal
 					);
 
-					append($$anchor, li_12);
+					append($$anchor, li_13);
 				});
 
 				var node_9 = sibling(ul_5, 2);
@@ -4974,7 +4981,7 @@ var preOrdersApp = (function () {
 					var consequent_9 = ($$anchor) => {
 						var fragment_7 = root_17();
 						var h2_7 = first_child(fragment_7);
-						var text_38 = child(h2_7);
+						var text_39 = child(h2_7);
 
 						var node_10 = sibling(h2_7, 2);
 
@@ -4982,35 +4989,35 @@ var preOrdersApp = (function () {
 							var fragment_8 = root_18();
 							var div_13 = first_child(fragment_8);
 							var label = child(div_13);
-							var text_39 = child(label);
+							var text_40 = child(label);
 
 							var p_3 = sibling(label, 2);
-							var text_40 = child(p_3);
+							var text_41 = child(p_3);
 
 							var div_14 = sibling(div_13, 2);
 							var label_1 = child(div_14);
-							var text_41 = child(label_1);
+							var text_42 = child(label_1);
 
 							var p_4 = sibling(label_1, 2);
-							var text_42 = child(p_4);
+							var text_43 = child(p_4);
 
 							var div_15 = sibling(div_14, 2);
 							var label_2 = child(div_15);
-							var text_43 = child(label_2);
+							var text_44 = child(label_2);
 
 							var ul_6 = sibling(label_2, 2);
 
 							each(ul_6, 5, () => get(tracking).tracking_links, index, ($$anchor, link) => {
-								var li_13 = root_19();
-								var a = child(li_13);
-								var text_44 = child(a);
+								var li_14 = root_19();
+								var a = child(li_14);
+								var text_45 = child(a);
 
 								template_effect(() => {
 									set_attribute(a, 'href', get(link));
-									set_text(text_44, get(link));
+									set_text(text_45, get(link));
 								});
 
-								append($$anchor, li_13);
+								append($$anchor, li_14);
 							});
 
 							var node_11 = sibling(div_15, 2);
@@ -5019,7 +5026,7 @@ var preOrdersApp = (function () {
 								var consequent_8 = ($$anchor) => {
 									var button_4 = root_20();
 
-									event('click', button_4, updateTracking);
+									event('click', button_4, sendTrackingNotificaton);
 									append($$anchor, button_4);
 								};
 
@@ -5030,11 +5037,11 @@ var preOrdersApp = (function () {
 
 							template_effect(
 								($0, $1, $2) => {
-									set_text(text_39, $0);
-									set_text(text_40, get(tracking).courier);
-									set_text(text_41, `${$1 ?? ''}:`);
-									set_text(text_42, get(tracking).packages);
-									set_text(text_43, $2);
+									set_text(text_40, $0);
+									set_text(text_41, get(tracking).courier);
+									set_text(text_42, `${$1 ?? ''}:`);
+									set_text(text_43, get(tracking).packages);
+									set_text(text_44, $2);
 								},
 								[
 									() => t("courier"),
@@ -5047,7 +5054,7 @@ var preOrdersApp = (function () {
 							append($$anchor, fragment_8);
 						});
 
-						template_effect(($0) => set_text(text_38, $0), [() => t("tracking_details")], derived_safe_equal);
+						template_effect(($0) => set_text(text_39, $0), [() => t("tracking_details")], derived_safe_equal);
 						append($$anchor, fragment_7);
 					};
 
@@ -5063,7 +5070,7 @@ var preOrdersApp = (function () {
 						var fragment_9 = root_21();
 						var div_16 = first_child(fragment_9);
 						var label_3 = child(div_16);
-						var text_45 = child(label_3);
+						var text_46 = child(label_3);
 
 						var div_17 = sibling(label_3, 2);
 						var select_2 = child(div_17);
@@ -5079,14 +5086,14 @@ var preOrdersApp = (function () {
 
 						option_7.value = null == (option_7.__value = '') ? '' : '';
 
-						var text_46 = child(option_7);
+						var text_47 = child(option_7);
 
 						var node_13 = sibling(option_7);
 
 						each(node_13, 1, () => statusOptions, index, ($$anchor, status) => {
 							var option_8 = root_22();
 							var option_8_value = {};
-							var text_47 = child(option_8);
+							var text_48 = child(option_8);
 
 							template_effect(
 								($0) => {
@@ -5094,7 +5101,7 @@ var preOrdersApp = (function () {
 										option_8.value = null == (option_8.__value = get(status)) ? '' : get(status);
 									}
 
-									set_text(text_47, $0);
+									set_text(text_48, $0);
 								},
 								[() => t(get(status))],
 								derived_safe_equal
@@ -5106,7 +5113,7 @@ var preOrdersApp = (function () {
 						var input_1 = sibling(div_17, 2);
 
 						var button_5 = sibling(input_1, 2);
-						var text_48 = child(button_5);
+						var text_49 = child(button_5);
 
 						var div_18 = sibling(div_16, 2);
 						var div_19 = sibling(child(div_18), 2);
@@ -5123,14 +5130,14 @@ var preOrdersApp = (function () {
 						each(select_3, 5, () => courierOptions, index, ($$anchor, courier) => {
 							var option_9 = root_23();
 							var option_9_value = {};
-							var text_49 = child(option_9);
+							var text_50 = child(option_9);
 
 							template_effect(() => {
 								if (option_9_value !== (option_9_value = get(courier))) {
 									option_9.value = null == (option_9.__value = get(courier)) ? '' : get(courier);
 								}
 
-								set_text(text_49, get(courier));
+								set_text(text_50, get(courier));
 							});
 
 							append($$anchor, option_9);
@@ -5143,42 +5150,42 @@ var preOrdersApp = (function () {
 						var ul_7 = sibling(child(div_22), 2);
 
 						each(ul_7, 5, () => get(tracking).tracking_links, index, ($$anchor, link, index) => {
-							var li_14 = root_24();
-							var a_1 = child(li_14);
-							var text_50 = child(a_1);
+							var li_15 = root_24();
+							var a_1 = child(li_15);
+							var text_51 = child(a_1);
 
 							var button_6 = sibling(a_1, 2);
-							var text_51 = child(button_6);
+							var text_52 = child(button_6);
 
 							template_effect(
 								($0) => {
 									set_attribute(a_1, 'href', get(link));
-									set_text(text_50, get(link));
-									set_text(text_51, $0);
+									set_text(text_51, get(link));
+									set_text(text_52, $0);
 								},
 								[() => t("remove")],
 								derived_safe_equal
 							);
 
 							event('click', button_6, () => get(tracking).tracking_links.splice(index, 1));
-							append($$anchor, li_14);
+							append($$anchor, li_15);
 						});
 
 						var input_3 = sibling(ul_7, 2);
 
 						var button_7 = sibling(input_3, 2);
-						var text_52 = child(button_7);
+						var text_53 = child(button_7);
 
 						var button_8 = sibling(div_22, 2);
 
 						template_effect(
 							($0, $1, $2, $3, $4) => {
-								set_text(text_45, $0);
-								set_text(text_46, $1);
+								set_text(text_46, $0);
+								set_text(text_47, $1);
 								set_attribute(input_1, 'placeholder', $2);
-								set_text(text_48, $3);
+								set_text(text_49, $3);
 								set_attribute(input_3, 'placeholder', $4);
-								set_text(text_52, $3);
+								set_text(text_53, $3);
 							},
 							[
 								() => t("add-event"),
@@ -5217,7 +5224,8 @@ var preOrdersApp = (function () {
 						$6,
 						$7,
 						$8,
-						$9
+						$9,
+						$10
 					) => {
 						set_text(text$1, $0);
 						set_text(text_4, $1);
@@ -5229,13 +5237,14 @@ var preOrdersApp = (function () {
 						set_text(text_10, get(order).payment.status);
 						set_text(text_20, $6);
 						set_text(text_21, `${$7 ?? ''}: ${get(order).customerData.name ?? ''}`);
-						set_text(text_23, `Email: ${get(order).customerData.email ?? ''}`);
-						set_text(text_24, $8);
-						set_text(text_25, get(order).customerData.address.line1);
-						set_text(text_26, get(order).customerData.address.line2);
-						set_text(text_27, `${get(order).customerData.address.city ?? ''}, ${get(order).customerData.address.postal_code ?? ''}`);
-						set_text(text_29, get(order).customerData.address.country);
-						set_text(text_30, $9);
+						set_text(text_23, `${$8 ?? ''}:${get(order).customerData.phone ?? ''}`);
+						set_text(text_24, `Email: ${get(order).customerData.email ?? ''}`);
+						set_text(text_25, $9);
+						set_text(text_26, get(order).customerData.address.line1);
+						set_text(text_27, get(order).customerData.address.line2);
+						set_text(text_28, `${get(order).customerData.address.city ?? ''}, ${get(order).customerData.address.postal_code ?? ''}`);
+						set_text(text_30, get(order).customerData.address.country);
+						set_text(text_31, $10);
 					},
 					[
 						() => t("order-summary"),
@@ -5246,6 +5255,7 @@ var preOrdersApp = (function () {
 						() => t("payment-status"),
 						() => t("customer-details"),
 						() => t("name"),
+						() => t("phone"),
 						() => t("shipping-address"),
 						() => t("order-history")
 					],

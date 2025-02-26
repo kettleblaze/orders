@@ -5004,7 +5004,7 @@ var preOrdersApp = (function () {
 								var text_29 = text();
 
 								template_effect(
-									($0) => set_text(text_29, `${$0 ?? ''}: +${get(order).customer.address.country_data.phone[0] ?? ''}
+									($0) => set_text(text_29, `${$0 ?? ''}:
               ${get(order).customer.phone ?? ''}`),
 									[() => t("phone")]
 								);

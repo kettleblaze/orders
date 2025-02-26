@@ -457,7 +457,7 @@
           {/if}
           <li>
             {#if order.customer.phone}
-              {T("phone")}: +{order.customer.address.country_data.phone[0]}
+              {T("phone")}:
               {order.customer.phone}
             {:else}
               <form class="form my-4">

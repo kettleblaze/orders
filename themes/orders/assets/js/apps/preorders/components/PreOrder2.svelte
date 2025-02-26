@@ -22,6 +22,10 @@
   ];
   const courierOptions = ["BRT", "DPD", "UPS", "FedEx", "PosteItaliane"];
 
+  async function sendTrackingNotificaton() {
+    return sendNotificationEmail(null, "tracking");
+  }
+
   async function sendNotificationEmail(eventId, type = "event") {
     if (!order) return;
 
@@ -128,8 +132,8 @@
 
   function updateTracking() {
     if (!order) return;
-   // order.tracking = { ...tracking };
-    updateOrder().then(() => sendNotificationEmail(order.orderId, "tracking"));
+    order.tracking = { ...tracking };
+    updateOrder(); //.then(() => sendNotificationEmail(order.orderId, "tracking"));
   }
 
   function calculateTotal(order) {
@@ -176,7 +180,7 @@
                     <h4 class="title has-text-info iss-size-4">
                       {item.quantity} x {item.name.it}
                     </h4>
-                    {#if Object.keys(item.selected_attributes).length > 0}
+                    {#if Object.keys(item.selected_attributes ?? {}).length > 0}
                       <ul>
                         {#each Object.entries(item.selected_attributes) as [name, value]}
                           <li>
@@ -274,6 +278,7 @@
         {#if order.customerData.fiscal_code}
           <li>Codice fiscale: {order.customerData.fiscal_code}</li>
         {/if}
+        <li>{T("phone")}:{order.customerData.phone}</li>
         <li>Email: {order.customerData.email}</li>
       </ul>
       <h2 class="title mt-6">{T("shipping-address")}</h2>
@@ -370,7 +375,7 @@
           {#if process.env.isLocal}
             <button
               class="button is-info mt-3 has-text-white"
-              on:click={updateTracking}>Invia mail di tracking</button
+              on:click={sendTrackingNotificaton}>Invia mail di tracking</button
             >
           {/if}
         {/each}
