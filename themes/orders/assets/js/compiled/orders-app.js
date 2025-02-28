@@ -4848,7 +4848,7 @@ var preOrdersApp = (function () {
 
 				var ul_5 = sibling(h2_6, 2);
 
-				each(ul_5, 7, () => get(order).history, (historyEvent) => historyEvent._id, ($$anchor, historyEvent, index$1) => {
+				each(ul_5, 5, () => get(order).history, index, ($$anchor, historyEvent, index$1) => {
 					var li_13 = root_12();
 					var span_1 = child(li_13);
 					var text_32 = child(span_1);
@@ -4895,7 +4895,7 @@ var preOrdersApp = (function () {
 							template_effect(($0) => set_text(text_34, $0), [() => t("save")], derived_safe_equal);
 							bind_select_value(select_1, () => get(editedEvent).status, ($$value) => mutate(editedEvent, get(editedEvent).status = $$value));
 							bind_value(input, () => get(editedEvent).message, ($$value) => mutate(editedEvent, get(editedEvent).message = $$value));
-							event('click', button_1, () => saveHistoryEvent(get(index$1)));
+							event('click', button_1, () => saveHistoryEvent(index$1));
 							append($$anchor, fragment_4);
 						};
 
@@ -4930,7 +4930,7 @@ var preOrdersApp = (function () {
 										derived_safe_equal
 									);
 
-									event('click', button_2, () => editHistoryEvent(get(index$1)));
+									event('click', button_2, () => editHistoryEvent(index$1));
 									event('click', button_3, () => sendNotificationEmail(get(historyEvent)._id));
 									append($$anchor, fragment_6);
 								};
@@ -4953,7 +4953,7 @@ var preOrdersApp = (function () {
 						};
 
 						if_block(node_7, ($$render) => {
-							if (get(editingIndex) === get(index$1)) $$render(consequent_6); else $$render(alternate_2, false);
+							if (get(editingIndex) === index$1) $$render(consequent_6); else $$render(alternate_2, false);
 						});
 					}
 

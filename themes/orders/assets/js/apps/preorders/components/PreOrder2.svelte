@@ -85,6 +85,7 @@
     } else {
       orderStatus = o.status;
     }
+     
     order = o;
   }
 
@@ -294,7 +295,7 @@
       </ul>
       <h2 class="title mt-5">{T("order-history")}</h2>
       <ul>
-        {#each order.history as historyEvent, index (historyEvent._id)}
+        {#each order.history as historyEvent, index}
           <li class="mb-2 py-3">
             <span class="has-text-grey is-size-6">
               {new Date(historyEvent.timestamp).toLocaleString("it-IT", {
