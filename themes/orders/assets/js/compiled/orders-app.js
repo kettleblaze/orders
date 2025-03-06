@@ -4448,7 +4448,7 @@ var preOrdersApp = (function () {
 
 			const emailPayload = {
 				orderId: get(order).orderId,
-				eventId,
+				historyIndex: eventId,
 				type
 			};
 
@@ -4517,7 +4517,8 @@ var preOrdersApp = (function () {
 				};
 
 				get(order).history.push(newEvent);
-				updateOrder().then(() => sendNotificationEmail(newEvent));
+				set(order, get(order));
+				updateOrder().then(() => sendNotificationEmail(get(order).history.length - 1));
 				set(event$1, { status: "", message: "" });
 			}
 		}
@@ -4931,7 +4932,7 @@ var preOrdersApp = (function () {
 									);
 
 									event('click', button_2, () => editHistoryEvent(index$1));
-									event('click', button_3, () => sendNotificationEmail(get(historyEvent)._id));
+									event('click', button_3, () => sendNotificationEmail(index$1));
 									append($$anchor, fragment_6);
 								};
 

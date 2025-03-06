@@ -31,7 +31,7 @@
 
     const emailPayload = {
       orderId: order.orderId,
-      eventId: eventId,
+      historyIndex: eventId,
       type: type,
     };
 
@@ -85,7 +85,7 @@
     } else {
       orderStatus = o.status;
     }
-     
+
     order = o;
   }
 
@@ -107,7 +107,8 @@
       };
 
       order.history.push(newEvent);
-      updateOrder().then(() => sendNotificationEmail(newEvent));
+      order = order;
+      updateOrder().then(() => sendNotificationEmail(order.history.length - 1));
       event = { status: "", message: "" };
     }
   }
@@ -343,7 +344,7 @@
                 <!-- Pulsante per inviare la mail manualmente -->
                 <button
                   class="button is-info mt-3 ml-3"
-                  on:click={() => sendNotificationEmail(historyEvent._id)}
+                  on:click={() => sendNotificationEmail(index)}
                 >
                   📧 {T("send-notification")}
                 </button>
