@@ -285,6 +285,7 @@
       </ul>
       <h2 class="title mt-6">{T("shipping-address")}</h2>
       <ul>
+        <li>{order.customerData.name}</li>
         <li>{order.customerData.address.line1}</li>
         <li>{order.customerData.address.line2}</li>
         <li>
