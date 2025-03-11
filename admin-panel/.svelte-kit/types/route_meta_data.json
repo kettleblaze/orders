@@ -1,0 +1,18 @@
+{
+	"/": [
+		"src/routes/+layout.js",
+		"src/routes/+layout.js"
+	],
+	"/admin/logout": [
+		"src/routes/admin/logout/+server.js"
+	],
+	"/dashboard": [
+		"src/routes/+layout.js"
+	],
+	"/dashboard/ordini": [
+		"src/routes/+layout.js"
+	],
+	"/login": [
+		"src/routes/+layout.js"
+	]
+}

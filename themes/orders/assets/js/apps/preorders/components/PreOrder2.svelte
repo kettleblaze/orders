@@ -210,9 +210,11 @@
       <h2 class="title">{T("order-details")}</h2>
       <ul>
         <li>Id: {order.orderId}</li>
-        <li>
-          {T("payment-method")}: {order.payment.status}
-        </li>
+        {#if order.payment.method}
+          <li>
+            {T("payment-method")}: {order.payment.method}
+          </li>
+        {/if}
         <li>
           {T("payment-status")}:
           <span class="has-text-info has-text-weight-bold"
