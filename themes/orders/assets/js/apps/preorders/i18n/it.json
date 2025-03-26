@@ -45,5 +45,6 @@
   "tracking_details": "Tracking",
   "courier": "Corriere",
   "number_of_packages": "Numero Colli",
-  "tracking_links": "Link di Tracking"
+  "tracking_links": "Link di Tracking",
+  "refunded": "Rimborsato"
 }

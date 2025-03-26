@@ -27,5 +27,6 @@
   "installment-amount": "Installment amount",
   "color": "Color",
   "customer_balance": "Bank Transfer",
-  "paid": "Payment completed"
+  "paid": "Payment completed",
+  "refunded": "Refunded"
 }

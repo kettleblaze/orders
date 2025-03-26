@@ -27,5 +27,6 @@
   "installment-amount": "Ratenbetrag",
   "color": "Farbe",
   "customer_balance": "Banküberweisung",
-  "paid": "Zahlung abgeschlossen"
+  "paid": "Zahlung abgeschlossen",
+  "refunded": "Erstattet"
 }

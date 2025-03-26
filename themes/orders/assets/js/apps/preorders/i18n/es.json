@@ -27,5 +27,6 @@
   "installment-amount": "Monto de la cuota",
   "color": "Color",
   "customer_balance": "Transferencia Bancaria",
-  "paid": "Pago completado"
+  "paid": "Pago completado",
+  "refunded": "Reembolsado"
 }

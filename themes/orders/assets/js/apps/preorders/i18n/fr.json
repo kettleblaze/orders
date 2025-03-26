@@ -27,5 +27,6 @@
   "installment-amount": "Montant de l'échéance",
   "color": "Couleur",
   "customer_balance": "Virement Bancaire",
-  "paid": "Paiement effectué"
+  "paid": "Paiement effectué",
+  "refunded": "Remboursé"
 }

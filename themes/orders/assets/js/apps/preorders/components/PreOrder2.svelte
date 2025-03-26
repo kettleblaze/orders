@@ -8,12 +8,18 @@
   let errorOrNotFound = false;
   let event = {};
   let orderStatus = "";
-  let tracking = { courier: "", packages: 1, tracking_links: [] };
+  let tracking = {
+    courier: "",
+    packages: 1,
+    tracking_links: [],
+    shipment_id: -1,
+  };
   let newTrackingLink = "";
   let editingIndex;
   let editedEvent = { status: "", message: "" };
   const statusOptions = [
     "order_placed",
+    "refunded",
     "in_preparation",
     "ready_to_ship",
     "shipped",
@@ -108,7 +114,7 @@
 
       order.history.push(newEvent);
       order = order;
-      updateOrder().then(() => sendNotificationEmail(order.history.length - 1));
+      updateOrder();
       event = { status: "", message: "" };
     }
   }
@@ -207,7 +213,7 @@
       </div>
     </div>
     <div class="column px-6">
-      <h2 class="title">{T("order-details")}</h2>
+      <h2 class="title mt-6">{T("order-details")}</h2>
       <ul>
         <li>Id: {order.orderId}</li>
         {#if order.payment.method}
@@ -256,6 +262,9 @@
                   >
                   <option value="shipped" selected={orderStatus === "shipped"}
                     >{T("shipped")}</option
+                  >
+                  <option value="refunded" selected={orderStatus === "refunded"}
+                    >{T("refunded")}</option
                   >
                 </select>
               </div>
@@ -367,6 +376,7 @@
             <label class="label">{T("number_of_packages")}:</label>
             <p>{tracking.packages}</p>
           </div>
+
           <div class="field">
             <label class="label">{T("tracking_links")}</label>
             <ul>
@@ -418,6 +428,15 @@
                 {/each}
               </select>
             </div>
+          </div>
+          <div class="field">
+            <label class="label">Id spedizione</label>
+            <input
+              class="input"
+              type="number"
+              min="1"
+              bind:value={tracking.shipment_id}
+            />
           </div>
           <div class="field">
             <label class="label">Numero colli</label>

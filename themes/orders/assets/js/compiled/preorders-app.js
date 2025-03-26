@@ -4062,6 +4062,7 @@ var preOrdersApp = (function () {
 	var color$4 = "Color";
 	var customer_balance$4 = "Bank Transfer";
 	var paid$4 = "Payment completed";
+	var refunded$4 = "Refunded";
 	var en = {
 		"order-summary": "Order Summary",
 		"order-details": "Order Details",
@@ -4091,7 +4092,8 @@ var preOrdersApp = (function () {
 		"installment-amount": "Installment amount",
 		color: color$4,
 		customer_balance: customer_balance$4,
-		paid: paid$4
+		paid: paid$4,
+		refunded: refunded$4
 	};
 
 	var history$3 = "Storico";
@@ -4120,6 +4122,7 @@ var preOrdersApp = (function () {
 	var courier = "Corriere";
 	var number_of_packages = "Numero Colli";
 	var tracking_links = "Link di Tracking";
+	var refunded$3 = "Rimborsato";
 	var it = {
 		"order-summary": "Riepilogo Ordine",
 		"order-details": "Dettagli Ordine",
@@ -4167,7 +4170,8 @@ var preOrdersApp = (function () {
 		tracking_details: tracking_details,
 		courier: courier,
 		number_of_packages: number_of_packages,
-		tracking_links: tracking_links
+		tracking_links: tracking_links,
+		refunded: refunded$3
 	};
 
 	var history$2 = "Historial";
@@ -4181,6 +4185,7 @@ var preOrdersApp = (function () {
 	var color$2 = "Color";
 	var customer_balance$2 = "Transferencia Bancaria";
 	var paid$2 = "Pago completado";
+	var refunded$2 = "Reembolsado";
 	var es = {
 		"order-summary": "Resumen del Pedido",
 		"order-details": "Detalles del Pedido",
@@ -4210,7 +4215,8 @@ var preOrdersApp = (function () {
 		"installment-amount": "Monto de la cuota",
 		color: color$2,
 		customer_balance: customer_balance$2,
-		paid: paid$2
+		paid: paid$2,
+		refunded: refunded$2
 	};
 
 	var history$1 = "Verlauf";
@@ -4224,6 +4230,7 @@ var preOrdersApp = (function () {
 	var color$1 = "Farbe";
 	var customer_balance$1 = "Banküberweisung";
 	var paid$1 = "Zahlung abgeschlossen";
+	var refunded$1 = "Erstattet";
 	var de = {
 		"order-summary": "Bestellübersicht",
 		"order-details": "Bestelldetails",
@@ -4253,7 +4260,8 @@ var preOrdersApp = (function () {
 		"installment-amount": "Ratenbetrag",
 		color: color$1,
 		customer_balance: customer_balance$1,
-		paid: paid$1
+		paid: paid$1,
+		refunded: refunded$1
 	};
 
 	var history = "Historique";
@@ -4267,6 +4275,7 @@ var preOrdersApp = (function () {
 	var color = "Couleur";
 	var customer_balance = "Virement Bancaire";
 	var paid = "Paiement effectué";
+	var refunded = "Remboursé";
 	var fr = {
 		"order-summary": "Résumé de la Commande",
 		"order-details": "Détails de la Commande",
@@ -4296,7 +4305,8 @@ var preOrdersApp = (function () {
 		"installment-amount": "Montant de l'échéance",
 		color: color,
 		customer_balance: customer_balance,
-		paid: paid
+		paid: paid,
+		refunded: refunded
 	};
 
 	const languages = {
