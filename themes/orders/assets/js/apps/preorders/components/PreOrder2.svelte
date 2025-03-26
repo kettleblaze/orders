@@ -193,7 +193,7 @@
                         {#each Object.entries(item.selected_attributes) as [name, value]}
                           <li>
                             {T(name)}: {name === "size"
-                              ? value.toUpperCase()
+                              ? value
                               : T(value) || value}
                           </li>
                         {/each}
