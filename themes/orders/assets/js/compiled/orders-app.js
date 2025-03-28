@@ -4124,7 +4124,22 @@ var preOrdersApp = (function () {
 	var size$4 = "Size";
 	var color$4 = "Color";
 	var customer_balance$4 = "Bank Transfer";
-	var paid$4 = "Payment completed";
+	var paid$4 = "Payment Completed";
+	var black$4 = "Black";
+	var add$4 = "Add";
+	var status$4 = "Status";
+	var message$4 = "Message";
+	var order_placed$4 = "Order Placed";
+	var in_preparation$4 = "Order in Preparation";
+	var ready_to_ship$4 = "Order Ready to Ship";
+	var delivered$4 = "Order Delivered";
+	var canceled$4 = "Order Canceled";
+	var edit$4 = "Edit";
+	var save$4 = "Save";
+	var tracking_details$4 = "Tracking";
+	var courier$4 = "Courier";
+	var number_of_packages$4 = "Number of Packages";
+	var tracking_links$4 = "Tracking Links";
 	var refunded$4 = "Refunded";
 	var en = {
 		"order-summary": "Order Summary",
@@ -4138,24 +4153,42 @@ var preOrdersApp = (function () {
 		"shipping-address": "Shipping Address",
 		history: history$4,
 		ready: ready$4,
-		"in-preparation": "In preparation",
-		"waiting-product": "Waiting for product delivery",
-		"to-be-shipped": "To be shipped",
+		"in-preparation": "In Preparation",
+		"waiting-product": "Waiting for Product Delivery",
+		"to-be-shipped": "To Be Shipped",
 		shipped: shipped$4,
 		name: name$4,
 		phone: phone$4,
-		"mob-number": "Mobile Phone Number",
+		"mob-number": "Mobile Number",
 		update: update$4,
 		type: type$4,
 		size: size$4,
-		"payment-type": "Payment type",
-		"three-installments": "Three monthly installments at zero interest",
-		"start-date": "Start date",
-		"end-date": "End date",
-		"installment-amount": "Installment amount",
+		"payment-type": "Payment Type",
+		"three-installments": "Three Monthly Installments, 0% Interest",
+		"start-date": "Start Date",
+		"end-date": "End Date",
+		"installment-amount": "Installment Amount",
 		color: color$4,
 		customer_balance: customer_balance$4,
 		paid: paid$4,
+		black: black$4,
+		"add-tracking": "Add Tracking",
+		"tracking-number": "Tracking Number",
+		"add-event": "Add Event",
+		add: add$4,
+		status: status$4,
+		message: message$4,
+		order_placed: order_placed$4,
+		in_preparation: in_preparation$4,
+		ready_to_ship: ready_to_ship$4,
+		delivered: delivered$4,
+		canceled: canceled$4,
+		edit: edit$4,
+		save: save$4,
+		tracking_details: tracking_details$4,
+		courier: courier$4,
+		number_of_packages: number_of_packages$4,
+		tracking_links: tracking_links$4,
 		refunded: refunded$4
 	};
 
@@ -4170,21 +4203,21 @@ var preOrdersApp = (function () {
 	var color$3 = "Colore";
 	var customer_balance$3 = "Bonifico Bancario";
 	var paid$3 = "Pagamento completato";
-	var black = "Nero";
-	var add = "Aggiungi";
-	var status = "Stato";
-	var message = "Messaggio";
-	var order_placed = "Ordine confermato";
-	var in_preparation = "Ordine in preparazione";
-	var ready_to_ship = "Ordine pronto per essere spedito";
-	var delivered = "Ordine consegnato";
-	var canceled = "Ordine cancellato";
-	var edit = "Modifica";
-	var save = "Salva";
-	var tracking_details = "Tracking";
-	var courier = "Corriere";
-	var number_of_packages = "Numero Colli";
-	var tracking_links = "Link di Tracking";
+	var black$3 = "Nero";
+	var add$3 = "Aggiungi";
+	var status$3 = "Stato";
+	var message$3 = "Messaggio";
+	var order_placed$3 = "Ordine confermato";
+	var in_preparation$3 = "Ordine in preparazione";
+	var ready_to_ship$3 = "Ordine pronto per essere spedito";
+	var delivered$3 = "Ordine consegnato";
+	var canceled$3 = "Ordine cancellato";
+	var edit$3 = "Modifica";
+	var save$3 = "Salva";
+	var tracking_details$3 = "Tracking";
+	var courier$3 = "Corriere";
+	var number_of_packages$3 = "Numero Colli";
+	var tracking_links$3 = "Link di Tracking";
 	var refunded$3 = "Rimborsato";
 	var it = {
 		"order-summary": "Riepilogo Ordine",
@@ -4216,10 +4249,244 @@ var preOrdersApp = (function () {
 		color: color$3,
 		customer_balance: customer_balance$3,
 		paid: paid$3,
-		black: black,
+		black: black$3,
 		"add-tracking": "Aggiungi Tracking",
 		"tracking-number": "Numero di Tracking",
 		"add-event": "Aggiungi evento",
+		add: add$3,
+		status: status$3,
+		message: message$3,
+		order_placed: order_placed$3,
+		in_preparation: in_preparation$3,
+		ready_to_ship: ready_to_ship$3,
+		delivered: delivered$3,
+		canceled: canceled$3,
+		edit: edit$3,
+		save: save$3,
+		tracking_details: tracking_details$3,
+		courier: courier$3,
+		number_of_packages: number_of_packages$3,
+		tracking_links: tracking_links$3,
+		refunded: refunded$3
+	};
+
+	var history$2 = "Historial";
+	var ready$2 = "Listo";
+	var shipped$2 = "Enviado";
+	var name$2 = "Nombre";
+	var phone$2 = "Teléfono";
+	var update$2 = "Actualizar";
+	var type$2 = "Tipo";
+	var size$2 = "Talla";
+	var color$2 = "Color";
+	var customer_balance$2 = "Transferencia bancaria";
+	var paid$2 = "Pago completado";
+	var black$2 = "Negro";
+	var add$2 = "Añadir";
+	var status$2 = "Estado";
+	var message$2 = "Mensaje";
+	var order_placed$2 = "Pedido confirmado";
+	var in_preparation$2 = "Pedido en preparación";
+	var ready_to_ship$2 = "Pedido listo para enviar";
+	var delivered$2 = "Pedido entregado";
+	var canceled$2 = "Pedido cancelado";
+	var edit$2 = "Editar";
+	var save$2 = "Guardar";
+	var tracking_details$2 = "Seguimiento";
+	var courier$2 = "Mensajero";
+	var number_of_packages$2 = "Número de paquetes";
+	var tracking_links$2 = "Enlaces de seguimiento";
+	var refunded$2 = "Reembolsado";
+	var es = {
+		"order-summary": "Resumen del pedido",
+		"order-details": "Detalles del pedido",
+		"order-status": "Estado del pedido",
+		"payment-method": "Método de pago",
+		"payment-status": "Estado del pago",
+		"shipping-cost": "Costo de envío",
+		"order-total": "Total del pedido",
+		"customer-details": "Datos del cliente",
+		"shipping-address": "Dirección de envío",
+		history: history$2,
+		ready: ready$2,
+		"in-preparation": "En preparación",
+		"waiting-product": "Esperando entrega del producto",
+		"to-be-shipped": "Por enviar",
+		shipped: shipped$2,
+		name: name$2,
+		phone: phone$2,
+		"mob-number": "Número de móvil",
+		update: update$2,
+		type: type$2,
+		size: size$2,
+		"payment-type": "Tipo de pago",
+		"three-installments": "Tres cuotas mensuales sin interés",
+		"start-date": "Fecha de inicio",
+		"end-date": "Fecha de fin",
+		"installment-amount": "Importe de la cuota",
+		color: color$2,
+		customer_balance: customer_balance$2,
+		paid: paid$2,
+		black: black$2,
+		"add-tracking": "Añadir seguimiento",
+		"tracking-number": "Número de seguimiento",
+		"add-event": "Añadir evento",
+		add: add$2,
+		status: status$2,
+		message: message$2,
+		order_placed: order_placed$2,
+		in_preparation: in_preparation$2,
+		ready_to_ship: ready_to_ship$2,
+		delivered: delivered$2,
+		canceled: canceled$2,
+		edit: edit$2,
+		save: save$2,
+		tracking_details: tracking_details$2,
+		courier: courier$2,
+		number_of_packages: number_of_packages$2,
+		tracking_links: tracking_links$2,
+		refunded: refunded$2
+	};
+
+	var history$1 = "Verlauf";
+	var ready$1 = "Bereit";
+	var shipped$1 = "Versendet";
+	var name$1 = "Name";
+	var phone$1 = "Telefon";
+	var update$1 = "Aktualisieren";
+	var type$1 = "Typ";
+	var size$1 = "Größe";
+	var color$1 = "Farbe";
+	var customer_balance$1 = "Banküberweisung";
+	var paid$1 = "Zahlung abgeschlossen";
+	var black$1 = "Schwarz";
+	var add$1 = "Hinzufügen";
+	var status$1 = "Status";
+	var message$1 = "Nachricht";
+	var order_placed$1 = "Bestellung aufgegeben";
+	var in_preparation$1 = "Bestellung in Vorbereitung";
+	var ready_to_ship$1 = "Bestellung versandbereit";
+	var delivered$1 = "Bestellung geliefert";
+	var canceled$1 = "Bestellung storniert";
+	var edit$1 = "Bearbeiten";
+	var save$1 = "Speichern";
+	var tracking_details$1 = "Sendungsverfolgung";
+	var courier$1 = "Versanddienst";
+	var number_of_packages$1 = "Anzahl der Pakete";
+	var tracking_links$1 = "Tracking-Links";
+	var refunded$1 = "Erstattet";
+	var de = {
+		"order-summary": "Bestellübersicht",
+		"order-details": "Bestelldetails",
+		"order-status": "Bestellstatus",
+		"payment-method": "Zahlungsmethode",
+		"payment-status": "Zahlungsstatus",
+		"shipping-cost": "Versandkosten",
+		"order-total": "Gesamtbetrag",
+		"customer-details": "Kundendetails",
+		"shipping-address": "Lieferadresse",
+		history: history$1,
+		ready: ready$1,
+		"in-preparation": "In Vorbereitung",
+		"waiting-product": "Wartet auf Produktlieferung",
+		"to-be-shipped": "Versandbereit",
+		shipped: shipped$1,
+		name: name$1,
+		phone: phone$1,
+		"mob-number": "Handynummer",
+		update: update$1,
+		type: type$1,
+		size: size$1,
+		"payment-type": "Zahlungsart",
+		"three-installments": "Drei monatliche Raten, 0% Zinsen",
+		"start-date": "Anfangsdatum",
+		"end-date": "Enddatum",
+		"installment-amount": "Ratenbetrag",
+		color: color$1,
+		customer_balance: customer_balance$1,
+		paid: paid$1,
+		black: black$1,
+		"add-tracking": "Tracking hinzufügen",
+		"tracking-number": "Sendungsnummer",
+		"add-event": "Ereignis hinzufügen",
+		add: add$1,
+		status: status$1,
+		message: message$1,
+		order_placed: order_placed$1,
+		in_preparation: in_preparation$1,
+		ready_to_ship: ready_to_ship$1,
+		delivered: delivered$1,
+		canceled: canceled$1,
+		edit: edit$1,
+		save: save$1,
+		tracking_details: tracking_details$1,
+		courier: courier$1,
+		number_of_packages: number_of_packages$1,
+		tracking_links: tracking_links$1,
+		refunded: refunded$1
+	};
+
+	var history = "Historique";
+	var ready = "Prêt";
+	var shipped = "Expédié";
+	var name = "Nom";
+	var phone = "Téléphone";
+	var update = "Mettre à jour";
+	var type = "Type";
+	var size = "Taille";
+	var color = "Couleur";
+	var customer_balance = "Virement bancaire";
+	var paid = "Paiement effectué";
+	var black = "Noir";
+	var add = "Ajouter";
+	var status = "Statut";
+	var message = "Message";
+	var order_placed = "Commande confirmée";
+	var in_preparation = "Commande en préparation";
+	var ready_to_ship = "Commande prête à être expédiée";
+	var delivered = "Commande livrée";
+	var canceled = "Commande annulée";
+	var edit = "Modifier";
+	var save = "Enregistrer";
+	var tracking_details = "Suivi";
+	var courier = "Transporteur";
+	var number_of_packages = "Nombre de colis";
+	var tracking_links = "Liens de suivi";
+	var refunded = "Remboursé";
+	var fr = {
+		"order-summary": "Récapitulatif de la commande",
+		"order-details": "Détails de la commande",
+		"order-status": "Statut de la commande",
+		"payment-method": "Méthode de paiement",
+		"payment-status": "Statut du paiement",
+		"shipping-cost": "Frais de livraison",
+		"order-total": "Total de la commande",
+		"customer-details": "Détails du client",
+		"shipping-address": "Adresse de livraison",
+		history: history,
+		ready: ready,
+		"in-preparation": "En préparation",
+		"waiting-product": "En attente de la livraison du produit",
+		"to-be-shipped": "À expédier",
+		shipped: shipped,
+		name: name,
+		phone: phone,
+		"mob-number": "Numéro de téléphone mobile",
+		update: update,
+		type: type,
+		size: size,
+		"payment-type": "Type de paiement",
+		"three-installments": "Trois mensualités sans intérêt",
+		"start-date": "Date de début",
+		"end-date": "Date de fin",
+		"installment-amount": "Montant de la mensualité",
+		color: color,
+		customer_balance: customer_balance,
+		paid: paid,
+		black: black,
+		"add-tracking": "Ajouter un suivi",
+		"tracking-number": "Numéro de suivi",
+		"add-event": "Ajouter un événement",
 		add: add,
 		status: status,
 		message: message,
@@ -4234,141 +4501,6 @@ var preOrdersApp = (function () {
 		courier: courier,
 		number_of_packages: number_of_packages,
 		tracking_links: tracking_links,
-		refunded: refunded$3
-	};
-
-	var history$2 = "Historial";
-	var ready$2 = "Listo";
-	var shipped$2 = "Enviado";
-	var name$2 = "Nombre";
-	var phone$2 = "Teléfono";
-	var update$2 = "Actualizar";
-	var type$2 = "Tipo";
-	var size$2 = "Talla";
-	var color$2 = "Color";
-	var customer_balance$2 = "Transferencia Bancaria";
-	var paid$2 = "Pago completado";
-	var refunded$2 = "Reembolsado";
-	var es = {
-		"order-summary": "Resumen del Pedido",
-		"order-details": "Detalles del Pedido",
-		"order-status": "Estado del Pedido",
-		"payment-method": "Método de Pago",
-		"payment-status": "Estado del Pago",
-		"shipping-cost": "Costo de Envío",
-		"order-total": "Total del Pedido",
-		"customer-details": "Detalles del Cliente",
-		"shipping-address": "Dirección de Envío",
-		history: history$2,
-		ready: ready$2,
-		"in-preparation": "En preparación",
-		"waiting-product": "Esperando la entrega del producto",
-		"to-be-shipped": "Por enviar",
-		shipped: shipped$2,
-		name: name$2,
-		phone: phone$2,
-		"mob-number": "Número de teléfono móvil",
-		update: update$2,
-		type: type$2,
-		size: size$2,
-		"payment-type": "Tipo de pago",
-		"three-installments": "Tres cuotas mensuales sin interés",
-		"start-date": "Fecha de inicio",
-		"end-date": "Fecha de fin",
-		"installment-amount": "Monto de la cuota",
-		color: color$2,
-		customer_balance: customer_balance$2,
-		paid: paid$2,
-		refunded: refunded$2
-	};
-
-	var history$1 = "Verlauf";
-	var ready$1 = "Bereit";
-	var shipped$1 = "Versandt";
-	var name$1 = "Name";
-	var phone$1 = "Telefon";
-	var update$1 = "Aktualisieren";
-	var type$1 = "Typ";
-	var size$1 = "Größe";
-	var color$1 = "Farbe";
-	var customer_balance$1 = "Banküberweisung";
-	var paid$1 = "Zahlung abgeschlossen";
-	var refunded$1 = "Erstattet";
-	var de = {
-		"order-summary": "Bestellübersicht",
-		"order-details": "Bestelldetails",
-		"order-status": "Bestellstatus",
-		"payment-method": "Zahlungsmethode",
-		"payment-status": "Zahlungsstatus",
-		"shipping-cost": "Versandkosten",
-		"order-total": "Gesamtbetrag",
-		"customer-details": "Kundendetails",
-		"shipping-address": "Versandadresse",
-		history: history$1,
-		ready: ready$1,
-		"in-preparation": "In Vorbereitung",
-		"waiting-product": "Warten auf Produktlieferung",
-		"to-be-shipped": "Zu versenden",
-		shipped: shipped$1,
-		name: name$1,
-		phone: phone$1,
-		"mob-number": "Handynummer",
-		update: update$1,
-		type: type$1,
-		size: size$1,
-		"payment-type": "Zahlungsart",
-		"three-installments": "Drei monatliche Raten ohne Zinsen",
-		"start-date": "Anfangsdatum",
-		"end-date": "Enddatum",
-		"installment-amount": "Ratenbetrag",
-		color: color$1,
-		customer_balance: customer_balance$1,
-		paid: paid$1,
-		refunded: refunded$1
-	};
-
-	var history = "Historique";
-	var ready = "Prêt";
-	var shipped = "Expédié";
-	var name = "Nom";
-	var phone = "Téléphone";
-	var update = "Mettre à jour";
-	var type = "Type";
-	var size = "Taille";
-	var color = "Couleur";
-	var customer_balance = "Virement Bancaire";
-	var paid = "Paiement effectué";
-	var refunded = "Remboursé";
-	var fr = {
-		"order-summary": "Résumé de la Commande",
-		"order-details": "Détails de la Commande",
-		"order-status": "Statut de la Commande",
-		"payment-method": "Mode de Paiement",
-		"payment-status": "Statut du Paiement",
-		"shipping-cost": "Frais de Livraison",
-		"order-total": "Total de la Commande",
-		"customer-details": "Détails du Client",
-		"shipping-address": "Adresse de Livraison",
-		history: history,
-		ready: ready,
-		"in-preparation": "En préparation",
-		"waiting-product": "En attente de la livraison du produit",
-		"to-be-shipped": "À expédier",
-		shipped: shipped,
-		name: name,
-		phone: phone,
-		"mob-number": "Numéro de téléphone portable",
-		update: update,
-		type: type,
-		size: size,
-		"payment-type": "Type de paiement",
-		"three-installments": "Trois versements mensuels à taux zéro",
-		"start-date": "Date de début",
-		"end-date": "Date de fin",
-		"installment-amount": "Montant de l'échéance",
-		color: color,
-		customer_balance: customer_balance,
-		paid: paid,
 		refunded: refunded
 	};
 
@@ -4403,7 +4535,7 @@ var preOrdersApp = (function () {
 	var root_6 = template(`<ul></ul>`);
 	var root_5 = template(`<li><div class="columns is-align-items-center"><div class="column"><!> <div class="column"><h4 class="title has-text-info iss-size-4"> </h4> <!> <p class="is-size-6"> </p></div></div></div></li>`);
 	var root_8 = template(`<li> </li>`);
-	var root_9 = template(`<form class="form mt-5"><div class="columns"><div class="column"><div class="select is-info"><select name="order-status" id="order-status"><option> </option><option> </option><option> </option><option> </option><option> </option><option> </option><option> </option></select></div></div> <div class="column"><button type="button" class="button is-info has-text-white"> </button></div></div></form>`);
+	var root_9 = template(`<form class="form mt-5"><div class="columns"><div class="column"><div class="select is-info"><select name="order-status" id="order-status"><option> </option><option> </option><option> </option><option> </option><option> </option><option> </option><option> </option><option> </option></select></div></div> <div class="column"><button type="button" class="button is-info has-text-white"> </button></div></div></form>`);
 	var root_11 = template(`<li> </li>`);
 	var root_15 = template(`<option> </option>`);
 	var root_14 = template(`<div class="select"><select></select></div> <input class="input mt-2" type="text"> <button class="button is-success mt-2"> </button>`, 1);
@@ -4433,7 +4565,8 @@ var preOrdersApp = (function () {
 			courier: "",
 			packages: 1,
 			tracking_links: [],
-			shipment_id: -1
+			shipment_id: -1,
+			delivered: false
 		});
 
 		let newTrackingLink = mutable_state("");
@@ -4654,7 +4787,7 @@ var preOrdersApp = (function () {
 									($0, $1) => set_text(text_2, `${$0 ?? ''}: ${$1 ?? ''}`),
 									[
 										() => t(name()),
-										() => name() === "size" ? value().toUpperCase() : t(value()) || value()
+										() => name() === "size" ? value() : t(value()) || value()
 									],
 									derived_safe_equal
 								);
@@ -4780,12 +4913,18 @@ var preOrdersApp = (function () {
 
 						var text_17 = child(option_6);
 
+						var option_7 = sibling(option_6);
+
+						option_7.value = null == (option_7.__value = 'delivered') ? '' : 'delivered';
+
+						var text_18 = child(option_7);
+
 						var div_11 = sibling(div_9, 2);
 						var button = child(div_11);
-						var text_18 = child(button);
+						var text_19 = child(button);
 
 						template_effect(
-							($0, $1, $2, $3, $4, $5, $6, $7) => {
+							($0, $1, $2, $3, $4, $5, $6, $7, $8) => {
 								select.disabled = get(isUpdating) ? "disabled" : "";
 								set_selected(option, get(orderStatus) === "paid");
 								set_text(text_11, $0);
@@ -4801,7 +4940,9 @@ var preOrdersApp = (function () {
 								set_text(text_16, $5);
 								set_selected(option_6, get(orderStatus) === "refunded");
 								set_text(text_17, $6);
+								set_selected(option_7, get(orderStatus) === "delivered");
 								set_text(text_18, $7);
+								set_text(text_19, $8);
 							},
 							[
 								() => t("paid"),
@@ -4811,6 +4952,7 @@ var preOrdersApp = (function () {
 								() => t("to-be-shipped"),
 								() => t("shipped"),
 								() => t("refunded"),
+								() => t("delivered"),
 								() => t("update")
 							],
 							derived_safe_equal
@@ -4827,19 +4969,19 @@ var preOrdersApp = (function () {
 				}
 
 				var h2_4 = sibling(node_5, 2);
-				var text_21 = child(h2_4);
+				var text_22 = child(h2_4);
 
 				var ul_3 = sibling(h2_4, 2);
 				var li_5 = child(ul_3);
-				var text_22 = child(li_5);
+				var text_23 = child(li_5);
 
 				var node_6 = sibling(li_5, 2);
 
 				{
 					var consequent_5 = ($$anchor) => {
 						var li_6 = root_11();
-						var text_23 = child(li_6);
-						template_effect(() => set_text(text_23, `Codice fiscale: ${get(order).customerData.fiscal_code ?? ''}`));
+						var text_24 = child(li_6);
+						template_effect(() => set_text(text_24, `Codice fiscale: ${get(order).customerData.fiscal_code ?? ''}`));
 						append($$anchor, li_6);
 					};
 
@@ -4849,34 +4991,34 @@ var preOrdersApp = (function () {
 				}
 
 				var li_7 = sibling(node_6, 2);
-				var text_24 = child(li_7);
+				var text_25 = child(li_7);
 
 				var li_8 = sibling(li_7, 2);
-				var text_25 = child(li_8);
+				var text_26 = child(li_8);
 
 				var h2_5 = sibling(ul_3, 2);
-				var text_26 = child(h2_5);
+				var text_27 = child(h2_5);
 
 				var ul_4 = sibling(h2_5, 2);
 				var li_9 = child(ul_4);
-				var text_27 = child(li_9);
+				var text_28 = child(li_9);
 
 				var li_10 = sibling(li_9, 2);
-				var text_28 = child(li_10);
+				var text_29 = child(li_10);
 
 				var li_11 = sibling(li_10, 2);
-				var text_29 = child(li_11);
+				var text_30 = child(li_11);
 
 				var li_12 = sibling(li_11, 2);
-				var text_30 = child(li_12);
-				var node_7 = sibling(text_30);
+				var text_31 = child(li_12);
+				var node_7 = sibling(text_31);
 
 				{
 					var consequent_6 = ($$anchor) => {
-						var text_31 = text();
+						var text_32 = text();
 
-						template_effect(() => set_text(text_31, `(${get(order).customerData.address.state ?? ''})`));
-						append($$anchor, text_31);
+						template_effect(() => set_text(text_32, `(${get(order).customerData.address.state ?? ''})`));
+						append($$anchor, text_32);
 					};
 
 					if_block(node_7, ($$render) => {
@@ -4885,17 +5027,17 @@ var preOrdersApp = (function () {
 				}
 
 				var li_13 = sibling(li_12, 2);
-				var text_32 = child(li_13);
+				var text_33 = child(li_13);
 
 				var h2_6 = sibling(ul_4, 2);
-				var text_33 = child(h2_6);
+				var text_34 = child(h2_6);
 
 				var ul_5 = sibling(h2_6, 2);
 
 				each(ul_5, 5, () => get(order).history, index, ($$anchor, historyEvent, index$1) => {
 					var li_14 = root_13();
 					var span_1 = child(li_14);
-					var text_34 = child(span_1);
+					var text_35 = child(span_1);
 
 					var node_8 = sibling(span_1, 4);
 
@@ -4913,30 +5055,30 @@ var preOrdersApp = (function () {
 							});
 
 							each(select_1, 5, () => statusOptions, index, ($$anchor, status) => {
-								var option_7 = root_15();
-								var option_7_value = {};
-								var text_35 = child(option_7);
+								var option_8 = root_15();
+								var option_8_value = {};
+								var text_36 = child(option_8);
 
 								template_effect(
 									($0) => {
-										if (option_7_value !== (option_7_value = get(status))) {
-											option_7.value = null == (option_7.__value = get(status)) ? '' : get(status);
+										if (option_8_value !== (option_8_value = get(status))) {
+											option_8.value = null == (option_8.__value = get(status)) ? '' : get(status);
 										}
 
-										set_text(text_35, $0);
+										set_text(text_36, $0);
 									},
 									[() => t(get(status))],
 									derived_safe_equal
 								);
 
-								append($$anchor, option_7);
+								append($$anchor, option_8);
 							});
 
 							var input = sibling(div_12, 2);
 
 							var button_1 = sibling(input, 2);
-							var text_36 = child(button_1);
-							template_effect(($0) => set_text(text_36, $0), [() => t("save")], derived_safe_equal);
+							var text_37 = child(button_1);
+							template_effect(($0) => set_text(text_37, $0), [() => t("save")], derived_safe_equal);
 							bind_select_value(select_1, () => get(editedEvent).status, ($$value) => mutate(editedEvent, get(editedEvent).status = $$value));
 							bind_value(input, () => get(editedEvent).message, ($$value) => mutate(editedEvent, get(editedEvent).message = $$value));
 							event('click', button_1, () => saveHistoryEvent(index$1));
@@ -4946,10 +5088,10 @@ var preOrdersApp = (function () {
 						var alternate_2 = ($$anchor) => {
 							var fragment_5 = root_16();
 							var strong = first_child(fragment_5);
-							var text_37 = child(strong);
+							var text_38 = child(strong);
 
 							var p_2 = sibling(strong, 2);
-							var text_38 = child(p_2);
+							var text_39 = child(p_2);
 
 							var node_9 = sibling(p_2, 2);
 
@@ -4957,15 +5099,15 @@ var preOrdersApp = (function () {
 								var consequent_8 = ($$anchor) => {
 									var fragment_6 = root_17();
 									var button_2 = first_child(fragment_6);
-									var text_39 = child(button_2);
+									var text_40 = child(button_2);
 
 									var button_3 = sibling(button_2, 2);
-									var text_40 = child(button_3);
+									var text_41 = child(button_3);
 
 									template_effect(
 										($0, $1) => {
-											set_text(text_39, $0);
-											set_text(text_40, `📧 ${$1 ?? ''}`);
+											set_text(text_40, $0);
+											set_text(text_41, `📧 ${$1 ?? ''}`);
 										},
 										[
 											() => t("edit"),
@@ -4986,8 +5128,8 @@ var preOrdersApp = (function () {
 
 							template_effect(
 								($0) => {
-									set_text(text_37, $0);
-									set_text(text_38, get(historyEvent).message);
+									set_text(text_38, $0);
+									set_text(text_39, get(historyEvent).message);
 								},
 								[() => t(get(historyEvent).status)],
 								derived_safe_equal
@@ -5002,7 +5144,7 @@ var preOrdersApp = (function () {
 					}
 
 					template_effect(
-						($0) => set_text(text_34, $0),
+						($0) => set_text(text_35, $0),
 						[
 							() => new Date(get(historyEvent).timestamp).toLocaleString("it-IT", {
 								year: "numeric",
@@ -5025,7 +5167,7 @@ var preOrdersApp = (function () {
 					var consequent_10 = ($$anchor) => {
 						var fragment_7 = root_18();
 						var h2_7 = first_child(fragment_7);
-						var text_41 = child(h2_7);
+						var text_42 = child(h2_7);
 
 						var node_11 = sibling(h2_7, 2);
 
@@ -5033,32 +5175,32 @@ var preOrdersApp = (function () {
 							var fragment_8 = root_19();
 							var div_13 = first_child(fragment_8);
 							var label = child(div_13);
-							var text_42 = child(label);
+							var text_43 = child(label);
 
 							var p_3 = sibling(label, 2);
-							var text_43 = child(p_3);
+							var text_44 = child(p_3);
 
 							var div_14 = sibling(div_13, 2);
 							var label_1 = child(div_14);
-							var text_44 = child(label_1);
+							var text_45 = child(label_1);
 
 							var p_4 = sibling(label_1, 2);
-							var text_45 = child(p_4);
+							var text_46 = child(p_4);
 
 							var div_15 = sibling(div_14, 2);
 							var label_2 = child(div_15);
-							var text_46 = child(label_2);
+							var text_47 = child(label_2);
 
 							var ul_6 = sibling(label_2, 2);
 
 							each(ul_6, 5, () => get(tracking).tracking_links, index, ($$anchor, link) => {
 								var li_15 = root_20();
 								var a = child(li_15);
-								var text_47 = child(a);
+								var text_48 = child(a);
 
 								template_effect(() => {
 									set_attribute(a, 'href', get(link));
-									set_text(text_47, get(link));
+									set_text(text_48, get(link));
 								});
 
 								append($$anchor, li_15);
@@ -5081,11 +5223,11 @@ var preOrdersApp = (function () {
 
 							template_effect(
 								($0, $1, $2) => {
-									set_text(text_42, $0);
-									set_text(text_43, get(tracking).courier);
-									set_text(text_44, `${$1 ?? ''}:`);
-									set_text(text_45, get(tracking).packages);
-									set_text(text_46, $2);
+									set_text(text_43, $0);
+									set_text(text_44, get(tracking).courier);
+									set_text(text_45, `${$1 ?? ''}:`);
+									set_text(text_46, get(tracking).packages);
+									set_text(text_47, $2);
 								},
 								[
 									() => t("courier"),
@@ -5098,7 +5240,7 @@ var preOrdersApp = (function () {
 							append($$anchor, fragment_8);
 						});
 
-						template_effect(($0) => set_text(text_41, $0), [() => t("tracking_details")], derived_safe_equal);
+						template_effect(($0) => set_text(text_42, $0), [() => t("tracking_details")], derived_safe_equal);
 						append($$anchor, fragment_7);
 					};
 
@@ -5114,7 +5256,7 @@ var preOrdersApp = (function () {
 						var fragment_9 = root_22();
 						var div_16 = first_child(fragment_9);
 						var label_3 = child(div_16);
-						var text_48 = child(label_3);
+						var text_49 = child(label_3);
 
 						var div_17 = sibling(label_3, 2);
 						var select_2 = child(div_17);
@@ -5126,38 +5268,38 @@ var preOrdersApp = (function () {
 							});
 						});
 
-						var option_8 = child(select_2);
+						var option_9 = child(select_2);
 
-						option_8.value = null == (option_8.__value = '') ? '' : '';
+						option_9.value = null == (option_9.__value = '') ? '' : '';
 
-						var text_49 = child(option_8);
+						var text_50 = child(option_9);
 
-						var node_14 = sibling(option_8);
+						var node_14 = sibling(option_9);
 
 						each(node_14, 1, () => statusOptions, index, ($$anchor, status) => {
-							var option_9 = root_23();
-							var option_9_value = {};
-							var text_50 = child(option_9);
+							var option_10 = root_23();
+							var option_10_value = {};
+							var text_51 = child(option_10);
 
 							template_effect(
 								($0) => {
-									if (option_9_value !== (option_9_value = get(status))) {
-										option_9.value = null == (option_9.__value = get(status)) ? '' : get(status);
+									if (option_10_value !== (option_10_value = get(status))) {
+										option_10.value = null == (option_10.__value = get(status)) ? '' : get(status);
 									}
 
-									set_text(text_50, $0);
+									set_text(text_51, $0);
 								},
 								[() => t(get(status))],
 								derived_safe_equal
 							);
 
-							append($$anchor, option_9);
+							append($$anchor, option_10);
 						});
 
 						var input_1 = sibling(div_17, 2);
 
 						var button_5 = sibling(input_1, 2);
-						var text_51 = child(button_5);
+						var text_52 = child(button_5);
 
 						var div_18 = sibling(div_16, 2);
 						var div_19 = sibling(child(div_18), 2);
@@ -5172,19 +5314,19 @@ var preOrdersApp = (function () {
 						});
 
 						each(select_3, 5, () => courierOptions, index, ($$anchor, courier) => {
-							var option_10 = root_24();
-							var option_10_value = {};
-							var text_52 = child(option_10);
+							var option_11 = root_24();
+							var option_11_value = {};
+							var text_53 = child(option_11);
 
 							template_effect(() => {
-								if (option_10_value !== (option_10_value = get(courier))) {
-									option_10.value = null == (option_10.__value = get(courier)) ? '' : get(courier);
+								if (option_11_value !== (option_11_value = get(courier))) {
+									option_11.value = null == (option_11.__value = get(courier)) ? '' : get(courier);
 								}
 
-								set_text(text_52, get(courier));
+								set_text(text_53, get(courier));
 							});
 
-							append($$anchor, option_10);
+							append($$anchor, option_11);
 						});
 
 						var div_21 = sibling(div_19, 2);
@@ -5199,16 +5341,16 @@ var preOrdersApp = (function () {
 						each(ul_7, 5, () => get(tracking).tracking_links, index, ($$anchor, link, index) => {
 							var li_16 = root_25();
 							var a_1 = child(li_16);
-							var text_53 = child(a_1);
+							var text_54 = child(a_1);
 
 							var button_6 = sibling(a_1, 2);
-							var text_54 = child(button_6);
+							var text_55 = child(button_6);
 
 							template_effect(
 								($0) => {
 									set_attribute(a_1, 'href', get(link));
-									set_text(text_53, get(link));
-									set_text(text_54, $0);
+									set_text(text_54, get(link));
+									set_text(text_55, $0);
 								},
 								[() => t("remove")],
 								derived_safe_equal
@@ -5221,18 +5363,18 @@ var preOrdersApp = (function () {
 						var input_4 = sibling(ul_7, 2);
 
 						var button_7 = sibling(input_4, 2);
-						var text_55 = child(button_7);
+						var text_56 = child(button_7);
 
 						var button_8 = sibling(div_23, 2);
 
 						template_effect(
 							($0, $1, $2, $3, $4) => {
-								set_text(text_48, $0);
-								set_text(text_49, $1);
+								set_text(text_49, $0);
+								set_text(text_50, $1);
 								set_attribute(input_1, 'placeholder', $2);
-								set_text(text_51, $3);
+								set_text(text_52, $3);
 								set_attribute(input_4, 'placeholder', $4);
-								set_text(text_55, $3);
+								set_text(text_56, $3);
 							},
 							[
 								() => t("add-event"),
@@ -5281,17 +5423,17 @@ var preOrdersApp = (function () {
 						set_text(text_7, `Id: ${get(order).orderId ?? ''}`);
 						set_text(text_9, `${$4 ?? ''}: `);
 						set_text(text_10, get(order).payment.status);
-						set_text(text_21, $5);
-						set_text(text_22, `${$6 ?? ''}: ${get(order).customerData.name ?? ''}`);
-						set_text(text_24, `${$7 ?? ''}:${get(order).customerData.phone ?? ''}`);
-						set_text(text_25, `Email: ${get(order).customerData.email ?? ''}`);
-						set_text(text_26, $8);
-						set_text(text_27, get(order).customerData.name);
-						set_text(text_28, get(order).customerData.address.line1);
-						set_text(text_29, get(order).customerData.address.line2);
-						set_text(text_30, `${get(order).customerData.address.city ?? ''}, ${get(order).customerData.address.postal_code ?? ''}`);
-						set_text(text_32, get(order).customerData.address.country);
-						set_text(text_33, $9);
+						set_text(text_22, $5);
+						set_text(text_23, `${$6 ?? ''}: ${get(order).customerData.name ?? ''}`);
+						set_text(text_25, `${$7 ?? ''}:${get(order).customerData.phone ?? ''}`);
+						set_text(text_26, `Email: ${get(order).customerData.email ?? ''}`);
+						set_text(text_27, $8);
+						set_text(text_28, get(order).customerData.name);
+						set_text(text_29, get(order).customerData.address.line1);
+						set_text(text_30, get(order).customerData.address.line2);
+						set_text(text_31, `${get(order).customerData.address.city ?? ''}, ${get(order).customerData.address.postal_code ?? ''}`);
+						set_text(text_33, get(order).customerData.address.country);
+						set_text(text_34, $9);
 					},
 					[
 						() => t("order-summary"),

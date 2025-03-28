@@ -4061,7 +4061,22 @@ var preOrdersApp = (function () {
 	var size$4 = "Size";
 	var color$4 = "Color";
 	var customer_balance$4 = "Bank Transfer";
-	var paid$4 = "Payment completed";
+	var paid$4 = "Payment Completed";
+	var black$4 = "Black";
+	var add$4 = "Add";
+	var status$4 = "Status";
+	var message$4 = "Message";
+	var order_placed$4 = "Order Placed";
+	var in_preparation$4 = "Order in Preparation";
+	var ready_to_ship$4 = "Order Ready to Ship";
+	var delivered$4 = "Order Delivered";
+	var canceled$4 = "Order Canceled";
+	var edit$4 = "Edit";
+	var save$4 = "Save";
+	var tracking_details$4 = "Tracking";
+	var courier$4 = "Courier";
+	var number_of_packages$4 = "Number of Packages";
+	var tracking_links$4 = "Tracking Links";
 	var refunded$4 = "Refunded";
 	var en = {
 		"order-summary": "Order Summary",
@@ -4075,24 +4090,42 @@ var preOrdersApp = (function () {
 		"shipping-address": "Shipping Address",
 		history: history$4,
 		ready: ready$4,
-		"in-preparation": "In preparation",
-		"waiting-product": "Waiting for product delivery",
-		"to-be-shipped": "To be shipped",
+		"in-preparation": "In Preparation",
+		"waiting-product": "Waiting for Product Delivery",
+		"to-be-shipped": "To Be Shipped",
 		shipped: shipped$4,
 		name: name$4,
 		phone: phone$4,
-		"mob-number": "Mobile Phone Number",
+		"mob-number": "Mobile Number",
 		update: update$4,
 		type: type$4,
 		size: size$4,
-		"payment-type": "Payment type",
-		"three-installments": "Three monthly installments at zero interest",
-		"start-date": "Start date",
-		"end-date": "End date",
-		"installment-amount": "Installment amount",
+		"payment-type": "Payment Type",
+		"three-installments": "Three Monthly Installments, 0% Interest",
+		"start-date": "Start Date",
+		"end-date": "End Date",
+		"installment-amount": "Installment Amount",
 		color: color$4,
 		customer_balance: customer_balance$4,
 		paid: paid$4,
+		black: black$4,
+		"add-tracking": "Add Tracking",
+		"tracking-number": "Tracking Number",
+		"add-event": "Add Event",
+		add: add$4,
+		status: status$4,
+		message: message$4,
+		order_placed: order_placed$4,
+		in_preparation: in_preparation$4,
+		ready_to_ship: ready_to_ship$4,
+		delivered: delivered$4,
+		canceled: canceled$4,
+		edit: edit$4,
+		save: save$4,
+		tracking_details: tracking_details$4,
+		courier: courier$4,
+		number_of_packages: number_of_packages$4,
+		tracking_links: tracking_links$4,
 		refunded: refunded$4
 	};
 
@@ -4107,21 +4140,21 @@ var preOrdersApp = (function () {
 	var color$3 = "Colore";
 	var customer_balance$3 = "Bonifico Bancario";
 	var paid$3 = "Pagamento completato";
-	var black = "Nero";
-	var add = "Aggiungi";
-	var status = "Stato";
-	var message = "Messaggio";
-	var order_placed = "Ordine confermato";
-	var in_preparation = "Ordine in preparazione";
-	var ready_to_ship = "Ordine pronto per essere spedito";
-	var delivered = "Ordine consegnato";
-	var canceled = "Ordine cancellato";
-	var edit = "Modifica";
-	var save = "Salva";
-	var tracking_details = "Tracking";
-	var courier = "Corriere";
-	var number_of_packages = "Numero Colli";
-	var tracking_links = "Link di Tracking";
+	var black$3 = "Nero";
+	var add$3 = "Aggiungi";
+	var status$3 = "Stato";
+	var message$3 = "Messaggio";
+	var order_placed$3 = "Ordine confermato";
+	var in_preparation$3 = "Ordine in preparazione";
+	var ready_to_ship$3 = "Ordine pronto per essere spedito";
+	var delivered$3 = "Ordine consegnato";
+	var canceled$3 = "Ordine cancellato";
+	var edit$3 = "Modifica";
+	var save$3 = "Salva";
+	var tracking_details$3 = "Tracking";
+	var courier$3 = "Corriere";
+	var number_of_packages$3 = "Numero Colli";
+	var tracking_links$3 = "Link di Tracking";
 	var refunded$3 = "Rimborsato";
 	var it = {
 		"order-summary": "Riepilogo Ordine",
@@ -4153,10 +4186,244 @@ var preOrdersApp = (function () {
 		color: color$3,
 		customer_balance: customer_balance$3,
 		paid: paid$3,
-		black: black,
+		black: black$3,
 		"add-tracking": "Aggiungi Tracking",
 		"tracking-number": "Numero di Tracking",
 		"add-event": "Aggiungi evento",
+		add: add$3,
+		status: status$3,
+		message: message$3,
+		order_placed: order_placed$3,
+		in_preparation: in_preparation$3,
+		ready_to_ship: ready_to_ship$3,
+		delivered: delivered$3,
+		canceled: canceled$3,
+		edit: edit$3,
+		save: save$3,
+		tracking_details: tracking_details$3,
+		courier: courier$3,
+		number_of_packages: number_of_packages$3,
+		tracking_links: tracking_links$3,
+		refunded: refunded$3
+	};
+
+	var history$2 = "Historial";
+	var ready$2 = "Listo";
+	var shipped$2 = "Enviado";
+	var name$2 = "Nombre";
+	var phone$2 = "Teléfono";
+	var update$2 = "Actualizar";
+	var type$2 = "Tipo";
+	var size$2 = "Talla";
+	var color$2 = "Color";
+	var customer_balance$2 = "Transferencia bancaria";
+	var paid$2 = "Pago completado";
+	var black$2 = "Negro";
+	var add$2 = "Añadir";
+	var status$2 = "Estado";
+	var message$2 = "Mensaje";
+	var order_placed$2 = "Pedido confirmado";
+	var in_preparation$2 = "Pedido en preparación";
+	var ready_to_ship$2 = "Pedido listo para enviar";
+	var delivered$2 = "Pedido entregado";
+	var canceled$2 = "Pedido cancelado";
+	var edit$2 = "Editar";
+	var save$2 = "Guardar";
+	var tracking_details$2 = "Seguimiento";
+	var courier$2 = "Mensajero";
+	var number_of_packages$2 = "Número de paquetes";
+	var tracking_links$2 = "Enlaces de seguimiento";
+	var refunded$2 = "Reembolsado";
+	var es = {
+		"order-summary": "Resumen del pedido",
+		"order-details": "Detalles del pedido",
+		"order-status": "Estado del pedido",
+		"payment-method": "Método de pago",
+		"payment-status": "Estado del pago",
+		"shipping-cost": "Costo de envío",
+		"order-total": "Total del pedido",
+		"customer-details": "Datos del cliente",
+		"shipping-address": "Dirección de envío",
+		history: history$2,
+		ready: ready$2,
+		"in-preparation": "En preparación",
+		"waiting-product": "Esperando entrega del producto",
+		"to-be-shipped": "Por enviar",
+		shipped: shipped$2,
+		name: name$2,
+		phone: phone$2,
+		"mob-number": "Número de móvil",
+		update: update$2,
+		type: type$2,
+		size: size$2,
+		"payment-type": "Tipo de pago",
+		"three-installments": "Tres cuotas mensuales sin interés",
+		"start-date": "Fecha de inicio",
+		"end-date": "Fecha de fin",
+		"installment-amount": "Importe de la cuota",
+		color: color$2,
+		customer_balance: customer_balance$2,
+		paid: paid$2,
+		black: black$2,
+		"add-tracking": "Añadir seguimiento",
+		"tracking-number": "Número de seguimiento",
+		"add-event": "Añadir evento",
+		add: add$2,
+		status: status$2,
+		message: message$2,
+		order_placed: order_placed$2,
+		in_preparation: in_preparation$2,
+		ready_to_ship: ready_to_ship$2,
+		delivered: delivered$2,
+		canceled: canceled$2,
+		edit: edit$2,
+		save: save$2,
+		tracking_details: tracking_details$2,
+		courier: courier$2,
+		number_of_packages: number_of_packages$2,
+		tracking_links: tracking_links$2,
+		refunded: refunded$2
+	};
+
+	var history$1 = "Verlauf";
+	var ready$1 = "Bereit";
+	var shipped$1 = "Versendet";
+	var name$1 = "Name";
+	var phone$1 = "Telefon";
+	var update$1 = "Aktualisieren";
+	var type$1 = "Typ";
+	var size$1 = "Größe";
+	var color$1 = "Farbe";
+	var customer_balance$1 = "Banküberweisung";
+	var paid$1 = "Zahlung abgeschlossen";
+	var black$1 = "Schwarz";
+	var add$1 = "Hinzufügen";
+	var status$1 = "Status";
+	var message$1 = "Nachricht";
+	var order_placed$1 = "Bestellung aufgegeben";
+	var in_preparation$1 = "Bestellung in Vorbereitung";
+	var ready_to_ship$1 = "Bestellung versandbereit";
+	var delivered$1 = "Bestellung geliefert";
+	var canceled$1 = "Bestellung storniert";
+	var edit$1 = "Bearbeiten";
+	var save$1 = "Speichern";
+	var tracking_details$1 = "Sendungsverfolgung";
+	var courier$1 = "Versanddienst";
+	var number_of_packages$1 = "Anzahl der Pakete";
+	var tracking_links$1 = "Tracking-Links";
+	var refunded$1 = "Erstattet";
+	var de = {
+		"order-summary": "Bestellübersicht",
+		"order-details": "Bestelldetails",
+		"order-status": "Bestellstatus",
+		"payment-method": "Zahlungsmethode",
+		"payment-status": "Zahlungsstatus",
+		"shipping-cost": "Versandkosten",
+		"order-total": "Gesamtbetrag",
+		"customer-details": "Kundendetails",
+		"shipping-address": "Lieferadresse",
+		history: history$1,
+		ready: ready$1,
+		"in-preparation": "In Vorbereitung",
+		"waiting-product": "Wartet auf Produktlieferung",
+		"to-be-shipped": "Versandbereit",
+		shipped: shipped$1,
+		name: name$1,
+		phone: phone$1,
+		"mob-number": "Handynummer",
+		update: update$1,
+		type: type$1,
+		size: size$1,
+		"payment-type": "Zahlungsart",
+		"three-installments": "Drei monatliche Raten, 0% Zinsen",
+		"start-date": "Anfangsdatum",
+		"end-date": "Enddatum",
+		"installment-amount": "Ratenbetrag",
+		color: color$1,
+		customer_balance: customer_balance$1,
+		paid: paid$1,
+		black: black$1,
+		"add-tracking": "Tracking hinzufügen",
+		"tracking-number": "Sendungsnummer",
+		"add-event": "Ereignis hinzufügen",
+		add: add$1,
+		status: status$1,
+		message: message$1,
+		order_placed: order_placed$1,
+		in_preparation: in_preparation$1,
+		ready_to_ship: ready_to_ship$1,
+		delivered: delivered$1,
+		canceled: canceled$1,
+		edit: edit$1,
+		save: save$1,
+		tracking_details: tracking_details$1,
+		courier: courier$1,
+		number_of_packages: number_of_packages$1,
+		tracking_links: tracking_links$1,
+		refunded: refunded$1
+	};
+
+	var history = "Historique";
+	var ready = "Prêt";
+	var shipped = "Expédié";
+	var name = "Nom";
+	var phone = "Téléphone";
+	var update = "Mettre à jour";
+	var type = "Type";
+	var size = "Taille";
+	var color = "Couleur";
+	var customer_balance = "Virement bancaire";
+	var paid = "Paiement effectué";
+	var black = "Noir";
+	var add = "Ajouter";
+	var status = "Statut";
+	var message = "Message";
+	var order_placed = "Commande confirmée";
+	var in_preparation = "Commande en préparation";
+	var ready_to_ship = "Commande prête à être expédiée";
+	var delivered = "Commande livrée";
+	var canceled = "Commande annulée";
+	var edit = "Modifier";
+	var save = "Enregistrer";
+	var tracking_details = "Suivi";
+	var courier = "Transporteur";
+	var number_of_packages = "Nombre de colis";
+	var tracking_links = "Liens de suivi";
+	var refunded = "Remboursé";
+	var fr = {
+		"order-summary": "Récapitulatif de la commande",
+		"order-details": "Détails de la commande",
+		"order-status": "Statut de la commande",
+		"payment-method": "Méthode de paiement",
+		"payment-status": "Statut du paiement",
+		"shipping-cost": "Frais de livraison",
+		"order-total": "Total de la commande",
+		"customer-details": "Détails du client",
+		"shipping-address": "Adresse de livraison",
+		history: history,
+		ready: ready,
+		"in-preparation": "En préparation",
+		"waiting-product": "En attente de la livraison du produit",
+		"to-be-shipped": "À expédier",
+		shipped: shipped,
+		name: name,
+		phone: phone,
+		"mob-number": "Numéro de téléphone mobile",
+		update: update,
+		type: type,
+		size: size,
+		"payment-type": "Type de paiement",
+		"three-installments": "Trois mensualités sans intérêt",
+		"start-date": "Date de début",
+		"end-date": "Date de fin",
+		"installment-amount": "Montant de la mensualité",
+		color: color,
+		customer_balance: customer_balance,
+		paid: paid,
+		black: black,
+		"add-tracking": "Ajouter un suivi",
+		"tracking-number": "Numéro de suivi",
+		"add-event": "Ajouter un événement",
 		add: add,
 		status: status,
 		message: message,
@@ -4171,141 +4438,6 @@ var preOrdersApp = (function () {
 		courier: courier,
 		number_of_packages: number_of_packages,
 		tracking_links: tracking_links,
-		refunded: refunded$3
-	};
-
-	var history$2 = "Historial";
-	var ready$2 = "Listo";
-	var shipped$2 = "Enviado";
-	var name$2 = "Nombre";
-	var phone$2 = "Teléfono";
-	var update$2 = "Actualizar";
-	var type$2 = "Tipo";
-	var size$2 = "Talla";
-	var color$2 = "Color";
-	var customer_balance$2 = "Transferencia Bancaria";
-	var paid$2 = "Pago completado";
-	var refunded$2 = "Reembolsado";
-	var es = {
-		"order-summary": "Resumen del Pedido",
-		"order-details": "Detalles del Pedido",
-		"order-status": "Estado del Pedido",
-		"payment-method": "Método de Pago",
-		"payment-status": "Estado del Pago",
-		"shipping-cost": "Costo de Envío",
-		"order-total": "Total del Pedido",
-		"customer-details": "Detalles del Cliente",
-		"shipping-address": "Dirección de Envío",
-		history: history$2,
-		ready: ready$2,
-		"in-preparation": "En preparación",
-		"waiting-product": "Esperando la entrega del producto",
-		"to-be-shipped": "Por enviar",
-		shipped: shipped$2,
-		name: name$2,
-		phone: phone$2,
-		"mob-number": "Número de teléfono móvil",
-		update: update$2,
-		type: type$2,
-		size: size$2,
-		"payment-type": "Tipo de pago",
-		"three-installments": "Tres cuotas mensuales sin interés",
-		"start-date": "Fecha de inicio",
-		"end-date": "Fecha de fin",
-		"installment-amount": "Monto de la cuota",
-		color: color$2,
-		customer_balance: customer_balance$2,
-		paid: paid$2,
-		refunded: refunded$2
-	};
-
-	var history$1 = "Verlauf";
-	var ready$1 = "Bereit";
-	var shipped$1 = "Versandt";
-	var name$1 = "Name";
-	var phone$1 = "Telefon";
-	var update$1 = "Aktualisieren";
-	var type$1 = "Typ";
-	var size$1 = "Größe";
-	var color$1 = "Farbe";
-	var customer_balance$1 = "Banküberweisung";
-	var paid$1 = "Zahlung abgeschlossen";
-	var refunded$1 = "Erstattet";
-	var de = {
-		"order-summary": "Bestellübersicht",
-		"order-details": "Bestelldetails",
-		"order-status": "Bestellstatus",
-		"payment-method": "Zahlungsmethode",
-		"payment-status": "Zahlungsstatus",
-		"shipping-cost": "Versandkosten",
-		"order-total": "Gesamtbetrag",
-		"customer-details": "Kundendetails",
-		"shipping-address": "Versandadresse",
-		history: history$1,
-		ready: ready$1,
-		"in-preparation": "In Vorbereitung",
-		"waiting-product": "Warten auf Produktlieferung",
-		"to-be-shipped": "Zu versenden",
-		shipped: shipped$1,
-		name: name$1,
-		phone: phone$1,
-		"mob-number": "Handynummer",
-		update: update$1,
-		type: type$1,
-		size: size$1,
-		"payment-type": "Zahlungsart",
-		"three-installments": "Drei monatliche Raten ohne Zinsen",
-		"start-date": "Anfangsdatum",
-		"end-date": "Enddatum",
-		"installment-amount": "Ratenbetrag",
-		color: color$1,
-		customer_balance: customer_balance$1,
-		paid: paid$1,
-		refunded: refunded$1
-	};
-
-	var history = "Historique";
-	var ready = "Prêt";
-	var shipped = "Expédié";
-	var name = "Nom";
-	var phone = "Téléphone";
-	var update = "Mettre à jour";
-	var type = "Type";
-	var size = "Taille";
-	var color = "Couleur";
-	var customer_balance = "Virement Bancaire";
-	var paid = "Paiement effectué";
-	var refunded = "Remboursé";
-	var fr = {
-		"order-summary": "Résumé de la Commande",
-		"order-details": "Détails de la Commande",
-		"order-status": "Statut de la Commande",
-		"payment-method": "Mode de Paiement",
-		"payment-status": "Statut du Paiement",
-		"shipping-cost": "Frais de Livraison",
-		"order-total": "Total de la Commande",
-		"customer-details": "Détails du Client",
-		"shipping-address": "Adresse de Livraison",
-		history: history,
-		ready: ready,
-		"in-preparation": "En préparation",
-		"waiting-product": "En attente de la livraison du produit",
-		"to-be-shipped": "À expédier",
-		shipped: shipped,
-		name: name,
-		phone: phone,
-		"mob-number": "Numéro de téléphone portable",
-		update: update,
-		type: type,
-		size: size,
-		"payment-type": "Type de paiement",
-		"three-installments": "Trois versements mensuels à taux zéro",
-		"start-date": "Date de début",
-		"end-date": "Date de fin",
-		"installment-amount": "Montant de l'échéance",
-		color: color,
-		customer_balance: customer_balance,
-		paid: paid,
 		refunded: refunded
 	};
 

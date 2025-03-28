@@ -13,6 +13,7 @@
     packages: 1,
     tracking_links: [],
     shipment_id: -1,
+    delivered: false
   };
   let newTrackingLink = "";
   let editingIndex;
@@ -266,6 +267,9 @@
                   <option value="refunded" selected={orderStatus === "refunded"}
                     >{T("refunded")}</option
                   >
+                  <option value="delivered" selected={orderStatus === "delivered"}
+                  >{T("delivered")}</option
+                >
                 </select>
               </div>
             </div>
