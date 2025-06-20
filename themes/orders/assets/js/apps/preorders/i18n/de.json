@@ -46,5 +46,6 @@
   "courier": "Versanddienst",
   "number_of_packages": "Anzahl der Pakete",
   "tracking_links": "Tracking-Links",
-  "refunded": "Erstattet"
+  "refunded": "Erstattet",
+  "receipt": "Quittung"
 }

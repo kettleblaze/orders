@@ -46,5 +46,6 @@
   "courier": "Mensajero",
   "number_of_packages": "Número de paquetes",
   "tracking_links": "Enlaces de seguimiento",
-  "refunded": "Reembolsado"
+  "refunded": "Reembolsado",
+  "receipt": "Recibo"
 }

@@ -1,0 +1,130 @@
+<mjml>
+  <mj-head>
+    <mj-attributes>
+      <mj-all font-family="Helvetica, Arial, sans-serif" />
+      <mj-class name="preheader" color="#888888" font-size="12px" padding="0 0 10px" />
+      <mj-class name="title" color="#E03E2D" font-size="26px" font-weight="bold" padding="20px 0 20px" />
+      <mj-class name="subtitle" color="#333333" font-size="18px" font-weight="500" padding="0 0 10px" />
+      <mj-class name="text" color="#555555" font-size="16px" line-height="1.5" padding="0 0 20px" />
+      <mj-class name="button" background-color="#E03E2D" color="#ffffff" font-size="16px" padding="14px 28px" border-radius="4px" />
+      <mj-class name="footer-text" color="#999999" font-size="12px" padding="0 0 10px" />
+    </mj-attributes>
+    <mj-style inline="inline">
+      .card { background-color: #ffffff; }
+      .timeline-line { border-top: 2px dashed #E03E2D; width: 80%; margin: 0 auto; }
+      .timeline-step { text-align: center; }
+      .timeline-icon { width: 40px; margin-bottom: 5px; }
+    </mj-style>
+    <mj-preview>Il tuo ordine Kettleblaze è in viaggio!</mj-preview>
+  </mj-head>
+  <mj-body background-color="#fafafa">
+    <!-- Top Accent Bar -->
+    <mj-section padding="0">
+      <mj-column>
+        <mj-divider border-width="6px" border-color="#E03E2D" padding="0" />
+      </mj-column>
+    </mj-section>
+    <!-- Hero Section -->
+    <mj-section background-color="#E03E2D" padding="30px 20px" border-radius="0px 0px 30px 30px">
+      <mj-column>
+        <mj-text align="center" font-weight="200" color="#fefefe">KETTLEBLAZE</mj-text>
+        <mj-text mj-class="title" align="center" color="#ffffff">
+          <span style="font-size:75%;margin-top:-25px;display:inline-block;">KB-AKSJ92-09212</span><br></br>Il tuo ordine è in viaggio!
+        </mj-text>
+        <mj-text mj-class="text" align="center" color="#ffffff">
+          Ecco dove si trova il tuo pacco e cosa succederà dopo
+        </mj-text>
+        <mj-image src="https://kettleblaze.imgix.net/icons/delivery-truck.png" alt="Delivery Truck" width="130px" align="center" padding="10px 0" />
+      </mj-column>
+    </mj-section>
+    <!-- Timeline -->
+    <mj-section background-color="#fafafa" padding="20px 0">
+      <mj-column>
+        <div class="timeline-line"></div>
+      </mj-column>
+    </mj-section>
+    <mj-section background-color="#fafafa" padding="0 20px 20px">
+      <mj-group>
+        <mj-column css-class="timeline-step">
+          <mj-image src="{{icon_shipped}}" css-class="timeline-icon" />
+          <mj-text mj-class="subtitle">Spedito</mj-text>
+        </mj-column>
+        <mj-column css-class="timeline-step">
+          <mj-image src="{{icon_in_transit}}" css-class="timeline-icon" />
+          <mj-text mj-class="subtitle">In Transito</mj-text>
+        </mj-column>
+        <mj-column css-class="timeline-step">
+          <mj-image src="{{icon_out_for_delivery}}" css-class="timeline-icon" />
+          <mj-text mj-class="subtitle">In Consegna</mj-text>
+        </mj-column>
+      </mj-group>
+    </mj-section>
+    <!-- Details Card -->
+
+    <mj-section css-class="card" padding="20px">
+      <mj-column>
+
+        <mj-text mj-class="title" align="center">Dettagli di Tracciamento</mj-text>
+        <mj-table>
+          <tr>
+            <td><strong>Numero:</strong></td>
+            <td>{{tracking_number}}</td>
+          </tr>
+          <tr>
+            <td><strong>Corriere:</strong></td>
+            <td>{{carrier_name}}</td>
+          </tr>
+          <tr>
+            <td><strong>Data Spedizione:</strong></td>
+            <td>{{ship_date}}</td>
+          </tr>
+        </mj-table>
+        <mj-button mj-class="button" href="{{tracking_url}}" padding="20px 0 20px" align="center">
+          Monitora il Pacco
+        </mj-button>
+
+
+
+      </mj-column>
+    </mj-section>
+
+    <!-- Shipping Address Card -->
+    <mj-section padding="20px 40px">
+
+      <mj-column>
+
+        <mj-text mj-class="title" align="center">Indirizzo di Spedizione</mj-text>
+        <mj-text mj-class="text">
+          {{shipping_name}}<br />
+          {{shipping_address_line1}}<br />
+          {{#if shipping_address_line2}}{{shipping_address_line2}}<br />{{/if}}
+          {{shipping_city}}, {{shipping_postal_code}}<br />
+          {{shipping_country}}
+        </mj-text>
+
+      </mj-column>
+
+    </mj-section>
+    <!-- Support + Social -->
+    <mj-section padding="20px">
+      <mj-column>
+        <mj-text mj-class="text">
+          Domande? <a href="{{support_url}}" style="color:#E03E2D; text-decoration:none;">Contatta il Supporto</a> o rispondi a questa email.
+        </mj-text>
+        <mj-social icon-size="20px" mode="horizontal">
+          <mj-social-element name="facebook" href="{{facebook_url}}" />
+          <mj-social-element name="instagram" href="{{instagram_url}}" />
+          <mj-social-element name="twitter" href="{{twitter_url}}" />
+        </mj-social>
+      </mj-column>
+    </mj-section>
+    <!-- Footer -->
+    <mj-section padding="0 20px 40px">
+      <mj-column>
+        <mj-text mj-class="footer-text" align="center">
+          © {{year}} Kettleblaze. Tutti i diritti riservati.
+        </mj-text>
+      </mj-column>
+    </mj-section>
+  </mj-body>
+</mjml>

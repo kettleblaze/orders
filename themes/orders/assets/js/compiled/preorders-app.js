@@ -4078,6 +4078,7 @@ var preOrdersApp = (function () {
 	var number_of_packages$4 = "Number of Packages";
 	var tracking_links$4 = "Tracking Links";
 	var refunded$4 = "Refunded";
+	var receipt$4 = "Receipt";
 	var en = {
 		"order-summary": "Order Summary",
 		"order-details": "Order Details",
@@ -4126,7 +4127,8 @@ var preOrdersApp = (function () {
 		courier: courier$4,
 		number_of_packages: number_of_packages$4,
 		tracking_links: tracking_links$4,
-		refunded: refunded$4
+		refunded: refunded$4,
+		receipt: receipt$4
 	};
 
 	var history$3 = "Storico";
@@ -4156,6 +4158,7 @@ var preOrdersApp = (function () {
 	var number_of_packages$3 = "Numero Colli";
 	var tracking_links$3 = "Link di Tracking";
 	var refunded$3 = "Rimborsato";
+	var receipt$3 = "Ricevuta";
 	var it = {
 		"order-summary": "Riepilogo Ordine",
 		"order-details": "Dettagli Ordine",
@@ -4204,7 +4207,8 @@ var preOrdersApp = (function () {
 		courier: courier$3,
 		number_of_packages: number_of_packages$3,
 		tracking_links: tracking_links$3,
-		refunded: refunded$3
+		refunded: refunded$3,
+		receipt: receipt$3
 	};
 
 	var history$2 = "Historial";
@@ -4234,6 +4238,7 @@ var preOrdersApp = (function () {
 	var number_of_packages$2 = "Número de paquetes";
 	var tracking_links$2 = "Enlaces de seguimiento";
 	var refunded$2 = "Reembolsado";
+	var receipt$2 = "Recibo";
 	var es = {
 		"order-summary": "Resumen del pedido",
 		"order-details": "Detalles del pedido",
@@ -4282,7 +4287,8 @@ var preOrdersApp = (function () {
 		courier: courier$2,
 		number_of_packages: number_of_packages$2,
 		tracking_links: tracking_links$2,
-		refunded: refunded$2
+		refunded: refunded$2,
+		receipt: receipt$2
 	};
 
 	var history$1 = "Verlauf";
@@ -4312,6 +4318,7 @@ var preOrdersApp = (function () {
 	var number_of_packages$1 = "Anzahl der Pakete";
 	var tracking_links$1 = "Tracking-Links";
 	var refunded$1 = "Erstattet";
+	var receipt$1 = "Quittung";
 	var de = {
 		"order-summary": "Bestellübersicht",
 		"order-details": "Bestelldetails",
@@ -4360,7 +4367,8 @@ var preOrdersApp = (function () {
 		courier: courier$1,
 		number_of_packages: number_of_packages$1,
 		tracking_links: tracking_links$1,
-		refunded: refunded$1
+		refunded: refunded$1,
+		receipt: receipt$1
 	};
 
 	var history = "Historique";
@@ -4390,6 +4398,7 @@ var preOrdersApp = (function () {
 	var number_of_packages = "Nombre de colis";
 	var tracking_links = "Liens de suivi";
 	var refunded = "Remboursé";
+	var receipt = "Reçu";
 	var fr = {
 		"order-summary": "Récapitulatif de la commande",
 		"order-details": "Détails de la commande",
@@ -4438,7 +4447,8 @@ var preOrdersApp = (function () {
 		courier: courier,
 		number_of_packages: number_of_packages,
 		tracking_links: tracking_links,
-		refunded: refunded
+		refunded: refunded,
+		receipt: receipt
 	};
 
 	const languages = {

@@ -13,7 +13,7 @@
     packages: 1,
     tracking_links: [],
     shipment_id: -1,
-    delivered: false
+    delivered: false,
   };
   let newTrackingLink = "";
   let editingIndex;
@@ -27,10 +27,51 @@
     "delivered",
     "canceled",
   ];
-  const courierOptions = ["BRT", "DPD", "UPS", "FedEx", "PosteItaliane"];
+  const courierOptions = [
+    "BRT",
+    "DPD",
+    "UPS",
+    "FedEx",
+    "PosteItaliane",
+    "InPost",
+  ];
+
+  function updateTrackingLink(url, nuovoTracking) {
+    return url
+      .replace("loc=it_IT", "loc=en_GB")
+      .replace(/tracknum=[^&]+/, `tracknum=${nuovoTracking}`);
+  }
+
+  async function setupTracking() {
+    const infoSped = await fetch(
+      `http://localhost:8080/info-spedizione/${tracking.shipment_id}`
+    ).then((res) => res.json());
+
+    tracking.courier = infoSped.corriere;
+
+    let links = [];
+    for (let collo of infoSped.colli) {
+      let link = updateTrackingLink(infoSped.trackLink, collo.tracking);
+      links.push(link);
+    }
+    tracking.packages = links.length;
+    tracking.tracking_links = links;
+  }
 
   async function sendTrackingNotificaton() {
-    return sendNotificationEmail(null, "tracking");
+    const response = await fetch(
+      `process.env.storeServer/send-tracking-email/${order.orderId}`,
+      {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+
+    if (response.ok) {
+      alert("Email inviata con successo!");
+    } else {
+      alert("Errore nell'invio dell'email.");
+    }
   }
 
   async function sendNotificationEmail(eventId, type = "event") {
@@ -153,6 +194,22 @@
     return formatCurrency(sum, order.payment.currency);
   }
 
+  async function getReceiptUrl() {
+    if (!order || !order.payment || !order.payment.stripe_payment_intent) {
+      return { url: "N/A" };
+    }
+    const response = await fetch(
+      `process.env.storeServer/receipt-url/${order.payment.stripe_payment_intent}`,
+      { method: "GET", headers: { "Content-Type": "application/json" } }
+    );
+    if (response.ok) {
+      const data = await response.json();
+      return { url: data.url };
+    } else {
+      return { url: "N/A" };
+    }
+  }
+
   onMount(() => {
     getOrder();
   });
@@ -228,6 +285,14 @@
             >{order.payment.status}</span
           >
         </li>
+        <li>
+           {#if order.payment.status === "paid"}
+            <div class="field">
+              {#await getReceiptUrl() then response}
+                <a class="has-text-info" target="_blank" href={response.url}>🔗 {T("receipt")}</a>{/await}
+            </div>
+          {/if}
+        </li>
       </ul>
       {#if process.env.isLocal}
         <form class="form mt-5">
@@ -267,9 +332,11 @@
                   <option value="refunded" selected={orderStatus === "refunded"}
                     >{T("refunded")}</option
                   >
-                  <option value="delivered" selected={orderStatus === "delivered"}
-                  >{T("delivered")}</option
-                >
+                  <option
+                    value="delivered"
+                    selected={orderStatus === "delivered"}
+                    >{T("delivered")}</option
+                  >
                 </select>
               </div>
             </div>
@@ -439,6 +506,7 @@
               class="input"
               type="number"
               min="1"
+              on:change={setupTracking}
               bind:value={tracking.shipment_id}
             />
           </div>
