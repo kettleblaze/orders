@@ -243,7 +243,7 @@
                     quality="98"
                   ></SirvImage>
                   <div class="column">
-                    <h4 class="title has-text-info iss-size-4">
+                    <h4 class="title has-text-info is-size-4">
                       {item.quantity} x {item.name.it}
                     </h4>
                     {#if Object.keys(item.selected_attributes ?? {}).length > 0}
@@ -257,7 +257,7 @@
                         {/each}
                       </ul>
                     {/if}
-                    <p class="is-size-6">
+                    <p class="is-size-5">
                       {formatCurrency(item.final_price * 100, item.currency)}
                     </p>
                   </div>
@@ -265,9 +265,16 @@
               </div>
             </li>
           {/each}
+          <li>
+            <hr class="spacer">
+            <div class="column">
+              <h4 class="title has-text-info is-size-4 mt-5">
+                {T("order-total")}
+              </h4>
+              <p class="my-3 is-size-5">{calculateTotal(order)}</p>
+            </div>
+          </li>
         </ul>
-        <h4 class="title has-text-info is-size-4 mt-5">{T("order-total")}</h4>
-        <p class="my-3">{calculateTotal(order)}</p>
       </div>
     </div>
     <div class="column px-6">
@@ -286,10 +293,12 @@
           >
         </li>
         <li>
-           {#if order.payment.status === "paid"}
+          {#if order.payment.status === "paid"}
             <div class="field">
               {#await getReceiptUrl() then response}
-                <a class="has-text-info" target="_blank" href={response.url}>🔗 {T("receipt")}</a>{/await}
+                <a class="has-text-info" target="_blank" href={response.url}
+                  >🔗 {T("receipt")}</a
+                >{/await}
             </div>
           {/if}
         </li>

@@ -4740,7 +4740,7 @@ var preOrdersApp = (function () {
 	var root_3 = template(`<div class="sloader-container"><span class="sloader"></span> <h3 class="is-size-5">Please wait</h3></div>`);
 	var root_7 = template(`<li> </li>`);
 	var root_6 = template(`<ul></ul>`);
-	var root_5 = template(`<li><div class="columns is-align-items-center"><div class="column"><!> <div class="column"><h4 class="title has-text-info iss-size-4"> </h4> <!> <p class="is-size-6"> </p></div></div></div></li>`);
+	var root_5 = template(`<li><div class="columns is-align-items-center"><div class="column"><!> <div class="column"><h4 class="title has-text-info is-size-4"> </h4> <!> <p class="is-size-5"> </p></div></div></div></li>`);
 	var root_8 = template(`<li> </li>`);
 	var root_10 = template(`<a class="has-text-info" target="_blank"> </a>`);
 	var root_9 = template(`<div class="field"><!></div>`);
@@ -4759,7 +4759,7 @@ var preOrdersApp = (function () {
 	var root_26 = template(`<option> </option>`);
 	var root_27 = template(`<li><a target="_blank"> </a> <button class="button is-small is-danger ml-2"> </button></li>`);
 	var root_24 = template(`<div class="field my-6"><label class="label"> </label> <div class="select"><select><option disabled selected> </option><!></select></div> <input class="input mt-2" type="text"> <button class="button is-info mt-2"> </button></div> <div class="tracking-section"><h2 class="title">Tracking</h2> <div class="field"><label class="label">Corriere</label> <div class="select"><select></select></div></div> <div class="field"><label class="label">Id spedizione</label> <input class="input" type="number" min="1"></div> <div class="field"><label class="label">Numero colli</label> <input class="input" type="number" min="1"></div> <div class="field"><label class="label">Link di tracking</label> <ul></ul> <input class="input mt-2" type="text"> <button class="button is-info mt-2"> </button></div> <button class="button is-success mt-4">Salva Tracking</button></div>`, 1);
-	var root_4 = template(`<div class="columns"><div class="column is-half"><h2 class="title mt-6 px-5"> </h2> <div class="box"><ul></ul> <h4 class="title has-text-info is-size-4 mt-5"> </h4> <p class="my-3"> </p></div></div> <div class="column px-6"><h2 class="title mt-6"> </h2> <ul><li> </li> <!> <li> <span class="has-text-info has-text-weight-bold"> </span></li> <li><!></li></ul> <!> <h2 class="title mt-6"> </h2> <ul><li> </li> <!> <li> </li> <li> </li></ul> <h2 class="title mt-6"> </h2> <ul><li> </li> <li> </li> <li> </li> <li> <!></li> <li> </li></ul> <h2 class="title mt-5"> </h2> <ul></ul> <!> <!></div></div>`);
+	var root_4 = template(`<div class="columns"><div class="column is-half"><h2 class="title mt-6 px-5"> </h2> <div class="box"><ul><!> <li><hr class="spacer"> <div class="column"><h4 class="title has-text-info is-size-4 mt-5"> </h4> <p class="my-3 is-size-5"> </p></div></li></ul></div></div> <div class="column px-6"><h2 class="title mt-6"> </h2> <ul><li> </li> <!> <li> <span class="has-text-info has-text-weight-bold"> </span></li> <li><!></li></ul> <!> <h2 class="title mt-6"> </h2> <ul><li> </li> <!> <li> </li> <li> </li></ul> <h2 class="title mt-6"> </h2> <ul><li> </li> <li> </li> <li> </li> <li> <!></li> <li> </li></ul> <h2 class="title mt-5"> </h2> <ul></ul> <!> <!></div></div>`);
 
 	function PreOrder2($$anchor, $$props) {
 		push($$props, false);
@@ -5008,14 +5008,15 @@ var preOrdersApp = (function () {
 
 				var div_3 = sibling(h2, 2);
 				var ul = child(div_3);
+				var node_2 = child(ul);
 
-				each(ul, 5, () => get(order).cart.items, index, ($$anchor, item) => {
+				each(node_2, 1, () => get(order).cart.items, index, ($$anchor, item) => {
 					var li = root_5();
 					var div_4 = child(li);
 					var div_5 = child(div_4);
-					var node_2 = child(div_5);
+					var node_3 = child(div_5);
 
-					SirvImage(node_2, {
+					SirvImage(node_3, {
 						get src() {
 							return `https://kettleblaze.sirv.com/orders/${get(item).sku ?? ''}.jpg`;
 						},
@@ -5026,11 +5027,11 @@ var preOrdersApp = (function () {
 						quality: '98'
 					});
 
-					var div_6 = sibling(node_2, 2);
+					var div_6 = sibling(node_3, 2);
 					var h4 = child(div_6);
 					var text_1 = child(h4);
 
-					var node_3 = sibling(h4, 2);
+					var node_4 = sibling(h4, 2);
 
 					{
 						var consequent_2 = ($$anchor) => {
@@ -5056,12 +5057,12 @@ var preOrdersApp = (function () {
 							append($$anchor, ul_1);
 						};
 
-						if_block(node_3, ($$render) => {
+						if_block(node_4, ($$render) => {
 							if (Object.keys(get(item).selected_attributes ?? {}).length > 0) $$render(consequent_2);
 						});
 					}
 
-					var p = sibling(node_3, 2);
+					var p = sibling(node_4, 2);
 					var text_3 = child(p);
 
 					template_effect(
@@ -5078,49 +5079,51 @@ var preOrdersApp = (function () {
 					append($$anchor, li);
 				});
 
-				var h4_1 = sibling(ul, 2);
+				var li_2 = sibling(node_2, 2);
+				var div_7 = sibling(child(li_2), 2);
+				var h4_1 = child(div_7);
 				var text_4 = child(h4_1);
 
 				var p_1 = sibling(h4_1, 2);
 				var text_5 = child(p_1);
 
-				var div_7 = sibling(div_2, 2);
-				var h2_1 = child(div_7);
+				var div_8 = sibling(div_2, 2);
+				var h2_1 = child(div_8);
 				var text_6 = child(h2_1);
 
 				var ul_2 = sibling(h2_1, 2);
-				var li_2 = child(ul_2);
-				var text_7 = child(li_2);
+				var li_3 = child(ul_2);
+				var text_7 = child(li_3);
 
-				var node_4 = sibling(li_2, 2);
+				var node_5 = sibling(li_3, 2);
 
 				{
 					var consequent_3 = ($$anchor) => {
-						var li_3 = root_8();
-						var text_8 = child(li_3);
+						var li_4 = root_8();
+						var text_8 = child(li_4);
 						template_effect(($0) => set_text(text_8, `${$0 ?? ''}: ${get(order).payment.method ?? ''}`), [() => t("payment-method")], derived_safe_equal);
-						append($$anchor, li_3);
+						append($$anchor, li_4);
 					};
 
-					if_block(node_4, ($$render) => {
+					if_block(node_5, ($$render) => {
 						if (get(order).payment.method) $$render(consequent_3);
 					});
 				}
 
-				var li_4 = sibling(node_4, 2);
-				var text_9 = child(li_4);
+				var li_5 = sibling(node_5, 2);
+				var text_9 = child(li_5);
 				var span = sibling(text_9);
 				var text_10 = child(span);
 
-				var li_5 = sibling(li_4, 2);
-				var node_5 = child(li_5);
+				var li_6 = sibling(li_5, 2);
+				var node_6 = child(li_6);
 
 				{
 					var consequent_4 = ($$anchor) => {
-						var div_8 = root_9();
-						var node_6 = child(div_8);
+						var div_9 = root_9();
+						var node_7 = child(div_9);
 
-						await_block(node_6, getReceiptUrl, null, ($$anchor, response) => {
+						await_block(node_7, getReceiptUrl, null, ($$anchor, response) => {
 							var a = root_10();
 							var text_11 = child(a);
 
@@ -5135,23 +5138,23 @@ var preOrdersApp = (function () {
 
 							append($$anchor, a);
 						});
-						append($$anchor, div_8);
+						append($$anchor, div_9);
 					};
 
-					if_block(node_5, ($$render) => {
+					if_block(node_6, ($$render) => {
 						if (get(order).payment.status === "paid") $$render(consequent_4);
 					});
 				}
 
-				var node_7 = sibling(ul_2, 2);
+				var node_8 = sibling(ul_2, 2);
 
 				{
 					var consequent_5 = ($$anchor) => {
 						var form = root_11();
-						var div_9 = child(form);
-						var div_10 = child(div_9);
+						var div_10 = child(form);
 						var div_11 = child(div_10);
-						var select = child(div_11);
+						var div_12 = child(div_11);
+						var select = child(div_12);
 
 						template_effect(() => {
 							get(orderStatus);
@@ -5209,8 +5212,8 @@ var preOrdersApp = (function () {
 
 						var text_19 = child(option_7);
 
-						var div_12 = sibling(div_10, 2);
-						var button = child(div_12);
+						var div_13 = sibling(div_11, 2);
+						var button = child(div_13);
 						var text_20 = child(button);
 
 						template_effect(
@@ -5253,55 +5256,55 @@ var preOrdersApp = (function () {
 						append($$anchor, form);
 					};
 
-					if_block(node_7, ($$render) => {
+					if_block(node_8, ($$render) => {
 						$$render(consequent_5);
 					});
 				}
 
-				var h2_4 = sibling(node_7, 2);
+				var h2_4 = sibling(node_8, 2);
 				var text_23 = child(h2_4);
 
 				var ul_3 = sibling(h2_4, 2);
-				var li_6 = child(ul_3);
-				var text_24 = child(li_6);
+				var li_7 = child(ul_3);
+				var text_24 = child(li_7);
 
-				var node_8 = sibling(li_6, 2);
+				var node_9 = sibling(li_7, 2);
 
 				{
 					var consequent_6 = ($$anchor) => {
-						var li_7 = root_13();
-						var text_25 = child(li_7);
+						var li_8 = root_13();
+						var text_25 = child(li_8);
 						template_effect(() => set_text(text_25, `Codice fiscale: ${get(order).customerData.fiscal_code ?? ''}`));
-						append($$anchor, li_7);
+						append($$anchor, li_8);
 					};
 
-					if_block(node_8, ($$render) => {
+					if_block(node_9, ($$render) => {
 						if (get(order).customerData.fiscal_code) $$render(consequent_6);
 					});
 				}
 
-				var li_8 = sibling(node_8, 2);
-				var text_26 = child(li_8);
+				var li_9 = sibling(node_9, 2);
+				var text_26 = child(li_9);
 
-				var li_9 = sibling(li_8, 2);
-				var text_27 = child(li_9);
+				var li_10 = sibling(li_9, 2);
+				var text_27 = child(li_10);
 
 				var h2_5 = sibling(ul_3, 2);
 				var text_28 = child(h2_5);
 
 				var ul_4 = sibling(h2_5, 2);
-				var li_10 = child(ul_4);
-				var text_29 = child(li_10);
-
-				var li_11 = sibling(li_10, 2);
-				var text_30 = child(li_11);
+				var li_11 = child(ul_4);
+				var text_29 = child(li_11);
 
 				var li_12 = sibling(li_11, 2);
-				var text_31 = child(li_12);
+				var text_30 = child(li_12);
 
 				var li_13 = sibling(li_12, 2);
-				var text_32 = child(li_13);
-				var node_9 = sibling(text_32);
+				var text_31 = child(li_13);
+
+				var li_14 = sibling(li_13, 2);
+				var text_32 = child(li_14);
+				var node_10 = sibling(text_32);
 
 				{
 					var consequent_7 = ($$anchor) => {
@@ -5311,13 +5314,13 @@ var preOrdersApp = (function () {
 						append($$anchor, text_33);
 					};
 
-					if_block(node_9, ($$render) => {
+					if_block(node_10, ($$render) => {
 						if (get(order).customerData.address.state) $$render(consequent_7);
 					});
 				}
 
-				var li_14 = sibling(li_13, 2);
-				var text_34 = child(li_14);
+				var li_15 = sibling(li_14, 2);
+				var text_34 = child(li_15);
 
 				var h2_6 = sibling(ul_4, 2);
 				var text_35 = child(h2_6);
@@ -5325,17 +5328,17 @@ var preOrdersApp = (function () {
 				var ul_5 = sibling(h2_6, 2);
 
 				each(ul_5, 5, () => get(order).history, index, ($$anchor, historyEvent, index$1) => {
-					var li_15 = root_15();
-					var span_1 = child(li_15);
+					var li_16 = root_15();
+					var span_1 = child(li_16);
 					var text_36 = child(span_1);
 
-					var node_10 = sibling(span_1, 4);
+					var node_11 = sibling(span_1, 4);
 
 					{
 						var consequent_8 = ($$anchor) => {
 							var fragment_4 = root_16();
-							var div_13 = first_child(fragment_4);
-							var select_1 = child(div_13);
+							var div_14 = first_child(fragment_4);
+							var select_1 = child(div_14);
 
 							template_effect(() => {
 								get(editedEvent);
@@ -5364,7 +5367,7 @@ var preOrdersApp = (function () {
 								append($$anchor, option_8);
 							});
 
-							var input = sibling(div_13, 2);
+							var input = sibling(div_14, 2);
 
 							var button_1 = sibling(input, 2);
 							var text_38 = child(button_1);
@@ -5383,7 +5386,7 @@ var preOrdersApp = (function () {
 							var p_2 = sibling(strong, 2);
 							var text_40 = child(p_2);
 
-							var node_11 = sibling(p_2, 2);
+							var node_12 = sibling(p_2, 2);
 
 							{
 								var consequent_9 = ($$anchor) => {
@@ -5411,7 +5414,7 @@ var preOrdersApp = (function () {
 									append($$anchor, fragment_6);
 								};
 
-								if_block(node_11, ($$render) => {
+								if_block(node_12, ($$render) => {
 									$$render(consequent_9);
 								});
 							}
@@ -5428,7 +5431,7 @@ var preOrdersApp = (function () {
 							append($$anchor, fragment_5);
 						};
 
-						if_block(node_10, ($$render) => {
+						if_block(node_11, ($$render) => {
 							if (get(editingIndex) === index$1) $$render(consequent_8); else $$render(alternate_2, false);
 						});
 					}
@@ -5448,10 +5451,10 @@ var preOrdersApp = (function () {
 						derived_safe_equal
 					);
 
-					append($$anchor, li_15);
+					append($$anchor, li_16);
 				});
 
-				var node_12 = sibling(ul_5, 2);
+				var node_13 = sibling(ul_5, 2);
 
 				{
 					var consequent_11 = ($$anchor) => {
@@ -5459,33 +5462,33 @@ var preOrdersApp = (function () {
 						var h2_7 = first_child(fragment_7);
 						var text_43 = child(h2_7);
 
-						var node_13 = sibling(h2_7, 2);
+						var node_14 = sibling(h2_7, 2);
 
-						each(node_13, 1, () => get(order).tracking, index, ($$anchor, tracking, $$index_5, $$array) => {
+						each(node_14, 1, () => get(order).tracking, index, ($$anchor, tracking, $$index_5, $$array) => {
 							var fragment_8 = root_21();
-							var div_14 = first_child(fragment_8);
-							var label = child(div_14);
+							var div_15 = first_child(fragment_8);
+							var label = child(div_15);
 							var text_44 = child(label);
 
 							var p_3 = sibling(label, 2);
 							var text_45 = child(p_3);
 
-							var div_15 = sibling(div_14, 2);
-							var label_1 = child(div_15);
+							var div_16 = sibling(div_15, 2);
+							var label_1 = child(div_16);
 							var text_46 = child(label_1);
 
 							var p_4 = sibling(label_1, 2);
 							var text_47 = child(p_4);
 
-							var div_16 = sibling(div_15, 2);
-							var label_2 = child(div_16);
+							var div_17 = sibling(div_16, 2);
+							var label_2 = child(div_17);
 							var text_48 = child(label_2);
 
 							var ul_6 = sibling(label_2, 2);
 
 							each(ul_6, 5, () => get(tracking).tracking_links, index, ($$anchor, link) => {
-								var li_16 = root_22();
-								var a_1 = child(li_16);
+								var li_17 = root_22();
+								var a_1 = child(li_17);
 								var text_49 = child(a_1);
 
 								template_effect(() => {
@@ -5493,10 +5496,10 @@ var preOrdersApp = (function () {
 									set_text(text_49, get(link));
 								});
 
-								append($$anchor, li_16);
+								append($$anchor, li_17);
 							});
 
-							var node_14 = sibling(div_16, 2);
+							var node_15 = sibling(div_17, 2);
 
 							{
 								var consequent_10 = ($$anchor) => {
@@ -5506,7 +5509,7 @@ var preOrdersApp = (function () {
 									append($$anchor, button_4);
 								};
 
-								if_block(node_14, ($$render) => {
+								if_block(node_15, ($$render) => {
 									$$render(consequent_10);
 								});
 							}
@@ -5534,22 +5537,22 @@ var preOrdersApp = (function () {
 						append($$anchor, fragment_7);
 					};
 
-					if_block(node_12, ($$render) => {
+					if_block(node_13, ($$render) => {
 						if (get(order).tracking.length > 0) $$render(consequent_11);
 					});
 				}
 
-				var node_15 = sibling(node_12, 2);
+				var node_16 = sibling(node_13, 2);
 
 				{
 					var consequent_12 = ($$anchor) => {
 						var fragment_9 = root_24();
-						var div_17 = first_child(fragment_9);
-						var label_3 = child(div_17);
+						var div_18 = first_child(fragment_9);
+						var label_3 = child(div_18);
 						var text_50 = child(label_3);
 
-						var div_18 = sibling(label_3, 2);
-						var select_2 = child(div_18);
+						var div_19 = sibling(label_3, 2);
+						var select_2 = child(div_19);
 
 						template_effect(() => {
 							get(event$1);
@@ -5564,9 +5567,9 @@ var preOrdersApp = (function () {
 
 						var text_51 = child(option_9);
 
-						var node_16 = sibling(option_9);
+						var node_17 = sibling(option_9);
 
-						each(node_16, 1, () => statusOptions, index, ($$anchor, status) => {
+						each(node_17, 1, () => statusOptions, index, ($$anchor, status) => {
 							var option_10 = root_25();
 							var option_10_value = {};
 							var text_52 = child(option_10);
@@ -5586,15 +5589,15 @@ var preOrdersApp = (function () {
 							append($$anchor, option_10);
 						});
 
-						var input_1 = sibling(div_18, 2);
+						var input_1 = sibling(div_19, 2);
 
 						var button_5 = sibling(input_1, 2);
 						var text_53 = child(button_5);
 
-						var div_19 = sibling(div_17, 2);
-						var div_20 = sibling(child(div_19), 2);
+						var div_20 = sibling(div_18, 2);
 						var div_21 = sibling(child(div_20), 2);
-						var select_3 = child(div_21);
+						var div_22 = sibling(child(div_21), 2);
+						var select_3 = child(div_22);
 
 						template_effect(() => {
 							get(tracking);
@@ -5619,18 +5622,18 @@ var preOrdersApp = (function () {
 							append($$anchor, option_11);
 						});
 
-						var div_22 = sibling(div_20, 2);
-						var input_2 = sibling(child(div_22), 2);
-
-						var div_23 = sibling(div_22, 2);
-						var input_3 = sibling(child(div_23), 2);
+						var div_23 = sibling(div_21, 2);
+						var input_2 = sibling(child(div_23), 2);
 
 						var div_24 = sibling(div_23, 2);
-						var ul_7 = sibling(child(div_24), 2);
+						var input_3 = sibling(child(div_24), 2);
+
+						var div_25 = sibling(div_24, 2);
+						var ul_7 = sibling(child(div_25), 2);
 
 						each(ul_7, 5, () => get(tracking).tracking_links, index, ($$anchor, link, index) => {
-							var li_17 = root_27();
-							var a_2 = child(li_17);
+							var li_18 = root_27();
+							var a_2 = child(li_18);
 							var text_55 = child(a_2);
 
 							var button_6 = sibling(a_2, 2);
@@ -5647,7 +5650,7 @@ var preOrdersApp = (function () {
 							);
 
 							event('click', button_6, () => get(tracking).tracking_links.splice(index, 1));
-							append($$anchor, li_17);
+							append($$anchor, li_18);
 						});
 
 						var input_4 = sibling(ul_7, 2);
@@ -5655,7 +5658,7 @@ var preOrdersApp = (function () {
 						var button_7 = sibling(input_4, 2);
 						var text_57 = child(button_7);
 
-						var button_8 = sibling(div_24, 2);
+						var button_8 = sibling(div_25, 2);
 
 						template_effect(
 							($0, $1, $2, $3, $4) => {
@@ -5689,7 +5692,7 @@ var preOrdersApp = (function () {
 						append($$anchor, fragment_9);
 					};
 
-					if_block(node_15, ($$render) => {
+					if_block(node_16, ($$render) => {
 						$$render(consequent_12);
 					});
 				}
