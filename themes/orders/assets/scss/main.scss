@@ -16,14 +16,14 @@ $beige-lighter: #eff0eb;
   $input-shadow: none
 );
 
+@use "../../../../node_modules/bulma/sass/utilities/initial-variables" as iv;
 @use "../../../../node_modules/bulma/sass/helpers/flexbox.scss";
 @use "../../../../node_modules/bulma/sass/utilities/mixins";
 
 // Import the Google Font
-@import "../../../../node_modules/bulma/sass/utilities/initial-variables.scss";
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,700;1,400;1,700&display=swap");
 
-@include mixins.until($tablet) {
+@include mixins.until(iv.$tablet) {
   :root {
     --bulma-body-font-size: 1.15rem;
     --bulma-title-line-height: 1;
@@ -31,7 +31,7 @@ $beige-lighter: #eff0eb;
     --bulma-navbar-background-color: #e5e5e5;
   }
 }
-@include mixins.from($tablet) {
+@include mixins.from(iv.$tablet) {
   :root {
     --bulma-body-font-size: 1.15rem;
     --bulma-navbar-background-color: #e5e5e5;
