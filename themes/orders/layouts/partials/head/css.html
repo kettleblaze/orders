@@ -15,5 +15,6 @@
   href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
 />
 {{- with resources.Get "scss/main.scss" | toCSS $opts | minify}}
-<link rel="stylesheet" href="{{ .RelPermalink }}" />
+{{- $hash := . | fingerprint | default "" }}
+<link rel="stylesheet" href="{{ .RelPermalink }}?{{$hash}}" />
 {{- end }}
