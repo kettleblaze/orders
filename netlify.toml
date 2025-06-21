@@ -1,5 +1,5 @@
 [context.development.environment]
-    HUGO_VERSION = "0.129.0"
+    HUGO_VERSION = "0.143.1"
     DART_SASS_VERSION = "1.75.0"
 
 [dev]
@@ -13,5 +13,5 @@
     publish = "public"
     command = "npm run build"
 [build.environment]
-    HUGO_VERSION = "0.129.0"
+    HUGO_VERSION = "0.143.1"
     DART_SASS_VERSION = "1.75.0"
