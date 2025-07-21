@@ -1,1 +1,5800 @@
-var preOrdersApp=function(){"use strict";var e=!1,t=Array.isArray,n=Array.prototype.indexOf,r=Array.from,a=Object.defineProperty,i=Object.getOwnPropertyDescriptor,l=Object.getOwnPropertyDescriptors,s=Object.prototype,o=Array.prototype,u=Object.getPrototypeOf;const d=32,c=128,f=256,p=512,v=1024,m=2048,h=4096,g=8192,y=16384,_=65536,b=1<<20,w=Symbol("$state"),x=Symbol("legacy props"),k=Symbol("");function $(e){return e===this.v}function S(e){return t=e,n=this.v,!(t!=t?n==n:t!==n||null!==t&&"object"==typeof t||"function"==typeof t);var t,n}let T=!1;const E=Symbol();let P=null;function N(e){P=e}function C(e,t=!1,n){P={p:P,c:null,e:null,m:!1,s:e,x:null,l:null},T&&!t&&(P.l={s:null,u:null,r1:[],r2:O(!1)})}function D(e){const t=P;if(null!==t){const e=t.e;if(null!==e){var n=Ae,r=De;t.e=null;try{for(var a=0;a<e.length;a++){var i=e[a];Me(i.effect),Oe(i.reaction),ae(i.fn)}}finally{Me(n),Oe(r)}}P=t.p,t.m=!0}return{}}function z(){return!T||null!==P&&null===P.l}function O(e,t){return{f:0,v:e,reactions:null,equals:$,rv:0,wv:0}}function A(e){return function(e){null!==De&&!ze&&2&De.f&&(null===Le?Le=[e]:Le.push(e));return e}(O(e))}function M(e,t=!1){const n=O(e);return t||(n.equals=S),T&&null!==P&&null!==P.l&&(P.l.s??=[]).push(n),n}function L(e,t){return null!==De&&!ze&&z()&&18&De.f&&(null===Le||!Le.includes(e))&&function(){throw new Error("https://svelte.dev/e/state_unsafe_mutation")}(),R(e,t)}function R(e,t){return e.equals(t)||(e.v,e.v=t,e.wv=Fe(),q(e,m),z()&&null!==Ae&&Ae.f&v&&!(96&Ae.f)&&(null===Be?function(e){Be=e}([e]):Be.push(e))),t}function q(e,t){var n=e.reactions;if(null!==n)for(var r=z(),a=n.length,i=0;i<a;i++){var l=n[i],s=l.f;s&m||(r||l!==Ae)&&(it(l,t),1280&s&&(2&s?q(l,h):et(l)))}}let B=!1;function I(e,n=null,r){if("object"!=typeof e||null===e||w in e)return e;const a=u(e);if(a!==s&&a!==o)return e;var l,d=new Map,c=t(e),f=O(0);return c&&d.set("length",O(e.length)),new Proxy(e,{defineProperty(e,t,n){"value"in n&&!1!==n.configurable&&!1!==n.enumerable&&!1!==n.writable||function(){throw new Error("https://svelte.dev/e/state_descriptors_fixed")}();var r=d.get(t);return void 0===r?(r=O(n.value),d.set(t,r)):L(r,I(n.value,l)),!0},deleteProperty(e,t){var n=d.get(t);if(void 0===n)t in e&&d.set(t,O(E));else{if(c&&"string"==typeof t){var r=d.get("length"),a=Number(t);Number.isInteger(a)&&a<r.v&&L(r,a)}L(n,E),j(f)}return!0},get(t,n,r){if(n===w)return e;var a=d.get(n),s=n in t;if(void 0!==a||s&&!i(t,n)?.writable||(a=O(I(s?t[n]:E,l)),d.set(n,a)),void 0!==a){var o=nt(a);return o===E?void 0:o}return Reflect.get(t,n,r)},getOwnPropertyDescriptor(e,t){var n=Reflect.getOwnPropertyDescriptor(e,t);if(n&&"value"in n){var r=d.get(t);r&&(n.value=nt(r))}else if(void 0===n){var a=d.get(t),i=a?.v;if(void 0!==a&&i!==E)return{enumerable:!0,configurable:!0,value:i,writable:!0}}return n},has(e,t){if(t===w)return!0;var n=d.get(t),r=void 0!==n&&n.v!==E||Reflect.has(e,t);if((void 0!==n||null!==Ae&&(!r||i(e,t)?.writable))&&(void 0===n&&(n=O(r?I(e[t],l):E),d.set(t,n)),nt(n)===E))return!1;return r},set(e,t,n,r){var a=d.get(t),s=t in e;if(c&&"length"===t)for(var o=n;o<a.v;o+=1){var u=d.get(o+"");void 0!==u?L(u,E):o in e&&(u=O(E),d.set(o+"",u))}void 0===a?s&&!i(e,t)?.writable||(L(a=O(void 0),I(n,l)),d.set(t,a)):(s=a.v!==E,L(a,I(n,l)));var p=Reflect.getOwnPropertyDescriptor(e,t);if(p?.set&&p.set.call(r,n),!s){if(c&&"string"==typeof t){var v=d.get("length"),m=Number(t);Number.isInteger(m)&&m>=v.v&&L(v,m+1)}j(f)}return!0},ownKeys(e){nt(f);var t=Reflect.ownKeys(e).filter((e=>{var t=d.get(e);return void 0===t||t.v!==E}));for(var[n,r]of d)r.v===E||n in e||t.push(n);return t},setPrototypeOf(){!function(){throw new Error("https://svelte.dev/e/state_prototype_fixed")}()}})}function j(e,t=1){L(e,e.v+t)}var V,F,H,W;function G(e=""){return document.createTextNode(e)}function U(e){return H.call(e)}function Z(e){return W.call(e)}function K(e,t){return U(e)}function Q(e,t){var n=U(e);return n instanceof Comment&&""===n.data?Z(n):n}function J(e,t=1,n=!1){let r=e;for(;t--;)r=Z(r);return r}function X(e){var t=2050,n=null!==De&&2&De.f?De:null;null===Ae||null!==n&&n.f&f?t|=f:Ae.f|=b;return{ctx:P,deps:null,effects:null,equals:$,f:t,fn:e,reactions:null,rv:0,v:null,wv:0,parent:n??Ae}}function Y(e){const t=X(e);return t.equals=S,t}function ee(e){var t=e.effects;if(null!==t){e.effects=null;for(var n=0;n<t.length;n+=1)ce(t[n])}}function te(e){var t=function(e){var t,n=Ae;Me(function(e){for(var t=e.parent;null!==t;){if(!(2&t.f))return t;t=t.parent}return null}(e));try{ee(e),t=Ue(e)}finally{Me(n)}return t}(e);it(e,(Ve||e.f&f)&&null!==e.deps?h:v),e.equals(t)||(e.v=t,e.wv=Fe())}function ne(e){null===Ae&&null===De&&function(){throw new Error("https://svelte.dev/e/effect_orphan")}(),null!==De&&De.f&f&&null===Ae&&function(){throw new Error("https://svelte.dev/e/effect_in_unowned_derived")}(),Te&&function(){throw new Error("https://svelte.dev/e/effect_in_teardown")}()}function re(e,t,n,r=!0){var a=!!(64&e),i=Ae,l={ctx:P,deps:null,nodes_start:null,nodes_end:null,f:e|m,first:null,fn:t,last:null,next:null,parent:a?null:i,prev:null,teardown:null,transitions:null,wv:0};if(n){var s=Se;try{Ee(!0),Qe(l),l.f|=32768}catch(e){throw ce(l),e}finally{Ee(s)}}else null!==t&&et(l);if(!(n&&null===l.deps&&null===l.first&&null===l.nodes_start&&null===l.teardown&&!(1048704&l.f))&&!a&&r&&(null!==i&&function(e,t){var n=t.last;null===n?t.last=t.first=e:(n.next=e,e.prev=n,t.last=e)}(l,i),null!==De&&2&De.f)){var o=De;(o.effects??=[]).push(l)}return l}function ae(e){return re(4,e,!1)}function ie(e){return re(8,e,!0)}function le(e,t=[],n=X){const r=t.map(n);return se((()=>e(...r.map(nt))))}function se(e,t=0){return re(24|t,e,!0)}function oe(e,t=!0){return re(40,e,!0,t)}function ue(e){var t=e.teardown;if(null!==t){const e=Te,n=De;Pe(!0),Oe(null);try{t.call(null)}finally{Pe(e),Oe(n)}}}function de(e,t=!1){var n=e.first;for(e.first=e.last=null;null!==n;){var r=n.next;ce(n,t),n=r}}function ce(e,t=!0){var n=!1;if((t||524288&e.f)&&null!==e.nodes_start){for(var r=e.nodes_start,a=e.nodes_end;null!==r;){var i=r===a?null:Z(r);r.remove(),r=i}n=!0}de(e,t&&!n),Ke(e,0),it(e,y);var l=e.transitions;if(null!==l)for(const e of l)e.stop();ue(e);var s=e.parent;null!==s&&null!==s.first&&fe(e),e.next=e.prev=e.teardown=e.ctx=e.deps=e.fn=e.nodes_start=e.nodes_end=null}function fe(e){var t=e.parent,n=e.prev,r=e.next;null!==n&&(n.next=r),null!==r&&(r.prev=n),null!==t&&(t.first===e&&(t.first=r),t.last===e&&(t.last=n))}function pe(e,t){var n=[];me(e,n,!0),ve(n,(()=>{ce(e),t&&t()}))}function ve(e,t){var n=e.length;if(n>0){var r=()=>--n||t();for(var a of e)a.out(r)}else t()}function me(e,t,n){if(!(e.f&g)){if(e.f^=g,null!==e.transitions)for(const r of e.transitions)(r.is_global||n)&&t.push(r);for(var r=e.first;null!==r;){var a=r.next;me(r,t,!!(!!(r.f&_)||!!(r.f&d))&&n),r=a}}}function he(e){ge(e,!0)}function ge(e,t){if(e.f&g){e.f^=g,e.f&v||(e.f^=v),He(e)&&(it(e,m),et(e));for(var n=e.first;null!==n;){var r=n.next;ge(n,!!(!!(n.f&_)||!!(n.f&d))&&t),n=r}if(null!==e.transitions)for(const n of e.transitions)(n.is_global||t)&&n.in()}}let ye=!1,_e=[];function be(){ye=!1;const e=_e.slice();_e=[],function(e){for(var t=0;t<e.length;t++)e[t]()}(e)}function we(e){ye||(ye=!0,queueMicrotask(be)),_e.push(e)}let xe=!1,ke=!1,$e=null,Se=!1,Te=!1;function Ee(e){Se=e}function Pe(e){Te=e}let Ne=[],Ce=0,De=null,ze=!1;function Oe(e){De=e}let Ae=null;function Me(e){Ae=e}let Le=null;let Re=null,qe=0,Be=null;let Ie=1,je=0,Ve=!1;function Fe(){return++Ie}function He(e){var t=e.f;if(t&m)return!0;if(t&h){var n=e.deps,r=!!(t&f);if(null!==n){var a,i,l=!!(t&p),s=r&&null!==Ae&&!Ve,o=n.length;if(l||s){var u=e,d=u.parent;for(a=0;a<o;a++)i=n[a],!l&&i?.reactions?.includes(u)||(i.reactions??=[]).push(u);l&&(u.f^=p),!s||null===d||d.f&f||(u.f^=f)}for(a=0;a<o;a++)if(He(i=n[a])&&te(i),i.wv>e.wv)return!0}r&&(null===Ae||Ve)||it(e,v)}return!1}function We(e,t,n,r){if(xe){if(null===n&&(xe=!1),function(e){return!(e.f&y||null!==e.parent&&e.parent.f&c)}(t))throw e}else null!==n&&(xe=!0),function(e,t){for(var n=t;null!==n;){if(n.f&c)try{return void n.fn(e)}catch{n.f^=c}n=n.parent}throw xe=!1,e}(e,t)}function Ge(e,t,n=!0){var r=e.reactions;if(null!==r)for(var a=0;a<r.length;a++){var i=r[a];2&i.f?Ge(i,t,!1):t===i&&(n?it(i,m):i.f&v&&it(i,h),et(i))}}function Ue(e){var t=Re,n=qe,r=Be,a=De,i=Ve,l=Le,s=P,o=ze,u=e.f;Re=null,qe=0,Be=null,De=96&u?null:e,Ve=!!(u&f)&&(!Se||null===a||o),Le=null,N(e.ctx),ze=!1,je++;try{var d=(0,e.fn)(),c=e.deps;if(null!==Re){var p;if(Ke(e,qe),null!==c&&qe>0)for(c.length=qe+Re.length,p=0;p<Re.length;p++)c[qe+p]=Re[p];else e.deps=c=Re;if(!Ve)for(p=qe;p<c.length;p++)(c[p].reactions??=[]).push(e)}else null!==c&&qe<c.length&&(Ke(e,qe),c.length=qe);if(z()&&null!==Be&&!ze&&null!==c&&!(6146&e.f))for(p=0;p<Be.length;p++)Ge(Be[p],e);return null!==a&&je++,d}finally{Re=t,qe=n,Be=r,De=a,Ve=i,Le=l,N(s),ze=o}}function Ze(e,t){let r=t.reactions;if(null!==r){var a=n.call(r,e);if(-1!==a){var i=r.length-1;0===i?r=t.reactions=null:(r[a]=r[i],r.pop())}}null===r&&2&t.f&&(null===Re||!Re.includes(t))&&(it(t,h),768&t.f||(t.f^=p),ee(t),Ke(t,0))}function Ke(e,t){var n=e.deps;if(null!==n)for(var r=t;r<n.length;r++)Ze(e,n[r])}function Qe(t){var n=t.f;if(!(n&y)){it(t,v);var r=Ae,a=P;Ae=t;try{16&n?function(e){for(var t=e.first;null!==t;){var n=t.next;t.f&d||ce(t),t=n}}(t):de(t),ue(t);var i=Ue(t);t.teardown="function"==typeof i?i:null,t.wv=Ie;t.deps;e}catch(e){We(e,t,r,a||t.ctx)}finally{Ae=r}}}function Je(){if(Ce>1e3){Ce=0;try{!function(){throw new Error("https://svelte.dev/e/effect_update_depth_exceeded")}()}catch(e){if(null===$e)throw e;We(e,$e,null)}}Ce++}function Xe(e){var t=e.length;if(0!==t)for(var n=0;n<t;n++){var r=e[n];if(!(24576&r.f))try{He(r)&&(Qe(r),null===r.deps&&null===r.first&&null===r.nodes_start&&(null===r.teardown?fe(r):r.fn=null))}catch(e){We(e,r,null,r.ctx)}}}function Ye(){if(ke=!1,Ce>1001)return;const e=Ne;Ne=[],function(e){var t=e.length;if(0!==t){Je();var n=Se;Se=!0;try{for(var r=0;r<t;r++){var a=e[r];a.f&v||(a.f^=v),Xe(tt(a))}}finally{Se=n}}}(e),ke||(Ce=0,$e=null)}function et(e){ke||(ke=!0,queueMicrotask(Ye)),$e=e;for(var t=e;null!==t.parent;){var n=(t=t.parent).f;if(96&n){if(!(n&v))return;t.f^=v}}Ne.push(t)}function tt(e){var t=[],n=e.first;e:for(;null!==n;){var r=n.f,a=!!(r&d),i=a&&!!(r&v),l=n.next;if(!(i||r&g)){if(4&r)t.push(n);else if(a)n.f^=v;else{var s=De;try{De=n,He(n)&&Qe(n)}catch(e){We(e,n,null,n.ctx)}finally{De=s}}var o=n.first;if(null!==o){n=o;continue}}if(null===l){let t=n.parent;for(;null!==t;){if(e===t)break e;var u=t.next;if(null!==u){n=u;continue e}t=t.parent}}n=l}return t}function nt(e){var t=!!(2&e.f);if(null===De||ze){if(t&&null===e.deps&&null===e.effects){var n=e,r=n.parent;null===r||r.f&f||(n.f^=f)}}else{null!==Le&&Le.includes(e)&&function(){throw new Error("https://svelte.dev/e/state_unsafe_local_read")}();var a=De.deps;e.rv<je&&(e.rv=je,null===Re&&null!==a&&a[qe]===e?qe++:null===Re?Re=[e]:Ve&&Re.includes(e)||Re.push(e))}return t&&He(n=e)&&te(n),e.v}function rt(e){var t=ze;try{return ze=!0,e()}finally{ze=t}}const at=-7169;function it(e,t){e.f=e.f&at|t}const lt=["touchstart","touchmove"];function st(e){return lt.includes(e)}let ot=!1;function ut(e){var t=De,n=Ae;Oe(null),Me(null);try{return e()}finally{Oe(t),Me(n)}}function dt(e,t,n,r=n){e.addEventListener(t,(()=>ut(n)));const a=e.__on_r;e.__on_r=a?()=>{a(),r(!0)}:()=>r(!0),ot||(ot=!0,document.addEventListener("reset",(e=>{Promise.resolve().then((()=>{if(!e.defaultPrevented)for(const t of e.target.elements)t.__on_r?.()}))}),{capture:!0}))}const ct=new Set,ft=new Set;function pt(e,t,n,r,a){var i={capture:r,passive:a},l=function(e,t,n,r={}){function a(e){if(r.capture||vt.call(t,e),!e.cancelBubble)return ut((()=>n?.call(this,e)))}return e.startsWith("pointer")||e.startsWith("touch")||"wheel"===e?we((()=>{t.addEventListener(e,a,r)})):t.addEventListener(e,a,r),a}(e,t,n,i);t!==document.body&&t!==window&&t!==document||function(e){const t=re(8,null,!1);it(t,v),t.teardown=e}((()=>{t.removeEventListener(e,l,i)}))}function vt(e){var n=this,r=n.ownerDocument,i=e.type,l=e.composedPath?.()||[],s=l[0]||e.target,o=0,u=e.__root;if(u){var d=l.indexOf(u);if(-1!==d&&(n===document||n===window))return void(e.__root=n);var c=l.indexOf(n);if(-1===c)return;d<=c&&(o=d)}if((s=l[o]||e.target)!==n){a(e,"currentTarget",{configurable:!0,get:()=>s||r});var f=De,p=Ae;Oe(null),Me(null);try{for(var v,m=[];null!==s;){var h=s.assignedSlot||s.parentNode||s.host||null;try{var g=s["__"+i];if(void 0!==g&&!s.disabled)if(t(g)){var[y,..._]=g;y.apply(s,[e,..._])}else g.call(s,e)}catch(e){v?m.push(e):v=e}if(e.cancelBubble||h===n||null===h)break;s=h}if(v){for(let e of m)queueMicrotask((()=>{throw e}));throw v}}finally{e.__root=n,delete e.currentTarget,Oe(f),Me(p)}}}function mt(e){var t=document.createElement("template");return t.innerHTML=e,t.content}function ht(e,t){var n=Ae;null===n.nodes_start&&(n.nodes_start=e,n.nodes_end=t)}function gt(e,t){var n,r=!!(1&t),a=!!(2&t),i=!e.startsWith("<!>");return()=>{void 0===n&&(n=mt(i?e:"<!>"+e),r||(n=U(n)));var t=a||F?document.importNode(n,!0):n.cloneNode(!0);r?ht(U(t),t.lastChild):ht(t,t);return t}}function yt(){var e=document.createDocumentFragment(),t=document.createComment(""),n=G();return e.append(t,n),ht(t,n),e}function _t(e,t){null!==e&&e.before(t)}function bt(e,t){var n=null==t?"":"object"==typeof t?t+"":t;n!==(e.__t??=e.nodeValue)&&(e.__t=n,e.nodeValue=n+"")}const wt=new Map;let xt=new WeakMap;function kt(e,t,n=!1){var r=e,a=null,i=null,l=E,s=!1;const o=(e,t=!0)=>{s=!0,u(t,e)},u=(e,t)=>{l!==(l=e)&&(l?(a?he(a):t&&(a=oe((()=>t(r)))),i&&pe(i,(()=>{i=null}))):(i?he(i):t&&(i=oe((()=>t(r)))),a&&pe(a,(()=>{a=null}))))};se((()=>{s=!1,t(o),s||u(null,null)}),n?_:0)}function $t(e,t){return t}function St(e,n,a,i,l,s=null){var o=e,u={flags:n,items:new Map,first:null};!(4&n)||(o=e.appendChild(G()));var d=null,c=!1,f=Y((()=>{var e=a();return t(e)?e:null==e?[]:r(e)}));se((()=>{var e=nt(f),t=e.length;c&&0===t||(c=0===t,function(e,t,n,a,i,l,s){var o,u,d,c,f,p,v=!!(8&i),m=!!(3&i),h=e.length,y=t.items,_=t.first,b=_,w=null,x=[],k=[];if(v)for(p=0;p<h;p+=1)c=l(d=e[p],p),void 0!==(f=y.get(c))&&(f.a?.measure(),(u??=new Set).add(f));for(p=0;p<h;p+=1)if(c=l(d=e[p],p),void 0!==(f=y.get(c))){if(m&&Tt(f,d,p,i),f.e.f&g&&(he(f.e),v&&(f.a?.unfix(),(u??=new Set).delete(f))),f!==b){if(void 0!==o&&o.has(f)){if(x.length<k.length){var $,S=k[0];w=S.prev;var T=x[0],E=x[x.length-1];for($=0;$<x.length;$+=1)Pt(x[$],S,n);for($=0;$<k.length;$+=1)o.delete(k[$]);Nt(t,T.prev,E.next),Nt(t,w,T),Nt(t,E,S),b=S,w=E,p-=1,x=[],k=[]}else o.delete(f),Pt(f,b,n),Nt(t,f.prev,f.next),Nt(t,f,null===w?t.first:w.next),Nt(t,w,f),w=f;continue}for(x=[],k=[];null!==b&&b.k!==c;)b.e.f&g||(o??=new Set).add(b),k.push(b),b=b.next;if(null===b)continue;f=b}x.push(f),w=f,b=f.next}else{w=Et(b?b.e.nodes_start:n,t,w,null===w?t.first:w.next,d,c,p,a,i,s),y.set(c,w),x=[],k=[],b=w.next}if(null!==b||void 0!==o){for(var P=void 0===o?[]:r(o);null!==b;)b.e.f&g||P.push(b),b=b.next;var N=P.length;if(N>0){var C=4&i&&0===h?n:null;if(v){for(p=0;p<N;p+=1)P[p].a?.measure();for(p=0;p<N;p+=1)P[p].a?.fix()}!function(e,t,n,r){for(var a=[],i=t.length,l=0;l<i;l++)me(t[l].e,a,!0);var s=i>0&&0===a.length&&null!==n;if(s){var o=n.parentNode;o.textContent="",o.append(n),r.clear(),Nt(e,t[0].prev,t[i-1].next)}ve(a,(()=>{for(var n=0;n<i;n++){var a=t[n];s||(r.delete(a.k),Nt(e,a.prev,a.next)),ce(a.e,!s)}}))}(t,P,C,y)}}v&&we((()=>{if(void 0!==u)for(f of u)f.a?.apply()}));Ae.first=t.first&&t.first.e,Ae.last=w&&w.e}(e,u,o,l,n,i,a),null!==s&&(0===t?d?he(d):d=oe((()=>s(o))):null!==d&&pe(d,(()=>{d=null}))),nt(f))}))}function Tt(e,t,n,r){1&r&&R(e.v,t),2&r?R(e.i,n):e.i=n}function Et(e,t,n,r,a,i,l,s,o,u){var d=!!(1&o)?!(16&o)?M(a):O(a):a,c=2&o?O(l):l,f={i:c,v:d,k:i,a:null,e:null,prev:n,next:r};try{return f.e=oe((()=>s(e,d,c,u)),B),f.e.prev=n&&n.e,f.e.next=r&&r.e,null===n?t.first=f:(n.next=f,n.e.next=f.e),null!==r&&(r.prev=f,r.e.prev=f.e),f}finally{}}function Pt(e,t,n){for(var r=e.next?e.next.e.nodes_start:n,a=t?t.e.nodes_start:n,i=e.e.nodes_start;i!==r;){var l=Z(i);a.before(i),i=l}}function Nt(e,t,n){null===t?e.first=n:(t.next=n,t.e.next=n&&n.e),null!==n&&(n.prev=t,n.e.prev=t&&t.e)}function Ct(e,t,n,r,a){var i,l=e,s="";se((()=>{s!==(s=t()??"")&&(void 0!==i&&(ce(i),i=void 0),""!==s&&(i=oe((()=>{var e=mt(s+"");ht(U(e),e.lastChild),l.before(e)}))))}))}function Dt(e,t,n,r){var a=e.__attributes??={};a[t]!==(a[t]=n)&&("style"===t&&"__styles"in e&&(e.__styles={}),"loading"===t&&(e[k]=n),null==n?e.removeAttribute(t):"string"!=typeof n&&function(e){var t,n=zt.get(e.nodeName);if(n)return n;zt.set(e.nodeName,n=[]);var r=e,a=Element.prototype;for(;a!==r;){for(var i in t=l(r))t[i].set&&n.push(i);r=u(r)}return n}(e).includes(t)?e[t]=n:e.setAttribute(t,n))}var zt=new Map;function Ot(e,t,n){var r=e.__className,a=function(e){return(null==e?"":e)+""}(t);r!==a&&(null==t?e.removeAttribute("class"):e.className=a,e.__className=a)}function At(e,t,n){if(n){if(e.classList.contains(t))return;e.classList.add(t)}else{if(!e.classList.contains(t))return;e.classList.remove(t)}}function Mt(e,t,n=t){var r=z();dt(e,"input",(a=>{var i=a?e.defaultValue:e.value;if(i=Lt(e)?Rt(i):i,n(i),r&&i!==(i=t())){var l=e.selectionStart,s=e.selectionEnd;e.value=i??"",null!==s&&(e.selectionStart=l,e.selectionEnd=Math.min(s,e.value.length))}})),null==rt(t)&&e.value&&n(Lt(e)?Rt(e.value):e.value),ie((()=>{var n=t();Lt(e)&&n===Rt(e.value)||("date"!==e.type||n||e.value)&&n!==e.value&&(e.value=n??"")}))}function Lt(e){var t=e.type;return"number"===t||"range"===t}function Rt(e){return""===e?null:+e}function qt(e,t){return e===t||e?.[w]===t}function Bt(e={},t,n,r){return ae((()=>{var a,i;return ie((()=>{a=i,i=r?.()||[],rt((()=>{e!==n(...i)&&(t(e,...i),a&&qt(n(...a),e)&&t(null,...a))}))})),()=>{we((()=>{i&&qt(n(...i),e)&&t(null,...i)}))}})),e}let It=!1;function jt(e,t,n,r){var a,l=!!(1&n),s=!T||!!(2&n),o=!!(8&n),u=!!(16&n),d=!1;o?[a,d]=function(e){var t=It;try{return It=!1,[e(),It]}finally{It=t}}((()=>e[t])):a=e[t];var c,f=w in e||x in e,p=o&&(i(e,t)?.set??(f&&t in e&&(n=>e[t]=n)))||void 0,v=r,m=!0,h=!1,g=()=>(h=!0,m&&(m=!1,v=u?rt(r):r),v);if(void 0===a&&void 0!==r&&(p&&s&&function(){throw new Error("https://svelte.dev/e/props_invalid_value")}(),a=g(),p&&p(a)),s)c=()=>{var n=e[t];return void 0===n?g():(m=!0,h=!1,n)};else{var y=(l?X:Y)((()=>e[t]));y.f|=131072,c=()=>{var e=nt(y);return void 0!==e&&(v=void 0),void 0===e?v:e}}if(!(4&n))return c;if(p){var _=e.$$legacy;return function(e,t){return arguments.length>0?(s&&t&&!_&&!d||p(t?c():e),e):c()}}var b=!1,k=M(a),$=X((()=>{var e=c(),t=nt(k);return b?(b=!1,t):k.v=e}));return l||($.equals=S),function(e,t){if(arguments.length>0){const n=t?nt($):s&&o?I(e):e;return $.equals(n)||(b=!0,L(k,n),h&&void 0!==v&&(v=n),rt((()=>nt($)))),e}return nt($)}}function Vt(e){var t,n;null===P&&function(){throw new Error("https://svelte.dev/e/lifecycle_outside_component")}(),T&&null!==P.l?(t=P,n=t.l,n.u??={a:[],b:[],m:[]}).m.push(e):function(e){if(ne(),!(null!==Ae&&Ae.f&d&&null!==P)||P.m)return ae(e);var t=P;(t.e??=[]).push({fn:e,effect:Ae,reaction:De})}((()=>{const t=rt(e);if("function"==typeof t)return t}))}"undefined"!=typeof window&&(window.__svelte||={v:new Set}).v.add("5"),T=!0;var Ft=gt('<img alt="Product">');var Ht={"order-summary":"Order Summary","order-details":"Order Details","order-status":"Order Status","payment-method":"Payment Method","payment-status":"Payment Status","shipping-cost":"Shipping Cost","order-total":"Order Total","customer-details":"Customer Details","shipping-address":"Shipping Address",history:"History",ready:"Ready","in-preparation":"In Preparation","waiting-product":"Waiting for Product Delivery","to-be-shipped":"To Be Shipped",shipped:"Shipped",name:"Name",phone:"Phone","mob-number":"Mobile Number",update:"Update",type:"Type",size:"Size","payment-type":"Payment Type","three-installments":"Three Monthly Installments, 0% Interest","start-date":"Start Date","end-date":"End Date","installment-amount":"Installment Amount",color:"Color",customer_balance:"Bank Transfer",paid:"Payment Completed",black:"Black","add-tracking":"Add Tracking","tracking-number":"Tracking Number","add-event":"Add Event",add:"Add",status:"Status",message:"Message",order_placed:"Order Placed",in_preparation:"Order in Preparation",ready_to_ship:"Order Ready to Ship",delivered:"Order Delivered",canceled:"Order Canceled",edit:"Edit",save:"Save",tracking_details:"Tracking",courier:"Courier",number_of_packages:"Number of Packages",tracking_links:"Tracking Links",refunded:"Refunded",receipt:"Receipt"};const Wt={it:{"order-summary":"Riepilogo Ordine","order-details":"Dettagli Ordine","order-status":"Stato dell'Ordine","payment-method":"Metodo di Pagamento","payment-status":"Stato del Pagamento","shipping-cost":"Costo di Spedizione","order-total":"Totale Ordine","customer-details":"Dettagli Cliente","shipping-address":"Indirizzo di Spedizione",history:"Storico",ready:"Pronto","in-preparation":"In preparazione","waiting-product":"In attesa della consegna del prodotto","to-be-shipped":"Da spedire",shipped:"Spedito",name:"Nome",phone:"Telefono","mob-number":"Numero di telefono cellulare",update:"Aggiorna",type:"Tipo",size:"Taglia","payment-type":"Tipo di pagamento","three-installments":"Tre rate mensili tasso zero","start-date":"Data di inizio","end-date":"Data di fine","installment-amount":"Importo della rata",color:"Colore",customer_balance:"Bonifico Bancario",paid:"Pagamento completato",black:"Nero","add-tracking":"Aggiungi Tracking","tracking-number":"Numero di Tracking","add-event":"Aggiungi evento",add:"Aggiungi",status:"Stato",message:"Messaggio",order_placed:"Ordine confermato",in_preparation:"Ordine in preparazione",ready_to_ship:"Ordine pronto per essere spedito",delivered:"Ordine consegnato",canceled:"Ordine cancellato",edit:"Modifica",save:"Salva",tracking_details:"Tracking",courier:"Corriere",number_of_packages:"Numero Colli",tracking_links:"Link di Tracking",refunded:"Rimborsato",receipt:"Ricevuta"},en:Ht,es:{"order-summary":"Resumen del pedido","order-details":"Detalles del pedido","order-status":"Estado del pedido","payment-method":"Método de pago","payment-status":"Estado del pago","shipping-cost":"Costo de envío","order-total":"Total del pedido","customer-details":"Datos del cliente","shipping-address":"Dirección de envío",history:"Historial",ready:"Listo","in-preparation":"En preparación","waiting-product":"Esperando entrega del producto","to-be-shipped":"Por enviar",shipped:"Enviado",name:"Nombre",phone:"Teléfono","mob-number":"Número de móvil",update:"Actualizar",type:"Tipo",size:"Talla","payment-type":"Tipo de pago","three-installments":"Tres cuotas mensuales sin interés","start-date":"Fecha de inicio","end-date":"Fecha de fin","installment-amount":"Importe de la cuota",color:"Color",customer_balance:"Transferencia bancaria",paid:"Pago completado",black:"Negro","add-tracking":"Añadir seguimiento","tracking-number":"Número de seguimiento","add-event":"Añadir evento",add:"Añadir",status:"Estado",message:"Mensaje",order_placed:"Pedido confirmado",in_preparation:"Pedido en preparación",ready_to_ship:"Pedido listo para enviar",delivered:"Pedido entregado",canceled:"Pedido cancelado",edit:"Editar",save:"Guardar",tracking_details:"Seguimiento",courier:"Mensajero",number_of_packages:"Número de paquetes",tracking_links:"Enlaces de seguimiento",refunded:"Reembolsado",receipt:"Recibo"},de:{"order-summary":"Bestellübersicht","order-details":"Bestelldetails","order-status":"Bestellstatus","payment-method":"Zahlungsmethode","payment-status":"Zahlungsstatus","shipping-cost":"Versandkosten","order-total":"Gesamtbetrag","customer-details":"Kundendetails","shipping-address":"Lieferadresse",history:"Verlauf",ready:"Bereit","in-preparation":"In Vorbereitung","waiting-product":"Wartet auf Produktlieferung","to-be-shipped":"Versandbereit",shipped:"Versendet",name:"Name",phone:"Telefon","mob-number":"Handynummer",update:"Aktualisieren",type:"Typ",size:"Größe","payment-type":"Zahlungsart","three-installments":"Drei monatliche Raten, 0% Zinsen","start-date":"Anfangsdatum","end-date":"Enddatum","installment-amount":"Ratenbetrag",color:"Farbe",customer_balance:"Banküberweisung",paid:"Zahlung abgeschlossen",black:"Schwarz","add-tracking":"Tracking hinzufügen","tracking-number":"Sendungsnummer","add-event":"Ereignis hinzufügen",add:"Hinzufügen",status:"Status",message:"Nachricht",order_placed:"Bestellung aufgegeben",in_preparation:"Bestellung in Vorbereitung",ready_to_ship:"Bestellung versandbereit",delivered:"Bestellung geliefert",canceled:"Bestellung storniert",edit:"Bearbeiten",save:"Speichern",tracking_details:"Sendungsverfolgung",courier:"Versanddienst",number_of_packages:"Anzahl der Pakete",tracking_links:"Tracking-Links",refunded:"Erstattet",receipt:"Quittung"},fr:{"order-summary":"Récapitulatif de la commande","order-details":"Détails de la commande","order-status":"Statut de la commande","payment-method":"Méthode de paiement","payment-status":"Statut du paiement","shipping-cost":"Frais de livraison","order-total":"Total de la commande","customer-details":"Détails du client","shipping-address":"Adresse de livraison",history:"Historique",ready:"Prêt","in-preparation":"En préparation","waiting-product":"En attente de la livraison du produit","to-be-shipped":"À expédier",shipped:"Expédié",name:"Nom",phone:"Téléphone","mob-number":"Numéro de téléphone mobile",update:"Mettre à jour",type:"Type",size:"Taille","payment-type":"Type de paiement","three-installments":"Trois mensualités sans intérêt","start-date":"Date de début","end-date":"Date de fin","installment-amount":"Montant de la mensualité",color:"Couleur",customer_balance:"Virement bancaire",paid:"Paiement effectué",black:"Noir","add-tracking":"Ajouter un suivi","tracking-number":"Numéro de suivi","add-event":"Ajouter un événement",add:"Ajouter",status:"Statut",message:"Message",order_placed:"Commande confirmée",in_preparation:"Commande en préparation",ready_to_ship:"Commande prête à être expédiée",delivered:"Commande livrée",canceled:"Commande annulée",edit:"Modifier",save:"Enregistrer",tracking_details:"Suivi",courier:"Transporteur",number_of_packages:"Nombre de colis",tracking_links:"Liens de suivi",refunded:"Remboursé",receipt:"Reçu"}};function Gt(){return navigator.language.substring(0,2)}let Ut=(Zt=Gt(),function(e){return Wt[Zt]?Wt[Zt][e]:Ht[e]});var Zt,Kt=gt('<h1 class="title">Order not found</h1>'),Qt=gt('<div class="sloader-container"><span class="sloader"></span> <h3 class="is-size-5">Please wait</h3></div>'),Jt=gt('<p class="is-size-5 my-3"> </p>'),Xt=gt("<li> </li>"),Yt=gt('<ul class="mt-3"></ul>'),en=gt('<li><div class="columns is-align-items-center"><div class="column"><!> <div class="column"><h4 class="title has-text-info is-size-4"> </h4> <p class="is-size-6"> </p> <!> <!></div></div></div></li>'),tn=gt('<div class="is-flex is-align-items-center is-justify-content-flex-start mt-3"><span class="icon pr-3"><i class="material-symbols-outlined">delivery_truck_speed</i></span> <p class="is-size-6"> </p></div>'),nn=gt('<li><div class="column"><h4 class="title has-text-info is-size-4 mb-2"> </h4> <!> <p class="is-size-5"> </p></div></li>'),rn=gt('<ul><!> <!> <li><div class="column"><hr> <h4 class="title has-text-info is-size-4 mt-5"> </h4> <p class="my-3"> </p></div></li></ul>'),an=gt('<li class="pt-5"> </li> <li> </li> <li> </li> <li> </li>',1),ln=gt('<li> <span class="has-text-info has-text-weight-bold">paid</span></li>'),sn=gt('<h2 class="title has-text-info has-text-weight-bold"> </h2>'),on=gt("<li> </li>"),un=gt('<form class="form my-4"><div class="columns is-mobile is-1"><div class="column is-one-quarter"><input class="input is-info" type="text" placeholder="International prefix"></div> <div class="column is-two-thirds"><input class="input is-info" type="text"></div></div> <button type="button" class="button is-info has-text-white"> </button></form>'),dn=gt("<ul><li> </li> <li> </li> <li> </li> <li> </li> <li> </li></ul>"),cn=gt("<ul><li> </li> <li> </li> <li> </li> <li> </li></ul>"),fn=gt('<h3 class="has-text-info title is-size-3">Tracking</h3>'),pn=gt('<div><div class="px-3"><span><!></span> <textarea class="textarea"></textarea></div></div> <!>',1),vn=gt('<div class="mt-5"><!> <div><span> </span></div> <!></div>'),mn=gt('<h3 class="has-text-info title is-size-3">Tracking</h3>'),hn=gt('<div><div class="px-3"><span><!></span> <textarea class="textarea"></textarea></div></div> <!>',1),gn=gt('<div class="mt-5"><!> <div><span> </span></div> <!></div>'),yn=gt('<div class="columns"><div class="column is-half"><h2 class="title mt-6 px-5"> </h2> <div class="box"><!></div></div> <div class="column px-6"><div class="mt-6"><h2 class="title"> </h2> <ul><li> </li> <li> </li> <!></ul> <h2 class="title mt-6"> </h2> <!> <h2 class="title mt-6"> </h2> <ul><li> </li> <!> <li><!></li> <li> </li></ul> <h2 class="title mt-6"> </h2> <!></div> <div id="history" class="my-6"><h2 class="title pt-2"> </h2> <!> <!></div> <!></div></div>');let _n=(bn=function(e,t){C(t,!0);let n=A(""),r=A(""),a=A(!1),i=A(null),l=A(!1);I({});let s=A(I({})),o=I({}),u=I({});function d(e){return new Intl.NumberFormat("en-IT",{style:"currency",currency:e.currency||"EUR",maximumFractionDigits:2}).format((e.quantity||1)*(e.price||e.amount_total)/100)}async function c(){if(!(nt(n).length>0&&nt(r).length>0))return!1;L(a,!0),fetch(`https://kettleblaze-store-server.fly.dev/order/phone/${nt(i).id}/${nt(n)}/${nt(r)}`).catch((e=>({status:e.message}))).then((e=>e.ok?e.json():(L(a,!1),{status:"Error"}))).then((e=>{"ok"===e.status&&(nt(i).customer.phone=nt(r),L(a,!1))}))}I({courier:"",parcels:[]}),Vt((()=>{(async function(){const e=new URLSearchParams(window.location.search),t=Gt();return await fetch(`https://kettleblaze-store-server.fly.dev/order/${e.get("id")}/${t}`,{method:"GET"}).then((e=>e.ok?(L(l,!1),e.json()):(L(l,!0),{}))).then((e=>(L(n,"+"+e.customer.address.country_data.phone[0]),L(s,I(e.status)),e)))})().then((e=>L(i,I(e))))}));var f=yt(),p=Q(f),v=e=>{var t=yt(),n=Q(t),r=e=>{_t(e,Kt())},a=e=>{_t(e,Qt())};kt(n,(e=>{nt(l)?e(r):e(a,!1)})),_t(e,t)},m=e=>{var t=yt(),l=Q(t),s=e=>{var t=yn(),l=K(t),s=K(l),f=K(s),p=K(J(s,2)),v=e=>{var t=rn(),n=K(t);St(n,17,(()=>nt(i).products),$t,((e,t)=>{var n=en(),r=K(n),a=K(r),i=K(a),l=e=>{!function(e,t){let n=jt(t,"width",8,100),r=jt(t,"height",8,100),a=jt(t,"quality",8,90),i=jt(t,"src",8,""),l=jt(t,"displayHeight",24,r),s=jt(t,"displayWidth",24,n);var o=Ft();le((()=>{Dt(o,"src",`${i()??""}?w=${n()??""}&h=${r()??""}&q=${a()??""}`),Dt(o,"width",s()),Dt(o,"height",l())})),_t(e,o)}(e,{get src(){return`https://kettleblaze.sirv.com/orders/${nt(t).sku??""}.jpg`},width:"480",height:"480",displayWidth:"120",displayHeight:"120",quality:"98"})};kt(i,(e=>{"prod_AI839Kll1kzw23"!==nt(t).sku&&e(l)}));var s=K(J(i,2)),o=K(s),u=J(s,2),c=K(u),f=J(u,2),p=e=>{var n=Jt(),r=K(n);le((e=>bt(r,e)),[()=>d(nt(t))]),_t(e,n)};kt(f,(e=>{nt(t).price>0&&e(p)}));var v=J(f,2),m=e=>{var n=Yt();St(n,21,(()=>nt(t).extras),$t,((e,t)=>{var n=Xt(),r=K(n);le(((e,t)=>bt(r,`${e??""}: ${t??""}`)),[()=>Ut(nt(t).name),()=>{return"String"==typeof(e=nt(t).value)?e[0].toUpperCase()+e.substring(1,e.length):e;var e}]),_t(e,n)})),_t(e,n)};kt(v,(e=>{nt(t).extras.length>0&&e(m)})),le((()=>{bt(o,`${nt(t).quantity??""} x ${nt(t).name??""}`),bt(c,nt(t).description)})),_t(e,n)}));var r=J(n,2),a=e=>{var t=nn(),n=K(t),r=K(n),a=K(r),l=J(r,2),s=e=>{var t=tn(),n=J(K(t),2),r=K(n);le((()=>bt(r,nt(i).shippingCost.display_name))),_t(e,t)};kt(l,(e=>{nt(i).shippingCost.display_name&&e(s)}));var o=K(J(l,2));le(((e,t)=>{bt(a,e),bt(o,t)}),[()=>Ut("shipping-cost"),()=>d(nt(i).shippingCost)]),_t(e,t)};kt(r,(e=>{nt(i).shippingCost&&e(a)}));var l=K(J(r,2)),s=J(K(l),2),o=K(s),u=K(J(s,2));le(((e,t)=>{bt(o,e),bt(u,t)}),[()=>Ut("order-total"),()=>function(e){let t=0;for(let n of e.products)n.price&&(t+=n.quantity*n.price);return e.shippingCost&&(t+=e.shippingCost.amount_total),d({price:t,currency:e.shippingCost?.currency||"EUR"})}(nt(i))]),_t(e,t)};kt(p,(e=>{nt(i).products.length>0&&e(v)}));var m=K(J(l,2)),h=K(m),g=K(h),y=J(h,2),_=K(y),b=K(_),w=J(_,2),x=K(w),k=J(w,2),$=e=>{var t=an(),n=Q(t),r=K(n),a=J(n,2),l=K(a),s=J(a,2),o=K(s),u=K(J(s,2));le(((e,t,n,a,i,s,d,c)=>{bt(r,`${e??""}: ${t??""}`),bt(l,`${n??""}: ${a??""}`),bt(o,`${i??""}: ${s??""}`),bt(u,`${d??""}: ${c??""}`)}),[()=>Ut("payment-type"),()=>Ut("three-installments"),()=>Ut("start-date"),()=>new Date(nt(i).paymentMethod.subscription.start_date).toLocaleDateString(),()=>Ut("end-date"),()=>new Date(nt(i).paymentMethod.subscription.cancel_at).toLocaleDateString(),()=>Ut("installment-amount"),()=>d({amount_total:nt(i).paymentMethod.subscription.plan.amount,currency:nt(i).paymentMethod.subscription.plan.currency})]),_t(e,t)},S=e=>{var t=ln(),n=K(t);le((e=>bt(n,`${e??""}: `)),[()=>Ut("payment-status")]),_t(e,t)};kt(k,(e=>{nt(i).paymentMethod.subscription?e($):e(S,!1)}));var T=J(y,2),E=K(T),P=J(T,2),N=e=>{var t=sn(),n=K(t);le((e=>bt(n,e)),[()=>function(e){return Ut(e)}(nt(i).status)]),_t(e,t)};kt(P,(e=>{e(N,!1)}));var C=J(P,2),D=K(C),z=J(C,2),O=K(z),A=K(O),M=J(O,2),R=e=>{var t=on(),n=K(t);le((()=>bt(n,`Codice fiscale: ${nt(i).customer.fiscal_code??""}`))),_t(e,t)};kt(M,(e=>{nt(i).customer.fiscal_code&&e(R)}));var q=J(M,2),B=K(q),I=e=>{var t=function(e=""){var t=G(e+"");return ht(t,t),t}();le((e=>bt(t,`${e??""}:\n              ${nt(i).customer.phone??""}`)),[()=>Ut("phone")]),_t(e,t)},j=e=>{var t=un(),i=K(t),l=K(i),s=K(l),o=K(J(l,2)),u=J(i,2),d=K(u);le(((e,t)=>{Dt(o,"placeholder",e),u.disabled=nt(a),bt(d,t)}),[()=>Ut("mob-phone"),()=>Ut("update")]),Mt(s,(()=>nt(n)),(e=>L(n,e))),Mt(o,(()=>nt(r)),(e=>L(r,e))),pt("click",u,c),_t(e,t)};kt(B,(e=>{nt(i).customer.phone?e(I):e(j,!1)}));var V=K(J(q,2)),F=J(z,2),H=K(F),W=J(F,2),U=e=>{var t=dn(),n=K(t),r=K(n),a=J(n,2),l=K(a),s=J(a,2),o=K(s),u=J(s,2),d=K(u),c=K(J(u,2));le((()=>{bt(r,nt(i).customer.shipping_details.name),bt(l,nt(i).customer.shipping_details.address.line1),bt(o,nt(i).customer.shipping_details.address.line2),bt(d,`${nt(i).customer.shipping_details.address.postal_code??""}\n              ${nt(i).customer.shipping_details.address.city??""}\n              ${(nt(i).customer.shipping_details.address.state?`(${nt(i).customer.shipping_details.address.state})`:"")??""}`),bt(c,`${nt(i).customer.address.country_data.native??""} - ${nt(i).customer.address.country??""}`)})),_t(e,t)},Z=e=>{var t=yt(),n=Q(t),r=e=>{var t=cn(),n=K(t),r=K(n),a=J(n,2),l=K(a),s=J(a,2),o=K(s),u=K(J(s,2));le((()=>{bt(r,nt(i).customer.address.line1),bt(l,nt(i).customer.address.line2),bt(o,`${nt(i).customer.address.postal_code??""}\n              ${nt(i).customer.address.city??""}\n              ${(nt(i).customer.address.state?`(${nt(i).customer.address.state})`:"")??""}`),bt(u,`${nt(i).customer.address.country_data.native??""} - ${nt(i).customer.address.country??""}`)})),_t(e,t)};kt(n,(e=>{nt(i).customer.address&&e(r)}),!0),_t(e,t)};kt(W,(e=>{nt(i).customer.shipping_details?e(U):e(Z,!1)}));var X=J(m,2),Y=K(X),ee=K(Y),te=J(Y,2);St(te,17,(()=>nt(i).events.filter((e=>"tracking-info"!==e.type))),$t,((e,t,n,r)=>{var a=vn(),i=K(a),l=e=>{_t(e,fn())};kt(i,(e=>{"tracking-info"===nt(t).type&&e(l)}));var s=J(i,2),d=K(s),c=K(d),f=J(s,2),p=e=>{var n=pn(),r=Q(n),a=K(r),i=K(a);Ct(K(i),(()=>nt(t).data.text));var l=J(i,2);Bt(l,((e,t)=>u[t._id]=e),(e=>u?.[e._id]),(()=>[nt(t)])),kt(J(r,2),(e=>{})),le((()=>{At(r,"has-text-warning","warning"===nt(t).level),Dt(i,"id",`event-${nt(t)._id}`),At(i,"is-hidden",!0===o[nt(t)._id]),Dt(l,"name",`editor-${nt(t)._id??""}`),Dt(l,"id",`edit-event-${nt(t)._id??""}`),At(l,"is-hidden",!0!==o[nt(t)._id])})),_t(e,n)};kt(f,(e=>{nt(t).data&&e(p)})),le(((e,n)=>{At(a,"is-tracking","tracking-info"===nt(t).type),At(a,"pt-4","tracking-info"===nt(t).type),Ot(d,`has-text-${nt(t).level??""}`),bt(c,`• ${e??""}\n                ${n??""}`)}),[()=>new Date(nt(t).ts).toLocaleDateString(),()=>new Date(nt(t).ts).toLocaleTimeString()]),_t(e,a)})),St(J(te,2),17,(()=>nt(i).events.filter((e=>"tracking-info"===e.type))),$t,((e,t,n,r)=>{var a=gn(),i=K(a),l=e=>{_t(e,mn())};kt(i,(e=>{"tracking-info"===nt(t).type&&e(l)}));var s=J(i,2),d=K(s),c=K(d),f=J(s,2),p=e=>{var n=hn(),r=Q(n),a=K(r),i=K(a);Ct(K(i),(()=>nt(t).data.text));var l=J(i,2);Bt(l,((e,t)=>u[t._id]=e),(e=>u?.[e._id]),(()=>[nt(t)])),kt(J(r,2),(e=>{})),le((()=>{At(r,"has-text-warning","warning"===nt(t).level),Dt(i,"id",`event-${nt(t)._id}`),At(i,"is-hidden",!0===o[nt(t)._id]),Dt(l,"name",`editor-${nt(t)._id??""}`),Dt(l,"id",`edit-event-${nt(t)._id??""}`),At(l,"is-hidden",!0!==o[nt(t)._id])})),_t(e,n)};kt(f,(e=>{nt(t).data&&e(p)})),le(((e,n)=>{At(a,"is-tracking","tracking-info"===nt(t).type),At(a,"pt-4","tracking-info"===nt(t).type),Ot(d,`has-text-${nt(t).level??""}`),bt(c,`• ${e??""}\n                ${n??""}`)}),[()=>new Date(nt(t).ts).toLocaleDateString(),()=>new Date(nt(t).ts).toLocaleTimeString()]),_t(e,a)})),kt(J(X,2),(e=>{})),le(((e,t,n,r,a,l,s,o,u)=>{bt(f,e),bt(g,t),bt(b,`Id: ${nt(i).kettleblazeId??""}`),bt(x,`${n??""}: ${r??""}`),bt(E,a),bt(D,l),bt(A,`${s??""}: ${nt(i).customer.name??""}`),bt(V,`Email: ${nt(i).customer.email??""}`),bt(H,o),bt(ee,u)}),[()=>Ut("order-summary"),()=>Ut("order-details"),()=>Ut("payment-method"),()=>function(e){let t="",n="";if("paypal"===e.type)return"PayPal";if("card"===e.type&&(t=e.card),"customer_balance"===e.type&&(t=Ut("customer_balance")),e.wallet){let t="";"google_pay"===e.wallet&&(t="Google Pay"),n=t}return(n?`(${n}) `:"")+t}(nt(i).paymentMethod),()=>Ut("order-status"),()=>Ut("customer-details"),()=>Ut("name"),()=>Ut("shipping-address"),()=>Ut("history")]),_t(e,t)};kt(l,(e=>{nt(i)&&e(s)}),!0),_t(e,t)};kt(p,(e=>{nt(i)?e(m,!1):e(v)})),_t(e,f),D()},wn={target:document.getElementById("preorder-app")},function(e,{target:t,anchor:n,props:a={},events:l,context:s,intro:o=!0}){!function(){if(void 0===V){V=window,F=/Firefox/.test(navigator.userAgent);var e=Element.prototype,t=Node.prototype;H=i(t,"firstChild").get,W=i(t,"nextSibling").get,e.__click=void 0,e.__className="",e.__attributes=null,e.__styles=null,e.__e=void 0,Text.prototype.__t=void 0}}();var u=new Set,d=e=>{for(var n=0;n<e.length;n++){var r=e[n];if(!u.has(r)){u.add(r);var a=st(r);t.addEventListener(r,vt,{passive:a});var i=wt.get(r);void 0===i?(document.addEventListener(r,vt,{passive:a}),wt.set(r,1)):wt.set(r,i+1)}}};d(r(ct)),ft.add(d);var c=void 0,f=function(e){const t=re(64,e,!0);return(e={})=>new Promise((n=>{e.outro?pe(t,(()=>{ce(t),n(void 0)})):(ce(t),n(void 0))}))}((()=>{var r=n??t.appendChild(G());return oe((()=>{s&&(C({}),P.c=s),l&&(a.$$events=l),c=e(r,a)||{},s&&D()})),()=>{for(var e of u){t.removeEventListener(e,vt);var a=wt.get(e);0==--a?(document.removeEventListener(e,vt),wt.delete(e)):wt.set(e,a)}ft.delete(d),r!==n&&r.parentNode?.removeChild(r)}}));return xt.set(c,f),c}(bn,wn));var bn,wn;return _n}();
+var preOrdersApp = (function () {
+	'use strict';
+
+	var DEV = false;
+
+	// Store the references to globals in case someone tries to monkey patch these, causing the below
+	// to de-opt (this occurs often when using popular extensions).
+	var is_array = Array.isArray;
+	var index_of = Array.prototype.indexOf;
+	var array_from = Array.from;
+	var define_property = Object.defineProperty;
+	var get_descriptor = Object.getOwnPropertyDescriptor;
+	var get_descriptors = Object.getOwnPropertyDescriptors;
+	var object_prototype = Object.prototype;
+	var array_prototype = Array.prototype;
+	var get_prototype_of = Object.getPrototypeOf;
+
+	/** @param {Array<() => void>} arr */
+	function run_all(arr) {
+		for (var i = 0; i < arr.length; i++) {
+			arr[i]();
+		}
+	}
+
+	const DERIVED = 1 << 1;
+	const EFFECT = 1 << 2;
+	const RENDER_EFFECT = 1 << 3;
+	const BLOCK_EFFECT = 1 << 4;
+	const BRANCH_EFFECT = 1 << 5;
+	const ROOT_EFFECT = 1 << 6;
+	const BOUNDARY_EFFECT = 1 << 7;
+	const UNOWNED = 1 << 8;
+	const DISCONNECTED = 1 << 9;
+	const CLEAN = 1 << 10;
+	const DIRTY = 1 << 11;
+	const MAYBE_DIRTY = 1 << 12;
+	const INERT = 1 << 13;
+	const DESTROYED = 1 << 14;
+	const EFFECT_RAN = 1 << 15;
+	/** 'Transparent' effects do not create a transition boundary */
+	const EFFECT_TRANSPARENT = 1 << 16;
+	/** Svelte 4 legacy mode props need to be handled with deriveds and be recognized elsewhere, hence the dedicated flag */
+	const LEGACY_DERIVED_PROP = 1 << 17;
+	const HEAD_EFFECT = 1 << 19;
+	const EFFECT_HAS_DERIVED = 1 << 20;
+
+	const STATE_SYMBOL = Symbol('$state');
+	const LEGACY_PROPS = Symbol('legacy props');
+	const LOADING_ATTR_SYMBOL = Symbol('');
+
+	/** @import { Equals } from '#client' */
+	/** @type {Equals} */
+	function equals(value) {
+		return value === this.v;
+	}
+
+	/**
+	 * @param {unknown} a
+	 * @param {unknown} b
+	 * @returns {boolean}
+	 */
+	function safe_not_equal(a, b) {
+		return a != a
+			? b == b
+			: a !== b || (a !== null && typeof a === 'object') || typeof a === 'function';
+	}
+
+	/** @type {Equals} */
+	function safe_equals(value) {
+		return !safe_not_equal(value, this.v);
+	}
+
+	/* This file is generated by scripts/process-messages/index.js. Do not edit! */
+
+
+	/**
+	 * `%rune%` cannot be used inside an effect cleanup function
+	 * @param {string} rune
+	 * @returns {never}
+	 */
+	function effect_in_teardown(rune) {
+		{
+			throw new Error(`https://svelte.dev/e/effect_in_teardown`);
+		}
+	}
+
+	/**
+	 * Effect cannot be created inside a `$derived` value that was not itself created inside an effect
+	 * @returns {never}
+	 */
+	function effect_in_unowned_derived() {
+		{
+			throw new Error(`https://svelte.dev/e/effect_in_unowned_derived`);
+		}
+	}
+
+	/**
+	 * `%rune%` can only be used inside an effect (e.g. during component initialisation)
+	 * @param {string} rune
+	 * @returns {never}
+	 */
+	function effect_orphan(rune) {
+		{
+			throw new Error(`https://svelte.dev/e/effect_orphan`);
+		}
+	}
+
+	/**
+	 * Maximum update depth exceeded. This can happen when a reactive block or effect repeatedly sets a new value. Svelte limits the number of nested updates to prevent infinite loops
+	 * @returns {never}
+	 */
+	function effect_update_depth_exceeded() {
+		{
+			throw new Error(`https://svelte.dev/e/effect_update_depth_exceeded`);
+		}
+	}
+
+	/**
+	 * Cannot do `bind:%key%={undefined}` when `%key%` has a fallback value
+	 * @param {string} key
+	 * @returns {never}
+	 */
+	function props_invalid_value(key) {
+		{
+			throw new Error(`https://svelte.dev/e/props_invalid_value`);
+		}
+	}
+
+	/**
+	 * Property descriptors defined on `$state` objects must contain `value` and always be `enumerable`, `configurable` and `writable`.
+	 * @returns {never}
+	 */
+	function state_descriptors_fixed() {
+		{
+			throw new Error(`https://svelte.dev/e/state_descriptors_fixed`);
+		}
+	}
+
+	/**
+	 * Cannot set prototype of `$state` object
+	 * @returns {never}
+	 */
+	function state_prototype_fixed() {
+		{
+			throw new Error(`https://svelte.dev/e/state_prototype_fixed`);
+		}
+	}
+
+	/**
+	 * Reading state that was created inside the same derived is forbidden. Consider using `untrack` to read locally created state
+	 * @returns {never}
+	 */
+	function state_unsafe_local_read() {
+		{
+			throw new Error(`https://svelte.dev/e/state_unsafe_local_read`);
+		}
+	}
+
+	/**
+	 * Updating state inside a derived or a template expression is forbidden. If the value should not be reactive, declare it without `$state`
+	 * @returns {never}
+	 */
+	function state_unsafe_mutation() {
+		{
+			throw new Error(`https://svelte.dev/e/state_unsafe_mutation`);
+		}
+	}
+
+	let legacy_mode_flag = false;
+	let tracing_mode_flag = false;
+
+	function enable_legacy_mode_flag() {
+		legacy_mode_flag = true;
+	}
+
+	const EACH_ITEM_REACTIVE = 1;
+	const EACH_INDEX_REACTIVE = 1 << 1;
+	/** See EachBlock interface metadata.is_controlled for an explanation what this is */
+	const EACH_IS_CONTROLLED = 1 << 2;
+	const EACH_IS_ANIMATED = 1 << 3;
+	const EACH_ITEM_IMMUTABLE = 1 << 4;
+
+	const PROPS_IS_IMMUTABLE = 1;
+	const PROPS_IS_RUNES = 1 << 1;
+	const PROPS_IS_UPDATED = 1 << 2;
+	const PROPS_IS_BINDABLE = 1 << 3;
+	const PROPS_IS_LAZY_INITIAL = 1 << 4;
+
+	const TEMPLATE_FRAGMENT = 1;
+	const TEMPLATE_USE_IMPORT_NODE = 1 << 1;
+
+	const UNINITIALIZED = Symbol();
+
+	/* This file is generated by scripts/process-messages/index.js. Do not edit! */
+
+
+	/**
+	 * `%name%(...)` can only be used during component initialisation
+	 * @param {string} name
+	 * @returns {never}
+	 */
+	function lifecycle_outside_component(name) {
+		{
+			throw new Error(`https://svelte.dev/e/lifecycle_outside_component`);
+		}
+	}
+
+	/** @import { ComponentContext } from '#client' */
+
+
+	/** @type {ComponentContext | null} */
+	let component_context = null;
+
+	/** @param {ComponentContext | null} context */
+	function set_component_context(context) {
+		component_context = context;
+	}
+
+	/**
+	 * @param {Record<string, unknown>} props
+	 * @param {any} runes
+	 * @param {Function} [fn]
+	 * @returns {void}
+	 */
+	function push(props, runes = false, fn) {
+		component_context = {
+			p: component_context,
+			c: null,
+			e: null,
+			m: false,
+			s: props,
+			x: null,
+			l: null
+		};
+
+		if (legacy_mode_flag && !runes) {
+			component_context.l = {
+				s: null,
+				u: null,
+				r1: [],
+				r2: source(false)
+			};
+		}
+	}
+
+	/**
+	 * @template {Record<string, any>} T
+	 * @param {T} [component]
+	 * @returns {T}
+	 */
+	function pop(component) {
+		const context_stack_item = component_context;
+		if (context_stack_item !== null) {
+			const component_effects = context_stack_item.e;
+			if (component_effects !== null) {
+				var previous_effect = active_effect;
+				var previous_reaction = active_reaction;
+				context_stack_item.e = null;
+				try {
+					for (var i = 0; i < component_effects.length; i++) {
+						var component_effect = component_effects[i];
+						set_active_effect(component_effect.effect);
+						set_active_reaction(component_effect.reaction);
+						effect(component_effect.fn);
+					}
+				} finally {
+					set_active_effect(previous_effect);
+					set_active_reaction(previous_reaction);
+				}
+			}
+			component_context = context_stack_item.p;
+			context_stack_item.m = true;
+		}
+		// Micro-optimization: Don't set .a above to the empty object
+		// so it can be garbage-collected when the return here is unused
+		return /** @type {T} */ ({});
+	}
+
+	/** @returns {boolean} */
+	function is_runes() {
+		return !legacy_mode_flag || (component_context !== null && component_context.l === null);
+	}
+
+	/** @import { Derived, Effect, Reaction, Source, Value } from '#client' */
+
+	/**
+	 * @template V
+	 * @param {V} v
+	 * @param {Error | null} [stack]
+	 * @returns {Source<V>}
+	 */
+	function source(v, stack) {
+		/** @type {Value} */
+		var signal = {
+			f: 0, // TODO ideally we could skip this altogether, but it causes type errors
+			v,
+			reactions: null,
+			equals,
+			rv: 0,
+			wv: 0
+		};
+
+		return signal;
+	}
+
+	/**
+	 * @template V
+	 * @param {V} v
+	 */
+	function state(v) {
+		return push_derived_source(source(v));
+	}
+
+	/**
+	 * @template V
+	 * @param {V} initial_value
+	 * @param {boolean} [immutable]
+	 * @returns {Source<V>}
+	 */
+	/*#__NO_SIDE_EFFECTS__*/
+	function mutable_source(initial_value, immutable = false) {
+		const s = source(initial_value);
+		if (!immutable) {
+			s.equals = safe_equals;
+		}
+
+		// bind the signal to the component context, in case we need to
+		// track updates to trigger beforeUpdate/afterUpdate callbacks
+		if (legacy_mode_flag && component_context !== null && component_context.l !== null) {
+			(component_context.l.s ??= []).push(s);
+		}
+
+		return s;
+	}
+
+	/**
+	 * @template V
+	 * @param {Source<V>} source
+	 */
+	/*#__NO_SIDE_EFFECTS__*/
+	function push_derived_source(source) {
+		if (active_reaction !== null && !untracking && (active_reaction.f & DERIVED) !== 0) {
+			if (derived_sources === null) {
+				set_derived_sources([source]);
+			} else {
+				derived_sources.push(source);
+			}
+		}
+
+		return source;
+	}
+
+	/**
+	 * @template V
+	 * @param {Source<V>} source
+	 * @param {V} value
+	 * @returns {V}
+	 */
+	function set(source, value) {
+		if (
+			active_reaction !== null &&
+			!untracking &&
+			is_runes() &&
+			(active_reaction.f & (DERIVED | BLOCK_EFFECT)) !== 0 &&
+			// If the source was created locally within the current derived, then
+			// we allow the mutation.
+			(derived_sources === null || !derived_sources.includes(source))
+		) {
+			state_unsafe_mutation();
+		}
+
+		return internal_set(source, value);
+	}
+
+	/**
+	 * @template V
+	 * @param {Source<V>} source
+	 * @param {V} value
+	 * @returns {V}
+	 */
+	function internal_set(source, value) {
+		if (!source.equals(value)) {
+			source.v;
+			source.v = value;
+			source.wv = increment_write_version();
+
+			mark_reactions(source, DIRTY);
+
+			// It's possible that the current reaction might not have up-to-date dependencies
+			// whilst it's actively running. So in the case of ensuring it registers the reaction
+			// properly for itself, we need to ensure the current effect actually gets
+			// scheduled. i.e: `$effect(() => x++)`
+			if (
+				is_runes() &&
+				active_effect !== null &&
+				(active_effect.f & CLEAN) !== 0 &&
+				(active_effect.f & (BRANCH_EFFECT | ROOT_EFFECT)) === 0
+			) {
+				if (untracked_writes === null) {
+					set_untracked_writes([source]);
+				} else {
+					untracked_writes.push(source);
+				}
+			}
+		}
+
+		return value;
+	}
+
+	/**
+	 * @param {Value} signal
+	 * @param {number} status should be DIRTY or MAYBE_DIRTY
+	 * @returns {void}
+	 */
+	function mark_reactions(signal, status) {
+		var reactions = signal.reactions;
+		if (reactions === null) return;
+
+		var runes = is_runes();
+		var length = reactions.length;
+
+		for (var i = 0; i < length; i++) {
+			var reaction = reactions[i];
+			var flags = reaction.f;
+
+			// Skip any effects that are already dirty
+			if ((flags & DIRTY) !== 0) continue;
+
+			// In legacy mode, skip the current effect to prevent infinite loops
+			if (!runes && reaction === active_effect) continue;
+
+			set_signal_status(reaction, status);
+
+			// If the signal a) was previously clean or b) is an unowned derived, then mark it
+			if ((flags & (CLEAN | UNOWNED)) !== 0) {
+				if ((flags & DERIVED) !== 0) {
+					mark_reactions(/** @type {Derived} */ (reaction), MAYBE_DIRTY);
+				} else {
+					schedule_effect(/** @type {Effect} */ (reaction));
+				}
+			}
+		}
+	}
+
+	/** @import { TemplateNode } from '#client' */
+
+
+	/**
+	 * Use this variable to guard everything related to hydration code so it can be treeshaken out
+	 * if the user doesn't use the `hydrate` method and these code paths are therefore not needed.
+	 */
+	let hydrating = false;
+
+	/** @import { ProxyMetadata, Source } from '#client' */
+
+	/**
+	 * @template T
+	 * @param {T} value
+	 * @param {ProxyMetadata | null} [parent]
+	 * @param {Source<T>} [prev] dev mode only
+	 * @returns {T}
+	 */
+	function proxy(value, parent = null, prev) {
+		// if non-proxyable, or is already a proxy, return `value`
+		if (typeof value !== 'object' || value === null || STATE_SYMBOL in value) {
+			return value;
+		}
+
+		const prototype = get_prototype_of(value);
+
+		if (prototype !== object_prototype && prototype !== array_prototype) {
+			return value;
+		}
+
+		/** @type {Map<any, Source<any>>} */
+		var sources = new Map();
+		var is_proxied_array = is_array(value);
+		var version = source(0);
+
+		if (is_proxied_array) {
+			// We need to create the length source eagerly to ensure that
+			// mutations to the array are properly synced with our proxy
+			sources.set('length', source(/** @type {any[]} */ (value).length));
+		}
+
+		/** @type {ProxyMetadata} */
+		var metadata;
+
+		return new Proxy(/** @type {any} */ (value), {
+			defineProperty(_, prop, descriptor) {
+				if (
+					!('value' in descriptor) ||
+					descriptor.configurable === false ||
+					descriptor.enumerable === false ||
+					descriptor.writable === false
+				) {
+					// we disallow non-basic descriptors, because unless they are applied to the
+					// target object — which we avoid, so that state can be forked — we will run
+					// afoul of the various invariants
+					// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy/Proxy/getOwnPropertyDescriptor#invariants
+					state_descriptors_fixed();
+				}
+
+				var s = sources.get(prop);
+
+				if (s === undefined) {
+					s = source(descriptor.value);
+					sources.set(prop, s);
+				} else {
+					set(s, proxy(descriptor.value, metadata));
+				}
+
+				return true;
+			},
+
+			deleteProperty(target, prop) {
+				var s = sources.get(prop);
+
+				if (s === undefined) {
+					if (prop in target) {
+						sources.set(prop, source(UNINITIALIZED));
+					}
+				} else {
+					// When working with arrays, we need to also ensure we update the length when removing
+					// an indexed property
+					if (is_proxied_array && typeof prop === 'string') {
+						var ls = /** @type {Source<number>} */ (sources.get('length'));
+						var n = Number(prop);
+
+						if (Number.isInteger(n) && n < ls.v) {
+							set(ls, n);
+						}
+					}
+					set(s, UNINITIALIZED);
+					update_version(version);
+				}
+
+				return true;
+			},
+
+			get(target, prop, receiver) {
+
+				if (prop === STATE_SYMBOL) {
+					return value;
+				}
+
+				var s = sources.get(prop);
+				var exists = prop in target;
+
+				// create a source, but only if it's an own property and not a prototype property
+				if (s === undefined && (!exists || get_descriptor(target, prop)?.writable)) {
+					s = source(proxy(exists ? target[prop] : UNINITIALIZED, metadata));
+					sources.set(prop, s);
+				}
+
+				if (s !== undefined) {
+					var v = get(s);
+
+					return v === UNINITIALIZED ? undefined : v;
+				}
+
+				return Reflect.get(target, prop, receiver);
+			},
+
+			getOwnPropertyDescriptor(target, prop) {
+				var descriptor = Reflect.getOwnPropertyDescriptor(target, prop);
+
+				if (descriptor && 'value' in descriptor) {
+					var s = sources.get(prop);
+					if (s) descriptor.value = get(s);
+				} else if (descriptor === undefined) {
+					var source = sources.get(prop);
+					var value = source?.v;
+
+					if (source !== undefined && value !== UNINITIALIZED) {
+						return {
+							enumerable: true,
+							configurable: true,
+							value,
+							writable: true
+						};
+					}
+				}
+
+				return descriptor;
+			},
+
+			has(target, prop) {
+
+				if (prop === STATE_SYMBOL) {
+					return true;
+				}
+
+				var s = sources.get(prop);
+				var has = (s !== undefined && s.v !== UNINITIALIZED) || Reflect.has(target, prop);
+
+				if (
+					s !== undefined ||
+					(active_effect !== null && (!has || get_descriptor(target, prop)?.writable))
+				) {
+					if (s === undefined) {
+						s = source(has ? proxy(target[prop], metadata) : UNINITIALIZED);
+						sources.set(prop, s);
+					}
+
+					var value = get(s);
+					if (value === UNINITIALIZED) {
+						return false;
+					}
+				}
+
+				return has;
+			},
+
+			set(target, prop, value, receiver) {
+				var s = sources.get(prop);
+				var has = prop in target;
+
+				// variable.length = value -> clear all signals with index >= value
+				if (is_proxied_array && prop === 'length') {
+					for (var i = value; i < /** @type {Source<number>} */ (s).v; i += 1) {
+						var other_s = sources.get(i + '');
+						if (other_s !== undefined) {
+							set(other_s, UNINITIALIZED);
+						} else if (i in target) {
+							// If the item exists in the original, we need to create a uninitialized source,
+							// else a later read of the property would result in a source being created with
+							// the value of the original item at that index.
+							other_s = source(UNINITIALIZED);
+							sources.set(i + '', other_s);
+						}
+					}
+				}
+
+				// If we haven't yet created a source for this property, we need to ensure
+				// we do so otherwise if we read it later, then the write won't be tracked and
+				// the heuristics of effects will be different vs if we had read the proxied
+				// object property before writing to that property.
+				if (s === undefined) {
+					if (!has || get_descriptor(target, prop)?.writable) {
+						s = source(undefined);
+						set(s, proxy(value, metadata));
+						sources.set(prop, s);
+					}
+				} else {
+					has = s.v !== UNINITIALIZED;
+					set(s, proxy(value, metadata));
+				}
+
+				var descriptor = Reflect.getOwnPropertyDescriptor(target, prop);
+
+				// Set the new value before updating any signals so that any listeners get the new value
+				if (descriptor?.set) {
+					descriptor.set.call(receiver, value);
+				}
+
+				if (!has) {
+					// If we have mutated an array directly, we might need to
+					// signal that length has also changed. Do it before updating metadata
+					// to ensure that iterating over the array as a result of a metadata update
+					// will not cause the length to be out of sync.
+					if (is_proxied_array && typeof prop === 'string') {
+						var ls = /** @type {Source<number>} */ (sources.get('length'));
+						var n = Number(prop);
+
+						if (Number.isInteger(n) && n >= ls.v) {
+							set(ls, n + 1);
+						}
+					}
+
+					update_version(version);
+				}
+
+				return true;
+			},
+
+			ownKeys(target) {
+				get(version);
+
+				var own_keys = Reflect.ownKeys(target).filter((key) => {
+					var source = sources.get(key);
+					return source === undefined || source.v !== UNINITIALIZED;
+				});
+
+				for (var [key, source] of sources) {
+					if (source.v !== UNINITIALIZED && !(key in target)) {
+						own_keys.push(key);
+					}
+				}
+
+				return own_keys;
+			},
+
+			setPrototypeOf() {
+				state_prototype_fixed();
+			}
+		});
+	}
+
+	/**
+	 * @param {Source<number>} signal
+	 * @param {1 | -1} [d]
+	 */
+	function update_version(signal, d = 1) {
+		set(signal, signal.v + d);
+	}
+
+	/**
+	 * @param {any} value
+	 */
+	function get_proxied_value(value) {
+		if (value !== null && typeof value === 'object' && STATE_SYMBOL in value) {
+			return value[STATE_SYMBOL];
+		}
+
+		return value;
+	}
+
+	/**
+	 * @param {any} a
+	 * @param {any} b
+	 */
+	function is(a, b) {
+		return Object.is(get_proxied_value(a), get_proxied_value(b));
+	}
+
+	/** @import { TemplateNode } from '#client' */
+
+	// export these for reference in the compiled code, making global name deduplication unnecessary
+	/** @type {Window} */
+	var $window;
+
+	/** @type {boolean} */
+	var is_firefox;
+
+	/** @type {() => Node | null} */
+	var first_child_getter;
+	/** @type {() => Node | null} */
+	var next_sibling_getter;
+
+	/**
+	 * Initialize these lazily to avoid issues when using the runtime in a server context
+	 * where these globals are not available while avoiding a separate server entry point
+	 */
+	function init_operations() {
+		if ($window !== undefined) {
+			return;
+		}
+
+		$window = window;
+		is_firefox = /Firefox/.test(navigator.userAgent);
+
+		var element_prototype = Element.prototype;
+		var node_prototype = Node.prototype;
+
+		// @ts-ignore
+		first_child_getter = get_descriptor(node_prototype, 'firstChild').get;
+		// @ts-ignore
+		next_sibling_getter = get_descriptor(node_prototype, 'nextSibling').get;
+
+		// the following assignments improve perf of lookups on DOM nodes
+		// @ts-expect-error
+		element_prototype.__click = undefined;
+		// @ts-expect-error
+		element_prototype.__className = '';
+		// @ts-expect-error
+		element_prototype.__attributes = null;
+		// @ts-expect-error
+		element_prototype.__styles = null;
+		// @ts-expect-error
+		element_prototype.__e = undefined;
+
+		// @ts-expect-error
+		Text.prototype.__t = undefined;
+	}
+
+	/**
+	 * @param {string} value
+	 * @returns {Text}
+	 */
+	function create_text(value = '') {
+		return document.createTextNode(value);
+	}
+
+	/**
+	 * @template {Node} N
+	 * @param {N} node
+	 * @returns {Node | null}
+	 */
+	/*@__NO_SIDE_EFFECTS__*/
+	function get_first_child(node) {
+		return first_child_getter.call(node);
+	}
+
+	/**
+	 * @template {Node} N
+	 * @param {N} node
+	 * @returns {Node | null}
+	 */
+	/*@__NO_SIDE_EFFECTS__*/
+	function get_next_sibling(node) {
+		return next_sibling_getter.call(node);
+	}
+
+	/**
+	 * Don't mark this as side-effect-free, hydration needs to walk all nodes
+	 * @template {Node} N
+	 * @param {N} node
+	 * @param {boolean} is_text
+	 * @returns {Node | null}
+	 */
+	function child(node, is_text) {
+		{
+			return get_first_child(node);
+		}
+	}
+
+	/**
+	 * Don't mark this as side-effect-free, hydration needs to walk all nodes
+	 * @param {DocumentFragment | TemplateNode[]} fragment
+	 * @param {boolean} is_text
+	 * @returns {Node | null}
+	 */
+	function first_child(fragment, is_text) {
+		{
+			// when not hydrating, `fragment` is a `DocumentFragment` (the result of calling `open_frag`)
+			var first = /** @type {DocumentFragment} */ (get_first_child(/** @type {Node} */ (fragment)));
+
+			// TODO prevent user comments with the empty string when preserveComments is true
+			if (first instanceof Comment && first.data === '') return get_next_sibling(first);
+
+			return first;
+		}
+	}
+
+	/**
+	 * Don't mark this as side-effect-free, hydration needs to walk all nodes
+	 * @param {TemplateNode} node
+	 * @param {number} count
+	 * @param {boolean} is_text
+	 * @returns {Node | null}
+	 */
+	function sibling(node, count = 1, is_text = false) {
+		let next_sibling = node;
+
+		while (count--) {
+			next_sibling = /** @type {TemplateNode} */ (get_next_sibling(next_sibling));
+		}
+
+		{
+			return next_sibling;
+		}
+	}
+
+	/**
+	 * @template {Node} N
+	 * @param {N} node
+	 * @returns {void}
+	 */
+	function clear_text_content(node) {
+		node.textContent = '';
+	}
+
+	/** @import { Derived, Effect } from '#client' */
+
+	/**
+	 * @template V
+	 * @param {() => V} fn
+	 * @returns {Derived<V>}
+	 */
+	/*#__NO_SIDE_EFFECTS__*/
+	function derived(fn) {
+		var flags = DERIVED | DIRTY;
+		var parent_derived =
+			active_reaction !== null && (active_reaction.f & DERIVED) !== 0
+				? /** @type {Derived} */ (active_reaction)
+				: null;
+
+		if (active_effect === null || (parent_derived !== null && (parent_derived.f & UNOWNED) !== 0)) {
+			flags |= UNOWNED;
+		} else {
+			// Since deriveds are evaluated lazily, any effects created inside them are
+			// created too late to ensure that the parent effect is added to the tree
+			active_effect.f |= EFFECT_HAS_DERIVED;
+		}
+
+		/** @type {Derived<V>} */
+		const signal = {
+			ctx: component_context,
+			deps: null,
+			effects: null,
+			equals,
+			f: flags,
+			fn,
+			reactions: null,
+			rv: 0,
+			v: /** @type {V} */ (null),
+			wv: 0,
+			parent: parent_derived ?? active_effect
+		};
+
+		return signal;
+	}
+
+	/**
+	 * @template V
+	 * @param {() => V} fn
+	 * @returns {Derived<V>}
+	 */
+	/*#__NO_SIDE_EFFECTS__*/
+	function derived_safe_equal(fn) {
+		const signal = derived(fn);
+		signal.equals = safe_equals;
+		return signal;
+	}
+
+	/**
+	 * @param {Derived} derived
+	 * @returns {void}
+	 */
+	function destroy_derived_effects(derived) {
+		var effects = derived.effects;
+
+		if (effects !== null) {
+			derived.effects = null;
+
+			for (var i = 0; i < effects.length; i += 1) {
+				destroy_effect(/** @type {Effect} */ (effects[i]));
+			}
+		}
+	}
+
+	/**
+	 * @param {Derived} derived
+	 * @returns {Effect | null}
+	 */
+	function get_derived_parent_effect(derived) {
+		var parent = derived.parent;
+		while (parent !== null) {
+			if ((parent.f & DERIVED) === 0) {
+				return /** @type {Effect} */ (parent);
+			}
+			parent = parent.parent;
+		}
+		return null;
+	}
+
+	/**
+	 * @template T
+	 * @param {Derived} derived
+	 * @returns {T}
+	 */
+	function execute_derived(derived) {
+		var value;
+		var prev_active_effect = active_effect;
+
+		set_active_effect(get_derived_parent_effect(derived));
+
+		{
+			try {
+				destroy_derived_effects(derived);
+				value = update_reaction(derived);
+			} finally {
+				set_active_effect(prev_active_effect);
+			}
+		}
+
+		return value;
+	}
+
+	/**
+	 * @param {Derived} derived
+	 * @returns {void}
+	 */
+	function update_derived(derived) {
+		var value = execute_derived(derived);
+		var status =
+			(skip_reaction || (derived.f & UNOWNED) !== 0) && derived.deps !== null ? MAYBE_DIRTY : CLEAN;
+
+		set_signal_status(derived, status);
+
+		if (!derived.equals(value)) {
+			derived.v = value;
+			derived.wv = increment_write_version();
+		}
+	}
+
+	/** @import { ComponentContext, ComponentContextLegacy, Derived, Effect, TemplateNode, TransitionManager } from '#client' */
+
+	/**
+	 * @param {'$effect' | '$effect.pre' | '$inspect'} rune
+	 */
+	function validate_effect(rune) {
+		if (active_effect === null && active_reaction === null) {
+			effect_orphan();
+		}
+
+		if (active_reaction !== null && (active_reaction.f & UNOWNED) !== 0 && active_effect === null) {
+			effect_in_unowned_derived();
+		}
+
+		if (is_destroying_effect) {
+			effect_in_teardown();
+		}
+	}
+
+	/**
+	 * @param {Effect} effect
+	 * @param {Effect} parent_effect
+	 */
+	function push_effect(effect, parent_effect) {
+		var parent_last = parent_effect.last;
+		if (parent_last === null) {
+			parent_effect.last = parent_effect.first = effect;
+		} else {
+			parent_last.next = effect;
+			effect.prev = parent_last;
+			parent_effect.last = effect;
+		}
+	}
+
+	/**
+	 * @param {number} type
+	 * @param {null | (() => void | (() => void))} fn
+	 * @param {boolean} sync
+	 * @param {boolean} push
+	 * @returns {Effect}
+	 */
+	function create_effect(type, fn, sync, push = true) {
+		var is_root = (type & ROOT_EFFECT) !== 0;
+		var parent_effect = active_effect;
+
+		/** @type {Effect} */
+		var effect = {
+			ctx: component_context,
+			deps: null,
+			nodes_start: null,
+			nodes_end: null,
+			f: type | DIRTY,
+			first: null,
+			fn,
+			last: null,
+			next: null,
+			parent: is_root ? null : parent_effect,
+			prev: null,
+			teardown: null,
+			transitions: null,
+			wv: 0
+		};
+
+		if (sync) {
+			var previously_flushing_effect = is_flushing_effect;
+
+			try {
+				set_is_flushing_effect(true);
+				update_effect(effect);
+				effect.f |= EFFECT_RAN;
+			} catch (e) {
+				destroy_effect(effect);
+				throw e;
+			} finally {
+				set_is_flushing_effect(previously_flushing_effect);
+			}
+		} else if (fn !== null) {
+			schedule_effect(effect);
+		}
+
+		// if an effect has no dependencies, no DOM and no teardown function,
+		// don't bother adding it to the effect tree
+		var inert =
+			sync &&
+			effect.deps === null &&
+			effect.first === null &&
+			effect.nodes_start === null &&
+			effect.teardown === null &&
+			(effect.f & (EFFECT_HAS_DERIVED | BOUNDARY_EFFECT)) === 0;
+
+		if (!inert && !is_root && push) {
+			if (parent_effect !== null) {
+				push_effect(effect, parent_effect);
+			}
+
+			// if we're in a derived, add the effect there too
+			if (active_reaction !== null && (active_reaction.f & DERIVED) !== 0) {
+				var derived = /** @type {Derived} */ (active_reaction);
+				(derived.effects ??= []).push(effect);
+			}
+		}
+
+		return effect;
+	}
+
+	/**
+	 * @param {() => void} fn
+	 */
+	function teardown(fn) {
+		const effect = create_effect(RENDER_EFFECT, null, false);
+		set_signal_status(effect, CLEAN);
+		effect.teardown = fn;
+		return effect;
+	}
+
+	/**
+	 * Internal representation of `$effect(...)`
+	 * @param {() => void | (() => void)} fn
+	 */
+	function user_effect(fn) {
+		validate_effect();
+
+		// Non-nested `$effect(...)` in a component should be deferred
+		// until the component is mounted
+		var defer =
+			active_effect !== null &&
+			(active_effect.f & BRANCH_EFFECT) !== 0 &&
+			component_context !== null &&
+			!component_context.m;
+
+		if (defer) {
+			var context = /** @type {ComponentContext} */ (component_context);
+			(context.e ??= []).push({
+				fn,
+				effect: active_effect,
+				reaction: active_reaction
+			});
+		} else {
+			var signal = effect(fn);
+			return signal;
+		}
+	}
+
+	/**
+	 * An effect root whose children can transition out
+	 * @param {() => void} fn
+	 * @returns {(options?: { outro?: boolean }) => Promise<void>}
+	 */
+	function component_root(fn) {
+		const effect = create_effect(ROOT_EFFECT, fn, true);
+
+		return (options = {}) => {
+			return new Promise((fulfil) => {
+				if (options.outro) {
+					pause_effect(effect, () => {
+						destroy_effect(effect);
+						fulfil(undefined);
+					});
+				} else {
+					destroy_effect(effect);
+					fulfil(undefined);
+				}
+			});
+		};
+	}
+
+	/**
+	 * @param {() => void | (() => void)} fn
+	 * @returns {Effect}
+	 */
+	function effect(fn) {
+		return create_effect(EFFECT, fn, false);
+	}
+
+	/**
+	 * @param {() => void | (() => void)} fn
+	 * @returns {Effect}
+	 */
+	function render_effect(fn) {
+		return create_effect(RENDER_EFFECT, fn, true);
+	}
+
+	/**
+	 * @param {(...expressions: any) => void | (() => void)} fn
+	 * @param {Array<() => any>} thunks
+	 * @returns {Effect}
+	 */
+	function template_effect(fn, thunks = [], d = derived) {
+		const deriveds = thunks.map(d);
+		const effect = () => fn(...deriveds.map(get));
+
+		return block(effect);
+	}
+
+	/**
+	 * @param {(() => void)} fn
+	 * @param {number} flags
+	 */
+	function block(fn, flags = 0) {
+		return create_effect(RENDER_EFFECT | BLOCK_EFFECT | flags, fn, true);
+	}
+
+	/**
+	 * @param {(() => void)} fn
+	 * @param {boolean} [push]
+	 */
+	function branch(fn, push = true) {
+		return create_effect(RENDER_EFFECT | BRANCH_EFFECT, fn, true, push);
+	}
+
+	/**
+	 * @param {Effect} effect
+	 */
+	function execute_effect_teardown(effect) {
+		var teardown = effect.teardown;
+		if (teardown !== null) {
+			const previously_destroying_effect = is_destroying_effect;
+			const previous_reaction = active_reaction;
+			set_is_destroying_effect(true);
+			set_active_reaction(null);
+			try {
+				teardown.call(null);
+			} finally {
+				set_is_destroying_effect(previously_destroying_effect);
+				set_active_reaction(previous_reaction);
+			}
+		}
+	}
+
+	/**
+	 * @param {Effect} signal
+	 * @param {boolean} remove_dom
+	 * @returns {void}
+	 */
+	function destroy_effect_children(signal, remove_dom = false) {
+		var effect = signal.first;
+		signal.first = signal.last = null;
+
+		while (effect !== null) {
+			var next = effect.next;
+			destroy_effect(effect, remove_dom);
+			effect = next;
+		}
+	}
+
+	/**
+	 * @param {Effect} signal
+	 * @returns {void}
+	 */
+	function destroy_block_effect_children(signal) {
+		var effect = signal.first;
+
+		while (effect !== null) {
+			var next = effect.next;
+			if ((effect.f & BRANCH_EFFECT) === 0) {
+				destroy_effect(effect);
+			}
+			effect = next;
+		}
+	}
+
+	/**
+	 * @param {Effect} effect
+	 * @param {boolean} [remove_dom]
+	 * @returns {void}
+	 */
+	function destroy_effect(effect, remove_dom = true) {
+		var removed = false;
+
+		if ((remove_dom || (effect.f & HEAD_EFFECT) !== 0) && effect.nodes_start !== null) {
+			/** @type {TemplateNode | null} */
+			var node = effect.nodes_start;
+			var end = effect.nodes_end;
+
+			while (node !== null) {
+				/** @type {TemplateNode | null} */
+				var next = node === end ? null : /** @type {TemplateNode} */ (get_next_sibling(node));
+
+				node.remove();
+				node = next;
+			}
+
+			removed = true;
+		}
+
+		destroy_effect_children(effect, remove_dom && !removed);
+		remove_reactions(effect, 0);
+		set_signal_status(effect, DESTROYED);
+
+		var transitions = effect.transitions;
+
+		if (transitions !== null) {
+			for (const transition of transitions) {
+				transition.stop();
+			}
+		}
+
+		execute_effect_teardown(effect);
+
+		var parent = effect.parent;
+
+		// If the parent doesn't have any children, then skip this work altogether
+		if (parent !== null && parent.first !== null) {
+			unlink_effect(effect);
+		}
+
+		// `first` and `child` are nulled out in destroy_effect_children
+		// we don't null out `parent` so that error propagation can work correctly
+		effect.next =
+			effect.prev =
+			effect.teardown =
+			effect.ctx =
+			effect.deps =
+			effect.fn =
+			effect.nodes_start =
+			effect.nodes_end =
+				null;
+	}
+
+	/**
+	 * Detach an effect from the effect tree, freeing up memory and
+	 * reducing the amount of work that happens on subsequent traversals
+	 * @param {Effect} effect
+	 */
+	function unlink_effect(effect) {
+		var parent = effect.parent;
+		var prev = effect.prev;
+		var next = effect.next;
+
+		if (prev !== null) prev.next = next;
+		if (next !== null) next.prev = prev;
+
+		if (parent !== null) {
+			if (parent.first === effect) parent.first = next;
+			if (parent.last === effect) parent.last = prev;
+		}
+	}
+
+	/**
+	 * When a block effect is removed, we don't immediately destroy it or yank it
+	 * out of the DOM, because it might have transitions. Instead, we 'pause' it.
+	 * It stays around (in memory, and in the DOM) until outro transitions have
+	 * completed, and if the state change is reversed then we _resume_ it.
+	 * A paused effect does not update, and the DOM subtree becomes inert.
+	 * @param {Effect} effect
+	 * @param {() => void} [callback]
+	 */
+	function pause_effect(effect, callback) {
+		/** @type {TransitionManager[]} */
+		var transitions = [];
+
+		pause_children(effect, transitions, true);
+
+		run_out_transitions(transitions, () => {
+			destroy_effect(effect);
+			if (callback) callback();
+		});
+	}
+
+	/**
+	 * @param {TransitionManager[]} transitions
+	 * @param {() => void} fn
+	 */
+	function run_out_transitions(transitions, fn) {
+		var remaining = transitions.length;
+		if (remaining > 0) {
+			var check = () => --remaining || fn();
+			for (var transition of transitions) {
+				transition.out(check);
+			}
+		} else {
+			fn();
+		}
+	}
+
+	/**
+	 * @param {Effect} effect
+	 * @param {TransitionManager[]} transitions
+	 * @param {boolean} local
+	 */
+	function pause_children(effect, transitions, local) {
+		if ((effect.f & INERT) !== 0) return;
+		effect.f ^= INERT;
+
+		if (effect.transitions !== null) {
+			for (const transition of effect.transitions) {
+				if (transition.is_global || local) {
+					transitions.push(transition);
+				}
+			}
+		}
+
+		var child = effect.first;
+
+		while (child !== null) {
+			var sibling = child.next;
+			var transparent = (child.f & EFFECT_TRANSPARENT) !== 0 || (child.f & BRANCH_EFFECT) !== 0;
+			// TODO we don't need to call pause_children recursively with a linked list in place
+			// it's slightly more involved though as we have to account for `transparent` changing
+			// through the tree.
+			pause_children(child, transitions, transparent ? local : false);
+			child = sibling;
+		}
+	}
+
+	/**
+	 * The opposite of `pause_effect`. We call this if (for example)
+	 * `x` becomes falsy then truthy: `{#if x}...{/if}`
+	 * @param {Effect} effect
+	 */
+	function resume_effect(effect) {
+		resume_children(effect, true);
+	}
+
+	/**
+	 * @param {Effect} effect
+	 * @param {boolean} local
+	 */
+	function resume_children(effect, local) {
+		if ((effect.f & INERT) === 0) return;
+		effect.f ^= INERT;
+
+		// Ensure the effect is marked as clean again so that any dirty child
+		// effects can schedule themselves for execution
+		if ((effect.f & CLEAN) === 0) {
+			effect.f ^= CLEAN;
+		}
+
+		// If a dependency of this effect changed while it was paused,
+		// schedule the effect to update
+		if (check_dirtiness(effect)) {
+			set_signal_status(effect, DIRTY);
+			schedule_effect(effect);
+		}
+
+		var child = effect.first;
+
+		while (child !== null) {
+			var sibling = child.next;
+			var transparent = (child.f & EFFECT_TRANSPARENT) !== 0 || (child.f & BRANCH_EFFECT) !== 0;
+			// TODO we don't need to call resume_children recursively with a linked list in place
+			// it's slightly more involved though as we have to account for `transparent` changing
+			// through the tree.
+			resume_children(child, transparent ? local : false);
+			child = sibling;
+		}
+
+		if (effect.transitions !== null) {
+			for (const transition of effect.transitions) {
+				if (transition.is_global || local) {
+					transition.in();
+				}
+			}
+		}
+	}
+
+	let is_micro_task_queued$1 = false;
+
+	/** @type {Array<() => void>} */
+	let current_queued_micro_tasks = [];
+
+	function process_micro_tasks() {
+		is_micro_task_queued$1 = false;
+		const tasks = current_queued_micro_tasks.slice();
+		current_queued_micro_tasks = [];
+		run_all(tasks);
+	}
+
+	/**
+	 * @param {() => void} fn
+	 */
+	function queue_micro_task(fn) {
+		if (!is_micro_task_queued$1) {
+			is_micro_task_queued$1 = true;
+			queueMicrotask(process_micro_tasks);
+		}
+		current_queued_micro_tasks.push(fn);
+	}
+
+	/** @import { ComponentContext, Derived, Effect, Reaction, Signal, Source, Value } from '#client' */
+	let is_throwing_error = false;
+	// Used for handling scheduling
+	let is_micro_task_queued = false;
+
+	/** @type {Effect | null} */
+	let last_scheduled_effect = null;
+
+	let is_flushing_effect = false;
+	let is_destroying_effect = false;
+
+	/** @param {boolean} value */
+	function set_is_flushing_effect(value) {
+		is_flushing_effect = value;
+	}
+
+	/** @param {boolean} value */
+	function set_is_destroying_effect(value) {
+		is_destroying_effect = value;
+	}
+
+	// Handle effect queues
+
+	/** @type {Effect[]} */
+	let queued_root_effects = [];
+
+	let flush_count = 0;
+	/** @type {Effect[]} Stack of effects, dev only */
+	let dev_effect_stack = [];
+	// Handle signal reactivity tree dependencies and reactions
+
+	/** @type {null | Reaction} */
+	let active_reaction = null;
+
+	let untracking = false;
+
+	/** @param {null | Reaction} reaction */
+	function set_active_reaction(reaction) {
+		active_reaction = reaction;
+	}
+
+	/** @type {null | Effect} */
+	let active_effect = null;
+
+	/** @param {null | Effect} effect */
+	function set_active_effect(effect) {
+		active_effect = effect;
+	}
+
+	/**
+	 * When sources are created within a derived, we record them so that we can safely allow
+	 * local mutations to these sources without the side-effect error being invoked unnecessarily.
+	 * @type {null | Source[]}
+	 */
+	let derived_sources = null;
+
+	/**
+	 * @param {Source[] | null} sources
+	 */
+	function set_derived_sources(sources) {
+		derived_sources = sources;
+	}
+
+	/**
+	 * The dependencies of the reaction that is currently being executed. In many cases,
+	 * the dependencies are unchanged between runs, and so this will be `null` unless
+	 * and until a new dependency is accessed — we track this via `skipped_deps`
+	 * @type {null | Value[]}
+	 */
+	let new_deps = null;
+
+	let skipped_deps = 0;
+
+	/**
+	 * Tracks writes that the effect it's executed in doesn't listen to yet,
+	 * so that the dependency can be added to the effect later on if it then reads it
+	 * @type {null | Source[]}
+	 */
+	let untracked_writes = null;
+
+	/** @param {null | Source[]} value */
+	function set_untracked_writes(value) {
+		untracked_writes = value;
+	}
+
+	/**
+	 * @type {number} Used by sources and deriveds for handling updates.
+	 * Version starts from 1 so that unowned deriveds differentiate between a created effect and a run one for tracing
+	 **/
+	let write_version = 1;
+
+	/** @type {number} Used to version each read of a source of derived to avoid duplicating depedencies inside a reaction */
+	let read_version = 0;
+
+	// If we are working with a get() chain that has no active container,
+	// to prevent memory leaks, we skip adding the reaction.
+	let skip_reaction = false;
+
+	function increment_write_version() {
+		return ++write_version;
+	}
+
+	/**
+	 * Determines whether a derived or effect is dirty.
+	 * If it is MAYBE_DIRTY, will set the status to CLEAN
+	 * @param {Reaction} reaction
+	 * @returns {boolean}
+	 */
+	function check_dirtiness(reaction) {
+		var flags = reaction.f;
+
+		if ((flags & DIRTY) !== 0) {
+			return true;
+		}
+
+		if ((flags & MAYBE_DIRTY) !== 0) {
+			var dependencies = reaction.deps;
+			var is_unowned = (flags & UNOWNED) !== 0;
+
+			if (dependencies !== null) {
+				var i;
+				var dependency;
+				var is_disconnected = (flags & DISCONNECTED) !== 0;
+				var is_unowned_connected = is_unowned && active_effect !== null && !skip_reaction;
+				var length = dependencies.length;
+
+				// If we are working with a disconnected or an unowned signal that is now connected (due to an active effect)
+				// then we need to re-connect the reaction to the dependency
+				if (is_disconnected || is_unowned_connected) {
+					var derived = /** @type {Derived} */ (reaction);
+					var parent = derived.parent;
+
+					for (i = 0; i < length; i++) {
+						dependency = dependencies[i];
+
+						// We always re-add all reactions (even duplicates) if the derived was
+						// previously disconnected, however we don't if it was unowned as we
+						// de-duplicate dependencies in that case
+						if (is_disconnected || !dependency?.reactions?.includes(derived)) {
+							(dependency.reactions ??= []).push(derived);
+						}
+					}
+
+					if (is_disconnected) {
+						derived.f ^= DISCONNECTED;
+					}
+					// If the unowned derived is now fully connected to the graph again (it's unowned and reconnected, has a parent
+					// and the parent is not unowned), then we can mark it as connected again, removing the need for the unowned
+					// flag
+					if (is_unowned_connected && parent !== null && (parent.f & UNOWNED) === 0) {
+						derived.f ^= UNOWNED;
+					}
+				}
+
+				for (i = 0; i < length; i++) {
+					dependency = dependencies[i];
+
+					if (check_dirtiness(/** @type {Derived} */ (dependency))) {
+						update_derived(/** @type {Derived} */ (dependency));
+					}
+
+					if (dependency.wv > reaction.wv) {
+						return true;
+					}
+				}
+			}
+
+			// Unowned signals should never be marked as clean unless they
+			// are used within an active_effect without skip_reaction
+			if (!is_unowned || (active_effect !== null && !skip_reaction)) {
+				set_signal_status(reaction, CLEAN);
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * @param {unknown} error
+	 * @param {Effect} effect
+	 */
+	function propagate_error(error, effect) {
+		/** @type {Effect | null} */
+		var current = effect;
+
+		while (current !== null) {
+			if ((current.f & BOUNDARY_EFFECT) !== 0) {
+				try {
+					// @ts-expect-error
+					current.fn(error);
+					return;
+				} catch {
+					// Remove boundary flag from effect
+					current.f ^= BOUNDARY_EFFECT;
+				}
+			}
+
+			current = current.parent;
+		}
+
+		is_throwing_error = false;
+		throw error;
+	}
+
+	/**
+	 * @param {Effect} effect
+	 */
+	function should_rethrow_error(effect) {
+		return (
+			(effect.f & DESTROYED) === 0 &&
+			(effect.parent === null || (effect.parent.f & BOUNDARY_EFFECT) === 0)
+		);
+	}
+
+	/**
+	 * @param {unknown} error
+	 * @param {Effect} effect
+	 * @param {Effect | null} previous_effect
+	 * @param {ComponentContext | null} component_context
+	 */
+	function handle_error(error, effect, previous_effect, component_context) {
+		if (is_throwing_error) {
+			if (previous_effect === null) {
+				is_throwing_error = false;
+			}
+
+			if (should_rethrow_error(effect)) {
+				throw error;
+			}
+
+			return;
+		}
+
+		if (previous_effect !== null) {
+			is_throwing_error = true;
+		}
+
+		{
+			propagate_error(error, effect);
+			return;
+		}
+	}
+
+	/**
+	 * @param {Value} signal
+	 * @param {Effect} effect
+	 * @param {boolean} [root]
+	 */
+	function schedule_possible_effect_self_invalidation(signal, effect, root = true) {
+		var reactions = signal.reactions;
+		if (reactions === null) return;
+
+		for (var i = 0; i < reactions.length; i++) {
+			var reaction = reactions[i];
+			if ((reaction.f & DERIVED) !== 0) {
+				schedule_possible_effect_self_invalidation(/** @type {Derived} */ (reaction), effect, false);
+			} else if (effect === reaction) {
+				if (root) {
+					set_signal_status(reaction, DIRTY);
+				} else if ((reaction.f & CLEAN) !== 0) {
+					set_signal_status(reaction, MAYBE_DIRTY);
+				}
+				schedule_effect(/** @type {Effect} */ (reaction));
+			}
+		}
+	}
+
+	/**
+	 * @template V
+	 * @param {Reaction} reaction
+	 * @returns {V}
+	 */
+	function update_reaction(reaction) {
+		var previous_deps = new_deps;
+		var previous_skipped_deps = skipped_deps;
+		var previous_untracked_writes = untracked_writes;
+		var previous_reaction = active_reaction;
+		var previous_skip_reaction = skip_reaction;
+		var prev_derived_sources = derived_sources;
+		var previous_component_context = component_context;
+		var previous_untracking = untracking;
+		var flags = reaction.f;
+
+		new_deps = /** @type {null | Value[]} */ (null);
+		skipped_deps = 0;
+		untracked_writes = null;
+		active_reaction = (flags & (BRANCH_EFFECT | ROOT_EFFECT)) === 0 ? reaction : null;
+		skip_reaction =
+			(flags & UNOWNED) !== 0 &&
+			(!is_flushing_effect || previous_reaction === null || previous_untracking);
+
+		derived_sources = null;
+		set_component_context(reaction.ctx);
+		untracking = false;
+		read_version++;
+
+		try {
+			var result = /** @type {Function} */ (0, reaction.fn)();
+			var deps = reaction.deps;
+
+			if (new_deps !== null) {
+				var i;
+
+				remove_reactions(reaction, skipped_deps);
+
+				if (deps !== null && skipped_deps > 0) {
+					deps.length = skipped_deps + new_deps.length;
+					for (i = 0; i < new_deps.length; i++) {
+						deps[skipped_deps + i] = new_deps[i];
+					}
+				} else {
+					reaction.deps = deps = new_deps;
+				}
+
+				if (!skip_reaction) {
+					for (i = skipped_deps; i < deps.length; i++) {
+						(deps[i].reactions ??= []).push(reaction);
+					}
+				}
+			} else if (deps !== null && skipped_deps < deps.length) {
+				remove_reactions(reaction, skipped_deps);
+				deps.length = skipped_deps;
+			}
+
+			// If we're inside an effect and we have untracked writes, then we need to
+			// ensure that if any of those untracked writes result in re-invalidation
+			// of the current effect, then that happens accordingly
+			if (
+				is_runes() &&
+				untracked_writes !== null &&
+				!untracking &&
+				deps !== null &&
+				(reaction.f & (DERIVED | MAYBE_DIRTY | DIRTY)) === 0
+			) {
+				for (i = 0; i < /** @type {Source[]} */ (untracked_writes).length; i++) {
+					schedule_possible_effect_self_invalidation(
+						untracked_writes[i],
+						/** @type {Effect} */ (reaction)
+					);
+				}
+			}
+
+			// If we are returning to an previous reaction then
+			// we need to increment the read version to ensure that
+			// any dependencies in this reaction aren't marked with
+			// the same version
+			if (previous_reaction !== null) {
+				read_version++;
+			}
+
+			return result;
+		} finally {
+			new_deps = previous_deps;
+			skipped_deps = previous_skipped_deps;
+			untracked_writes = previous_untracked_writes;
+			active_reaction = previous_reaction;
+			skip_reaction = previous_skip_reaction;
+			derived_sources = prev_derived_sources;
+			set_component_context(previous_component_context);
+			untracking = previous_untracking;
+		}
+	}
+
+	/**
+	 * @template V
+	 * @param {Reaction} signal
+	 * @param {Value<V>} dependency
+	 * @returns {void}
+	 */
+	function remove_reaction(signal, dependency) {
+		let reactions = dependency.reactions;
+		if (reactions !== null) {
+			var index = index_of.call(reactions, signal);
+			if (index !== -1) {
+				var new_length = reactions.length - 1;
+				if (new_length === 0) {
+					reactions = dependency.reactions = null;
+				} else {
+					// Swap with last element and then remove.
+					reactions[index] = reactions[new_length];
+					reactions.pop();
+				}
+			}
+		}
+		// If the derived has no reactions, then we can disconnect it from the graph,
+		// allowing it to either reconnect in the future, or be GC'd by the VM.
+		if (
+			reactions === null &&
+			(dependency.f & DERIVED) !== 0 &&
+			// Destroying a child effect while updating a parent effect can cause a dependency to appear
+			// to be unused, when in fact it is used by the currently-updating parent. Checking `new_deps`
+			// allows us to skip the expensive work of disconnecting and immediately reconnecting it
+			(new_deps === null || !new_deps.includes(dependency))
+		) {
+			set_signal_status(dependency, MAYBE_DIRTY);
+			// If we are working with a derived that is owned by an effect, then mark it as being
+			// disconnected.
+			if ((dependency.f & (UNOWNED | DISCONNECTED)) === 0) {
+				dependency.f ^= DISCONNECTED;
+			}
+			// Disconnect any reactions owned by this reaction
+			destroy_derived_effects(/** @type {Derived} **/ (dependency));
+			remove_reactions(/** @type {Derived} **/ (dependency), 0);
+		}
+	}
+
+	/**
+	 * @param {Reaction} signal
+	 * @param {number} start_index
+	 * @returns {void}
+	 */
+	function remove_reactions(signal, start_index) {
+		var dependencies = signal.deps;
+		if (dependencies === null) return;
+
+		for (var i = start_index; i < dependencies.length; i++) {
+			remove_reaction(signal, dependencies[i]);
+		}
+	}
+
+	/**
+	 * @param {Effect} effect
+	 * @returns {void}
+	 */
+	function update_effect(effect) {
+		var flags = effect.f;
+
+		if ((flags & DESTROYED) !== 0) {
+			return;
+		}
+
+		set_signal_status(effect, CLEAN);
+
+		var previous_effect = active_effect;
+		var previous_component_context = component_context;
+
+		active_effect = effect;
+
+		try {
+			if ((flags & BLOCK_EFFECT) !== 0) {
+				destroy_block_effect_children(effect);
+			} else {
+				destroy_effect_children(effect);
+			}
+
+			execute_effect_teardown(effect);
+			var teardown = update_reaction(effect);
+			effect.teardown = typeof teardown === 'function' ? teardown : null;
+			effect.wv = write_version;
+
+			var deps = effect.deps;
+
+			// In DEV, we need to handle a case where $inspect.trace() might
+			// incorrectly state a source dependency has not changed when it has.
+			// That's beacuse that source was changed by the same effect, causing
+			// the versions to match. We can avoid this by incrementing the version
+			var dep; if (DEV && tracing_mode_flag && (effect.f & DIRTY) !== 0 && deps !== null) ;
+
+			if (DEV) ;
+		} catch (error) {
+			handle_error(error, effect, previous_effect, previous_component_context || effect.ctx);
+		} finally {
+			active_effect = previous_effect;
+		}
+	}
+
+	function infinite_loop_guard() {
+		if (flush_count > 1000) {
+			flush_count = 0;
+			try {
+				effect_update_depth_exceeded();
+			} catch (error) {
+				// Try and handle the error so it can be caught at a boundary, that's
+				// if there's an effect available from when it was last scheduled
+				if (last_scheduled_effect !== null) {
+					{
+						handle_error(error, last_scheduled_effect, null);
+					}
+				} else {
+					throw error;
+				}
+			}
+		}
+		flush_count++;
+	}
+
+	/**
+	 * @param {Array<Effect>} root_effects
+	 * @returns {void}
+	 */
+	function flush_queued_root_effects(root_effects) {
+		var length = root_effects.length;
+		if (length === 0) {
+			return;
+		}
+		infinite_loop_guard();
+
+		var previously_flushing_effect = is_flushing_effect;
+		is_flushing_effect = true;
+
+		try {
+			for (var i = 0; i < length; i++) {
+				var effect = root_effects[i];
+
+				if ((effect.f & CLEAN) === 0) {
+					effect.f ^= CLEAN;
+				}
+
+				var collected_effects = process_effects(effect);
+				flush_queued_effects(collected_effects);
+			}
+		} finally {
+			is_flushing_effect = previously_flushing_effect;
+		}
+	}
+
+	/**
+	 * @param {Array<Effect>} effects
+	 * @returns {void}
+	 */
+	function flush_queued_effects(effects) {
+		var length = effects.length;
+		if (length === 0) return;
+
+		for (var i = 0; i < length; i++) {
+			var effect = effects[i];
+
+			if ((effect.f & (DESTROYED | INERT)) === 0) {
+				try {
+					if (check_dirtiness(effect)) {
+						update_effect(effect);
+
+						// Effects with no dependencies or teardown do not get added to the effect tree.
+						// Deferred effects (e.g. `$effect(...)`) _are_ added to the tree because we
+						// don't know if we need to keep them until they are executed. Doing the check
+						// here (rather than in `update_effect`) allows us to skip the work for
+						// immediate effects.
+						if (effect.deps === null && effect.first === null && effect.nodes_start === null) {
+							if (effect.teardown === null) {
+								// remove this effect from the graph
+								unlink_effect(effect);
+							} else {
+								// keep the effect in the graph, but free up some memory
+								effect.fn = null;
+							}
+						}
+					}
+				} catch (error) {
+					handle_error(error, effect, null, effect.ctx);
+				}
+			}
+		}
+	}
+
+	function process_deferred() {
+		is_micro_task_queued = false;
+		if (flush_count > 1001) {
+			return;
+		}
+		const previous_queued_root_effects = queued_root_effects;
+		queued_root_effects = [];
+		flush_queued_root_effects(previous_queued_root_effects);
+
+		if (!is_micro_task_queued) {
+			flush_count = 0;
+			last_scheduled_effect = null;
+		}
+	}
+
+	/**
+	 * @param {Effect} signal
+	 * @returns {void}
+	 */
+	function schedule_effect(signal) {
+		{
+			if (!is_micro_task_queued) {
+				is_micro_task_queued = true;
+				queueMicrotask(process_deferred);
+			}
+		}
+
+		last_scheduled_effect = signal;
+
+		var effect = signal;
+
+		while (effect.parent !== null) {
+			effect = effect.parent;
+			var flags = effect.f;
+
+			if ((flags & (ROOT_EFFECT | BRANCH_EFFECT)) !== 0) {
+				if ((flags & CLEAN) === 0) return;
+				effect.f ^= CLEAN;
+			}
+		}
+
+		queued_root_effects.push(effect);
+	}
+
+	/**
+	 *
+	 * This function both runs render effects and collects user effects in topological order
+	 * from the starting effect passed in. Effects will be collected when they match the filtered
+	 * bitwise flag passed in only. The collected effects array will be populated with all the user
+	 * effects to be flushed.
+	 *
+	 * @param {Effect} effect
+	 * @returns {Effect[]}
+	 */
+	function process_effects(effect) {
+		/** @type {Effect[]} */
+		var effects = [];
+
+		var current_effect = effect.first;
+
+		main_loop: while (current_effect !== null) {
+			var flags = current_effect.f;
+			var is_branch = (flags & BRANCH_EFFECT) !== 0;
+			var is_skippable_branch = is_branch && (flags & CLEAN) !== 0;
+			var sibling = current_effect.next;
+
+			if (!is_skippable_branch && (flags & INERT) === 0) {
+				if ((flags & EFFECT) !== 0) {
+					effects.push(current_effect);
+				} else if (is_branch) {
+					current_effect.f ^= CLEAN;
+				} else {
+					// Ensure we set the effect to be the active reaction
+					// to ensure that unowned deriveds are correctly tracked
+					// because we're flushing the current effect
+					var previous_active_reaction = active_reaction;
+					try {
+						active_reaction = current_effect;
+						if (check_dirtiness(current_effect)) {
+							update_effect(current_effect);
+						}
+					} catch (error) {
+						handle_error(error, current_effect, null, current_effect.ctx);
+					} finally {
+						active_reaction = previous_active_reaction;
+					}
+				}
+
+				var child = current_effect.first;
+
+				if (child !== null) {
+					current_effect = child;
+					continue;
+				}
+			}
+
+			if (sibling === null) {
+				let parent = current_effect.parent;
+
+				while (parent !== null) {
+					if (effect === parent) {
+						break main_loop;
+					}
+					var parent_sibling = parent.next;
+					if (parent_sibling !== null) {
+						current_effect = parent_sibling;
+						continue main_loop;
+					}
+					parent = parent.parent;
+				}
+			}
+
+			current_effect = sibling;
+		}
+
+		return effects;
+	}
+
+	/**
+	 * @template V
+	 * @param {Value<V>} signal
+	 * @returns {V}
+	 */
+	function get(signal) {
+		var flags = signal.f;
+		var is_derived = (flags & DERIVED) !== 0;
+
+		// Register the dependency on the current reaction signal.
+		if (active_reaction !== null && !untracking) {
+			if (derived_sources !== null && derived_sources.includes(signal)) {
+				state_unsafe_local_read();
+			}
+			var deps = active_reaction.deps;
+			if (signal.rv < read_version) {
+				signal.rv = read_version;
+				// If the signal is accessing the same dependencies in the same
+				// order as it did last time, increment `skipped_deps`
+				// rather than updating `new_deps`, which creates GC cost
+				if (new_deps === null && deps !== null && deps[skipped_deps] === signal) {
+					skipped_deps++;
+				} else if (new_deps === null) {
+					new_deps = [signal];
+				} else if (!skip_reaction || !new_deps.includes(signal)) {
+					// Normally we can push duplicated dependencies to `new_deps`, but if we're inside
+					// an unowned derived because skip_reaction is true, then we need to ensure that
+					// we don't have duplicates
+					new_deps.push(signal);
+				}
+			}
+		} else if (
+			is_derived &&
+			/** @type {Derived} */ (signal).deps === null &&
+			/** @type {Derived} */ (signal).effects === null
+		) {
+			var derived = /** @type {Derived} */ (signal);
+			var parent = derived.parent;
+
+			if (parent !== null && (parent.f & UNOWNED) === 0) {
+				// If the derived is owned by another derived then mark it as unowned
+				// as the derived value might have been referenced in a different context
+				// since and thus its parent might not be its true owner anymore
+				derived.f ^= UNOWNED;
+			}
+		}
+
+		if (is_derived) {
+			derived = /** @type {Derived} */ (signal);
+
+			if (check_dirtiness(derived)) {
+				update_derived(derived);
+			}
+		}
+
+		return signal.v;
+	}
+
+	/**
+	 * When used inside a [`$derived`](https://svelte.dev/docs/svelte/$derived) or [`$effect`](https://svelte.dev/docs/svelte/$effect),
+	 * any state read inside `fn` will not be treated as a dependency.
+	 *
+	 * ```ts
+	 * $effect(() => {
+	 *   // this will run when `data` changes, but not when `time` changes
+	 *   save(data, {
+	 *     timestamp: untrack(() => time)
+	 *   });
+	 * });
+	 * ```
+	 * @template T
+	 * @param {() => T} fn
+	 * @returns {T}
+	 */
+	function untrack(fn) {
+		var previous_untracking = untracking;
+		try {
+			untracking = true;
+			return fn();
+		} finally {
+			untracking = previous_untracking;
+		}
+	}
+
+	const STATUS_MASK = -7169;
+
+	/**
+	 * @param {Signal} signal
+	 * @param {number} status
+	 * @returns {void}
+	 */
+	function set_signal_status(signal, status) {
+		signal.f = (signal.f & STATUS_MASK) | status;
+	}
+
+	/**
+	 * Subset of delegated events which should be passive by default.
+	 * These two are already passive via browser defaults on window, document and body.
+	 * But since
+	 * - we're delegating them
+	 * - they happen often
+	 * - they apply to mobile which is generally less performant
+	 * we're marking them as passive by default for other elements, too.
+	 */
+	const PASSIVE_EVENTS = ['touchstart', 'touchmove'];
+
+	/**
+	 * Returns `true` if `name` is a passive event
+	 * @param {string} name
+	 */
+	function is_passive_event(name) {
+		return PASSIVE_EVENTS.includes(name);
+	}
+
+	let listening_to_form_reset = false;
+
+	function add_form_reset_listener() {
+		if (!listening_to_form_reset) {
+			listening_to_form_reset = true;
+			document.addEventListener(
+				'reset',
+				(evt) => {
+					// Needs to happen one tick later or else the dom properties of the form
+					// elements have not updated to their reset values yet
+					Promise.resolve().then(() => {
+						if (!evt.defaultPrevented) {
+							for (const e of /**@type {HTMLFormElement} */ (evt.target).elements) {
+								// @ts-expect-error
+								e.__on_r?.();
+							}
+						}
+					});
+				},
+				// In the capture phase to guarantee we get noticed of it (no possiblity of stopPropagation)
+				{ capture: true }
+			);
+		}
+	}
+
+	/**
+	 * @template T
+	 * @param {() => T} fn
+	 */
+	function without_reactive_context(fn) {
+		var previous_reaction = active_reaction;
+		var previous_effect = active_effect;
+		set_active_reaction(null);
+		set_active_effect(null);
+		try {
+			return fn();
+		} finally {
+			set_active_reaction(previous_reaction);
+			set_active_effect(previous_effect);
+		}
+	}
+
+	/**
+	 * Listen to the given event, and then instantiate a global form reset listener if not already done,
+	 * to notify all bindings when the form is reset
+	 * @param {HTMLElement} element
+	 * @param {string} event
+	 * @param {(is_reset?: true) => void} handler
+	 * @param {(is_reset?: true) => void} [on_reset]
+	 */
+	function listen_to_event_and_reset_event(element, event, handler, on_reset = handler) {
+		element.addEventListener(event, () => without_reactive_context(handler));
+		// @ts-expect-error
+		const prev = element.__on_r;
+		if (prev) {
+			// special case for checkbox that can have multiple binds (group & checked)
+			// @ts-expect-error
+			element.__on_r = () => {
+				prev();
+				on_reset(true);
+			};
+		} else {
+			// @ts-expect-error
+			element.__on_r = () => on_reset(true);
+		}
+
+		add_form_reset_listener();
+	}
+
+	/** @import { Location } from 'locate-character' */
+
+	/** @type {Set<string>} */
+	const all_registered_events = new Set();
+
+	/** @type {Set<(events: Array<string>) => void>} */
+	const root_event_handles = new Set();
+
+	/**
+	 * @param {string} event_name
+	 * @param {EventTarget} dom
+	 * @param {EventListener} [handler]
+	 * @param {AddEventListenerOptions} [options]
+	 */
+	function create_event(event_name, dom, handler, options = {}) {
+		/**
+		 * @this {EventTarget}
+		 */
+		function target_handler(/** @type {Event} */ event) {
+			if (!options.capture) {
+				// Only call in the bubble phase, else delegated events would be called before the capturing events
+				handle_event_propagation.call(dom, event);
+			}
+			if (!event.cancelBubble) {
+				return without_reactive_context(() => {
+					return handler?.call(this, event);
+				});
+			}
+		}
+
+		// Chrome has a bug where pointer events don't work when attached to a DOM element that has been cloned
+		// with cloneNode() and the DOM element is disconnected from the document. To ensure the event works, we
+		// defer the attachment till after it's been appended to the document. TODO: remove this once Chrome fixes
+		// this bug. The same applies to wheel events and touch events.
+		if (
+			event_name.startsWith('pointer') ||
+			event_name.startsWith('touch') ||
+			event_name === 'wheel'
+		) {
+			queue_micro_task(() => {
+				dom.addEventListener(event_name, target_handler, options);
+			});
+		} else {
+			dom.addEventListener(event_name, target_handler, options);
+		}
+
+		return target_handler;
+	}
+
+	/**
+	 * @param {string} event_name
+	 * @param {Element} dom
+	 * @param {EventListener} [handler]
+	 * @param {boolean} [capture]
+	 * @param {boolean} [passive]
+	 * @returns {void}
+	 */
+	function event(event_name, dom, handler, capture, passive) {
+		var options = { capture, passive };
+		var target_handler = create_event(event_name, dom, handler, options);
+
+		// @ts-ignore
+		if (dom === document.body || dom === window || dom === document) {
+			teardown(() => {
+				dom.removeEventListener(event_name, target_handler, options);
+			});
+		}
+	}
+
+	/**
+	 * @this {EventTarget}
+	 * @param {Event} event
+	 * @returns {void}
+	 */
+	function handle_event_propagation(event) {
+		var handler_element = this;
+		var owner_document = /** @type {Node} */ (handler_element).ownerDocument;
+		var event_name = event.type;
+		var path = event.composedPath?.() || [];
+		var current_target = /** @type {null | Element} */ (path[0] || event.target);
+
+		// composedPath contains list of nodes the event has propagated through.
+		// We check __root to skip all nodes below it in case this is a
+		// parent of the __root node, which indicates that there's nested
+		// mounted apps. In this case we don't want to trigger events multiple times.
+		var path_idx = 0;
+
+		// @ts-expect-error is added below
+		var handled_at = event.__root;
+
+		if (handled_at) {
+			var at_idx = path.indexOf(handled_at);
+			if (
+				at_idx !== -1 &&
+				(handler_element === document || handler_element === /** @type {any} */ (window))
+			) {
+				// This is the fallback document listener or a window listener, but the event was already handled
+				// -> ignore, but set handle_at to document/window so that we're resetting the event
+				// chain in case someone manually dispatches the same event object again.
+				// @ts-expect-error
+				event.__root = handler_element;
+				return;
+			}
+
+			// We're deliberately not skipping if the index is higher, because
+			// someone could create an event programmatically and emit it multiple times,
+			// in which case we want to handle the whole propagation chain properly each time.
+			// (this will only be a false negative if the event is dispatched multiple times and
+			// the fallback document listener isn't reached in between, but that's super rare)
+			var handler_idx = path.indexOf(handler_element);
+			if (handler_idx === -1) {
+				// handle_idx can theoretically be -1 (happened in some JSDOM testing scenarios with an event listener on the window object)
+				// so guard against that, too, and assume that everything was handled at this point.
+				return;
+			}
+
+			if (at_idx <= handler_idx) {
+				path_idx = at_idx;
+			}
+		}
+
+		current_target = /** @type {Element} */ (path[path_idx] || event.target);
+		// there can only be one delegated event per element, and we either already handled the current target,
+		// or this is the very first target in the chain which has a non-delegated listener, in which case it's safe
+		// to handle a possible delegated event on it later (through the root delegation listener for example).
+		if (current_target === handler_element) return;
+
+		// Proxy currentTarget to correct target
+		define_property(event, 'currentTarget', {
+			configurable: true,
+			get() {
+				return current_target || owner_document;
+			}
+		});
+
+		// This started because of Chromium issue https://chromestatus.com/feature/5128696823545856,
+		// where removal or moving of of the DOM can cause sync `blur` events to fire, which can cause logic
+		// to run inside the current `active_reaction`, which isn't what we want at all. However, on reflection,
+		// it's probably best that all event handled by Svelte have this behaviour, as we don't really want
+		// an event handler to run in the context of another reaction or effect.
+		var previous_reaction = active_reaction;
+		var previous_effect = active_effect;
+		set_active_reaction(null);
+		set_active_effect(null);
+
+		try {
+			/**
+			 * @type {unknown}
+			 */
+			var throw_error;
+			/**
+			 * @type {unknown[]}
+			 */
+			var other_errors = [];
+
+			while (current_target !== null) {
+				/** @type {null | Element} */
+				var parent_element =
+					current_target.assignedSlot ||
+					current_target.parentNode ||
+					/** @type {any} */ (current_target).host ||
+					null;
+
+				try {
+					// @ts-expect-error
+					var delegated = current_target['__' + event_name];
+
+					if (delegated !== undefined && !(/** @type {any} */ (current_target).disabled)) {
+						if (is_array(delegated)) {
+							var [fn, ...data] = delegated;
+							fn.apply(current_target, [event, ...data]);
+						} else {
+							delegated.call(current_target, event);
+						}
+					}
+				} catch (error) {
+					if (throw_error) {
+						other_errors.push(error);
+					} else {
+						throw_error = error;
+					}
+				}
+				if (event.cancelBubble || parent_element === handler_element || parent_element === null) {
+					break;
+				}
+				current_target = parent_element;
+			}
+
+			if (throw_error) {
+				for (let error of other_errors) {
+					// Throw the rest of the errors, one-by-one on a microtask
+					queueMicrotask(() => {
+						throw error;
+					});
+				}
+				throw throw_error;
+			}
+		} finally {
+			// @ts-expect-error is used above
+			event.__root = handler_element;
+			// @ts-ignore remove proxy on currentTarget
+			delete event.currentTarget;
+			set_active_reaction(previous_reaction);
+			set_active_effect(previous_effect);
+		}
+	}
+
+	/** @param {string} html */
+	function create_fragment_from_html(html) {
+		var elem = document.createElement('template');
+		elem.innerHTML = html;
+		return elem.content;
+	}
+
+	/** @import { Effect, TemplateNode } from '#client' */
+
+	/**
+	 * @param {TemplateNode} start
+	 * @param {TemplateNode | null} end
+	 */
+	function assign_nodes(start, end) {
+		var effect = /** @type {Effect} */ (active_effect);
+		if (effect.nodes_start === null) {
+			effect.nodes_start = start;
+			effect.nodes_end = end;
+		}
+	}
+
+	/**
+	 * @param {string} content
+	 * @param {number} flags
+	 * @returns {() => Node | Node[]}
+	 */
+	/*#__NO_SIDE_EFFECTS__*/
+	function template(content, flags) {
+		var is_fragment = (flags & TEMPLATE_FRAGMENT) !== 0;
+		var use_import_node = (flags & TEMPLATE_USE_IMPORT_NODE) !== 0;
+
+		/** @type {Node} */
+		var node;
+
+		/**
+		 * Whether or not the first item is a text/element node. If not, we need to
+		 * create an additional comment node to act as `effect.nodes.start`
+		 */
+		var has_start = !content.startsWith('<!>');
+
+		return () => {
+
+			if (node === undefined) {
+				node = create_fragment_from_html(has_start ? content : '<!>' + content);
+				if (!is_fragment) node = /** @type {Node} */ (get_first_child(node));
+			}
+
+			var clone = /** @type {TemplateNode} */ (
+				use_import_node || is_firefox ? document.importNode(node, true) : node.cloneNode(true)
+			);
+
+			if (is_fragment) {
+				var start = /** @type {TemplateNode} */ (get_first_child(clone));
+				var end = /** @type {TemplateNode} */ (clone.lastChild);
+
+				assign_nodes(start, end);
+			} else {
+				assign_nodes(clone, clone);
+			}
+
+			return clone;
+		};
+	}
+
+	/**
+	 * Don't mark this as side-effect-free, hydration needs to walk all nodes
+	 * @param {any} value
+	 */
+	function text(value = '') {
+		{
+			var t = create_text(value + '');
+			assign_nodes(t, t);
+			return t;
+		}
+	}
+
+	function comment() {
+
+		var frag = document.createDocumentFragment();
+		var start = document.createComment('');
+		var anchor = create_text();
+		frag.append(start, anchor);
+
+		assign_nodes(start, anchor);
+
+		return frag;
+	}
+
+	/**
+	 * Assign the created (or in hydration mode, traversed) dom elements to the current block
+	 * and insert the elements into the dom (in client mode).
+	 * @param {Text | Comment | Element} anchor
+	 * @param {DocumentFragment | Element} dom
+	 */
+	function append(anchor, dom) {
+
+		if (anchor === null) {
+			// edge case — void `<svelte:element>` with content
+			return;
+		}
+
+		anchor.before(/** @type {Node} */ (dom));
+	}
+
+	/** @import { ComponentContext, Effect, TemplateNode } from '#client' */
+	/** @import { Component, ComponentType, SvelteComponent, MountOptions } from '../../index.js' */
+
+	/**
+	 * @param {Element} text
+	 * @param {string} value
+	 * @returns {void}
+	 */
+	function set_text(text, value) {
+		// For objects, we apply string coercion (which might make things like $state array references in the template reactive) before diffing
+		var str = value == null ? '' : typeof value === 'object' ? value + '' : value;
+		// @ts-expect-error
+		if (str !== (text.__t ??= text.nodeValue)) {
+			// @ts-expect-error
+			text.__t = str;
+			text.nodeValue = str + '';
+		}
+	}
+
+	/**
+	 * Mounts a component to the given target and returns the exports and potentially the props (if compiled with `accessors: true`) of the component.
+	 * Transitions will play during the initial render unless the `intro` option is set to `false`.
+	 *
+	 * @template {Record<string, any>} Props
+	 * @template {Record<string, any>} Exports
+	 * @param {ComponentType<SvelteComponent<Props>> | Component<Props, Exports, any>} component
+	 * @param {MountOptions<Props>} options
+	 * @returns {Exports}
+	 */
+	function mount(component, options) {
+		return _mount(component, options);
+	}
+
+	/** @type {Map<string, number>} */
+	const document_listeners = new Map();
+
+	/**
+	 * @template {Record<string, any>} Exports
+	 * @param {ComponentType<SvelteComponent<any>> | Component<any>} Component
+	 * @param {MountOptions} options
+	 * @returns {Exports}
+	 */
+	function _mount(Component, { target, anchor, props = {}, events, context, intro = true }) {
+		init_operations();
+
+		var registered_events = new Set();
+
+		/** @param {Array<string>} events */
+		var event_handle = (events) => {
+			for (var i = 0; i < events.length; i++) {
+				var event_name = events[i];
+
+				if (registered_events.has(event_name)) continue;
+				registered_events.add(event_name);
+
+				var passive = is_passive_event(event_name);
+
+				// Add the event listener to both the container and the document.
+				// The container listener ensures we catch events from within in case
+				// the outer content stops propagation of the event.
+				target.addEventListener(event_name, handle_event_propagation, { passive });
+
+				var n = document_listeners.get(event_name);
+
+				if (n === undefined) {
+					// The document listener ensures we catch events that originate from elements that were
+					// manually moved outside of the container (e.g. via manual portals).
+					document.addEventListener(event_name, handle_event_propagation, { passive });
+					document_listeners.set(event_name, 1);
+				} else {
+					document_listeners.set(event_name, n + 1);
+				}
+			}
+		};
+
+		event_handle(array_from(all_registered_events));
+		root_event_handles.add(event_handle);
+
+		/** @type {Exports} */
+		// @ts-expect-error will be defined because the render effect runs synchronously
+		var component = undefined;
+
+		var unmount = component_root(() => {
+			var anchor_node = anchor ?? target.appendChild(create_text());
+
+			branch(() => {
+				if (context) {
+					push({});
+					var ctx = /** @type {ComponentContext} */ (component_context);
+					ctx.c = context;
+				}
+
+				if (events) {
+					// We can't spread the object or else we'd lose the state proxy stuff, if it is one
+					/** @type {any} */ (props).$$events = events;
+				}
+				// @ts-expect-error the public typings are not what the actual function looks like
+				component = Component(anchor_node, props) || {};
+
+				if (context) {
+					pop();
+				}
+			});
+
+			return () => {
+				for (var event_name of registered_events) {
+					target.removeEventListener(event_name, handle_event_propagation);
+
+					var n = /** @type {number} */ (document_listeners.get(event_name));
+
+					if (--n === 0) {
+						document.removeEventListener(event_name, handle_event_propagation);
+						document_listeners.delete(event_name);
+					} else {
+						document_listeners.set(event_name, n);
+					}
+				}
+
+				root_event_handles.delete(event_handle);
+
+				if (anchor_node !== anchor) {
+					anchor_node.parentNode?.removeChild(anchor_node);
+				}
+			};
+		});
+
+		mounted_components.set(component, unmount);
+		return component;
+	}
+
+	/**
+	 * References of the components that were mounted or hydrated.
+	 * Uses a `WeakMap` to avoid memory leaks.
+	 */
+	let mounted_components = new WeakMap();
+
+	/** @import { Effect, TemplateNode } from '#client' */
+
+	/**
+	 * @param {TemplateNode} node
+	 * @param {(branch: (fn: (anchor: Node) => void, flag?: boolean) => void) => void} fn
+	 * @param {boolean} [elseif] True if this is an `{:else if ...}` block rather than an `{#if ...}`, as that affects which transitions are considered 'local'
+	 * @returns {void}
+	 */
+	function if_block(node, fn, elseif = false) {
+
+		var anchor = node;
+
+		/** @type {Effect | null} */
+		var consequent_effect = null;
+
+		/** @type {Effect | null} */
+		var alternate_effect = null;
+
+		/** @type {UNINITIALIZED | boolean | null} */
+		var condition = UNINITIALIZED;
+
+		var flags = elseif ? EFFECT_TRANSPARENT : 0;
+
+		var has_branch = false;
+
+		const set_branch = (/** @type {(anchor: Node) => void} */ fn, flag = true) => {
+			has_branch = true;
+			update_branch(flag, fn);
+		};
+
+		const update_branch = (
+			/** @type {boolean | null} */ new_condition,
+			/** @type {null | ((anchor: Node) => void)} */ fn
+		) => {
+			if (condition === (condition = new_condition)) return;
+
+			if (condition) {
+				if (consequent_effect) {
+					resume_effect(consequent_effect);
+				} else if (fn) {
+					consequent_effect = branch(() => fn(anchor));
+				}
+
+				if (alternate_effect) {
+					pause_effect(alternate_effect, () => {
+						alternate_effect = null;
+					});
+				}
+			} else {
+				if (alternate_effect) {
+					resume_effect(alternate_effect);
+				} else if (fn) {
+					alternate_effect = branch(() => fn(anchor));
+				}
+
+				if (consequent_effect) {
+					pause_effect(consequent_effect, () => {
+						consequent_effect = null;
+					});
+				}
+			}
+		};
+
+		block(() => {
+			has_branch = false;
+			fn(set_branch);
+			if (!has_branch) {
+				update_branch(null, null);
+			}
+		}, flags);
+	}
+
+	/** @import { EachItem, EachState, Effect, MaybeSource, Source, TemplateNode, TransitionManager, Value } from '#client' */
+
+	/**
+	 * @param {any} _
+	 * @param {number} i
+	 */
+	function index(_, i) {
+		return i;
+	}
+
+	/**
+	 * Pause multiple effects simultaneously, and coordinate their
+	 * subsequent destruction. Used in each blocks
+	 * @param {EachState} state
+	 * @param {EachItem[]} items
+	 * @param {null | Node} controlled_anchor
+	 * @param {Map<any, EachItem>} items_map
+	 */
+	function pause_effects(state, items, controlled_anchor, items_map) {
+		/** @type {TransitionManager[]} */
+		var transitions = [];
+		var length = items.length;
+
+		for (var i = 0; i < length; i++) {
+			pause_children(items[i].e, transitions, true);
+		}
+
+		var is_controlled = length > 0 && transitions.length === 0 && controlled_anchor !== null;
+		// If we have a controlled anchor, it means that the each block is inside a single
+		// DOM element, so we can apply a fast-path for clearing the contents of the element.
+		if (is_controlled) {
+			var parent_node = /** @type {Element} */ (
+				/** @type {Element} */ (controlled_anchor).parentNode
+			);
+			clear_text_content(parent_node);
+			parent_node.append(/** @type {Element} */ (controlled_anchor));
+			items_map.clear();
+			link(state, items[0].prev, items[length - 1].next);
+		}
+
+		run_out_transitions(transitions, () => {
+			for (var i = 0; i < length; i++) {
+				var item = items[i];
+				if (!is_controlled) {
+					items_map.delete(item.k);
+					link(state, item.prev, item.next);
+				}
+				destroy_effect(item.e, !is_controlled);
+			}
+		});
+	}
+
+	/**
+	 * @template V
+	 * @param {Element | Comment} node The next sibling node, or the parent node if this is a 'controlled' block
+	 * @param {number} flags
+	 * @param {() => V[]} get_collection
+	 * @param {(value: V, index: number) => any} get_key
+	 * @param {(anchor: Node, item: MaybeSource<V>, index: MaybeSource<number>) => void} render_fn
+	 * @param {null | ((anchor: Node) => void)} fallback_fn
+	 * @returns {void}
+	 */
+	function each(node, flags, get_collection, get_key, render_fn, fallback_fn = null) {
+		var anchor = node;
+
+		/** @type {EachState} */
+		var state = { flags, items: new Map(), first: null };
+
+		var is_controlled = (flags & EACH_IS_CONTROLLED) !== 0;
+
+		if (is_controlled) {
+			var parent_node = /** @type {Element} */ (node);
+
+			anchor = parent_node.appendChild(create_text());
+		}
+
+		/** @type {Effect | null} */
+		var fallback = null;
+
+		var was_empty = false;
+
+		// TODO: ideally we could use derived for runes mode but because of the ability
+		// to use a store which can be mutated, we can't do that here as mutating a store
+		// will still result in the collection array being the same from the store
+		var each_array = derived_safe_equal(() => {
+			var collection = get_collection();
+
+			return is_array(collection) ? collection : collection == null ? [] : array_from(collection);
+		});
+
+		block(() => {
+			var array = get(each_array);
+			var length = array.length;
+
+			if (was_empty && length === 0) {
+				// ignore updates if the array is empty,
+				// and it already was empty on previous run
+				return;
+			}
+			was_empty = length === 0;
+
+			{
+				reconcile(array, state, anchor, render_fn, flags, get_key, get_collection);
+			}
+
+			if (fallback_fn !== null) {
+				if (length === 0) {
+					if (fallback) {
+						resume_effect(fallback);
+					} else {
+						fallback = branch(() => fallback_fn(anchor));
+					}
+				} else if (fallback !== null) {
+					pause_effect(fallback, () => {
+						fallback = null;
+					});
+				}
+			}
+
+			// When we mount the each block for the first time, the collection won't be
+			// connected to this effect as the effect hasn't finished running yet and its deps
+			// won't be assigned. However, it's possible that when reconciling the each block
+			// that a mutation occurred and it's made the collection MAYBE_DIRTY, so reading the
+			// collection again can provide consistency to the reactive graph again as the deriveds
+			// will now be `CLEAN`.
+			get(each_array);
+		});
+	}
+
+	/**
+	 * Add, remove, or reorder items output by an each block as its input changes
+	 * @template V
+	 * @param {Array<V>} array
+	 * @param {EachState} state
+	 * @param {Element | Comment | Text} anchor
+	 * @param {(anchor: Node, item: MaybeSource<V>, index: number | Source<number>, collection: () => V[]) => void} render_fn
+	 * @param {number} flags
+	 * @param {(value: V, index: number) => any} get_key
+	 * @param {() => V[]} get_collection
+	 * @returns {void}
+	 */
+	function reconcile(array, state, anchor, render_fn, flags, get_key, get_collection) {
+		var is_animated = (flags & EACH_IS_ANIMATED) !== 0;
+		var should_update = (flags & (EACH_ITEM_REACTIVE | EACH_INDEX_REACTIVE)) !== 0;
+
+		var length = array.length;
+		var items = state.items;
+		var first = state.first;
+		var current = first;
+
+		/** @type {undefined | Set<EachItem>} */
+		var seen;
+
+		/** @type {EachItem | null} */
+		var prev = null;
+
+		/** @type {undefined | Set<EachItem>} */
+		var to_animate;
+
+		/** @type {EachItem[]} */
+		var matched = [];
+
+		/** @type {EachItem[]} */
+		var stashed = [];
+
+		/** @type {V} */
+		var value;
+
+		/** @type {any} */
+		var key;
+
+		/** @type {EachItem | undefined} */
+		var item;
+
+		/** @type {number} */
+		var i;
+
+		if (is_animated) {
+			for (i = 0; i < length; i += 1) {
+				value = array[i];
+				key = get_key(value, i);
+				item = items.get(key);
+
+				if (item !== undefined) {
+					item.a?.measure();
+					(to_animate ??= new Set()).add(item);
+				}
+			}
+		}
+
+		for (i = 0; i < length; i += 1) {
+			value = array[i];
+			key = get_key(value, i);
+			item = items.get(key);
+
+			if (item === undefined) {
+				var child_anchor = current ? /** @type {TemplateNode} */ (current.e.nodes_start) : anchor;
+
+				prev = create_item(
+					child_anchor,
+					state,
+					prev,
+					prev === null ? state.first : prev.next,
+					value,
+					key,
+					i,
+					render_fn,
+					flags,
+					get_collection
+				);
+
+				items.set(key, prev);
+
+				matched = [];
+				stashed = [];
+
+				current = prev.next;
+				continue;
+			}
+
+			if (should_update) {
+				update_item(item, value, i, flags);
+			}
+
+			if ((item.e.f & INERT) !== 0) {
+				resume_effect(item.e);
+				if (is_animated) {
+					item.a?.unfix();
+					(to_animate ??= new Set()).delete(item);
+				}
+			}
+
+			if (item !== current) {
+				if (seen !== undefined && seen.has(item)) {
+					if (matched.length < stashed.length) {
+						// more efficient to move later items to the front
+						var start = stashed[0];
+						var j;
+
+						prev = start.prev;
+
+						var a = matched[0];
+						var b = matched[matched.length - 1];
+
+						for (j = 0; j < matched.length; j += 1) {
+							move(matched[j], start, anchor);
+						}
+
+						for (j = 0; j < stashed.length; j += 1) {
+							seen.delete(stashed[j]);
+						}
+
+						link(state, a.prev, b.next);
+						link(state, prev, a);
+						link(state, b, start);
+
+						current = start;
+						prev = b;
+						i -= 1;
+
+						matched = [];
+						stashed = [];
+					} else {
+						// more efficient to move earlier items to the back
+						seen.delete(item);
+						move(item, current, anchor);
+
+						link(state, item.prev, item.next);
+						link(state, item, prev === null ? state.first : prev.next);
+						link(state, prev, item);
+
+						prev = item;
+					}
+
+					continue;
+				}
+
+				matched = [];
+				stashed = [];
+
+				while (current !== null && current.k !== key) {
+					// If the each block isn't inert and an item has an effect that is already inert,
+					// skip over adding it to our seen Set as the item is already being handled
+					if ((current.e.f & INERT) === 0) {
+						(seen ??= new Set()).add(current);
+					}
+					stashed.push(current);
+					current = current.next;
+				}
+
+				if (current === null) {
+					continue;
+				}
+
+				item = current;
+			}
+
+			matched.push(item);
+			prev = item;
+			current = item.next;
+		}
+
+		if (current !== null || seen !== undefined) {
+			var to_destroy = seen === undefined ? [] : array_from(seen);
+
+			while (current !== null) {
+				// If the each block isn't inert, then inert effects are currently outroing and will be removed once the transition is finished
+				if ((current.e.f & INERT) === 0) {
+					to_destroy.push(current);
+				}
+				current = current.next;
+			}
+
+			var destroy_length = to_destroy.length;
+
+			if (destroy_length > 0) {
+				var controlled_anchor = (flags & EACH_IS_CONTROLLED) !== 0 && length === 0 ? anchor : null;
+
+				if (is_animated) {
+					for (i = 0; i < destroy_length; i += 1) {
+						to_destroy[i].a?.measure();
+					}
+
+					for (i = 0; i < destroy_length; i += 1) {
+						to_destroy[i].a?.fix();
+					}
+				}
+
+				pause_effects(state, to_destroy, controlled_anchor, items);
+			}
+		}
+
+		if (is_animated) {
+			queue_micro_task(() => {
+				if (to_animate === undefined) return;
+				for (item of to_animate) {
+					item.a?.apply();
+				}
+			});
+		}
+
+		/** @type {Effect} */ (active_effect).first = state.first && state.first.e;
+		/** @type {Effect} */ (active_effect).last = prev && prev.e;
+	}
+
+	/**
+	 * @param {EachItem} item
+	 * @param {any} value
+	 * @param {number} index
+	 * @param {number} type
+	 * @returns {void}
+	 */
+	function update_item(item, value, index, type) {
+		if ((type & EACH_ITEM_REACTIVE) !== 0) {
+			internal_set(item.v, value);
+		}
+
+		if ((type & EACH_INDEX_REACTIVE) !== 0) {
+			internal_set(/** @type {Value<number>} */ (item.i), index);
+		} else {
+			item.i = index;
+		}
+	}
+
+	/**
+	 * @template V
+	 * @param {Node} anchor
+	 * @param {EachState} state
+	 * @param {EachItem | null} prev
+	 * @param {EachItem | null} next
+	 * @param {V} value
+	 * @param {unknown} key
+	 * @param {number} index
+	 * @param {(anchor: Node, item: V | Source<V>, index: number | Value<number>, collection: () => V[]) => void} render_fn
+	 * @param {number} flags
+	 * @param {() => V[]} get_collection
+	 * @returns {EachItem}
+	 */
+	function create_item(
+		anchor,
+		state,
+		prev,
+		next,
+		value,
+		key,
+		index,
+		render_fn,
+		flags,
+		get_collection
+	) {
+		var reactive = (flags & EACH_ITEM_REACTIVE) !== 0;
+		var mutable = (flags & EACH_ITEM_IMMUTABLE) === 0;
+
+		var v = reactive ? (mutable ? mutable_source(value) : source(value)) : value;
+		var i = (flags & EACH_INDEX_REACTIVE) === 0 ? index : source(index);
+
+		/** @type {EachItem} */
+		var item = {
+			i,
+			v,
+			k: key,
+			a: null,
+			// @ts-expect-error
+			e: null,
+			prev,
+			next
+		};
+
+		try {
+			item.e = branch(() => render_fn(anchor, v, i, get_collection), hydrating);
+
+			item.e.prev = prev && prev.e;
+			item.e.next = next && next.e;
+
+			if (prev === null) {
+				state.first = item;
+			} else {
+				prev.next = item;
+				prev.e.next = item.e;
+			}
+
+			if (next !== null) {
+				next.prev = item;
+				next.e.prev = item.e;
+			}
+
+			return item;
+		} finally {
+		}
+	}
+
+	/**
+	 * @param {EachItem} item
+	 * @param {EachItem | null} next
+	 * @param {Text | Element | Comment} anchor
+	 */
+	function move(item, next, anchor) {
+		var end = item.next ? /** @type {TemplateNode} */ (item.next.e.nodes_start) : anchor;
+
+		var dest = next ? /** @type {TemplateNode} */ (next.e.nodes_start) : anchor;
+		var node = /** @type {TemplateNode} */ (item.e.nodes_start);
+
+		while (node !== end) {
+			var next_node = /** @type {TemplateNode} */ (get_next_sibling(node));
+			dest.before(node);
+			node = next_node;
+		}
+	}
+
+	/**
+	 * @param {EachState} state
+	 * @param {EachItem | null} prev
+	 * @param {EachItem | null} next
+	 */
+	function link(state, prev, next) {
+		if (prev === null) {
+			state.first = next;
+		} else {
+			prev.next = next;
+			prev.e.next = next && next.e;
+		}
+
+		if (next !== null) {
+			next.prev = prev;
+			next.e.prev = prev && prev.e;
+		}
+	}
+
+	/** @import { Effect, TemplateNode } from '#client' */
+
+	/**
+	 * @param {Element | Text | Comment} node
+	 * @param {() => string} get_value
+	 * @param {boolean} svg
+	 * @param {boolean} mathml
+	 * @param {boolean} [skip_warning]
+	 * @returns {void}
+	 */
+	function html(node, get_value, svg, mathml, skip_warning) {
+		var anchor = node;
+
+		var value = '';
+
+		/** @type {Effect | undefined} */
+		var effect;
+
+		block(() => {
+			if (value === (value = get_value() ?? '')) {
+				return;
+			}
+
+			if (effect !== undefined) {
+				destroy_effect(effect);
+				effect = undefined;
+			}
+
+			if (value === '') return;
+
+			effect = branch(() => {
+
+				var html = value + '';
+
+				// Don't use create_fragment_with_script_from_html here because that would mean script tags are executed.
+				// @html is basically `.innerHTML = ...` and that doesn't execute scripts either due to security reasons.
+				/** @type {DocumentFragment | Element} */
+				var node = create_fragment_from_html(html);
+
+				assign_nodes(
+					/** @type {TemplateNode} */ (get_first_child(node)),
+					/** @type {TemplateNode} */ (node.lastChild)
+				);
+
+				{
+					anchor.before(node);
+				}
+			});
+		});
+	}
+
+	/**
+	 * Sets the `selected` attribute on an `option` element.
+	 * Not set through the property because that doesn't reflect to the DOM,
+	 * which means it wouldn't be taken into account when a form is reset.
+	 * @param {HTMLOptionElement} element
+	 * @param {boolean} selected
+	 */
+	function set_selected(element, selected) {
+		if (selected) {
+			// The selected option could've changed via user selection, and
+			// setting the value without this check would set it back.
+			if (!element.hasAttribute('selected')) {
+				element.setAttribute('selected', '');
+			}
+		} else {
+			element.removeAttribute('selected');
+		}
+	}
+
+	/**
+	 * @param {Element} element
+	 * @param {string} attribute
+	 * @param {string | null} value
+	 * @param {boolean} [skip_warning]
+	 */
+	function set_attribute(element, attribute, value, skip_warning) {
+		// @ts-expect-error
+		var attributes = (element.__attributes ??= {});
+
+		if (attributes[attribute] === (attributes[attribute] = value)) return;
+
+		if (attribute === 'style' && '__styles' in element) {
+			// reset styles to force style: directive to update
+			element.__styles = {};
+		}
+
+		if (attribute === 'loading') {
+			// @ts-expect-error
+			element[LOADING_ATTR_SYMBOL] = value;
+		}
+
+		if (value == null) {
+			element.removeAttribute(attribute);
+		} else if (typeof value !== 'string' && get_setters(element).includes(attribute)) {
+			// @ts-ignore
+			element[attribute] = value;
+		} else {
+			element.setAttribute(attribute, value);
+		}
+	}
+
+	/** @type {Map<string, string[]>} */
+	var setters_cache = new Map();
+
+	/** @param {Element} element */
+	function get_setters(element) {
+		var setters = setters_cache.get(element.nodeName);
+		if (setters) return setters;
+		setters_cache.set(element.nodeName, (setters = []));
+
+		var descriptors;
+		var proto = element; // In the case of custom elements there might be setters on the instance
+		var element_proto = Element.prototype;
+
+		// Stop at Element, from there on there's only unnecessary setters we're not interested in
+		// Do not use contructor.name here as that's unreliable in some browser environments
+		while (element_proto !== proto) {
+			descriptors = get_descriptors(proto);
+
+			for (var key in descriptors) {
+				if (descriptors[key].set) {
+					setters.push(key);
+				}
+			}
+
+			proto = get_prototype_of(proto);
+		}
+
+		return setters;
+	}
+
+	/**
+	 * @param {HTMLElement} dom
+	 * @param {string} value
+	 * @param {string} [hash]
+	 * @returns {void}
+	 */
+	function set_class(dom, value, hash) {
+		// @ts-expect-error need to add __className to patched prototype
+		var prev_class_name = dom.__className;
+		var next_class_name = to_class(value);
+
+		if (
+			prev_class_name !== next_class_name ||
+			(hydrating)
+		) {
+			// Removing the attribute when the value is only an empty string causes
+			// peformance issues vs simply making the className an empty string. So
+			// we should only remove the class if the the value is nullish.
+			if (value == null && true) {
+				dom.removeAttribute('class');
+			} else {
+				dom.className = next_class_name;
+			}
+
+			// @ts-expect-error need to add __className to patched prototype
+			dom.__className = next_class_name;
+		}
+	}
+
+	/**
+	 * @template V
+	 * @param {V} value
+	 * @param {string} [hash]
+	 * @returns {string | V}
+	 */
+	function to_class(value, hash) {
+		return (value == null ? '' : value) + ('');
+	}
+
+	/**
+	 * @param {Element} dom
+	 * @param {string} class_name
+	 * @param {boolean} value
+	 * @returns {void}
+	 */
+	function toggle_class(dom, class_name, value) {
+		if (value) {
+			if (dom.classList.contains(class_name)) return;
+			dom.classList.add(class_name);
+		} else {
+			if (!dom.classList.contains(class_name)) return;
+			dom.classList.remove(class_name);
+		}
+	}
+
+	/**
+	 * @param {HTMLInputElement} input
+	 * @param {() => unknown} get
+	 * @param {(value: unknown) => void} set
+	 * @returns {void}
+	 */
+	function bind_value(input, get, set = get) {
+		var runes = is_runes();
+
+		listen_to_event_and_reset_event(input, 'input', (is_reset) => {
+
+			/** @type {any} */
+			var value = is_reset ? input.defaultValue : input.value;
+			value = is_numberlike_input(input) ? to_number(value) : value;
+			set(value);
+
+			// In runes mode, respect any validation in accessors (doesn't apply in legacy mode,
+			// because we use mutable state which ensures the render effect always runs)
+			if (runes && value !== (value = get())) {
+				var start = input.selectionStart;
+				var end = input.selectionEnd;
+
+				// the value is coerced on assignment
+				input.value = value ?? '';
+
+				// Restore selection
+				if (end !== null) {
+					input.selectionStart = start;
+					input.selectionEnd = Math.min(end, input.value.length);
+				}
+			}
+		});
+
+		if (
+			// If we are hydrating and the value has since changed,
+			// then use the updated value from the input instead.
+			// If defaultValue is set, then value == defaultValue
+			// TODO Svelte 6: remove input.value check and set to empty string?
+			(untrack(get) == null && input.value)
+		) {
+			set(is_numberlike_input(input) ? to_number(input.value) : input.value);
+		}
+
+		render_effect(() => {
+
+			var value = get();
+
+			if (is_numberlike_input(input) && value === to_number(input.value)) {
+				// handles 0 vs 00 case (see https://github.com/sveltejs/svelte/issues/9959)
+				return;
+			}
+
+			if (input.type === 'date' && !value && !input.value) {
+				// Handles the case where a temporarily invalid date is set (while typing, for example with a leading 0 for the day)
+				// and prevents this state from clearing the other parts of the date input (see https://github.com/sveltejs/svelte/issues/7897)
+				return;
+			}
+
+			// don't set the value of the input if it's the same to allow
+			// minlength to work properly
+			if (value !== input.value) {
+				// @ts-expect-error the value is coerced on assignment
+				input.value = value ?? '';
+			}
+		});
+	}
+
+	/**
+	 * @param {HTMLInputElement} input
+	 * @param {() => unknown} get
+	 * @param {(value: unknown) => void} set
+	 * @returns {void}
+	 */
+	function bind_checked(input, get, set = get) {
+		listen_to_event_and_reset_event(input, 'change', (is_reset) => {
+			var value = is_reset ? input.defaultChecked : input.checked;
+			set(value);
+		});
+
+		if (
+			// If we are hydrating and the value has since changed,
+			// then use the update value from the input instead.
+			// If defaultChecked is set, then checked == defaultChecked
+			untrack(get) == null
+		) {
+			set(input.checked);
+		}
+
+		render_effect(() => {
+			var value = get();
+			input.checked = Boolean(value);
+		});
+	}
+
+	/**
+	 * @param {HTMLInputElement} input
+	 */
+	function is_numberlike_input(input) {
+		var type = input.type;
+		return type === 'number' || type === 'range';
+	}
+
+	/**
+	 * @param {string} value
+	 */
+	function to_number(value) {
+		return value === '' ? null : +value;
+	}
+
+	/**
+	 * Selects the correct option(s) (depending on whether this is a multiple select)
+	 * @template V
+	 * @param {HTMLSelectElement} select
+	 * @param {V} value
+	 * @param {boolean} [mounting]
+	 */
+	function select_option(select, value, mounting) {
+		if (select.multiple) {
+			return select_options(select, value);
+		}
+
+		for (var option of select.options) {
+			var option_value = get_option_value(option);
+			if (is(option_value, value)) {
+				option.selected = true;
+				return;
+			}
+		}
+
+		if (!mounting || value !== undefined) {
+			select.selectedIndex = -1; // no option should be selected
+		}
+	}
+
+	/**
+	 * Selects the correct option(s) if `value` is given,
+	 * and then sets up a mutation observer to sync the
+	 * current selection to the dom when it changes. Such
+	 * changes could for example occur when options are
+	 * inside an `#each` block.
+	 * @template V
+	 * @param {HTMLSelectElement} select
+	 * @param {() => V} [get_value]
+	 */
+	function init_select(select, get_value) {
+		effect(() => {
+
+			var observer = new MutationObserver(() => {
+				// @ts-ignore
+				var value = select.__value;
+				select_option(select, value);
+				// Deliberately don't update the potential binding value,
+				// the model should be preserved unless explicitly changed
+			});
+
+			observer.observe(select, {
+				// Listen to option element changes
+				childList: true,
+				subtree: true, // because of <optgroup>
+				// Listen to option element value attribute changes
+				// (doesn't get notified of select value changes,
+				// because that property is not reflected as an attribute)
+				attributes: true,
+				attributeFilter: ['value']
+			});
+
+			return () => {
+				observer.disconnect();
+			};
+		});
+	}
+
+	/**
+	 * @param {HTMLSelectElement} select
+	 * @param {() => unknown} get
+	 * @param {(value: unknown) => void} set
+	 * @returns {void}
+	 */
+	function bind_select_value(select, get, set = get) {
+		var mounting = true;
+
+		listen_to_event_and_reset_event(select, 'change', (is_reset) => {
+			var query = is_reset ? '[selected]' : ':checked';
+			/** @type {unknown} */
+			var value;
+
+			if (select.multiple) {
+				value = [].map.call(select.querySelectorAll(query), get_option_value);
+			} else {
+				/** @type {HTMLOptionElement | null} */
+				var selected_option =
+					select.querySelector(query) ??
+					// will fall back to first non-disabled option if no option is selected
+					select.querySelector('option:not([disabled])');
+				value = selected_option && get_option_value(selected_option);
+			}
+
+			set(value);
+		});
+
+		// Needs to be an effect, not a render_effect, so that in case of each loops the logic runs after the each block has updated
+		effect(() => {
+			var value = get();
+			select_option(select, value, mounting);
+
+			// Mounting and value undefined -> take selection from dom
+			if (mounting && value === undefined) {
+				/** @type {HTMLOptionElement | null} */
+				var selected_option = select.querySelector(':checked');
+				if (selected_option !== null) {
+					value = get_option_value(selected_option);
+					set(value);
+				}
+			}
+
+			// @ts-ignore
+			select.__value = value;
+			mounting = false;
+		});
+
+		// don't pass get_value, we already initialize it in the effect above
+		init_select(select);
+	}
+
+	/**
+	 * @template V
+	 * @param {HTMLSelectElement} select
+	 * @param {V} value
+	 */
+	function select_options(select, value) {
+		for (var option of select.options) {
+			// @ts-ignore
+			option.selected = ~value.indexOf(get_option_value(option));
+		}
+	}
+
+	/** @param {HTMLOptionElement} option */
+	function get_option_value(option) {
+		// __value only exists if the <option> has a value attribute
+		if ('__value' in option) {
+			return option.__value;
+		} else {
+			return option.value;
+		}
+	}
+
+	/**
+	 * @param {any} bound_value
+	 * @param {Element} element_or_component
+	 * @returns {boolean}
+	 */
+	function is_bound_this(bound_value, element_or_component) {
+		return (
+			bound_value === element_or_component || bound_value?.[STATE_SYMBOL] === element_or_component
+		);
+	}
+
+	/**
+	 * @param {any} element_or_component
+	 * @param {(value: unknown, ...parts: unknown[]) => void} update
+	 * @param {(...parts: unknown[]) => unknown} get_value
+	 * @param {() => unknown[]} [get_parts] Set if the this binding is used inside an each block,
+	 * 										returns all the parts of the each block context that are used in the expression
+	 * @returns {void}
+	 */
+	function bind_this(element_or_component = {}, update, get_value, get_parts) {
+		effect(() => {
+			/** @type {unknown[]} */
+			var old_parts;
+
+			/** @type {unknown[]} */
+			var parts;
+
+			render_effect(() => {
+				old_parts = parts;
+				// We only track changes to the parts, not the value itself to avoid unnecessary reruns.
+				parts = get_parts?.() || [];
+
+				untrack(() => {
+					if (element_or_component !== get_value(...parts)) {
+						update(element_or_component, ...parts);
+						// If this is an effect rerun (cause: each block context changes), then nullfiy the binding at
+						// the previous position if it isn't already taken over by a different effect.
+						if (old_parts && is_bound_this(get_value(...old_parts), element_or_component)) {
+							update(null, ...old_parts);
+						}
+					}
+				});
+			});
+
+			return () => {
+				// We cannot use effects in the teardown phase, we we use a microtask instead.
+				queue_micro_task(() => {
+					if (parts && is_bound_this(get_value(...parts), element_or_component)) {
+						update(null, ...parts);
+					}
+				});
+			};
+		});
+
+		return element_or_component;
+	}
+
+	/** @import { StoreReferencesContainer } from '#client' */
+	/** @import { Store } from '#shared' */
+
+	/**
+	 * Whether or not the prop currently being read is a store binding, as in
+	 * `<Child bind:x={$y} />`. If it is, we treat the prop as mutable even in
+	 * runes mode, and skip `binding_property_non_reactive` validation
+	 */
+	let is_store_binding = false;
+
+	/**
+	 * Returns a tuple that indicates whether `fn()` reads a prop that is a store binding.
+	 * Used to prevent `binding_property_non_reactive` validation false positives and
+	 * ensure that these props are treated as mutable even in runes mode
+	 * @template T
+	 * @param {() => T} fn
+	 * @returns {[T, boolean]}
+	 */
+	function capture_store_binding(fn) {
+		var previous_is_store_binding = is_store_binding;
+
+		try {
+			is_store_binding = false;
+			return [fn(), is_store_binding];
+		} finally {
+			is_store_binding = previous_is_store_binding;
+		}
+	}
+
+	/** @import { Source } from './types.js' */
+
+	/**
+	 * This function is responsible for synchronizing a possibly bound prop with the inner component state.
+	 * It is used whenever the compiler sees that the component writes to the prop, or when it has a default prop_value.
+	 * @template V
+	 * @param {Record<string, unknown>} props
+	 * @param {string} key
+	 * @param {number} flags
+	 * @param {V | (() => V)} [fallback]
+	 * @returns {(() => V | ((arg: V) => V) | ((arg: V, mutation: boolean) => V))}
+	 */
+	function prop(props, key, flags, fallback) {
+		var immutable = (flags & PROPS_IS_IMMUTABLE) !== 0;
+		var runes = !legacy_mode_flag || (flags & PROPS_IS_RUNES) !== 0;
+		var bindable = (flags & PROPS_IS_BINDABLE) !== 0;
+		var lazy = (flags & PROPS_IS_LAZY_INITIAL) !== 0;
+		var is_store_sub = false;
+		var prop_value;
+
+		if (bindable) {
+			[prop_value, is_store_sub] = capture_store_binding(() => /** @type {V} */ (props[key]));
+		} else {
+			prop_value = /** @type {V} */ (props[key]);
+		}
+
+		// Can be the case when someone does `mount(Component, props)` with `let props = $state({...})`
+		// or `createClassComponent(Component, props)`
+		var is_entry_props = STATE_SYMBOL in props || LEGACY_PROPS in props;
+
+		var setter =
+			(bindable &&
+				(get_descriptor(props, key)?.set ??
+					(is_entry_props && key in props && ((v) => (props[key] = v))))) ||
+			undefined;
+
+		var fallback_value = /** @type {V} */ (fallback);
+		var fallback_dirty = true;
+		var fallback_used = false;
+
+		var get_fallback = () => {
+			fallback_used = true;
+			if (fallback_dirty) {
+				fallback_dirty = false;
+				if (lazy) {
+					fallback_value = untrack(/** @type {() => V} */ (fallback));
+				} else {
+					fallback_value = /** @type {V} */ (fallback);
+				}
+			}
+
+			return fallback_value;
+		};
+
+		if (prop_value === undefined && fallback !== undefined) {
+			if (setter && runes) {
+				props_invalid_value();
+			}
+
+			prop_value = get_fallback();
+			if (setter) setter(prop_value);
+		}
+
+		/** @type {() => V} */
+		var getter;
+		if (runes) {
+			getter = () => {
+				var value = /** @type {V} */ (props[key]);
+				if (value === undefined) return get_fallback();
+				fallback_dirty = true;
+				fallback_used = false;
+				return value;
+			};
+		} else {
+			// Svelte 4 did not trigger updates when a primitive value was updated to the same value.
+			// Replicate that behavior through using a derived
+			var derived_getter = (immutable ? derived : derived_safe_equal)(
+				() => /** @type {V} */ (props[key])
+			);
+			derived_getter.f |= LEGACY_DERIVED_PROP;
+			getter = () => {
+				var value = get(derived_getter);
+				if (value !== undefined) fallback_value = /** @type {V} */ (undefined);
+				return value === undefined ? fallback_value : value;
+			};
+		}
+
+		// easy mode — prop is never written to
+		if ((flags & PROPS_IS_UPDATED) === 0) {
+			return getter;
+		}
+
+		// intermediate mode — prop is written to, but the parent component had
+		// `bind:foo` which means we can just call `$$props.foo = value` directly
+		if (setter) {
+			var legacy_parent = props.$$legacy;
+			return function (/** @type {any} */ value, /** @type {boolean} */ mutation) {
+				if (arguments.length > 0) {
+					// We don't want to notify if the value was mutated and the parent is in runes mode.
+					// In that case the state proxy (if it exists) should take care of the notification.
+					// If the parent is not in runes mode, we need to notify on mutation, too, that the prop
+					// has changed because the parent will not be able to detect the change otherwise.
+					if (!runes || !mutation || legacy_parent || is_store_sub) {
+						/** @type {Function} */ (setter)(mutation ? getter() : value);
+					}
+					return value;
+				} else {
+					return getter();
+				}
+			};
+		}
+
+		// hard mode. this is where it gets ugly — the value in the child should
+		// synchronize with the parent, but it should also be possible to temporarily
+		// set the value to something else locally.
+		var from_child = false;
+
+		// The derived returns the current value. The underlying mutable
+		// source is written to from various places to persist this value.
+		var inner_current_value = mutable_source(prop_value);
+		var current_value = derived(() => {
+			var parent_value = getter();
+			var child_value = get(inner_current_value);
+
+			if (from_child) {
+				from_child = false;
+				return child_value;
+			}
+			return (inner_current_value.v = parent_value);
+		});
+
+		if (!immutable) current_value.equals = safe_equals;
+
+		return function (/** @type {any} */ value, /** @type {boolean} */ mutation) {
+
+			if (arguments.length > 0) {
+				const new_value = mutation ? get(current_value) : runes && bindable ? proxy(value) : value;
+
+				if (!current_value.equals(new_value)) {
+					from_child = true;
+					set(inner_current_value, new_value);
+					// To ensure the fallback value is consistent when used with proxies, we
+					// update the local fallback_value, but only if the fallback is actively used
+					if (fallback_used && fallback_value !== undefined) {
+						fallback_value = new_value;
+					}
+					untrack(() => get(current_value)); // force a synchronisation immediately
+				}
+
+				return value;
+			}
+			return get(current_value);
+		};
+	}
+
+	/** @import { ComponentContext, ComponentContextLegacy } from '#client' */
+	/** @import { EventDispatcher } from './index.js' */
+	/** @import { NotFunction } from './internal/types.js' */
+
+	/**
+	 * The `onMount` function schedules a callback to run as soon as the component has been mounted to the DOM.
+	 * It must be called during the component's initialisation (but doesn't need to live *inside* the component;
+	 * it can be called from an external module).
+	 *
+	 * If a function is returned _synchronously_ from `onMount`, it will be called when the component is unmounted.
+	 *
+	 * `onMount` does not run inside [server-side components](https://svelte.dev/docs/svelte/svelte-server#render).
+	 *
+	 * @template T
+	 * @param {() => NotFunction<T> | Promise<NotFunction<T>> | (() => any)} fn
+	 * @returns {void}
+	 */
+	function onMount(fn) {
+		if (component_context === null) {
+			lifecycle_outside_component();
+		}
+
+		if (legacy_mode_flag && component_context.l !== null) {
+			init_update_callbacks(component_context).m.push(fn);
+		} else {
+			user_effect(() => {
+				const cleanup = untrack(fn);
+				if (typeof cleanup === 'function') return /** @type {() => void} */ (cleanup);
+			});
+		}
+	}
+
+	/**
+	 * Legacy-mode: Init callbacks object for onMount/beforeUpdate/afterUpdate
+	 * @param {ComponentContext} context
+	 */
+	function init_update_callbacks(context) {
+		var l = /** @type {ComponentContextLegacy} */ (context).l;
+		return (l.u ??= { a: [], b: [], m: [] });
+	}
+
+	// generated during release, do not modify
+
+	const PUBLIC_VERSION = '5';
+
+	if (typeof window !== 'undefined')
+		// @ts-ignore
+		(window.__svelte ||= { v: new Set() }).v.add(PUBLIC_VERSION);
+
+	enable_legacy_mode_flag();
+
+	var root = template(`<img alt="Product">`);
+
+	function SirvImage($$anchor, $$props) {
+		let width = prop($$props, 'width', 8, 100);
+		let height = prop($$props, 'height', 8, 100);
+		let quality = prop($$props, 'quality', 8, 90);
+		let src = prop($$props, 'src', 8, "");
+		let displayHeight = prop($$props, 'displayHeight', 24, height);
+		let displayWidth = prop($$props, 'displayWidth', 24, width);
+		var img = root();
+
+		template_effect(() => {
+			set_attribute(img, 'src', `${src() ?? ''}?w=${width() ?? ''}&h=${height() ?? ''}&q=${quality() ?? ''}`);
+			set_attribute(img, 'width', displayWidth());
+			set_attribute(img, 'height', displayHeight());
+		});
+
+		append($$anchor, img);
+	}
+
+	var history$4 = "History";
+	var ready$4 = "Ready";
+	var shipped$4 = "Shipped";
+	var name$4 = "Name";
+	var phone$4 = "Phone";
+	var update$4 = "Update";
+	var type$4 = "Type";
+	var size$4 = "Size";
+	var color$4 = "Color";
+	var customer_balance$4 = "Bank Transfer";
+	var paid$4 = "Payment Completed";
+	var black$4 = "Black";
+	var add$4 = "Add";
+	var status$4 = "Status";
+	var message$4 = "Message";
+	var order_placed$4 = "Order Placed";
+	var in_preparation$4 = "Order in Preparation";
+	var ready_to_ship$4 = "Order Ready to Ship";
+	var delivered$4 = "Order Delivered";
+	var canceled$4 = "Order Canceled";
+	var edit$4 = "Edit";
+	var save$4 = "Save";
+	var tracking_details$4 = "Tracking";
+	var courier$4 = "Courier";
+	var number_of_packages$4 = "Number of Packages";
+	var tracking_links$4 = "Tracking Links";
+	var refunded$4 = "Refunded";
+	var receipt$4 = "Receipt";
+	var en = {
+		"order-summary": "Order Summary",
+		"order-details": "Order Details",
+		"order-status": "Order Status",
+		"payment-method": "Payment Method",
+		"payment-status": "Payment Status",
+		"shipping-cost": "Shipping Cost",
+		"order-total": "Order Total",
+		"customer-details": "Customer Details",
+		"shipping-address": "Shipping Address",
+		history: history$4,
+		ready: ready$4,
+		"in-preparation": "In Preparation",
+		"waiting-product": "Waiting for Product Delivery",
+		"to-be-shipped": "To Be Shipped",
+		shipped: shipped$4,
+		name: name$4,
+		phone: phone$4,
+		"mob-number": "Mobile Number",
+		update: update$4,
+		type: type$4,
+		size: size$4,
+		"payment-type": "Payment Type",
+		"three-installments": "Three Monthly Installments, 0% Interest",
+		"start-date": "Start Date",
+		"end-date": "End Date",
+		"installment-amount": "Installment Amount",
+		color: color$4,
+		customer_balance: customer_balance$4,
+		paid: paid$4,
+		black: black$4,
+		"add-tracking": "Add Tracking",
+		"tracking-number": "Tracking Number",
+		"add-event": "Add Event",
+		add: add$4,
+		status: status$4,
+		message: message$4,
+		order_placed: order_placed$4,
+		in_preparation: in_preparation$4,
+		ready_to_ship: ready_to_ship$4,
+		delivered: delivered$4,
+		canceled: canceled$4,
+		edit: edit$4,
+		save: save$4,
+		tracking_details: tracking_details$4,
+		courier: courier$4,
+		number_of_packages: number_of_packages$4,
+		tracking_links: tracking_links$4,
+		refunded: refunded$4,
+		receipt: receipt$4
+	};
+
+	var history$3 = "Storico";
+	var ready$3 = "Pronto";
+	var shipped$3 = "Spedito";
+	var name$3 = "Nome";
+	var phone$3 = "Telefono";
+	var update$3 = "Aggiorna";
+	var type$3 = "Tipo";
+	var size$3 = "Taglia";
+	var color$3 = "Colore";
+	var customer_balance$3 = "Bonifico Bancario";
+	var paid$3 = "Pagamento completato";
+	var black$3 = "Nero";
+	var add$3 = "Aggiungi";
+	var status$3 = "Stato";
+	var message$3 = "Messaggio";
+	var order_placed$3 = "Ordine confermato";
+	var in_preparation$3 = "Ordine in preparazione";
+	var ready_to_ship$3 = "Ordine pronto per essere spedito";
+	var delivered$3 = "Ordine consegnato";
+	var canceled$3 = "Ordine cancellato";
+	var edit$3 = "Modifica";
+	var save$3 = "Salva";
+	var tracking_details$3 = "Tracking";
+	var courier$3 = "Corriere";
+	var number_of_packages$3 = "Numero Colli";
+	var tracking_links$3 = "Link di Tracking";
+	var refunded$3 = "Rimborsato";
+	var receipt$3 = "Ricevuta";
+	var it = {
+		"order-summary": "Riepilogo Ordine",
+		"order-details": "Dettagli Ordine",
+		"order-status": "Stato dell'Ordine",
+		"payment-method": "Metodo di Pagamento",
+		"payment-status": "Stato del Pagamento",
+		"shipping-cost": "Costo di Spedizione",
+		"order-total": "Totale Ordine",
+		"customer-details": "Dettagli Cliente",
+		"shipping-address": "Indirizzo di Spedizione",
+		history: history$3,
+		ready: ready$3,
+		"in-preparation": "In preparazione",
+		"waiting-product": "In attesa della consegna del prodotto",
+		"to-be-shipped": "Da spedire",
+		shipped: shipped$3,
+		name: name$3,
+		phone: phone$3,
+		"mob-number": "Numero di telefono cellulare",
+		update: update$3,
+		type: type$3,
+		size: size$3,
+		"payment-type": "Tipo di pagamento",
+		"three-installments": "Tre rate mensili tasso zero",
+		"start-date": "Data di inizio",
+		"end-date": "Data di fine",
+		"installment-amount": "Importo della rata",
+		color: color$3,
+		customer_balance: customer_balance$3,
+		paid: paid$3,
+		black: black$3,
+		"add-tracking": "Aggiungi Tracking",
+		"tracking-number": "Numero di Tracking",
+		"add-event": "Aggiungi evento",
+		add: add$3,
+		status: status$3,
+		message: message$3,
+		order_placed: order_placed$3,
+		in_preparation: in_preparation$3,
+		ready_to_ship: ready_to_ship$3,
+		delivered: delivered$3,
+		canceled: canceled$3,
+		edit: edit$3,
+		save: save$3,
+		tracking_details: tracking_details$3,
+		courier: courier$3,
+		number_of_packages: number_of_packages$3,
+		tracking_links: tracking_links$3,
+		refunded: refunded$3,
+		receipt: receipt$3
+	};
+
+	var history$2 = "Historial";
+	var ready$2 = "Listo";
+	var shipped$2 = "Enviado";
+	var name$2 = "Nombre";
+	var phone$2 = "Teléfono";
+	var update$2 = "Actualizar";
+	var type$2 = "Tipo";
+	var size$2 = "Talla";
+	var color$2 = "Color";
+	var customer_balance$2 = "Transferencia bancaria";
+	var paid$2 = "Pago completado";
+	var black$2 = "Negro";
+	var add$2 = "Añadir";
+	var status$2 = "Estado";
+	var message$2 = "Mensaje";
+	var order_placed$2 = "Pedido confirmado";
+	var in_preparation$2 = "Pedido en preparación";
+	var ready_to_ship$2 = "Pedido listo para enviar";
+	var delivered$2 = "Pedido entregado";
+	var canceled$2 = "Pedido cancelado";
+	var edit$2 = "Editar";
+	var save$2 = "Guardar";
+	var tracking_details$2 = "Seguimiento";
+	var courier$2 = "Mensajero";
+	var number_of_packages$2 = "Número de paquetes";
+	var tracking_links$2 = "Enlaces de seguimiento";
+	var refunded$2 = "Reembolsado";
+	var receipt$2 = "Recibo";
+	var es = {
+		"order-summary": "Resumen del pedido",
+		"order-details": "Detalles del pedido",
+		"order-status": "Estado del pedido",
+		"payment-method": "Método de pago",
+		"payment-status": "Estado del pago",
+		"shipping-cost": "Costo de envío",
+		"order-total": "Total del pedido",
+		"customer-details": "Datos del cliente",
+		"shipping-address": "Dirección de envío",
+		history: history$2,
+		ready: ready$2,
+		"in-preparation": "En preparación",
+		"waiting-product": "Esperando entrega del producto",
+		"to-be-shipped": "Por enviar",
+		shipped: shipped$2,
+		name: name$2,
+		phone: phone$2,
+		"mob-number": "Número de móvil",
+		update: update$2,
+		type: type$2,
+		size: size$2,
+		"payment-type": "Tipo de pago",
+		"three-installments": "Tres cuotas mensuales sin interés",
+		"start-date": "Fecha de inicio",
+		"end-date": "Fecha de fin",
+		"installment-amount": "Importe de la cuota",
+		color: color$2,
+		customer_balance: customer_balance$2,
+		paid: paid$2,
+		black: black$2,
+		"add-tracking": "Añadir seguimiento",
+		"tracking-number": "Número de seguimiento",
+		"add-event": "Añadir evento",
+		add: add$2,
+		status: status$2,
+		message: message$2,
+		order_placed: order_placed$2,
+		in_preparation: in_preparation$2,
+		ready_to_ship: ready_to_ship$2,
+		delivered: delivered$2,
+		canceled: canceled$2,
+		edit: edit$2,
+		save: save$2,
+		tracking_details: tracking_details$2,
+		courier: courier$2,
+		number_of_packages: number_of_packages$2,
+		tracking_links: tracking_links$2,
+		refunded: refunded$2,
+		receipt: receipt$2
+	};
+
+	var history$1 = "Verlauf";
+	var ready$1 = "Bereit";
+	var shipped$1 = "Versendet";
+	var name$1 = "Name";
+	var phone$1 = "Telefon";
+	var update$1 = "Aktualisieren";
+	var type$1 = "Typ";
+	var size$1 = "Größe";
+	var color$1 = "Farbe";
+	var customer_balance$1 = "Banküberweisung";
+	var paid$1 = "Zahlung abgeschlossen";
+	var black$1 = "Schwarz";
+	var add$1 = "Hinzufügen";
+	var status$1 = "Status";
+	var message$1 = "Nachricht";
+	var order_placed$1 = "Bestellung aufgegeben";
+	var in_preparation$1 = "Bestellung in Vorbereitung";
+	var ready_to_ship$1 = "Bestellung versandbereit";
+	var delivered$1 = "Bestellung geliefert";
+	var canceled$1 = "Bestellung storniert";
+	var edit$1 = "Bearbeiten";
+	var save$1 = "Speichern";
+	var tracking_details$1 = "Sendungsverfolgung";
+	var courier$1 = "Versanddienst";
+	var number_of_packages$1 = "Anzahl der Pakete";
+	var tracking_links$1 = "Tracking-Links";
+	var refunded$1 = "Erstattet";
+	var receipt$1 = "Quittung";
+	var de = {
+		"order-summary": "Bestellübersicht",
+		"order-details": "Bestelldetails",
+		"order-status": "Bestellstatus",
+		"payment-method": "Zahlungsmethode",
+		"payment-status": "Zahlungsstatus",
+		"shipping-cost": "Versandkosten",
+		"order-total": "Gesamtbetrag",
+		"customer-details": "Kundendetails",
+		"shipping-address": "Lieferadresse",
+		history: history$1,
+		ready: ready$1,
+		"in-preparation": "In Vorbereitung",
+		"waiting-product": "Wartet auf Produktlieferung",
+		"to-be-shipped": "Versandbereit",
+		shipped: shipped$1,
+		name: name$1,
+		phone: phone$1,
+		"mob-number": "Handynummer",
+		update: update$1,
+		type: type$1,
+		size: size$1,
+		"payment-type": "Zahlungsart",
+		"three-installments": "Drei monatliche Raten, 0% Zinsen",
+		"start-date": "Anfangsdatum",
+		"end-date": "Enddatum",
+		"installment-amount": "Ratenbetrag",
+		color: color$1,
+		customer_balance: customer_balance$1,
+		paid: paid$1,
+		black: black$1,
+		"add-tracking": "Tracking hinzufügen",
+		"tracking-number": "Sendungsnummer",
+		"add-event": "Ereignis hinzufügen",
+		add: add$1,
+		status: status$1,
+		message: message$1,
+		order_placed: order_placed$1,
+		in_preparation: in_preparation$1,
+		ready_to_ship: ready_to_ship$1,
+		delivered: delivered$1,
+		canceled: canceled$1,
+		edit: edit$1,
+		save: save$1,
+		tracking_details: tracking_details$1,
+		courier: courier$1,
+		number_of_packages: number_of_packages$1,
+		tracking_links: tracking_links$1,
+		refunded: refunded$1,
+		receipt: receipt$1
+	};
+
+	var history = "Historique";
+	var ready = "Prêt";
+	var shipped = "Expédié";
+	var name = "Nom";
+	var phone = "Téléphone";
+	var update = "Mettre à jour";
+	var type = "Type";
+	var size = "Taille";
+	var color = "Couleur";
+	var customer_balance = "Virement bancaire";
+	var paid = "Paiement effectué";
+	var black = "Noir";
+	var add = "Ajouter";
+	var status = "Statut";
+	var message = "Message";
+	var order_placed = "Commande confirmée";
+	var in_preparation = "Commande en préparation";
+	var ready_to_ship = "Commande prête à être expédiée";
+	var delivered = "Commande livrée";
+	var canceled = "Commande annulée";
+	var edit = "Modifier";
+	var save = "Enregistrer";
+	var tracking_details = "Suivi";
+	var courier = "Transporteur";
+	var number_of_packages = "Nombre de colis";
+	var tracking_links = "Liens de suivi";
+	var refunded = "Remboursé";
+	var receipt = "Reçu";
+	var fr = {
+		"order-summary": "Récapitulatif de la commande",
+		"order-details": "Détails de la commande",
+		"order-status": "Statut de la commande",
+		"payment-method": "Méthode de paiement",
+		"payment-status": "Statut du paiement",
+		"shipping-cost": "Frais de livraison",
+		"order-total": "Total de la commande",
+		"customer-details": "Détails du client",
+		"shipping-address": "Adresse de livraison",
+		history: history,
+		ready: ready,
+		"in-preparation": "En préparation",
+		"waiting-product": "En attente de la livraison du produit",
+		"to-be-shipped": "À expédier",
+		shipped: shipped,
+		name: name,
+		phone: phone,
+		"mob-number": "Numéro de téléphone mobile",
+		update: update,
+		type: type,
+		size: size,
+		"payment-type": "Type de paiement",
+		"three-installments": "Trois mensualités sans intérêt",
+		"start-date": "Date de début",
+		"end-date": "Date de fin",
+		"installment-amount": "Montant de la mensualité",
+		color: color,
+		customer_balance: customer_balance,
+		paid: paid,
+		black: black,
+		"add-tracking": "Ajouter un suivi",
+		"tracking-number": "Numéro de suivi",
+		"add-event": "Ajouter un événement",
+		add: add,
+		status: status,
+		message: message,
+		order_placed: order_placed,
+		in_preparation: in_preparation,
+		ready_to_ship: ready_to_ship,
+		delivered: delivered,
+		canceled: canceled,
+		edit: edit,
+		save: save,
+		tracking_details: tracking_details,
+		courier: courier,
+		number_of_packages: number_of_packages,
+		tracking_links: tracking_links,
+		refunded: refunded,
+		receipt: receipt
+	};
+
+	const languages = {
+	  it: it,
+	  en: en,
+	  es: es,
+	  de: de,
+	  fr: fr,
+	};
+
+	function getPreferredLanguage() {
+	  return navigator.language.substring(0, 2);
+	}
+
+	function translate(preferredLanguage) {
+	  preferredLanguage = getPreferredLanguage();
+	  return function translate(str) {
+	    if (languages[preferredLanguage]) {
+	      return languages[preferredLanguage][str];
+	    } else {
+	      return en[str];
+	    }
+	  };
+	}
+
+	let t = translate();
+
+	var root_2 = template(`<h1 class="title">Order not found</h1>`);
+	var root_3 = template(`<div class="sloader-container"><span class="sloader"></span> <h3 class="is-size-5">Please wait</h3></div>`);
+	var root_9 = template(`<p class="is-size-5 my-3"> </p>`);
+	var root_11 = template(`<li> </li>`);
+	var root_10 = template(`<ul class="mt-3"></ul>`);
+	var root_7 = template(`<li><div class="columns is-align-items-center"><div class="column"><!> <div class="column"><h4 class="title has-text-info is-size-4"> </h4> <p class="is-size-6"> </p> <!> <!></div></div></div></li>`);
+	var root_13 = template(`<div class="is-flex is-align-items-center is-justify-content-flex-start mt-3"><span class="icon pr-3"><i class="material-symbols-outlined">delivery_truck_speed</i></span> <p class="is-size-6"> </p></div>`);
+	var root_12 = template(`<li><div class="column"><h4 class="title has-text-info is-size-4 mb-2"> </h4> <!> <p class="is-size-5"> </p></div></li>`);
+	var root_6 = template(`<ul><!> <!> <li><div class="column"><hr> <h4 class="title has-text-info is-size-4 mt-5"> </h4> <p class="my-3"> </p></div></li></ul>`);
+	var root_14 = template(`<li class="pt-5"> </li> <li> </li> <li> </li> <li> </li>`, 1);
+	var root_15 = template(`<li> <span class="has-text-info has-text-weight-bold">paid</span></li>`);
+	var root_16 = template(`<form class="form"><div class="columns"><div class="column"><div class="select is-info"><select name="order-status" id="order-status"><option> </option><option> </option><option> </option><option> </option><option> </option></select></div></div> <div class="column"><button type="button" class="button is-info has-text-white"> </button></div></div></form>`);
+	var root_18 = template(`<li> </li>`);
+	var root_20 = template(`<form class="form my-4"><div class="columns is-mobile is-1"><div class="column is-one-quarter"><input class="input is-info" type="text" placeholder="International prefix"></div> <div class="column is-two-thirds"><input class="input is-info" type="text"></div></div> <button type="button" class="button is-info has-text-white"> </button></form>`);
+	var root_21 = template(`<ul><li> </li> <li> </li> <li> </li> <li> </li> <li> </li></ul>`);
+	var root_23 = template(`<ul><li> </li> <li> </li> <li> </li> <li> </li></ul>`);
+	var root_25 = template(`<h3 class="has-text-info title is-size-3">Tracking</h3>`);
+	var root_27 = template(`<hr> <div class="pb-6"><span class="tag is-large">Email <!></span> <button type="button" class="button"><span class="icon p-3"><i class="material-symbols-outlined">send</i></span></button> <button type="button" class="button"><span class="icon p-3"><i class="material-symbols-outlined"><!></i></span></button></div>`, 1);
+	var root_26 = template(`<div><div class="px-3"><span><!></span> <textarea class="textarea"></textarea></div></div> <!>`, 1);
+	var root_24 = template(`<div class="mt-5"><!> <div><span> </span></div> <!></div>`);
+	var root_33 = template(`<h3 class="has-text-info title is-size-3">Tracking</h3>`);
+	var root_35 = template(`<hr> <div class="pb-6"><span class="tag is-large">Email <!></span> <button type="button" class="button"><span class="icon p-3"><i class="material-symbols-outlined">send</i></span></button> <button type="button" class="button"><span class="icon p-3"><i class="material-symbols-outlined"><!></i></span></button></div>`, 1);
+	var root_34 = template(`<div><div class="px-3"><span><!></span> <textarea class="textarea"></textarea></div></div> <!>`, 1);
+	var root_32 = template(`<div class="mt-5"><!> <div><span> </span></div> <!></div>`);
+	var root_41 = template(`<option> </option>`);
+	var root_43 = template(`<li> <button class="button is-small is-danger ml-3">X</button></li>`);
+	var root_42 = template(`<h3 class="title mt-5"> </h3> <ul></ul>`, 1);
+	var root_44 = template(`<label class="label mt-4" for="">Message</label> <textarea class="textarea is-info"></textarea>`, 1);
+
+	var root_40 = template(
+		`<div class="box"><h2 class="title"> </h2> <div class="field"><label class="label"> </label> <div class="select is-info"><select><option disabled selected> </option><!></select></div></div> <div class="field"><label class="label"> </label> <input class="input is-info" type="text"></div> <button class="button is-info has-text-white"> </button> <!></div> <form class="form"><label class="label" for="">Level</label> <div class="select is-info mb-4"><select><option>info</option><option>warning</option><option>danger</option><option>success</option></select></div> <div class="field"><label class="label">Messaggi predefiniti</label> <div class="select is-info"><select><option>Seleziona un messaggio</option><option>Il tuo ordine è in preparazione.</option><option>Il tuo ordine è pronto per essere spedito.</option><option>Il tuo ordine è stato spedito.</option></select></div></div> <label class="checkbox mt-4"><input type="checkbox"> Usa messaggio
+            personalizzato</label> <!> <div class="mt-5"><button class="button is-info has-text-white" type="button">Aggiungi messaggio</button></div></form>`,
+		1
+	);
+
+	var root_5 = template(`<div class="columns"><div class="column is-half"><h2 class="title mt-6 px-5"> </h2> <div class="box"><!></div></div> <div class="column px-6"><div class="mt-6"><h2 class="title"> </h2> <ul><li> </li> <li> </li> <!></ul> <h2 class="title mt-6"> </h2> <!> <h2 class="title mt-6"> </h2> <ul><li> </li> <!> <li><!></li> <li> </li></ul> <h2 class="title mt-6"> </h2> <!></div> <div id="history" class="my-6"><h2 class="title pt-2"> </h2> <!> <!></div> <!></div></div>`);
+
+	function PreOrder($$anchor, $$props) {
+		push($$props, true);
+
+		let internationalPrefix = state(""),
+			phoneNumber = state("");
+
+		let isUpdating = state(false);
+		let order = state(null);
+		let errorOrNotFound = state(false);
+		let event$1 = proxy({});
+		let orderStatus = state(proxy({}));
+		let predefinedMessage = state("");
+		let openEditors = proxy({});
+		let editors = proxy({});
+		let useCustomMessage = state(false);
+		let tracking = proxy({ courier: "", parcels: [] });
+		let newParcel = "";
+
+		let couriers = [
+			"UPS",
+			"DHL",
+			"BRT",
+			"DPD",
+			"SDA",
+			"FedEx"
+		];
+
+		function ucfirst(str) {
+			if (typeof str === "String") {
+				return str[0].toUpperCase() + str.substring(1, str.length);
+			}
+
+			return str;
+		}
+
+		const trackingLinks = {
+			ups: "https://www.ups.com/track?loc=en_GB&tracknum=PARCELNUM&requester=WT/trackdetails",
+			dpd: "https://vas.brt.it/vas/sped_det_show.hsm?chisono=PARCELNUM"
+		};
+
+		function addTrackingInfo() {
+			if (tracking.courier && newParcel.trim()) {
+				tracking.parcels.push(newParcel.trim());
+				newParcel = "";
+				updateTracking();
+			}
+		}
+
+		function removeParcel(index) {
+			tracking.parcels.splice(index, 1);
+			updateTracking();
+		}
+
+		function updateTracking() {
+			if (tracking.parcels.length > 0) {
+				let trackingMessage = `Informazioni di tracking<br>Corriere: ${tracking.courier.toUpperCase()}<br>Pacchi: ${tracking.parcels.length}<br><ul>`;
+
+				tracking.parcels.forEach((parcel, index) => {
+					trackingMessage += `<li><a href="${trackingLinks[tracking.courier].replace("PARCELNUM", parcel)}" target="_blank">Pacco ${index + 1}: ${parcel}</li></a>`;
+				});
+
+				trackingMessage += "</ul>";
+
+				get(order).events.push({
+					ts: Date.now(),
+					level: "info",
+					type: "tracking-info",
+					data: { text: trackingMessage }
+				});
+
+				set(order, proxy(get(order)));
+				updateOrder();
+			}
+		}
+
+		function formatCurrency(product) {
+			return new Intl.NumberFormat("en-IT", {
+				style: "currency",
+				currency: product.currency || "EUR",
+				maximumFractionDigits: 2
+			}).format((product.quantity || 1) * (product.price || product.amount_total) / 100);
+		}
+
+		function addEvent() {
+			if (event$1.type === "tracking-info") {
+				let parcels = tracking.parcels.filter((v) => v.length > 0);
+
+				let tpl = `Informazioni di tracking<br>Corriere: ${tracking.courier.toUpperCase()}<br> Pacchi: ${parcels.length}<br><ul style="list-style-type:none;margin:10px auto;">${parcels.map((parcel, index) => {
+				let pattern = /(?:tracknum=)(\w+)&/gim;
+
+				if (tracking.courier === "brt" || tracking.courier === "dpd") {
+					pattern = /(?:chisono=)(\d*)/;
+				}
+
+				if (tracking.courier === "sda") {
+					pattern = /(?:risultati-spedizioni\/)(\w+)/;
+				}
+
+				let matches = pattern.exec(parcel);
+
+				return `<li><a href="${parcel}" target="_blank">Pacco ${index + 1}: ${matches[1]} </a></li>`;
+			}).join("")}</ul>`;
+
+				event$1.text = tpl;
+			}
+
+			let messageToAdd = get(useCustomMessage) ? event$1.text : get(predefinedMessage);
+
+			if (messageToAdd && messageToAdd.length > 0) {
+				get(order).events.push({
+					ts: Date.now(),
+					level: event$1.level,
+					type: event$1.type,
+					data: { text: messageToAdd }
+				});
+
+				set(order, proxy(get(order)));
+				updateOrder();
+			}
+		}
+
+		function switchEditor(index) {
+			if (openEditors[index] !== true) {
+				openEditors[index] = true;
+				editors[index].value = get(order).events.find((e) => e._id === index).data.text;
+			} else {
+				get(order).events.find((e) => e._id === index).data.text = editors[index].value;
+				openEditors[index] = false;
+				updateOrder();
+			}
+		}
+
+		async function updateOrder() {
+			fetch(`http://localhost:8080/order/${get(order).id}`, {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify(get(order))
+			}).then((r) => {
+				if (r.ok) {
+					event$1.level = "info";
+					event$1.type = "update";
+					event$1.text = null;
+				}
+			});
+		}
+
+		function displayPaymentMethod(pm) {
+			let type = "", wallet = "";
+
+			if (pm.type === "paypal") {
+				return "PayPal";
+			}
+
+			if (pm.type === "card") {
+				type = pm.card;
+			}
+
+			if (pm.type === "customer_balance") {
+				type = t("customer_balance");
+			}
+
+			if (pm.wallet) {
+				let v = "";
+
+				switch (pm.wallet) {
+					case "google_pay":
+						v = "Google Pay";
+						break;
+				}
+				wallet = v;
+			}
+
+			return (wallet ? `(${wallet}) ` : "") + type;
+		}
+
+		function updateOrderStatus() {
+			set(isUpdating, true);
+			get(order).status = get(orderStatus);
+			updateOrder().then(() => setTimeout(() => set(isUpdating, false), 1000));
+		}
+
+		function calculateTotal(order) {
+			let sum = 0;
+
+			for (let product of order.products) {
+				if (product.price) {
+					sum = sum + product.quantity * product.price;
+				}
+			}
+
+			if (order.shippingCost) {
+				sum = sum + order.shippingCost.amount_total;
+			}
+
+			return formatCurrency({
+				price: sum,
+				currency: order.shippingCost?.currency || "EUR"
+			});
+		}
+
+		async function sendUpdateEmail(stripeSessionId, eventId) {
+			if (confirm("Vuoi inviare la mail di aggiornamento?")) {
+				getPreferredLanguage();
+
+				await fetch(`http://localhost:8080/send-update-email/${stripeSessionId}/${eventId}/`, { method: "GET" }).then((r) => {
+					if (r.ok) {
+						alert("Email inviata");
+					} else {
+						alert("Errore invio email");
+					}
+				});
+			}
+		}
+
+		async function getOrder() {
+			const params = new URLSearchParams(window.location.search);
+			const lang = getPreferredLanguage();
+
+			// `https://kettleblaze-store-server.fly.dev/order/${params.get("id")}/${lang}`
+			// `http://localhost:8080/order/${params.get("id")}/${lang}`,
+			const o = await fetch(`http://localhost:8080/order/${params.get("id")}/${lang}`, { method: "GET" }).then((r) => {
+				if (r.ok) {
+					set(errorOrNotFound, false);
+					return r.json();
+				} else {
+					set(errorOrNotFound, true);
+					return {};
+				}
+			}).then((o) => {
+				set(internationalPrefix, "+" + o.customer.address.country_data.phone[0]);
+				set(orderStatus, proxy(o.status));
+				return o;
+			});
+
+			//  order.customer = o.customer;
+			return o;
+		}
+
+		async function updatePhoneNumber() {
+			if (get(internationalPrefix).length > 0 && get(phoneNumber).length > 0) {
+				set(isUpdating, true);
+
+				fetch(`https://kettleblaze-store-server.fly.dev/order/phone/${get(order).id}/${get(internationalPrefix)}/${get(phoneNumber)}`).catch((e) => {
+					return { status: e.message };
+				}).then((r) => {
+					if (r.ok) {
+						return r.json();
+					} else {
+						set(isUpdating, false);
+						return { status: "Error" };
+					}
+				}).then((r) => {
+					if (r.status === "ok") {
+						get(order).customer.phone = get(phoneNumber);
+						set(isUpdating, false);
+					}
+				});
+			} else return false;
+		}
+
+		onMount(() => {
+			getOrder().then((o) => set(order, proxy(o)));
+		});
+
+		var fragment = comment();
+		var node = first_child(fragment);
+
+		{
+			var consequent_1 = ($$anchor) => {
+				var fragment_1 = comment();
+				var node_1 = first_child(fragment_1);
+
+				{
+					var consequent = ($$anchor) => {
+						var h1 = root_2();
+
+						append($$anchor, h1);
+					};
+
+					var alternate = ($$anchor) => {
+						var div = root_3();
+
+						append($$anchor, div);
+					};
+
+					if_block(node_1, ($$render) => {
+						if (get(errorOrNotFound)) $$render(consequent); else $$render(alternate, false);
+					});
+				}
+
+				append($$anchor, fragment_1);
+			};
+
+			var alternate_9 = ($$anchor) => {
+				var fragment_2 = comment();
+				var node_2 = first_child(fragment_2);
+
+				{
+					var consequent_27 = ($$anchor) => {
+						var div_1 = root_5();
+						var div_2 = child(div_1);
+						var h2 = child(div_2);
+						var text$1 = child(h2);
+
+						var div_3 = sibling(h2, 2);
+						var node_3 = child(div_3);
+
+						{
+							var consequent_7 = ($$anchor) => {
+								var ul = root_6();
+								var node_4 = child(ul);
+
+								each(node_4, 17, () => get(order).products, index, ($$anchor, product) => {
+									var li = root_7();
+									var div_4 = child(li);
+									var div_5 = child(div_4);
+									var node_5 = child(div_5);
+
+									{
+										var consequent_2 = ($$anchor) => {
+											SirvImage($$anchor, {
+												get src() {
+													return `https://kettleblaze.sirv.com/orders/${get(product).sku ?? ''}.jpg`;
+												},
+												width: '480',
+												height: '480',
+												displayWidth: '120',
+												displayHeight: '120',
+												quality: '98'
+											});
+										};
+
+										if_block(node_5, ($$render) => {
+											if (get(product).sku !== "prod_AI839Kll1kzw23") $$render(consequent_2);
+										});
+									}
+
+									var div_6 = sibling(node_5, 2);
+									var h4 = child(div_6);
+									var text_1 = child(h4);
+
+									var p = sibling(h4, 2);
+									var text_2 = child(p);
+
+									var node_6 = sibling(p, 2);
+
+									{
+										var consequent_3 = ($$anchor) => {
+											var p_1 = root_9();
+											var text_3 = child(p_1);
+											template_effect(($0) => set_text(text_3, $0), [() => formatCurrency(get(product))]);
+											append($$anchor, p_1);
+										};
+
+										if_block(node_6, ($$render) => {
+											if (get(product).price > 0) $$render(consequent_3);
+										});
+									}
+
+									var node_7 = sibling(node_6, 2);
+
+									{
+										var consequent_4 = ($$anchor) => {
+											var ul_1 = root_10();
+
+											each(ul_1, 21, () => get(product).extras, index, ($$anchor, extra) => {
+												var li_1 = root_11();
+												var text_4 = child(li_1);
+
+												template_effect(($0, $1) => set_text(text_4, `${$0 ?? ''}: ${$1 ?? ''}`), [
+													() => t(get(extra).name),
+													() => ucfirst(get(extra).value)
+												]);
+
+												append($$anchor, li_1);
+											});
+											append($$anchor, ul_1);
+										};
+
+										if_block(node_7, ($$render) => {
+											if (get(product).extras.length > 0) $$render(consequent_4);
+										});
+									}
+
+									template_effect(() => {
+										set_text(text_1, `${get(product).quantity ?? ''} x ${get(product).name ?? ''}`);
+										set_text(text_2, get(product).description);
+									});
+
+									append($$anchor, li);
+								});
+
+								var node_8 = sibling(node_4, 2);
+
+								{
+									var consequent_6 = ($$anchor) => {
+										var li_2 = root_12();
+										var div_7 = child(li_2);
+										var h4_1 = child(div_7);
+										var text_5 = child(h4_1);
+
+										var node_9 = sibling(h4_1, 2);
+
+										{
+											var consequent_5 = ($$anchor) => {
+												var div_8 = root_13();
+												var p_2 = sibling(child(div_8), 2);
+												var text_6 = child(p_2);
+												template_effect(() => set_text(text_6, get(order).shippingCost.display_name));
+												append($$anchor, div_8);
+											};
+
+											if_block(node_9, ($$render) => {
+												if (get(order).shippingCost.display_name) $$render(consequent_5);
+											});
+										}
+
+										var p_3 = sibling(node_9, 2);
+										var text_7 = child(p_3);
+
+										template_effect(
+											($0, $1) => {
+												set_text(text_5, $0);
+												set_text(text_7, $1);
+											},
+											[
+												() => t("shipping-cost"),
+												() => formatCurrency(get(order).shippingCost)
+											]
+										);
+
+										append($$anchor, li_2);
+									};
+
+									if_block(node_8, ($$render) => {
+										if (get(order).shippingCost) $$render(consequent_6);
+									});
+								}
+
+								var li_3 = sibling(node_8, 2);
+								var div_9 = child(li_3);
+								var h4_2 = sibling(child(div_9), 2);
+								var text_8 = child(h4_2);
+
+								var p_4 = sibling(h4_2, 2);
+								var text_9 = child(p_4);
+
+								template_effect(
+									($0, $1) => {
+										set_text(text_8, $0);
+										set_text(text_9, $1);
+									},
+									[
+										() => t("order-total"),
+										() => calculateTotal(get(order))
+									]
+								);
+
+								append($$anchor, ul);
+							};
+
+							if_block(node_3, ($$render) => {
+								if (get(order).products.length > 0) $$render(consequent_7);
+							});
+						}
+
+						var div_10 = sibling(div_2, 2);
+						var div_11 = child(div_10);
+						var h2_1 = child(div_11);
+						var text_10 = child(h2_1);
+
+						var ul_2 = sibling(h2_1, 2);
+						var li_4 = child(ul_2);
+						var text_11 = child(li_4);
+
+						var li_5 = sibling(li_4, 2);
+						var text_12 = child(li_5);
+
+						var node_10 = sibling(li_5, 2);
+
+						{
+							var consequent_8 = ($$anchor) => {
+								var fragment_4 = root_14();
+								var li_6 = first_child(fragment_4);
+								var text_13 = child(li_6);
+
+								var li_7 = sibling(li_6, 2);
+								var text_14 = child(li_7);
+
+								var li_8 = sibling(li_7, 2);
+								var text_15 = child(li_8);
+
+								var li_9 = sibling(li_8, 2);
+								var text_16 = child(li_9);
+
+								template_effect(
+									($0, $1, $2, $3, $4, $5, $6, $7) => {
+										set_text(text_13, `${$0 ?? ''}: ${$1 ?? ''}`);
+										set_text(text_14, `${$2 ?? ''}: ${$3 ?? ''}`);
+										set_text(text_15, `${$4 ?? ''}: ${$5 ?? ''}`);
+										set_text(text_16, `${$6 ?? ''}: ${$7 ?? ''}`);
+									},
+									[
+										() => t("payment-type"),
+										() => t("three-installments"),
+										() => t("start-date"),
+										() => new Date(get(order).paymentMethod.subscription.start_date).toLocaleDateString(),
+										() => t("end-date"),
+										() => new Date(get(order).paymentMethod.subscription.cancel_at).toLocaleDateString(),
+										() => t("installment-amount"),
+										() => formatCurrency({
+											amount_total: get(order).paymentMethod.subscription.plan.amount,
+											currency: get(order).paymentMethod.subscription.plan.currency
+										})
+									]
+								);
+
+								append($$anchor, fragment_4);
+							};
+
+							var alternate_1 = ($$anchor) => {
+								var li_10 = root_15();
+								var text_17 = child(li_10);
+								template_effect(($0) => set_text(text_17, `${$0 ?? ''}: `), [() => t("payment-status")]);
+								append($$anchor, li_10);
+							};
+
+							if_block(node_10, ($$render) => {
+								if (get(order).paymentMethod.subscription) $$render(consequent_8); else $$render(alternate_1, false);
+							});
+						}
+
+						var h2_2 = sibling(ul_2, 2);
+						var text_18 = child(h2_2);
+
+						var node_11 = sibling(h2_2, 2);
+
+						{
+							var consequent_9 = ($$anchor) => {
+								var form = root_16();
+								var div_12 = child(form);
+								var div_13 = child(div_12);
+								var div_14 = child(div_13);
+								var select = child(div_14);
+								var option = child(select);
+
+								option.value = null == (option.__value = 'ready') ? '' : 'ready';
+
+								var text_19 = child(option);
+
+								var option_1 = sibling(option);
+
+								option_1.value = null == (option_1.__value = 'in-preparation') ? '' : 'in-preparation';
+
+								var text_20 = child(option_1);
+
+								var option_2 = sibling(option_1);
+
+								option_2.value = null == (option_2.__value = 'waiting-product') ? '' : 'waiting-product';
+
+								var text_21 = child(option_2);
+
+								var option_3 = sibling(option_2);
+
+								option_3.value = null == (option_3.__value = 'to-be-shipped') ? '' : 'to-be-shipped';
+
+								var text_22 = child(option_3);
+
+								var option_4 = sibling(option_3);
+
+								option_4.value = null == (option_4.__value = 'shipped') ? '' : 'shipped';
+
+								var text_23 = child(option_4);
+
+								var div_15 = sibling(div_13, 2);
+								var button = child(div_15);
+								var text_24 = child(button);
+
+								template_effect(
+									($0, $1, $2, $3, $4, $5) => {
+										select.disabled = get(isUpdating) ? "disabled" : "";
+										set_selected(option, get(orderStatus) === "ready");
+										set_text(text_19, $0);
+										set_selected(option_1, get(orderStatus) === "in-preparation");
+										set_text(text_20, $1);
+										set_selected(option_2, get(orderStatus) === "waiting-product");
+										set_text(text_21, $2);
+										set_selected(option_3, get(orderStatus) === "to-be-shipped");
+										set_text(text_22, $3);
+										set_selected(option_4, get(orderStatus) === "shipped");
+										set_text(text_23, $4);
+										set_text(text_24, $5);
+									},
+									[
+										() => t("ready"),
+										() => t("in-preparation"),
+										() => t("waiting-product"),
+										() => t("to-be-shipped"),
+										() => t("shipped"),
+										() => t("update")
+									]
+								);
+
+								bind_select_value(select, () => get(orderStatus), ($$value) => set(orderStatus, $$value));
+								event('click', button, updateOrderStatus);
+								append($$anchor, form);
+							};
+
+							if_block(node_11, ($$render) => {
+								$$render(consequent_9);
+							});
+						}
+
+						var h2_4 = sibling(node_11, 2);
+						var text_26 = child(h2_4);
+
+						var ul_3 = sibling(h2_4, 2);
+						var li_11 = child(ul_3);
+						var text_27 = child(li_11);
+
+						var node_12 = sibling(li_11, 2);
+
+						{
+							var consequent_10 = ($$anchor) => {
+								var li_12 = root_18();
+								var text_28 = child(li_12);
+								template_effect(() => set_text(text_28, `Codice fiscale: ${get(order).customer.fiscal_code ?? ''}`));
+								append($$anchor, li_12);
+							};
+
+							if_block(node_12, ($$render) => {
+								if (get(order).customer.fiscal_code) $$render(consequent_10);
+							});
+						}
+
+						var li_13 = sibling(node_12, 2);
+						var node_13 = child(li_13);
+
+						{
+							var consequent_11 = ($$anchor) => {
+								var text_29 = text();
+
+								template_effect(
+									($0) => set_text(text_29, `${$0 ?? ''}:
+              ${get(order).customer.phone ?? ''}`),
+									[() => t("phone")]
+								);
+
+								append($$anchor, text_29);
+							};
+
+							var alternate_3 = ($$anchor) => {
+								var form_1 = root_20();
+								var div_16 = child(form_1);
+								var div_17 = child(div_16);
+								var input = child(div_17);
+
+								var div_18 = sibling(div_17, 2);
+								var input_1 = child(div_18);
+
+								var button_1 = sibling(div_16, 2);
+								var text_30 = child(button_1);
+
+								template_effect(
+									($0, $1) => {
+										set_attribute(input_1, 'placeholder', $0);
+										button_1.disabled = get(isUpdating);
+										set_text(text_30, $1);
+									},
+									[
+										() => t("mob-phone"),
+										() => t("update")
+									]
+								);
+
+								bind_value(input, () => get(internationalPrefix), ($$value) => set(internationalPrefix, $$value));
+								bind_value(input_1, () => get(phoneNumber), ($$value) => set(phoneNumber, $$value));
+								event('click', button_1, updatePhoneNumber);
+								append($$anchor, form_1);
+							};
+
+							if_block(node_13, ($$render) => {
+								if (get(order).customer.phone) $$render(consequent_11); else $$render(alternate_3, false);
+							});
+						}
+
+						var li_14 = sibling(li_13, 2);
+						var text_31 = child(li_14);
+
+						var h2_5 = sibling(ul_3, 2);
+						var text_32 = child(h2_5);
+
+						var node_14 = sibling(h2_5, 2);
+
+						{
+							var consequent_12 = ($$anchor) => {
+								var ul_4 = root_21();
+								var li_15 = child(ul_4);
+								var text_33 = child(li_15);
+
+								var li_16 = sibling(li_15, 2);
+								var text_34 = child(li_16);
+
+								var li_17 = sibling(li_16, 2);
+								var text_35 = child(li_17);
+
+								var li_18 = sibling(li_17, 2);
+								var text_36 = child(li_18);
+
+								var li_19 = sibling(li_18, 2);
+								var text_37 = child(li_19);
+
+								template_effect(() => {
+									set_text(text_33, get(order).customer.shipping_details.name);
+									set_text(text_34, get(order).customer.shipping_details.address.line1);
+									set_text(text_35, get(order).customer.shipping_details.address.line2);
+
+									set_text(text_36, `${get(order).customer.shipping_details.address.postal_code ?? ''}
+              ${get(order).customer.shipping_details.address.city ?? ''}
+              ${(get(order).customer.shipping_details.address.state ? `(${get(order).customer.shipping_details.address.state})` : "") ?? ''}`);
+
+									set_text(text_37, `${get(order).customer.address.country_data.native ?? ''} - ${get(order).customer.address.country ?? ''}`);
+								});
+
+								append($$anchor, ul_4);
+							};
+
+							var alternate_4 = ($$anchor) => {
+								var fragment_6 = comment();
+								var node_15 = first_child(fragment_6);
+
+								{
+									var consequent_13 = ($$anchor) => {
+										var ul_5 = root_23();
+										var li_20 = child(ul_5);
+										var text_38 = child(li_20);
+
+										var li_21 = sibling(li_20, 2);
+										var text_39 = child(li_21);
+
+										var li_22 = sibling(li_21, 2);
+										var text_40 = child(li_22);
+
+										var li_23 = sibling(li_22, 2);
+										var text_41 = child(li_23);
+
+										template_effect(() => {
+											set_text(text_38, get(order).customer.address.line1);
+											set_text(text_39, get(order).customer.address.line2);
+
+											set_text(text_40, `${get(order).customer.address.postal_code ?? ''}
+              ${get(order).customer.address.city ?? ''}
+              ${(get(order).customer.address.state ? `(${get(order).customer.address.state})` : "") ?? ''}`);
+
+											set_text(text_41, `${get(order).customer.address.country_data.native ?? ''} - ${get(order).customer.address.country ?? ''}`);
+										});
+
+										append($$anchor, ul_5);
+									};
+
+									if_block(
+										node_15,
+										($$render) => {
+											if (get(order).customer.address) $$render(consequent_13);
+										},
+										true
+									);
+								}
+
+								append($$anchor, fragment_6);
+							};
+
+							if_block(node_14, ($$render) => {
+								if (get(order).customer.shipping_details) $$render(consequent_12); else $$render(alternate_4, false);
+							});
+						}
+
+						var div_19 = sibling(div_11, 2);
+						var h2_6 = child(div_19);
+						var text_42 = child(h2_6);
+
+						var node_16 = sibling(h2_6, 2);
+
+						each(node_16, 17, () => get(order).events.filter((e) => e.type !== "tracking-info"), index, ($$anchor, event$1, index, $$array) => {
+							var div_20 = root_24();
+							var node_17 = child(div_20);
+
+							{
+								var consequent_14 = ($$anchor) => {
+									var h3 = root_25();
+
+									append($$anchor, h3);
+								};
+
+								if_block(node_17, ($$render) => {
+									if (get(event$1).type === "tracking-info") $$render(consequent_14);
+								});
+							}
+
+							var div_21 = sibling(node_17, 2);
+							var span = child(div_21);
+							var text_43 = child(span);
+
+							var node_18 = sibling(div_21, 2);
+
+							{
+								var consequent_18 = ($$anchor) => {
+									var fragment_7 = root_26();
+									var div_22 = first_child(fragment_7);
+									var div_23 = child(div_22);
+									var span_1 = child(div_23);
+									var node_19 = child(span_1);
+
+									html(node_19, () => get(event$1).data.text);
+
+									var textarea = sibling(span_1, 2);
+
+									bind_this(textarea, ($$value, event) => editors[event._id] = $$value, (event) => editors?.[event._id], () => [get(event$1)]);
+
+									var node_20 = sibling(div_22, 2);
+
+									{
+										var consequent_17 = ($$anchor) => {
+											var fragment_8 = root_27();
+											var div_24 = sibling(first_child(fragment_8), 2);
+											var span_2 = child(div_24);
+											var node_21 = sibling(child(span_2));
+
+											{
+												var consequent_15 = ($$anchor) => {
+													var text_44 = text('inviata');
+
+													append($$anchor, text_44);
+												};
+
+												var alternate_5 = ($$anchor) => {
+													var text_45 = text('NON inviata');
+
+													append($$anchor, text_45);
+												};
+
+												if_block(node_21, ($$render) => {
+													if (get(event$1).emailSent) $$render(consequent_15); else $$render(alternate_5, false);
+												});
+											}
+
+											var button_2 = sibling(span_2, 2);
+											var button_3 = sibling(button_2, 2);
+											var span_3 = child(button_3);
+											var i = child(span_3);
+											var node_22 = child(i);
+
+											{
+												var consequent_16 = ($$anchor) => {
+													var text_46 = text('edit');
+
+													append($$anchor, text_46);
+												};
+
+												var alternate_6 = ($$anchor) => {
+													var text_47 = text('close');
+
+													append($$anchor, text_47);
+												};
+
+												if_block(node_22, ($$render) => {
+													if (!openEditors[get(event$1)._id]) $$render(consequent_16); else $$render(alternate_6, false);
+												});
+											}
+
+											template_effect(() => {
+												toggle_class(span_2, 'is-info', get(event$1).emailSent);
+												toggle_class(span_2, 'has-text-white', get(event$1).emailSent);
+											});
+
+											event('click', button_2, () => sendUpdateEmail(get(order).stripeSessionId, get(event$1)._id));
+											event('click', button_3, () => switchEditor(get(event$1)._id));
+											append($$anchor, fragment_8);
+										};
+
+										if_block(node_20, ($$render) => {
+											$$render(consequent_17);
+										});
+									}
+
+									template_effect(() => {
+										toggle_class(div_22, 'has-text-warning', get(event$1).level === "warning");
+										set_attribute(span_1, 'id', `event-${get(event$1)._id}`);
+										toggle_class(span_1, 'is-hidden', openEditors[get(event$1)._id] === true);
+										set_attribute(textarea, 'name', `editor-${get(event$1)._id ?? ''}`);
+										set_attribute(textarea, 'id', `edit-event-${get(event$1)._id ?? ''}`);
+										toggle_class(textarea, 'is-hidden', openEditors[get(event$1)._id] !== true);
+									});
+
+									append($$anchor, fragment_7);
+								};
+
+								if_block(node_18, ($$render) => {
+									if (get(event$1).data) $$render(consequent_18);
+								});
+							}
+
+							template_effect(
+								($0, $1) => {
+									toggle_class(div_20, 'is-tracking', get(event$1).type === "tracking-info");
+									toggle_class(div_20, 'pt-4', get(event$1).type === "tracking-info");
+									set_class(span, `has-text-${get(event$1).level ?? ''}`);
+
+									set_text(text_43, `• ${$0 ?? ''}
+                ${$1 ?? ''}`);
+								},
+								[
+									() => new Date(get(event$1).ts).toLocaleDateString(),
+									() => new Date(get(event$1).ts).toLocaleTimeString()
+								]
+							);
+
+							append($$anchor, div_20);
+						});
+
+						var node_23 = sibling(node_16, 2);
+
+						each(node_23, 17, () => get(order).events.filter((e) => e.type === "tracking-info"), index, ($$anchor, event$1, index, $$array_1) => {
+							var div_25 = root_32();
+							var node_24 = child(div_25);
+
+							{
+								var consequent_19 = ($$anchor) => {
+									var h3_1 = root_33();
+
+									append($$anchor, h3_1);
+								};
+
+								if_block(node_24, ($$render) => {
+									if (get(event$1).type === "tracking-info") $$render(consequent_19);
+								});
+							}
+
+							var div_26 = sibling(node_24, 2);
+							var span_4 = child(div_26);
+							var text_48 = child(span_4);
+
+							var node_25 = sibling(div_26, 2);
+
+							{
+								var consequent_23 = ($$anchor) => {
+									var fragment_9 = root_34();
+									var div_27 = first_child(fragment_9);
+									var div_28 = child(div_27);
+									var span_5 = child(div_28);
+									var node_26 = child(span_5);
+
+									html(node_26, () => get(event$1).data.text);
+
+									var textarea_1 = sibling(span_5, 2);
+
+									bind_this(textarea_1, ($$value, event) => editors[event._id] = $$value, (event) => editors?.[event._id], () => [get(event$1)]);
+
+									var node_27 = sibling(div_27, 2);
+
+									{
+										var consequent_22 = ($$anchor) => {
+											var fragment_10 = root_35();
+											var div_29 = sibling(first_child(fragment_10), 2);
+											var span_6 = child(div_29);
+											var node_28 = sibling(child(span_6));
+
+											{
+												var consequent_20 = ($$anchor) => {
+													var text_49 = text('inviata');
+
+													append($$anchor, text_49);
+												};
+
+												var alternate_7 = ($$anchor) => {
+													var text_50 = text('NON inviata');
+
+													append($$anchor, text_50);
+												};
+
+												if_block(node_28, ($$render) => {
+													if (get(event$1).emailSent) $$render(consequent_20); else $$render(alternate_7, false);
+												});
+											}
+
+											var button_4 = sibling(span_6, 2);
+											var button_5 = sibling(button_4, 2);
+											var span_7 = child(button_5);
+											var i_1 = child(span_7);
+											var node_29 = child(i_1);
+
+											{
+												var consequent_21 = ($$anchor) => {
+													var text_51 = text('edit');
+
+													append($$anchor, text_51);
+												};
+
+												var alternate_8 = ($$anchor) => {
+													var text_52 = text('close');
+
+													append($$anchor, text_52);
+												};
+
+												if_block(node_29, ($$render) => {
+													if (!openEditors[get(event$1)._id]) $$render(consequent_21); else $$render(alternate_8, false);
+												});
+											}
+
+											template_effect(() => {
+												toggle_class(span_6, 'is-info', get(event$1).emailSent);
+												toggle_class(span_6, 'has-text-white', get(event$1).emailSent);
+											});
+
+											event('click', button_4, () => sendUpdateEmail(get(order).stripeSessionId, index));
+											event('click', button_5, () => switchEditor(get(event$1)._id));
+											append($$anchor, fragment_10);
+										};
+
+										if_block(node_27, ($$render) => {
+											$$render(consequent_22);
+										});
+									}
+
+									template_effect(() => {
+										toggle_class(div_27, 'has-text-warning', get(event$1).level === "warning");
+										set_attribute(span_5, 'id', `event-${get(event$1)._id}`);
+										toggle_class(span_5, 'is-hidden', openEditors[get(event$1)._id] === true);
+										set_attribute(textarea_1, 'name', `editor-${get(event$1)._id ?? ''}`);
+										set_attribute(textarea_1, 'id', `edit-event-${get(event$1)._id ?? ''}`);
+										toggle_class(textarea_1, 'is-hidden', openEditors[get(event$1)._id] !== true);
+									});
+
+									append($$anchor, fragment_9);
+								};
+
+								if_block(node_25, ($$render) => {
+									if (get(event$1).data) $$render(consequent_23);
+								});
+							}
+
+							template_effect(
+								($0, $1) => {
+									toggle_class(div_25, 'is-tracking', get(event$1).type === "tracking-info");
+									toggle_class(div_25, 'pt-4', get(event$1).type === "tracking-info");
+									set_class(span_4, `has-text-${get(event$1).level ?? ''}`);
+
+									set_text(text_48, `• ${$0 ?? ''}
+                ${$1 ?? ''}`);
+								},
+								[
+									() => new Date(get(event$1).ts).toLocaleDateString(),
+									() => new Date(get(event$1).ts).toLocaleTimeString()
+								]
+							);
+
+							append($$anchor, div_25);
+						});
+
+						var node_30 = sibling(div_19, 2);
+
+						{
+							var consequent_26 = ($$anchor) => {
+								var fragment_11 = root_40();
+								var div_30 = first_child(fragment_11);
+								var h2_7 = child(div_30);
+								var text_53 = child(h2_7);
+
+								var div_31 = sibling(h2_7, 2);
+								var label = child(div_31);
+								var text_54 = child(label);
+
+								var div_32 = sibling(label, 2);
+								var select_1 = child(div_32);
+								var option_5 = child(select_1);
+
+								option_5.value = null == (option_5.__value = '') ? '' : '';
+
+								var text_55 = child(option_5);
+
+								var node_31 = sibling(option_5);
+
+								each(node_31, 17, () => couriers, index, ($$anchor, courier) => {
+									var option_6 = root_41();
+									var option_6_value = {};
+									var text_56 = child(option_6);
+
+									template_effect(
+										($0) => {
+											if (option_6_value !== (option_6_value = $0)) {
+												option_6.value = null == (option_6.__value = $0) ? '' : $0;
+											}
+
+											set_text(text_56, get(courier));
+										},
+										[() => get(courier).toLowerCase()]
+									);
+
+									append($$anchor, option_6);
+								});
+
+								var div_33 = sibling(div_31, 2);
+								var label_1 = child(div_33);
+								var text_57 = child(label_1);
+
+								var input_2 = sibling(label_1, 2);
+
+								var button_6 = sibling(div_33, 2);
+								var text_58 = child(button_6);
+
+								var node_32 = sibling(button_6, 2);
+
+								{
+									var consequent_24 = ($$anchor) => {
+										var fragment_12 = root_42();
+										var h3_2 = first_child(fragment_12);
+										var text_59 = child(h3_2);
+
+										var ul_6 = sibling(h3_2, 2);
+
+										each(ul_6, 21, () => tracking.parcels, index, ($$anchor, parcel, index) => {
+											var li_24 = root_43();
+											var text_60 = child(li_24);
+											var button_7 = sibling(text_60);
+											template_effect(() => set_text(text_60, `${get(parcel) ?? ''} `));
+											event('click', button_7, () => removeParcel(index));
+											append($$anchor, li_24);
+										});
+										template_effect(($0) => set_text(text_59, $0), [() => t("tracking-details")]);
+										append($$anchor, fragment_12);
+									};
+
+									if_block(node_32, ($$render) => {
+										if (tracking.parcels.length > 0) $$render(consequent_24);
+									});
+								}
+
+								var form_2 = sibling(div_30, 2);
+								var div_34 = sibling(child(form_2), 2);
+								var select_2 = child(div_34);
+								var option_7 = child(select_2);
+
+								option_7.value = null == (option_7.__value = 'info') ? '' : 'info';
+
+								var option_8 = sibling(option_7);
+
+								option_8.value = null == (option_8.__value = 'warning') ? '' : 'warning';
+
+								var option_9 = sibling(option_8);
+
+								option_9.value = null == (option_9.__value = 'danger') ? '' : 'danger';
+
+								var option_10 = sibling(option_9);
+
+								option_10.value = null == (option_10.__value = 'success') ? '' : 'success';
+
+								var div_35 = sibling(div_34, 2);
+								var div_36 = sibling(child(div_35), 2);
+								var select_3 = child(div_36);
+								var option_11 = child(select_3);
+
+								option_11.value = null == (option_11.__value = '') ? '' : '';
+
+								var option_12 = sibling(option_11);
+
+								option_12.value = null == (option_12.__value = 'Il tuo ordine è in preparazione.') ? '' : 'Il tuo ordine è in preparazione.';
+
+								var option_13 = sibling(option_12);
+
+								option_13.value = null == (option_13.__value = 'Il tuo ordine è pronto per essere spedito.') ? '' : 'Il tuo ordine è pronto per essere spedito.';
+
+								var option_14 = sibling(option_13);
+
+								option_14.value = null == (option_14.__value = 'Il tuo ordine è stato spedito.') ? '' : 'Il tuo ordine è stato spedito.';
+
+								var label_2 = sibling(div_35, 2);
+								var input_3 = child(label_2);
+
+								var node_33 = sibling(label_2, 2);
+
+								{
+									var consequent_25 = ($$anchor) => {
+										var fragment_13 = root_44();
+										var textarea_2 = sibling(first_child(fragment_13), 2);
+										bind_value(textarea_2, () => event$1.text, ($$value) => event$1.text = $$value);
+										append($$anchor, fragment_13);
+									};
+
+									if_block(node_33, ($$render) => {
+										if (get(useCustomMessage)) $$render(consequent_25);
+									});
+								}
+
+								var div_37 = sibling(node_33, 2);
+								var button_8 = child(div_37);
+
+								template_effect(
+									($0, $1, $2, $3, $4) => {
+										set_text(text_53, $0);
+										set_text(text_54, $1);
+										set_text(text_55, $2);
+										set_text(text_57, $3);
+										set_text(text_58, $4);
+									},
+									[
+										() => t("add-tracking-info"),
+										() => t("courier"),
+										() => t("select-courier"),
+										() => t("tracking-number"),
+										() => t("add-tracking")
+									]
+								);
+
+								bind_select_value(select_1, () => tracking.courier, ($$value) => tracking.courier = $$value);
+								bind_value(input_2, () => newParcel, ($$value) => newParcel = $$value);
+								event('click', button_6, addTrackingInfo);
+								bind_select_value(select_2, () => event$1.level, ($$value) => event$1.level = $$value);
+								bind_select_value(select_3, () => get(predefinedMessage), ($$value) => set(predefinedMessage, $$value));
+								bind_checked(input_3, () => get(useCustomMessage), ($$value) => set(useCustomMessage, $$value));
+								event('click', button_8, addEvent);
+								append($$anchor, fragment_11);
+							};
+
+							if_block(node_30, ($$render) => {
+								$$render(consequent_26);
+							});
+						}
+
+						template_effect(
+							($0, $1, $2, $3, $4, $5, $6, $7, $8) => {
+								set_text(text$1, $0);
+								set_text(text_10, $1);
+								set_text(text_11, `Id: ${get(order).kettleblazeId ?? ''}`);
+								set_text(text_12, `${$2 ?? ''}: ${$3 ?? ''}`);
+								set_text(text_18, $4);
+								set_text(text_26, $5);
+								set_text(text_27, `${$6 ?? ''}: ${get(order).customer.name ?? ''}`);
+								set_text(text_31, `Email: ${get(order).customer.email ?? ''}`);
+								set_text(text_32, $7);
+								set_text(text_42, $8);
+							},
+							[
+								() => t("order-summary"),
+								() => t("order-details"),
+								() => t("payment-method"),
+								() => displayPaymentMethod(get(order).paymentMethod),
+								() => t("order-status"),
+								() => t("customer-details"),
+								() => t("name"),
+								() => t("shipping-address"),
+								() => t("history")
+							]
+						);
+
+						append($$anchor, div_1);
+					};
+
+					if_block(
+						node_2,
+						($$render) => {
+							if (get(order)) $$render(consequent_27);
+						},
+						true
+					);
+				}
+
+				append($$anchor, fragment_2);
+			};
+
+			if_block(node, ($$render) => {
+				if (!get(order)) $$render(consequent_1); else $$render(alternate_9, false);
+			});
+		}
+
+		append($$anchor, fragment);
+		pop();
+	}
+
+	let preOrderApp = mount(PreOrder, {
+	  target: document.getElementById("preorder-app"),
+	});
+
+	return preOrderApp;
+
+})();

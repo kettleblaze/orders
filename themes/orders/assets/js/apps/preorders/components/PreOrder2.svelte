@@ -3,6 +3,17 @@
   import SirvImage from "./SirvImage.svelte";
   import { translate as T, getPreferredLanguage } from "../i18n/utils.js";
 
+  // --- inizio modifica per cookie-based admin access ---
+  const ADMIN_TOKEN = "kettleblazeadmin01"; // <— sostituisci con la stringa desiderata
+
+  function getCookie(name) {
+    const match = document.cookie.match("(^|;)\\s*" + name + "=([^;]+)");
+    return match ? decodeURIComponent(match.pop()) : "";
+  }
+
+  let isLocal = false;
+  // --- fine modifica ---
+
   let isUpdating = false;
   let order = null;
   let errorOrNotFound = false;
@@ -44,7 +55,7 @@
 
   async function setupTracking() {
     const infoSped = await fetch(
-      `http://localhost:8080/info-spedizione/${tracking.shipment_id}`
+      `process.env.storeServer/info-spedizione/${tracking.shipment_id}`
     ).then((res) => res.json());
 
     tracking.courier = infoSped.corriere;
@@ -211,6 +222,8 @@
   }
 
   onMount(() => {
+    // Determina admin access via cookie
+    isLocal = getCookie("kbadmin341") === ADMIN_TOKEN;
     getOrder();
   });
 </script>
@@ -266,7 +279,7 @@
             </li>
           {/each}
           <li>
-            <hr class="spacer">
+            <hr class="spacer" />
             <div class="column">
               <h4 class="title has-text-info is-size-4 mt-5">
                 {T("order-total")}
@@ -303,7 +316,7 @@
           {/if}
         </li>
       </ul>
-      {#if process.env.isLocal}
+      {#if isLocal}
         <form class="form mt-5">
           <div class="columns">
             <div class="column">
@@ -425,7 +438,7 @@
               <strong class="has-text-info">{T(historyEvent.status)}</strong>
               <p class="mt-2">{historyEvent.message}</p>
 
-              {#if process.env.isLocal}
+              {#if isLocal}
                 <button
                   class="button is-warning mt-3"
                   on:click={() => editHistoryEvent(index)}
@@ -467,7 +480,7 @@
               {/each}
             </ul>
           </div>
-          {#if process.env.isLocal}
+          {#if isLocal}
             <button
               class="button is-info mt-3 has-text-white"
               on:click={sendTrackingNotificaton}>Invia mail di tracking</button
@@ -475,7 +488,7 @@
           {/if}
         {/each}
       {/if}
-      {#if process.env.isLocal}
+      {#if isLocal}
         <div class="field my-6">
           <label class="label">{T("add-event")}</label>
           <div class="select">

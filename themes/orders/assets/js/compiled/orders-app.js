@@ -1,1 +1,5802 @@
-var preOrdersApp=function(){"use strict";var e=!1,t=Array.isArray,n=Array.prototype.indexOf,r=Array.from,a=Object.defineProperty,i=Object.getOwnPropertyDescriptor,l=Object.getOwnPropertyDescriptors,o=Object.prototype,s=Array.prototype,u=Object.getPrototypeOf;function d(e){return e()}function c(e){for(var t=0;t<e.length;t++)e[t]()}const f=32,v=128,p=256,m=512,h=1024,g=2048,y=4096,_=8192,b=16384,w=65536,k=1<<17,x=1<<20,S=Symbol("$state"),T=Symbol("legacy props"),E=Symbol("");function O(e){return e===this.v}function P(e){return t=e,n=this.v,!(t!=t?n==n:t!==n||null!==t&&"object"==typeof t||"function"==typeof t);var t,n}let D=!1;const N=Symbol();let A=null;function z(e){A=e}function $(e,t=!1,n){A={p:A,c:null,e:null,m:!1,s:e,x:null,l:null},D&&!t&&(A.l={s:null,u:null,r1:[],r2:M(!1)})}function C(e){const t=A;if(null!==t){const e=t.e;if(null!==e){var n=Le,r=Re;t.e=null;try{for(var a=0;a<e.length;a++){var i=e[a];Ve(i.effect),Be(i.reaction),ue(i.fn)}}finally{Ve(n),Be(r)}}A=t.p,t.m=!0}return{}}function j(){return!D||null!==A&&null===A.l}function M(e,t){return{f:0,v:e,reactions:null,equals:O,rv:0,wv:0}}function I(e,t=!1){const n=M(e);return t||(n.equals=P),D&&null!==A&&null!==A.l&&(A.l.s??=[]).push(n),n}function R(e,t=!1){return function(e){null!==Re&&!qe&&2&Re.f&&(null===Fe?Fe=[e]:Fe.push(e));return e}(I(e,t))}function q(e,t){return B(e,pt((()=>ft(e)))),t}function B(e,t){return null!==Re&&!qe&&j()&&18&Re.f&&(null===Fe||!Fe.includes(e))&&function(){throw new Error("https://svelte.dev/e/state_unsafe_mutation")}(),L(e,t)}function L(e,t){return e.equals(t)||(e.v,e.v=t,e.wv=Qe(),V(e,g),j()&&null!==Le&&Le.f&h&&!(96&Le.f)&&(null===Ge?function(e){Ge=e}([e]):Ge.push(e))),t}function V(e,t){var n=e.reactions;if(null!==n)for(var r=j(),a=n.length,i=0;i<a;i++){var l=n[i],o=l.f;o&g||(r||l!==Le)&&(ht(l,t),1280&o&&(2&o?V(l,y):ut(l)))}}function F(e,n=null,r){if("object"!=typeof e||null===e||S in e)return e;const a=u(e);if(a!==o&&a!==s)return e;var l,d=new Map,c=t(e),f=M(0);return c&&d.set("length",M(e.length)),new Proxy(e,{defineProperty(e,t,n){"value"in n&&!1!==n.configurable&&!1!==n.enumerable&&!1!==n.writable||function(){throw new Error("https://svelte.dev/e/state_descriptors_fixed")}();var r=d.get(t);return void 0===r?(r=M(n.value),d.set(t,r)):B(r,F(n.value,l)),!0},deleteProperty(e,t){var n=d.get(t);if(void 0===n)t in e&&d.set(t,M(N));else{if(c&&"string"==typeof t){var r=d.get("length"),a=Number(t);Number.isInteger(a)&&a<r.v&&B(r,a)}B(n,N),H(f)}return!0},get(t,n,r){if(n===S)return e;var a=d.get(n),o=n in t;if(void 0!==a||o&&!i(t,n)?.writable||(a=M(F(o?t[n]:N,l)),d.set(n,a)),void 0!==a){var s=ft(a);return s===N?void 0:s}return Reflect.get(t,n,r)},getOwnPropertyDescriptor(e,t){var n=Reflect.getOwnPropertyDescriptor(e,t);if(n&&"value"in n){var r=d.get(t);r&&(n.value=ft(r))}else if(void 0===n){var a=d.get(t),i=a?.v;if(void 0!==a&&i!==N)return{enumerable:!0,configurable:!0,value:i,writable:!0}}return n},has(e,t){if(t===S)return!0;var n=d.get(t),r=void 0!==n&&n.v!==N||Reflect.has(e,t);if((void 0!==n||null!==Le&&(!r||i(e,t)?.writable))&&(void 0===n&&(n=M(r?F(e[t],l):N),d.set(t,n)),ft(n)===N))return!1;return r},set(e,t,n,r){var a=d.get(t),o=t in e;if(c&&"length"===t)for(var s=n;s<a.v;s+=1){var u=d.get(s+"");void 0!==u?B(u,N):s in e&&(u=M(N),d.set(s+"",u))}void 0===a?o&&!i(e,t)?.writable||(B(a=M(void 0),F(n,l)),d.set(t,a)):(o=a.v!==N,B(a,F(n,l)));var v=Reflect.getOwnPropertyDescriptor(e,t);if(v?.set&&v.set.call(r,n),!o){if(c&&"string"==typeof t){var p=d.get("length"),m=Number(t);Number.isInteger(m)&&m>=p.v&&B(p,m+1)}H(f)}return!0},ownKeys(e){ft(f);var t=Reflect.ownKeys(e).filter((e=>{var t=d.get(e);return void 0===t||t.v!==N}));for(var[n,r]of d)r.v===N||n in e||t.push(n);return t},setPrototypeOf(){!function(){throw new Error("https://svelte.dev/e/state_prototype_fixed")}()}})}function H(e,t=1){B(e,e.v+t)}function W(e){return null!==e&&"object"==typeof e&&S in e?e[S]:e}var G,Z,K,U;function J(e=""){return document.createTextNode(e)}function Q(e){return K.call(e)}function X(e){return U.call(e)}function Y(e,t){return Q(e)}function ee(e,t){var n=Q(e);return n instanceof Comment&&""===n.data?X(n):n}function te(e,t=1,n=!1){let r=e;for(;t--;)r=X(r);return r}function ne(e){var t=2050,n=null!==Re&&2&Re.f?Re:null;null===Le||null!==n&&n.f&p?t|=p:Le.f|=x;return{ctx:A,deps:null,effects:null,equals:O,f:t,fn:e,reactions:null,rv:0,v:null,wv:0,parent:n??Le}}function re(e){const t=ne(e);return t.equals=P,t}function ae(e){var t=e.effects;if(null!==t){e.effects=null;for(var n=0;n<t.length;n+=1)he(t[n])}}function ie(e){var t=function(e){var t,n=Le;Ve(function(e){for(var t=e.parent;null!==t;){if(!(2&t.f))return t;t=t.parent}return null}(e));try{ae(e),t=tt(e)}finally{Ve(n)}return t}(e);ht(e,(Ue||e.f&p)&&null!==e.deps?y:h),e.equals(t)||(e.v=t,e.wv=Qe())}function le(e){null===Le&&null===Re&&function(){throw new Error("https://svelte.dev/e/effect_orphan")}(),null!==Re&&Re.f&p&&null===Le&&function(){throw new Error("https://svelte.dev/e/effect_in_unowned_derived")}(),$e&&function(){throw new Error("https://svelte.dev/e/effect_in_teardown")}()}function oe(e,t,n,r=!0){var a=!!(64&e),i=Le,l={ctx:A,deps:null,nodes_start:null,nodes_end:null,f:e|g,first:null,fn:t,last:null,next:null,parent:a?null:i,prev:null,teardown:null,transitions:null,wv:0};if(n){var o=ze;try{Ce(!0),at(l),l.f|=32768}catch(e){throw he(l),e}finally{Ce(o)}}else null!==t&&ut(l);if(!(n&&null===l.deps&&null===l.first&&null===l.nodes_start&&null===l.teardown&&!(1048704&l.f))&&!a&&r&&(null!==i&&function(e,t){var n=t.last;null===n?t.last=t.first=e:(n.next=e,e.prev=n,t.last=e)}(l,i),null!==Re&&2&Re.f)){var s=Re;(s.effects??=[]).push(l)}return l}function se(e){if(le(),!(null!==Le&&!!(Le.f&f)&&null!==A&&!A.m))return ue(e);var t=A;(t.e??=[]).push({fn:e,effect:Le,reaction:Re})}function ue(e){return oe(4,e,!1)}function de(e){return oe(8,e,!0)}function ce(e,t=[],n=ne){const r=t.map(n);return fe((()=>e(...r.map(ft))))}function fe(e,t=0){return oe(24|t,e,!0)}function ve(e,t=!0){return oe(40,e,!0,t)}function pe(e){var t=e.teardown;if(null!==t){const e=$e,n=Re;je(!0),Be(null);try{t.call(null)}finally{je(e),Be(n)}}}function me(e,t=!1){var n=e.first;for(e.first=e.last=null;null!==n;){var r=n.next;he(n,t),n=r}}function he(e,t=!0){var n=!1;if((t||524288&e.f)&&null!==e.nodes_start){for(var r=e.nodes_start,a=e.nodes_end;null!==r;){var i=r===a?null:X(r);r.remove(),r=i}n=!0}me(e,t&&!n),rt(e,0),ht(e,b);var l=e.transitions;if(null!==l)for(const e of l)e.stop();pe(e);var o=e.parent;null!==o&&null!==o.first&&ge(e),e.next=e.prev=e.teardown=e.ctx=e.deps=e.fn=e.nodes_start=e.nodes_end=null}function ge(e){var t=e.parent,n=e.prev,r=e.next;null!==n&&(n.next=r),null!==r&&(r.prev=n),null!==t&&(t.first===e&&(t.first=r),t.last===e&&(t.last=n))}function ye(e,t){var n=[];be(e,n,!0),_e(n,(()=>{he(e),t&&t()}))}function _e(e,t){var n=e.length;if(n>0){var r=()=>--n||t();for(var a of e)a.out(r)}else t()}function be(e,t,n){if(!(e.f&_)){if(e.f^=_,null!==e.transitions)for(const r of e.transitions)(r.is_global||n)&&t.push(r);for(var r=e.first;null!==r;){var a=r.next;be(r,t,!!(!!(r.f&w)||!!(r.f&f))&&n),r=a}}}function we(e){ke(e,!0)}function ke(e,t){if(e.f&_){e.f^=_,e.f&h||(e.f^=h),Xe(e)&&(ht(e,g),ut(e));for(var n=e.first;null!==n;){var r=n.next;ke(n,!!(!!(n.f&w)||!!(n.f&f))&&t),n=r}if(null!==e.transitions)for(const n of e.transitions)(n.is_global||t)&&n.in()}}let xe=!1,Se=[];function Te(){xe=!1;const e=Se.slice();Se=[],c(e)}function Ee(e){xe||(xe=!0,queueMicrotask(Te)),Se.push(e)}const Oe=0;let Pe=!1,De=Oe,Ne=!1,Ae=null,ze=!1,$e=!1;function Ce(e){ze=e}function je(e){$e=e}let Me=[],Ie=0,Re=null,qe=!1;function Be(e){Re=e}let Le=null;function Ve(e){Le=e}let Fe=null;let He=null,We=0,Ge=null;let Ze=1,Ke=0,Ue=!1,Je=null;function Qe(){return++Ze}function Xe(e){var t=e.f;if(t&g)return!0;if(t&y){var n=e.deps,r=!!(t&p);if(null!==n){var a,i,l=!!(t&m),o=r&&null!==Le&&!Ue,s=n.length;if(l||o){var u=e,d=u.parent;for(a=0;a<s;a++)i=n[a],!l&&i?.reactions?.includes(u)||(i.reactions??=[]).push(u);l&&(u.f^=m),!o||null===d||d.f&p||(u.f^=p)}for(a=0;a<s;a++)if(Xe(i=n[a])&&ie(i),i.wv>e.wv)return!0}r&&(null===Le||Ue)||ht(e,h)}return!1}function Ye(e,t,n,r){if(Pe){if(null===n&&(Pe=!1),function(e){return!(e.f&b||null!==e.parent&&e.parent.f&v)}(t))throw e}else null!==n&&(Pe=!0),function(e,t){for(var n=t;null!==n;){if(n.f&v)try{return void n.fn(e)}catch{n.f^=v}n=n.parent}throw Pe=!1,e}(e,t)}function et(e,t,n=!0){var r=e.reactions;if(null!==r)for(var a=0;a<r.length;a++){var i=r[a];2&i.f?et(i,t,!1):t===i&&(n?ht(i,g):i.f&h&&ht(i,y),ut(i))}}function tt(e){var t=He,n=We,r=Ge,a=Re,i=Ue,l=Fe,o=A,s=qe,u=e.f;He=null,We=0,Ge=null,Re=96&u?null:e,Ue=!!(u&p)&&(!ze||null===a||s),Fe=null,z(e.ctx),qe=!1,Ke++;try{var d=(0,e.fn)(),c=e.deps;if(null!==He){var f;if(rt(e,We),null!==c&&We>0)for(c.length=We+He.length,f=0;f<He.length;f++)c[We+f]=He[f];else e.deps=c=He;if(!Ue)for(f=We;f<c.length;f++)(c[f].reactions??=[]).push(e)}else null!==c&&We<c.length&&(rt(e,We),c.length=We);if(j()&&null!==Ge&&!qe&&null!==c&&!(6146&e.f))for(f=0;f<Ge.length;f++)et(Ge[f],e);return null!==a&&Ke++,d}finally{He=t,We=n,Ge=r,Re=a,Ue=i,Fe=l,z(o),qe=s}}function nt(e,t){let r=t.reactions;if(null!==r){var a=n.call(r,e);if(-1!==a){var i=r.length-1;0===i?r=t.reactions=null:(r[a]=r[i],r.pop())}}null===r&&2&t.f&&(null===He||!He.includes(t))&&(ht(t,y),768&t.f||(t.f^=m),ae(t),rt(t,0))}function rt(e,t){var n=e.deps;if(null!==n)for(var r=t;r<n.length;r++)nt(e,n[r])}function at(t){var n=t.f;if(!(n&b)){ht(t,h);var r=Le,a=A;Le=t;try{16&n?function(e){for(var t=e.first;null!==t;){var n=t.next;t.f&f||he(t),t=n}}(t):me(t),pe(t);var i=tt(t);t.teardown="function"==typeof i?i:null,t.wv=Ze;t.deps;e}catch(e){Ye(e,t,r,a||t.ctx)}finally{Le=r}}}function it(){if(Ie>1e3){Ie=0;try{!function(){throw new Error("https://svelte.dev/e/effect_update_depth_exceeded")}()}catch(e){if(null===Ae)throw e;Ye(e,Ae,null)}}Ie++}function lt(e){var t=e.length;if(0!==t){it();var n=ze;ze=!0;try{for(var r=0;r<t;r++){var a=e[r];a.f&h||(a.f^=h),ot(dt(a))}}finally{ze=n}}}function ot(e){var t=e.length;if(0!==t)for(var n=0;n<t;n++){var r=e[n];if(!(24576&r.f))try{Xe(r)&&(at(r),null===r.deps&&null===r.first&&null===r.nodes_start&&(null===r.teardown?ge(r):r.fn=null))}catch(e){Ye(e,r,null,r.ctx)}}}function st(){if(Ne=!1,Ie>1001)return;const e=Me;Me=[],lt(e),Ne||(Ie=0,Ae=null)}function ut(e){De===Oe&&(Ne||(Ne=!0,queueMicrotask(st))),Ae=e;for(var t=e;null!==t.parent;){var n=(t=t.parent).f;if(96&n){if(!(n&h))return;t.f^=h}}Me.push(t)}function dt(e){var t=[],n=e.first;e:for(;null!==n;){var r=n.f,a=!!(r&f),i=a&&!!(r&h),l=n.next;if(!(i||r&_)){if(4&r)t.push(n);else if(a)n.f^=h;else{var o=Re;try{Re=n,Xe(n)&&at(n)}catch(e){Ye(e,n,null,n.ctx)}finally{Re=o}}var s=n.first;if(null!==s){n=s;continue}}if(null===l){let t=n.parent;for(;null!==t;){if(e===t)break e;var u=t.next;if(null!==u){n=u;continue e}t=t.parent}}n=l}return t}function ct(e){var t=De,n=Me;try{it();const t=[];De=1,Me=t,Ne=!1,lt(n);var r=e?.();return xe&&Te(),(Me.length>0||t.length>0)&&ct(),Ie=0,Ae=null,r}finally{De=t,Me=n}}function ft(e){var t=!!(2&e.f);if(null!==Je&&Je.add(e),null===Re||qe){if(t&&null===e.deps&&null===e.effects){var n=e,r=n.parent;null===r||r.f&p||(n.f^=p)}}else{null!==Fe&&Fe.includes(e)&&function(){throw new Error("https://svelte.dev/e/state_unsafe_local_read")}();var a=Re.deps;e.rv<Ke&&(e.rv=Ke,null===He&&null!==a&&a[We]===e?We++:null===He?He=[e]:Ue&&He.includes(e)||He.push(e))}return t&&Xe(n=e)&&ie(n),e.v}function vt(e){var t=function(e){var t=Je;Je=new Set;var n,r=Je;try{if(pt(e),null!==t)for(n of Je)t.add(n)}finally{Je=t}return r}((()=>pt(e)));for(var n of t)if(n.f&k)for(const e of n.deps||[])2&e.f||L(e,e.v);else L(n,n.v)}function pt(e){var t=qe;try{return qe=!0,e()}finally{qe=t}}const mt=-7169;function ht(e,t){e.f=e.f&mt|t}function gt(e,t=new Set){if(!("object"!=typeof e||null===e||e instanceof EventTarget||t.has(e))){t.add(e),e instanceof Date&&e.getTime();for(let n in e)try{gt(e[n],t)}catch(e){}const n=u(e);if(n!==Object.prototype&&n!==Array.prototype&&n!==Map.prototype&&n!==Set.prototype&&n!==Date.prototype){const t=l(n);for(let n in t){const r=t[n].get;if(r)try{r.call(e)}catch(e){}}}}}const yt=["touchstart","touchmove"];function _t(e){return yt.includes(e)}let bt=!1;function wt(e){var t=Re,n=Le;Be(null),Ve(null);try{return e()}finally{Be(t),Ve(n)}}function kt(e,t,n,r=n){e.addEventListener(t,(()=>wt(n)));const a=e.__on_r;e.__on_r=a?()=>{a(),r(!0)}:()=>r(!0),bt||(bt=!0,document.addEventListener("reset",(e=>{Promise.resolve().then((()=>{if(!e.defaultPrevented)for(const t of e.target.elements)t.__on_r?.()}))}),{capture:!0}))}const xt=new Set,St=new Set;function Tt(e,t,n,r,a){var i={capture:r,passive:a},l=function(e,t,n,r={}){function a(e){if(r.capture||Et.call(t,e),!e.cancelBubble)return wt((()=>n?.call(this,e)))}return e.startsWith("pointer")||e.startsWith("touch")||"wheel"===e?Ee((()=>{t.addEventListener(e,a,r)})):t.addEventListener(e,a,r),a}(e,t,n,i);t!==document.body&&t!==window&&t!==document||function(e){const t=oe(8,null,!1);ht(t,h),t.teardown=e}((()=>{t.removeEventListener(e,l,i)}))}function Et(e){var n=this,r=n.ownerDocument,i=e.type,l=e.composedPath?.()||[],o=l[0]||e.target,s=0,u=e.__root;if(u){var d=l.indexOf(u);if(-1!==d&&(n===document||n===window))return void(e.__root=n);var c=l.indexOf(n);if(-1===c)return;d<=c&&(s=d)}if((o=l[s]||e.target)!==n){a(e,"currentTarget",{configurable:!0,get:()=>o||r});var f=Re,v=Le;Be(null),Ve(null);try{for(var p,m=[];null!==o;){var h=o.assignedSlot||o.parentNode||o.host||null;try{var g=o["__"+i];if(void 0!==g&&!o.disabled)if(t(g)){var[y,..._]=g;y.apply(o,[e,..._])}else g.call(o,e)}catch(e){p?m.push(e):p=e}if(e.cancelBubble||h===n||null===h)break;o=h}if(p){for(let e of m)queueMicrotask((()=>{throw e}));throw p}}finally{e.__root=n,delete e.currentTarget,Be(f),Ve(v)}}}function Ot(e,t){var n=Le;null===n.nodes_start&&(n.nodes_start=e,n.nodes_end=t)}function Pt(e,t){var n,r=!!(1&t),a=!!(2&t),i=!e.startsWith("<!>");return()=>{var t,l;void 0===n&&(t=i?e:"<!>"+e,(l=document.createElement("template")).innerHTML=t,n=l.content,r||(n=Q(n)));var o=a||Z?document.importNode(n,!0):n.cloneNode(!0);r?Ot(Q(o),o.lastChild):Ot(o,o);return o}}function Dt(){var e=document.createDocumentFragment(),t=document.createComment(""),n=J();return e.append(t,n),Ot(t,n),e}function Nt(e,t){null!==e&&e.before(t)}function At(e,t){var n=null==t?"":"object"==typeof t?t+"":t;n!==(e.__t??=e.nodeValue)&&(e.__t=n,e.nodeValue=n+"")}const zt=new Map;let $t=new WeakMap;function Ct(e,t,n=!1){var r=e,a=null,i=null,l=N,o=!1;const s=(e,t=!0)=>{o=!0,u(t,e)},u=(e,t)=>{l!==(l=e)&&(l?(a?we(a):t&&(a=ve((()=>t(r)))),i&&ye(i,(()=>{i=null}))):(i?we(i):t&&(i=ve((()=>t(r)))),a&&ye(a,(()=>{a=null}))))};fe((()=>{o=!1,t(s),o||u(null,null)}),n?w:0)}function jt(e,t){return t}function Mt(e,n,a,i,l,o=null){var s=e,u={flags:n,items:new Map,first:null};!(4&n)||(s=e.appendChild(J()));var d=null,c=!1,f=re((()=>{var e=a();return t(e)?e:null==e?[]:r(e)}));fe((()=>{var e=ft(f),t=e.length;c&&0===t||(c=0===t,function(e,t,n,a,i,l,o){var s,u,d,c,f,v,p=!!(8&i),m=!!(3&i),h=e.length,g=t.items,y=t.first,b=y,w=null,k=[],x=[];if(p)for(v=0;v<h;v+=1)c=l(d=e[v],v),void 0!==(f=g.get(c))&&(f.a?.measure(),(u??=new Set).add(f));for(v=0;v<h;v+=1)if(c=l(d=e[v],v),void 0!==(f=g.get(c))){if(m&&It(f,d,v,i),f.e.f&_&&(we(f.e),p&&(f.a?.unfix(),(u??=new Set).delete(f))),f!==b){if(void 0!==s&&s.has(f)){if(k.length<x.length){var S,T=x[0];w=T.prev;var E=k[0],O=k[k.length-1];for(S=0;S<k.length;S+=1)qt(k[S],T,n);for(S=0;S<x.length;S+=1)s.delete(x[S]);Bt(t,E.prev,O.next),Bt(t,w,E),Bt(t,O,T),b=T,w=O,v-=1,k=[],x=[]}else s.delete(f),qt(f,b,n),Bt(t,f.prev,f.next),Bt(t,f,null===w?t.first:w.next),Bt(t,w,f),w=f;continue}for(k=[],x=[];null!==b&&b.k!==c;)b.e.f&_||(s??=new Set).add(b),x.push(b),b=b.next;if(null===b)continue;f=b}k.push(f),w=f,b=f.next}else{w=Rt(b?b.e.nodes_start:n,t,w,null===w?t.first:w.next,d,c,v,a,i,o),g.set(c,w),k=[],x=[],b=w.next}if(null!==b||void 0!==s){for(var P=void 0===s?[]:r(s);null!==b;)b.e.f&_||P.push(b),b=b.next;var D=P.length;if(D>0){var N=4&i&&0===h?n:null;if(p){for(v=0;v<D;v+=1)P[v].a?.measure();for(v=0;v<D;v+=1)P[v].a?.fix()}!function(e,t,n,r){for(var a=[],i=t.length,l=0;l<i;l++)be(t[l].e,a,!0);var o=i>0&&0===a.length&&null!==n;if(o){var s=n.parentNode;s.textContent="",s.append(n),r.clear(),Bt(e,t[0].prev,t[i-1].next)}_e(a,(()=>{for(var n=0;n<i;n++){var a=t[n];o||(r.delete(a.k),Bt(e,a.prev,a.next)),he(a.e,!o)}}))}(t,P,N,g)}}p&&Ee((()=>{if(void 0!==u)for(f of u)f.a?.apply()}));Le.first=t.first&&t.first.e,Le.last=w&&w.e}(e,u,s,l,n,i,a),null!==o&&(0===t?d?we(d):d=ve((()=>o(s))):null!==d&&ye(d,(()=>{d=null}))),ft(f))}))}function It(e,t,n,r){1&r&&L(e.v,t),2&r?L(e.i,n):e.i=n}function Rt(e,t,n,r,a,i,l,o,s,u){var d=!!(1&s)?!(16&s)?I(a):M(a):a,c=2&s?M(l):l,f={i:c,v:d,k:i,a:null,e:null,prev:n,next:r};try{return f.e=ve((()=>o(e,d,c,u)),false),f.e.prev=n&&n.e,f.e.next=r&&r.e,null===n?t.first=f:(n.next=f,n.e.next=f.e),null!==r&&(r.prev=f,r.e.prev=f.e),f}finally{}}function qt(e,t,n){for(var r=e.next?e.next.e.nodes_start:n,a=t?t.e.nodes_start:n,i=e.e.nodes_start;i!==r;){var l=X(i);a.before(i),i=l}}function Bt(e,t,n){null===t?e.first=n:(t.next=n,t.e.next=n&&n.e),null!==n&&(n.prev=t,n.e.prev=t&&t.e)}function Lt(e,t,n,r){var a=e.__attributes??={};a[t]!==(a[t]=n)&&("style"===t&&"__styles"in e&&(e.__styles={}),"loading"===t&&(e[E]=n),null==n?e.removeAttribute(t):"string"!=typeof n&&function(e){var t,n=Vt.get(e.nodeName);if(n)return n;Vt.set(e.nodeName,n=[]);var r=e,a=Element.prototype;for(;a!==r;){for(var i in t=l(r))t[i].set&&n.push(i);r=u(r)}return n}(e).includes(t)?e[t]=n:e.setAttribute(t,n))}var Vt=new Map;function Ft(e){var t=e.type;return"number"===t||"range"===t}function Ht(e){return""===e?null:+e}function Wt(e,t,n){if(e.multiple)return function(e,t){for(var n of e.options)n.selected=~t.indexOf(Zt(n))}(e,t);for(var r of e.options){var a=Zt(r);if(i=a,l=t,Object.is(W(i),W(l)))return void(r.selected=!0)}var i,l;n&&void 0===t||(e.selectedIndex=-1)}function Gt(e,t,n=t){var r=!0;kt(e,"change",(t=>{var r,a=t?"[selected]":":checked";if(e.multiple)r=[].map.call(e.querySelectorAll(a),Zt);else{var i=e.querySelector(a)??e.querySelector("option:not([disabled])");r=i&&Zt(i)}n(r)})),ue((()=>{var a=t();if(Wt(e,a,r),r&&void 0===a){var i=e.querySelector(":checked");null!==i&&(a=Zt(i),n(a))}e.__value=a,r=!1})),function(e){ue((()=>{var t=new MutationObserver((()=>{var t=e.__value;Wt(e,t)}));return t.observe(e,{childList:!0,subtree:!0,attributes:!0,attributeFilter:["value"]}),()=>{t.disconnect()}}))}(e)}function Zt(e){return"__value"in e?e.__value:e.value}function Kt(e=!1){const t=A,n=t.l.u;if(!n)return;let r=()=>function(e){if("object"==typeof e&&e&&!(e instanceof EventTarget))if(S in e)gt(e);else if(!Array.isArray(e))for(let t in e){const n=e[t];"object"==typeof n&&n&&S in n&&gt(n)}}(t.s);if(e){let e=0,n={};const a=ne((()=>{let r=!1;const a=t.s;for(const e in a)a[e]!==n[e]&&(n[e]=a[e],r=!0);return r&&e++,e}));r=()=>ft(a)}var a;n.b.length&&(a=()=>{Ut(t,r),c(n.b)},le(),de(a)),se((()=>{const e=pt((()=>n.m.map(d)));return()=>{for(const t of e)"function"==typeof t&&t()}})),n.a.length&&se((()=>{Ut(t,r),c(n.a)}))}function Ut(e,t){if(e.l.s)for(const t of e.l.s)ft(t);t()}let Jt=!1;function Qt(e,t,n,r){var a,l=!!(1&n),o=!D||!!(2&n),s=!!(8&n),u=!!(16&n),d=!1;s?[a,d]=function(e){var t=Jt;try{return Jt=!1,[e(),Jt]}finally{Jt=t}}((()=>e[t])):a=e[t];var c,f=S in e||T in e,v=s&&(i(e,t)?.set??(f&&t in e&&(n=>e[t]=n)))||void 0,p=r,m=!0,h=!1,g=()=>(h=!0,m&&(m=!1,p=u?pt(r):r),p);if(void 0===a&&void 0!==r&&(v&&o&&function(){throw new Error("https://svelte.dev/e/props_invalid_value")}(),a=g(),v&&v(a)),o)c=()=>{var n=e[t];return void 0===n?g():(m=!0,h=!1,n)};else{var y=(l?ne:re)((()=>e[t]));y.f|=k,c=()=>{var e=ft(y);return void 0!==e&&(p=void 0),void 0===e?p:e}}if(!(4&n))return c;if(v){var _=e.$$legacy;return function(e,t){return arguments.length>0?(o&&t&&!_&&!d||v(t?c():e),e):c()}}var b=!1,w=!1,x=I(a),E=ne((()=>{var e=c(),t=ft(x);return b?(b=!1,w=!0,t):(w=!1,x.v=e)}));return l||(E.equals=P),function(e,t){if(null!==Je&&(b=w,c(),ft(x)),arguments.length>0){const n=t?ft(E):o&&s?F(e):e;return E.equals(n)||(b=!0,B(x,n),h&&void 0!==p&&(p=n),pt((()=>ft(E)))),e}return ft(E)}}function Xt(e){var t,n;null===A&&function(){throw new Error("https://svelte.dev/e/lifecycle_outside_component")}(),D&&null!==A.l?(t=A,n=t.l,n.u??={a:[],b:[],m:[]}).m.push(e):se((()=>{const t=pt(e);if("function"==typeof t)return t}))}"undefined"!=typeof window&&(window.__svelte||={v:new Set}).v.add("5"),D=!0;var Yt=Pt('<img alt="Product">');var en={"order-summary":"Order Summary","order-details":"Order Details","order-status":"Order Status","payment-method":"Payment Method","payment-status":"Payment Status","shipping-cost":"Shipping Cost","order-total":"Order Total","customer-details":"Customer Details","shipping-address":"Shipping Address",history:"History",ready:"Ready","in-preparation":"In Preparation","waiting-product":"Waiting for Product Delivery","to-be-shipped":"To Be Shipped",shipped:"Shipped",name:"Name",phone:"Phone","mob-number":"Mobile Number",update:"Update",type:"Type",size:"Size","payment-type":"Payment Type","three-installments":"Three Monthly Installments, 0% Interest","start-date":"Start Date","end-date":"End Date","installment-amount":"Installment Amount",color:"Color",customer_balance:"Bank Transfer",paid:"Payment Completed",black:"Black","add-tracking":"Add Tracking","tracking-number":"Tracking Number","add-event":"Add Event",add:"Add",status:"Status",message:"Message",order_placed:"Order Placed",in_preparation:"Order in Preparation",ready_to_ship:"Order Ready to Ship",delivered:"Order Delivered",canceled:"Order Canceled",edit:"Edit",save:"Save",tracking_details:"Tracking",courier:"Courier",number_of_packages:"Number of Packages",tracking_links:"Tracking Links",refunded:"Refunded",receipt:"Receipt"};const tn={it:{"order-summary":"Riepilogo Ordine","order-details":"Dettagli Ordine","order-status":"Stato dell'Ordine","payment-method":"Metodo di Pagamento","payment-status":"Stato del Pagamento","shipping-cost":"Costo di Spedizione","order-total":"Totale Ordine","customer-details":"Dettagli Cliente","shipping-address":"Indirizzo di Spedizione",history:"Storico",ready:"Pronto","in-preparation":"In preparazione","waiting-product":"In attesa della consegna del prodotto","to-be-shipped":"Da spedire",shipped:"Spedito",name:"Nome",phone:"Telefono","mob-number":"Numero di telefono cellulare",update:"Aggiorna",type:"Tipo",size:"Taglia","payment-type":"Tipo di pagamento","three-installments":"Tre rate mensili tasso zero","start-date":"Data di inizio","end-date":"Data di fine","installment-amount":"Importo della rata",color:"Colore",customer_balance:"Bonifico Bancario",paid:"Pagamento completato",black:"Nero","add-tracking":"Aggiungi Tracking","tracking-number":"Numero di Tracking","add-event":"Aggiungi evento",add:"Aggiungi",status:"Stato",message:"Messaggio",order_placed:"Ordine confermato",in_preparation:"Ordine in preparazione",ready_to_ship:"Ordine pronto per essere spedito",delivered:"Ordine consegnato",canceled:"Ordine cancellato",edit:"Modifica",save:"Salva",tracking_details:"Tracking",courier:"Corriere",number_of_packages:"Numero Colli",tracking_links:"Link di Tracking",refunded:"Rimborsato",receipt:"Ricevuta"},en:en,es:{"order-summary":"Resumen del pedido","order-details":"Detalles del pedido","order-status":"Estado del pedido","payment-method":"Método de pago","payment-status":"Estado del pago","shipping-cost":"Costo de envío","order-total":"Total del pedido","customer-details":"Datos del cliente","shipping-address":"Dirección de envío",history:"Historial",ready:"Listo","in-preparation":"En preparación","waiting-product":"Esperando entrega del producto","to-be-shipped":"Por enviar",shipped:"Enviado",name:"Nombre",phone:"Teléfono","mob-number":"Número de móvil",update:"Actualizar",type:"Tipo",size:"Talla","payment-type":"Tipo de pago","three-installments":"Tres cuotas mensuales sin interés","start-date":"Fecha de inicio","end-date":"Fecha de fin","installment-amount":"Importe de la cuota",color:"Color",customer_balance:"Transferencia bancaria",paid:"Pago completado",black:"Negro","add-tracking":"Añadir seguimiento","tracking-number":"Número de seguimiento","add-event":"Añadir evento",add:"Añadir",status:"Estado",message:"Mensaje",order_placed:"Pedido confirmado",in_preparation:"Pedido en preparación",ready_to_ship:"Pedido listo para enviar",delivered:"Pedido entregado",canceled:"Pedido cancelado",edit:"Editar",save:"Guardar",tracking_details:"Seguimiento",courier:"Mensajero",number_of_packages:"Número de paquetes",tracking_links:"Enlaces de seguimiento",refunded:"Reembolsado",receipt:"Recibo"},de:{"order-summary":"Bestellübersicht","order-details":"Bestelldetails","order-status":"Bestellstatus","payment-method":"Zahlungsmethode","payment-status":"Zahlungsstatus","shipping-cost":"Versandkosten","order-total":"Gesamtbetrag","customer-details":"Kundendetails","shipping-address":"Lieferadresse",history:"Verlauf",ready:"Bereit","in-preparation":"In Vorbereitung","waiting-product":"Wartet auf Produktlieferung","to-be-shipped":"Versandbereit",shipped:"Versendet",name:"Name",phone:"Telefon","mob-number":"Handynummer",update:"Aktualisieren",type:"Typ",size:"Größe","payment-type":"Zahlungsart","three-installments":"Drei monatliche Raten, 0% Zinsen","start-date":"Anfangsdatum","end-date":"Enddatum","installment-amount":"Ratenbetrag",color:"Farbe",customer_balance:"Banküberweisung",paid:"Zahlung abgeschlossen",black:"Schwarz","add-tracking":"Tracking hinzufügen","tracking-number":"Sendungsnummer","add-event":"Ereignis hinzufügen",add:"Hinzufügen",status:"Status",message:"Nachricht",order_placed:"Bestellung aufgegeben",in_preparation:"Bestellung in Vorbereitung",ready_to_ship:"Bestellung versandbereit",delivered:"Bestellung geliefert",canceled:"Bestellung storniert",edit:"Bearbeiten",save:"Speichern",tracking_details:"Sendungsverfolgung",courier:"Versanddienst",number_of_packages:"Anzahl der Pakete",tracking_links:"Tracking-Links",refunded:"Erstattet",receipt:"Quittung"},fr:{"order-summary":"Récapitulatif de la commande","order-details":"Détails de la commande","order-status":"Statut de la commande","payment-method":"Méthode de paiement","payment-status":"Statut du paiement","shipping-cost":"Frais de livraison","order-total":"Total de la commande","customer-details":"Détails du client","shipping-address":"Adresse de livraison",history:"Historique",ready:"Prêt","in-preparation":"En préparation","waiting-product":"En attente de la livraison du produit","to-be-shipped":"À expédier",shipped:"Expédié",name:"Nom",phone:"Téléphone","mob-number":"Numéro de téléphone mobile",update:"Mettre à jour",type:"Type",size:"Taille","payment-type":"Type de paiement","three-installments":"Trois mensualités sans intérêt","start-date":"Date de début","end-date":"Date de fin","installment-amount":"Montant de la mensualité",color:"Couleur",customer_balance:"Virement bancaire",paid:"Paiement effectué",black:"Noir","add-tracking":"Ajouter un suivi","tracking-number":"Numéro de suivi","add-event":"Ajouter un événement",add:"Ajouter",status:"Statut",message:"Message",order_placed:"Commande confirmée",in_preparation:"Commande en préparation",ready_to_ship:"Commande prête à être expédiée",delivered:"Commande livrée",canceled:"Commande annulée",edit:"Modifier",save:"Enregistrer",tracking_details:"Suivi",courier:"Transporteur",number_of_packages:"Nombre de colis",tracking_links:"Liens de suivi",refunded:"Remboursé",receipt:"Reçu"}};function nn(){return navigator.language.substring(0,2)}let rn=(an=nn(),function(e){return tn[an]?tn[an][e]:en[e]});var an,ln=Pt('<h1 class="title">Order not found</h1>'),on=Pt('<div class="sloader-container"><span class="sloader"></span> <h3 class="is-size-5">Please wait</h3></div>'),sn=Pt("<li> </li>"),un=Pt("<ul></ul>"),dn=Pt('<li><div class="columns is-align-items-center"><div class="column"><!> <div class="column"><h4 class="title has-text-info is-size-4"> </h4> <!> <p class="is-size-5"> </p></div></div></div></li>'),cn=Pt("<li> </li>"),fn=Pt('<a class="has-text-info" target="_blank"> </a>'),vn=Pt('<div class="field"><!></div>'),pn=Pt('<h2 class="title mt-6"> </h2> <h2 class="title has-text-info has-text-weight-bold"> </h2>',1),mn=Pt("<li> </li>"),hn=Pt("<option> </option>"),gn=Pt('<div class="select"><select></select></div> <input class="input mt-2" type="text"> <button class="button is-success mt-2"> </button>',1),yn=Pt('<strong class="has-text-info"> </strong> <p class="mt-2"> </p> <!>',1),_n=Pt('<li class="mb-2 py-3"><span class="has-text-grey is-size-6"> </span> <br> <!></li>'),bn=Pt('<li><a target="_blank"> </a></li>'),wn=Pt('<div class="field"><label class="label"> </label> <p class="is-size-5"> </p></div> <div class="field"><label class="label"> </label> <p> </p></div> <div class="field"><label class="label"> </label> <ul></ul></div> <!>',1),kn=Pt('<h2 class="title mt-6"> </h2> <!>',1),xn=Pt('<div class="columns"><div class="column is-half"><h2 class="title mt-6 px-5"> </h2> <div class="box"><ul><!> <li><hr class="spacer"> <div class="column"><h4 class="title has-text-info is-size-4 mt-5"> </h4> <p class="my-3 is-size-5"> </p></div></li></ul></div></div> <div class="column px-6"><h2 class="title mt-6"> </h2> <ul><li> </li> <!> <li> <span class="has-text-info has-text-weight-bold"> </span></li> <li><!></li></ul> <!> <h2 class="title mt-6"> </h2> <ul><li> </li> <!> <li> </li> <li> </li></ul> <h2 class="title mt-6"> </h2> <ul><li> </li> <li> </li> <li> </li> <li> <!></li> <li> </li></ul> <h2 class="title mt-5"> </h2> <ul></ul> <!> <!></div></div>');let Sn=(Tn=function(e,t){$(t,!1);let n=R(null),r=R(!1),a=R(""),i=R(),l=R({status:"",message:""});const o=["order_placed","refunded","in_preparation","ready_to_ship","shipped","delivered","canceled"];function s(e,t){return new Intl.NumberFormat("en-IT",{style:"currency",currency:t||"EUR",maximumFractionDigits:2}).format(e/100)}function u(e){q(n,ft(n).history[e]=ft(l)),async function(){ft(n)&&await fetch(`https://kettleblaze-store-server.fly.dev/order2/${ft(n).orderId}`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(ft(n))})}().then((()=>async function(e,t="event"){if(!ft(n))return;const r={orderId:ft(n).orderId,historyIndex:e,type:t};try{(await fetch("https://kettleblaze-store-server.fly.dev/send-notification",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(r)})).ok?alert("Email inviata con successo!"):alert("Errore nell'invio dell'email.")}catch(e){alert("Errore imprevisto. Riprova.")}}(ft(l)))),B(i,null)}async function d(){if(!ft(n)||!ft(n).payment||!ft(n).payment.stripe_payment_intent)return{url:"N/A"};const e=await fetch(`https://kettleblaze-store-server.fly.dev/receipt-url/${ft(n).payment.stripe_payment_intent}`,{method:"GET",headers:{"Content-Type":"application/json"}});return e.ok?{url:(await e.json()).url}:{url:"N/A"}}Xt((()=>{!async function(){const e=new URLSearchParams(window.location.search),t=nn(),i=await fetch(`https://kettleblaze-store-server.fly.dev/orders/${e.get("id")}/${t}`,{method:"GET"}).then((e=>e.ok?e.json():null));i?B(a,i.status):B(r,!0),B(n,i)}()})),Kt();var c=Dt(),f=ee(c),v=e=>{var t=Dt(),n=ee(t),a=e=>{Nt(e,ln())},i=e=>{Nt(e,on())};Ct(n,(e=>{ft(r)?e(a):e(i,!1)})),Nt(e,t)},p=e=>{var t=xn(),r=Y(t),a=Y(r),c=Y(a),f=Y(te(a,2)),v=Y(f);Mt(v,1,(()=>ft(n).cart.items),jt,((e,t)=>{var n=dn(),r=Y(n),a=Y(r),i=Y(a);!function(e,t){let n=Qt(t,"width",8,100),r=Qt(t,"height",8,100),a=Qt(t,"quality",8,90),i=Qt(t,"src",8,""),l=Qt(t,"displayHeight",24,r),o=Qt(t,"displayWidth",24,n);var s=Yt();ce((()=>{Lt(s,"src",`${i()??""}?w=${n()??""}&h=${r()??""}&q=${a()??""}`),Lt(s,"width",o()),Lt(s,"height",l())})),Nt(e,s)}(i,{get src(){return`https://kettleblaze.sirv.com/orders/${ft(t).sku??""}.jpg`},width:"480",height:"480",displayWidth:"120",displayHeight:"120",quality:"98"});var l=Y(te(i,2)),o=Y(l),u=te(l,2),d=e=>{var n=un();Mt(n,5,(()=>Object.entries(ft(t).selected_attributes)),jt,((e,t)=>{let n=()=>ft(t)[0],r=()=>ft(t)[1];var a=sn(),i=Y(a);ce(((e,t)=>At(i,`${e??""}: ${t??""}`)),[()=>rn(n()),()=>"size"===n()?r():rn(r())||r()],re),Nt(e,a)})),Nt(e,n)};Ct(u,(e=>{Object.keys(ft(t).selected_attributes??{}).length>0&&e(d)}));var c=Y(te(u,2));ce((e=>{At(o,`${ft(t).quantity??""} x ${ft(t).name.it??""}`),At(c,e)}),[()=>s(100*ft(t).final_price,ft(t).currency)],re),Nt(e,n)}));var p=te(v,2),m=te(Y(p),2),h=Y(m),g=Y(h),y=Y(te(h,2)),_=Y(te(r,2)),b=Y(_),w=te(_,2),k=Y(w),x=Y(k),S=te(k,2),T=e=>{var t=cn(),r=Y(t);ce((e=>At(r,`${e??""}: ${ft(n).payment.method??""}`)),[()=>rn("payment-method")],re),Nt(e,t)};Ct(S,(e=>{ft(n).payment.method&&e(T)}));var E=te(S,2),O=Y(E),P=Y(te(O)),D=Y(te(E,2)),$=e=>{var t=vn();!function(e,t,n,r){var a,i,l,o=e,s=j(),u=A,d=N,c=(s?M:I)(void 0),f=(s?M:I)(void 0),v=!1;function p(e,t){v=!0,t&&(Ve(m),Be(m),z(u));try{1===e&&r&&(i?we(i):i=ve((()=>r(o,c)))),0!==e&&a&&ye(a,(()=>a=null)),1!==e&&i&&ye(i,(()=>i=null)),2!==e&&l&&ye(l,(()=>l=null))}finally{t&&(z(null),Be(null),Ve(null),ct())}}var m=fe((()=>{if(d!==(d=t())){if(n=d,"function"==typeof n?.then){var e=d;v=!1,e.then((t=>{e===d&&(L(c,t),p(1,!0))}),(t=>{if(e===d)throw L(f,t),p(2,!0),f.v})),Ee((()=>{v||p(0,!0)}))}else L(c,d),p(1,!1);var n;return()=>d=N}}))}(Y(t),d,0,((e,t)=>{var n=fn(),r=Y(n);ce((e=>{Lt(n,"href",ft(t).url),At(r,`🔗 ${e??""}`)}),[()=>rn("receipt")],re),Nt(e,n)})),Nt(e,t)};Ct(D,(e=>{"paid"===ft(n).payment.status&&e($)}));var C=te(w,2),R=e=>{var t=pn(),r=ee(t),a=Y(r),i=Y(te(r,2));ce(((e,t)=>{At(a,e),At(i,t)}),[()=>rn("order-status"),()=>rn(ft(n).status)],re),Nt(e,t)};Ct(C,(e=>{e(R,!1)}));var B=te(C,2),V=Y(B),F=te(B,2),H=Y(F),W=Y(H),G=te(H,2),Z=e=>{var t=mn(),r=Y(t);ce((()=>At(r,`Codice fiscale: ${ft(n).customerData.fiscal_code??""}`))),Nt(e,t)};Ct(G,(e=>{ft(n).customerData.fiscal_code&&e(Z)}));var K=te(G,2),U=Y(K),Q=Y(te(K,2)),X=te(F,2),ne=Y(X),ae=te(X,2),ie=Y(ae),le=Y(ie),oe=te(ie,2),se=Y(oe),ue=te(oe,2),pe=Y(ue),me=te(ue,2),he=Y(me),ge=te(he),_e=e=>{var t=function(e=""){var t=J(e+"");return Ot(t,t),t}();ce((()=>At(t,`(${ft(n).customerData.address.state??""})`))),Nt(e,t)};Ct(ge,(e=>{ft(n).customerData.address.state&&e(_e)}));var be=Y(te(me,2)),ke=te(ae,2),xe=Y(ke),Se=te(ke,2);Mt(Se,5,(()=>ft(n).history),jt,((e,t,n)=>{var r=_n(),a=Y(r),s=Y(a),d=te(a,4),c=e=>{var t=gn(),r=ee(t),a=Y(r);ce((()=>{ft(l),vt((()=>{}))})),Mt(a,5,(()=>o),jt,((e,t)=>{var n=hn(),r={},a=Y(n);ce((e=>{r!==(r=ft(t))&&(n.value=null==(n.__value=ft(t))?"":ft(t)),At(a,e)}),[()=>rn(ft(t))],re),Nt(e,n)}));var i=te(r,2),s=te(i,2),d=Y(s);ce((e=>At(d,e)),[()=>rn("save")],re),Gt(a,(()=>ft(l).status),(e=>q(l,ft(l).status=e))),function(e,t,n=t){var r=j();kt(e,"input",(a=>{var i=a?e.defaultValue:e.value;if(i=Ft(e)?Ht(i):i,n(i),r&&i!==(i=t())){var l=e.selectionStart,o=e.selectionEnd;e.value=i??"",null!==o&&(e.selectionStart=l,e.selectionEnd=Math.min(o,e.value.length))}})),null==pt(t)&&e.value&&n(Ft(e)?Ht(e.value):e.value),de((()=>{var n=t();Ft(e)&&n===Ht(e.value)||("date"!==e.type||n||e.value)&&n!==e.value&&(e.value=n??"")}))}(i,(()=>ft(l).message),(e=>q(l,ft(l).message=e))),Tt("click",s,(()=>u(n))),Nt(e,t)},f=e=>{var n=yn(),r=ee(n),a=Y(r),i=te(r,2),l=Y(i);Ct(te(i,2),(e=>{})),ce((e=>{At(a,e),At(l,ft(t).message)}),[()=>rn(ft(t).status)],re),Nt(e,n)};Ct(d,(e=>{ft(i)===n?e(c):e(f,!1)})),ce((e=>At(s,e)),[()=>new Date(ft(t).timestamp).toLocaleString("it-IT",{year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",second:"2-digit"})],re),Nt(e,r)}));var Te=te(Se,2),Oe=e=>{var t=kn(),r=ee(t),a=Y(r);Mt(te(r,2),1,(()=>ft(n).tracking),jt,((e,t,n,r)=>{var a=wn(),i=ee(a),l=Y(i),o=Y(l),s=Y(te(l,2)),u=te(i,2),d=Y(u),c=Y(d),f=Y(te(d,2)),v=te(u,2),p=Y(v),m=Y(p);Mt(te(p,2),5,(()=>ft(t).tracking_links),jt,((e,t)=>{var n=bn(),r=Y(n),a=Y(r);ce((()=>{Lt(r,"href",ft(t)),At(a,ft(t))})),Nt(e,n)})),Ct(te(v,2),(e=>{})),ce(((e,n,r)=>{At(o,e),At(s,ft(t).courier),At(c,`${n??""}:`),At(f,ft(t).packages),At(m,r)}),[()=>rn("courier"),()=>rn("number_of_packages"),()=>rn("tracking_links")],re),Nt(e,a)})),ce((e=>At(a,e)),[()=>rn("tracking_details")],re),Nt(e,t)};Ct(Te,(e=>{ft(n).tracking.length>0&&e(Oe)})),Ct(te(Te,2),(e=>{})),ce(((e,t,r,a,i,l,o,s,u,d)=>{At(c,e),At(g,t),At(y,r),At(b,a),At(x,`Id: ${ft(n).orderId??""}`),At(O,`${i??""}: `),At(P,ft(n).payment.status),At(V,l),At(W,`${o??""}: ${ft(n).customerData.name??""}`),At(U,`${s??""}:${ft(n).customerData.phone??""}`),At(Q,`Email: ${ft(n).customerData.email??""}`),At(ne,u),At(le,ft(n).customerData.name),At(se,ft(n).customerData.address.line1),At(pe,ft(n).customerData.address.line2),At(he,`${ft(n).customerData.address.city??""}, ${ft(n).customerData.address.postal_code??""}`),At(be,ft(n).customerData.address.country),At(xe,d)}),[()=>rn("order-summary"),()=>rn("order-total"),()=>function(e){return s(e.cart.items.reduce(((e,t)=>e+100*t.final_price*t.quantity),0),e.payment.currency)}(ft(n)),()=>rn("order-details"),()=>rn("payment-status"),()=>rn("customer-details"),()=>rn("name"),()=>rn("phone"),()=>rn("shipping-address"),()=>rn("order-history")],re),Nt(e,t)};Ct(f,(e=>{ft(n)?e(p,!1):e(v)})),Nt(e,c),C()},En={target:document.getElementById("preorder-app")},function(e,{target:t,anchor:n,props:a={},events:l,context:o,intro:s=!0}){!function(){if(void 0===G){G=window,Z=/Firefox/.test(navigator.userAgent);var e=Element.prototype,t=Node.prototype;K=i(t,"firstChild").get,U=i(t,"nextSibling").get,e.__click=void 0,e.__className="",e.__attributes=null,e.__styles=null,e.__e=void 0,Text.prototype.__t=void 0}}();var u=new Set,d=e=>{for(var n=0;n<e.length;n++){var r=e[n];if(!u.has(r)){u.add(r);var a=_t(r);t.addEventListener(r,Et,{passive:a});var i=zt.get(r);void 0===i?(document.addEventListener(r,Et,{passive:a}),zt.set(r,1)):zt.set(r,i+1)}}};d(r(xt)),St.add(d);var c=void 0,f=function(e){const t=oe(64,e,!0);return(e={})=>new Promise((n=>{e.outro?ye(t,(()=>{he(t),n(void 0)})):(he(t),n(void 0))}))}((()=>{var r=n??t.appendChild(J());return ve((()=>{o&&($({}),A.c=o),l&&(a.$$events=l),c=e(r,a)||{},o&&C()})),()=>{for(var e of u){t.removeEventListener(e,Et);var a=zt.get(e);0==--a?(document.removeEventListener(e,Et),zt.delete(e)):zt.set(e,a)}St.delete(d),r!==n&&r.parentNode?.removeChild(r)}}));return $t.set(c,f),c}(Tn,En));var Tn,En;return Sn}();
+var preOrdersApp = (function () {
+	'use strict';
+
+	var DEV = false;
+
+	// Store the references to globals in case someone tries to monkey patch these, causing the below
+	// to de-opt (this occurs often when using popular extensions).
+	var is_array = Array.isArray;
+	var index_of = Array.prototype.indexOf;
+	var array_from = Array.from;
+	var define_property = Object.defineProperty;
+	var get_descriptor = Object.getOwnPropertyDescriptor;
+	var get_descriptors = Object.getOwnPropertyDescriptors;
+	var object_prototype = Object.prototype;
+	var array_prototype = Array.prototype;
+	var get_prototype_of = Object.getPrototypeOf;
+
+	// Adapted from https://github.com/then/is-promise/blob/master/index.js
+	// Distributed under MIT License https://github.com/then/is-promise/blob/master/LICENSE
+
+	/**
+	 * @template [T=any]
+	 * @param {any} value
+	 * @returns {value is PromiseLike<T>}
+	 */
+	function is_promise(value) {
+		return typeof value?.then === 'function';
+	}
+
+	/** @param {Function} fn */
+	function run(fn) {
+		return fn();
+	}
+
+	/** @param {Array<() => void>} arr */
+	function run_all(arr) {
+		for (var i = 0; i < arr.length; i++) {
+			arr[i]();
+		}
+	}
+
+	const DERIVED = 1 << 1;
+	const EFFECT = 1 << 2;
+	const RENDER_EFFECT = 1 << 3;
+	const BLOCK_EFFECT = 1 << 4;
+	const BRANCH_EFFECT = 1 << 5;
+	const ROOT_EFFECT = 1 << 6;
+	const BOUNDARY_EFFECT = 1 << 7;
+	const UNOWNED = 1 << 8;
+	const DISCONNECTED = 1 << 9;
+	const CLEAN = 1 << 10;
+	const DIRTY = 1 << 11;
+	const MAYBE_DIRTY = 1 << 12;
+	const INERT = 1 << 13;
+	const DESTROYED = 1 << 14;
+	const EFFECT_RAN = 1 << 15;
+	/** 'Transparent' effects do not create a transition boundary */
+	const EFFECT_TRANSPARENT = 1 << 16;
+	/** Svelte 4 legacy mode props need to be handled with deriveds and be recognized elsewhere, hence the dedicated flag */
+	const LEGACY_DERIVED_PROP = 1 << 17;
+	const HEAD_EFFECT = 1 << 19;
+	const EFFECT_HAS_DERIVED = 1 << 20;
+
+	const STATE_SYMBOL = Symbol('$state');
+	const LEGACY_PROPS = Symbol('legacy props');
+	const LOADING_ATTR_SYMBOL = Symbol('');
+
+	/** @import { Equals } from '#client' */
+	/** @type {Equals} */
+	function equals(value) {
+		return value === this.v;
+	}
+
+	/**
+	 * @param {unknown} a
+	 * @param {unknown} b
+	 * @returns {boolean}
+	 */
+	function safe_not_equal(a, b) {
+		return a != a
+			? b == b
+			: a !== b || (a !== null && typeof a === 'object') || typeof a === 'function';
+	}
+
+	/** @type {Equals} */
+	function safe_equals(value) {
+		return !safe_not_equal(value, this.v);
+	}
+
+	/* This file is generated by scripts/process-messages/index.js. Do not edit! */
+
+
+	/**
+	 * `%rune%` cannot be used inside an effect cleanup function
+	 * @param {string} rune
+	 * @returns {never}
+	 */
+	function effect_in_teardown(rune) {
+		{
+			throw new Error(`https://svelte.dev/e/effect_in_teardown`);
+		}
+	}
+
+	/**
+	 * Effect cannot be created inside a `$derived` value that was not itself created inside an effect
+	 * @returns {never}
+	 */
+	function effect_in_unowned_derived() {
+		{
+			throw new Error(`https://svelte.dev/e/effect_in_unowned_derived`);
+		}
+	}
+
+	/**
+	 * `%rune%` can only be used inside an effect (e.g. during component initialisation)
+	 * @param {string} rune
+	 * @returns {never}
+	 */
+	function effect_orphan(rune) {
+		{
+			throw new Error(`https://svelte.dev/e/effect_orphan`);
+		}
+	}
+
+	/**
+	 * Maximum update depth exceeded. This can happen when a reactive block or effect repeatedly sets a new value. Svelte limits the number of nested updates to prevent infinite loops
+	 * @returns {never}
+	 */
+	function effect_update_depth_exceeded() {
+		{
+			throw new Error(`https://svelte.dev/e/effect_update_depth_exceeded`);
+		}
+	}
+
+	/**
+	 * Cannot do `bind:%key%={undefined}` when `%key%` has a fallback value
+	 * @param {string} key
+	 * @returns {never}
+	 */
+	function props_invalid_value(key) {
+		{
+			throw new Error(`https://svelte.dev/e/props_invalid_value`);
+		}
+	}
+
+	/**
+	 * Property descriptors defined on `$state` objects must contain `value` and always be `enumerable`, `configurable` and `writable`.
+	 * @returns {never}
+	 */
+	function state_descriptors_fixed() {
+		{
+			throw new Error(`https://svelte.dev/e/state_descriptors_fixed`);
+		}
+	}
+
+	/**
+	 * Cannot set prototype of `$state` object
+	 * @returns {never}
+	 */
+	function state_prototype_fixed() {
+		{
+			throw new Error(`https://svelte.dev/e/state_prototype_fixed`);
+		}
+	}
+
+	/**
+	 * Reading state that was created inside the same derived is forbidden. Consider using `untrack` to read locally created state
+	 * @returns {never}
+	 */
+	function state_unsafe_local_read() {
+		{
+			throw new Error(`https://svelte.dev/e/state_unsafe_local_read`);
+		}
+	}
+
+	/**
+	 * Updating state inside a derived or a template expression is forbidden. If the value should not be reactive, declare it without `$state`
+	 * @returns {never}
+	 */
+	function state_unsafe_mutation() {
+		{
+			throw new Error(`https://svelte.dev/e/state_unsafe_mutation`);
+		}
+	}
+
+	let legacy_mode_flag = false;
+	let tracing_mode_flag = false;
+
+	function enable_legacy_mode_flag() {
+		legacy_mode_flag = true;
+	}
+
+	const EACH_ITEM_REACTIVE = 1;
+	const EACH_INDEX_REACTIVE = 1 << 1;
+	/** See EachBlock interface metadata.is_controlled for an explanation what this is */
+	const EACH_IS_CONTROLLED = 1 << 2;
+	const EACH_IS_ANIMATED = 1 << 3;
+	const EACH_ITEM_IMMUTABLE = 1 << 4;
+
+	const PROPS_IS_IMMUTABLE = 1;
+	const PROPS_IS_RUNES = 1 << 1;
+	const PROPS_IS_UPDATED = 1 << 2;
+	const PROPS_IS_BINDABLE = 1 << 3;
+	const PROPS_IS_LAZY_INITIAL = 1 << 4;
+
+	const TEMPLATE_FRAGMENT = 1;
+	const TEMPLATE_USE_IMPORT_NODE = 1 << 1;
+
+	const UNINITIALIZED = Symbol();
+
+	/* This file is generated by scripts/process-messages/index.js. Do not edit! */
+
+
+	/**
+	 * `%name%(...)` can only be used during component initialisation
+	 * @param {string} name
+	 * @returns {never}
+	 */
+	function lifecycle_outside_component(name) {
+		{
+			throw new Error(`https://svelte.dev/e/lifecycle_outside_component`);
+		}
+	}
+
+	/** @import { ComponentContext } from '#client' */
+
+
+	/** @type {ComponentContext | null} */
+	let component_context = null;
+
+	/** @param {ComponentContext | null} context */
+	function set_component_context(context) {
+		component_context = context;
+	}
+
+	/**
+	 * @param {Record<string, unknown>} props
+	 * @param {any} runes
+	 * @param {Function} [fn]
+	 * @returns {void}
+	 */
+	function push(props, runes = false, fn) {
+		component_context = {
+			p: component_context,
+			c: null,
+			e: null,
+			m: false,
+			s: props,
+			x: null,
+			l: null
+		};
+
+		if (legacy_mode_flag && !runes) {
+			component_context.l = {
+				s: null,
+				u: null,
+				r1: [],
+				r2: source(false)
+			};
+		}
+	}
+
+	/**
+	 * @template {Record<string, any>} T
+	 * @param {T} [component]
+	 * @returns {T}
+	 */
+	function pop(component) {
+		const context_stack_item = component_context;
+		if (context_stack_item !== null) {
+			const component_effects = context_stack_item.e;
+			if (component_effects !== null) {
+				var previous_effect = active_effect;
+				var previous_reaction = active_reaction;
+				context_stack_item.e = null;
+				try {
+					for (var i = 0; i < component_effects.length; i++) {
+						var component_effect = component_effects[i];
+						set_active_effect(component_effect.effect);
+						set_active_reaction(component_effect.reaction);
+						effect(component_effect.fn);
+					}
+				} finally {
+					set_active_effect(previous_effect);
+					set_active_reaction(previous_reaction);
+				}
+			}
+			component_context = context_stack_item.p;
+			context_stack_item.m = true;
+		}
+		// Micro-optimization: Don't set .a above to the empty object
+		// so it can be garbage-collected when the return here is unused
+		return /** @type {T} */ ({});
+	}
+
+	/** @returns {boolean} */
+	function is_runes() {
+		return !legacy_mode_flag || (component_context !== null && component_context.l === null);
+	}
+
+	/** @import { Derived, Effect, Reaction, Source, Value } from '#client' */
+
+	/**
+	 * @template V
+	 * @param {V} v
+	 * @param {Error | null} [stack]
+	 * @returns {Source<V>}
+	 */
+	function source(v, stack) {
+		/** @type {Value} */
+		var signal = {
+			f: 0, // TODO ideally we could skip this altogether, but it causes type errors
+			v,
+			reactions: null,
+			equals,
+			rv: 0,
+			wv: 0
+		};
+
+		return signal;
+	}
+
+	/**
+	 * @template V
+	 * @param {V} initial_value
+	 * @param {boolean} [immutable]
+	 * @returns {Source<V>}
+	 */
+	/*#__NO_SIDE_EFFECTS__*/
+	function mutable_source(initial_value, immutable = false) {
+		const s = source(initial_value);
+		if (!immutable) {
+			s.equals = safe_equals;
+		}
+
+		// bind the signal to the component context, in case we need to
+		// track updates to trigger beforeUpdate/afterUpdate callbacks
+		if (legacy_mode_flag && component_context !== null && component_context.l !== null) {
+			(component_context.l.s ??= []).push(s);
+		}
+
+		return s;
+	}
+
+	/**
+	 * @template V
+	 * @param {V} v
+	 * @param {boolean} [immutable]
+	 * @returns {Source<V>}
+	 */
+	function mutable_state(v, immutable = false) {
+		return push_derived_source(mutable_source(v, immutable));
+	}
+
+	/**
+	 * @template V
+	 * @param {Source<V>} source
+	 */
+	/*#__NO_SIDE_EFFECTS__*/
+	function push_derived_source(source) {
+		if (active_reaction !== null && !untracking && (active_reaction.f & DERIVED) !== 0) {
+			if (derived_sources === null) {
+				set_derived_sources([source]);
+			} else {
+				derived_sources.push(source);
+			}
+		}
+
+		return source;
+	}
+
+	/**
+	 * @template V
+	 * @param {Value<V>} source
+	 * @param {V} value
+	 */
+	function mutate(source, value) {
+		set(
+			source,
+			untrack(() => get(source))
+		);
+		return value;
+	}
+
+	/**
+	 * @template V
+	 * @param {Source<V>} source
+	 * @param {V} value
+	 * @returns {V}
+	 */
+	function set(source, value) {
+		if (
+			active_reaction !== null &&
+			!untracking &&
+			is_runes() &&
+			(active_reaction.f & (DERIVED | BLOCK_EFFECT)) !== 0 &&
+			// If the source was created locally within the current derived, then
+			// we allow the mutation.
+			(derived_sources === null || !derived_sources.includes(source))
+		) {
+			state_unsafe_mutation();
+		}
+
+		return internal_set(source, value);
+	}
+
+	/**
+	 * @template V
+	 * @param {Source<V>} source
+	 * @param {V} value
+	 * @returns {V}
+	 */
+	function internal_set(source, value) {
+		if (!source.equals(value)) {
+			source.v;
+			source.v = value;
+			source.wv = increment_write_version();
+
+			mark_reactions(source, DIRTY);
+
+			// It's possible that the current reaction might not have up-to-date dependencies
+			// whilst it's actively running. So in the case of ensuring it registers the reaction
+			// properly for itself, we need to ensure the current effect actually gets
+			// scheduled. i.e: `$effect(() => x++)`
+			if (
+				is_runes() &&
+				active_effect !== null &&
+				(active_effect.f & CLEAN) !== 0 &&
+				(active_effect.f & (BRANCH_EFFECT | ROOT_EFFECT)) === 0
+			) {
+				if (untracked_writes === null) {
+					set_untracked_writes([source]);
+				} else {
+					untracked_writes.push(source);
+				}
+			}
+		}
+
+		return value;
+	}
+
+	/**
+	 * @param {Value} signal
+	 * @param {number} status should be DIRTY or MAYBE_DIRTY
+	 * @returns {void}
+	 */
+	function mark_reactions(signal, status) {
+		var reactions = signal.reactions;
+		if (reactions === null) return;
+
+		var runes = is_runes();
+		var length = reactions.length;
+
+		for (var i = 0; i < length; i++) {
+			var reaction = reactions[i];
+			var flags = reaction.f;
+
+			// Skip any effects that are already dirty
+			if ((flags & DIRTY) !== 0) continue;
+
+			// In legacy mode, skip the current effect to prevent infinite loops
+			if (!runes && reaction === active_effect) continue;
+
+			set_signal_status(reaction, status);
+
+			// If the signal a) was previously clean or b) is an unowned derived, then mark it
+			if ((flags & (CLEAN | UNOWNED)) !== 0) {
+				if ((flags & DERIVED) !== 0) {
+					mark_reactions(/** @type {Derived} */ (reaction), MAYBE_DIRTY);
+				} else {
+					schedule_effect(/** @type {Effect} */ (reaction));
+				}
+			}
+		}
+	}
+
+	/** @import { TemplateNode } from '#client' */
+
+
+	/**
+	 * Use this variable to guard everything related to hydration code so it can be treeshaken out
+	 * if the user doesn't use the `hydrate` method and these code paths are therefore not needed.
+	 */
+	let hydrating = false;
+
+	/** @import { ProxyMetadata, Source } from '#client' */
+
+	/**
+	 * @template T
+	 * @param {T} value
+	 * @param {ProxyMetadata | null} [parent]
+	 * @param {Source<T>} [prev] dev mode only
+	 * @returns {T}
+	 */
+	function proxy(value, parent = null, prev) {
+		// if non-proxyable, or is already a proxy, return `value`
+		if (typeof value !== 'object' || value === null || STATE_SYMBOL in value) {
+			return value;
+		}
+
+		const prototype = get_prototype_of(value);
+
+		if (prototype !== object_prototype && prototype !== array_prototype) {
+			return value;
+		}
+
+		/** @type {Map<any, Source<any>>} */
+		var sources = new Map();
+		var is_proxied_array = is_array(value);
+		var version = source(0);
+
+		if (is_proxied_array) {
+			// We need to create the length source eagerly to ensure that
+			// mutations to the array are properly synced with our proxy
+			sources.set('length', source(/** @type {any[]} */ (value).length));
+		}
+
+		/** @type {ProxyMetadata} */
+		var metadata;
+
+		return new Proxy(/** @type {any} */ (value), {
+			defineProperty(_, prop, descriptor) {
+				if (
+					!('value' in descriptor) ||
+					descriptor.configurable === false ||
+					descriptor.enumerable === false ||
+					descriptor.writable === false
+				) {
+					// we disallow non-basic descriptors, because unless they are applied to the
+					// target object — which we avoid, so that state can be forked — we will run
+					// afoul of the various invariants
+					// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy/Proxy/getOwnPropertyDescriptor#invariants
+					state_descriptors_fixed();
+				}
+
+				var s = sources.get(prop);
+
+				if (s === undefined) {
+					s = source(descriptor.value);
+					sources.set(prop, s);
+				} else {
+					set(s, proxy(descriptor.value, metadata));
+				}
+
+				return true;
+			},
+
+			deleteProperty(target, prop) {
+				var s = sources.get(prop);
+
+				if (s === undefined) {
+					if (prop in target) {
+						sources.set(prop, source(UNINITIALIZED));
+					}
+				} else {
+					// When working with arrays, we need to also ensure we update the length when removing
+					// an indexed property
+					if (is_proxied_array && typeof prop === 'string') {
+						var ls = /** @type {Source<number>} */ (sources.get('length'));
+						var n = Number(prop);
+
+						if (Number.isInteger(n) && n < ls.v) {
+							set(ls, n);
+						}
+					}
+					set(s, UNINITIALIZED);
+					update_version(version);
+				}
+
+				return true;
+			},
+
+			get(target, prop, receiver) {
+
+				if (prop === STATE_SYMBOL) {
+					return value;
+				}
+
+				var s = sources.get(prop);
+				var exists = prop in target;
+
+				// create a source, but only if it's an own property and not a prototype property
+				if (s === undefined && (!exists || get_descriptor(target, prop)?.writable)) {
+					s = source(proxy(exists ? target[prop] : UNINITIALIZED, metadata));
+					sources.set(prop, s);
+				}
+
+				if (s !== undefined) {
+					var v = get(s);
+
+					return v === UNINITIALIZED ? undefined : v;
+				}
+
+				return Reflect.get(target, prop, receiver);
+			},
+
+			getOwnPropertyDescriptor(target, prop) {
+				var descriptor = Reflect.getOwnPropertyDescriptor(target, prop);
+
+				if (descriptor && 'value' in descriptor) {
+					var s = sources.get(prop);
+					if (s) descriptor.value = get(s);
+				} else if (descriptor === undefined) {
+					var source = sources.get(prop);
+					var value = source?.v;
+
+					if (source !== undefined && value !== UNINITIALIZED) {
+						return {
+							enumerable: true,
+							configurable: true,
+							value,
+							writable: true
+						};
+					}
+				}
+
+				return descriptor;
+			},
+
+			has(target, prop) {
+
+				if (prop === STATE_SYMBOL) {
+					return true;
+				}
+
+				var s = sources.get(prop);
+				var has = (s !== undefined && s.v !== UNINITIALIZED) || Reflect.has(target, prop);
+
+				if (
+					s !== undefined ||
+					(active_effect !== null && (!has || get_descriptor(target, prop)?.writable))
+				) {
+					if (s === undefined) {
+						s = source(has ? proxy(target[prop], metadata) : UNINITIALIZED);
+						sources.set(prop, s);
+					}
+
+					var value = get(s);
+					if (value === UNINITIALIZED) {
+						return false;
+					}
+				}
+
+				return has;
+			},
+
+			set(target, prop, value, receiver) {
+				var s = sources.get(prop);
+				var has = prop in target;
+
+				// variable.length = value -> clear all signals with index >= value
+				if (is_proxied_array && prop === 'length') {
+					for (var i = value; i < /** @type {Source<number>} */ (s).v; i += 1) {
+						var other_s = sources.get(i + '');
+						if (other_s !== undefined) {
+							set(other_s, UNINITIALIZED);
+						} else if (i in target) {
+							// If the item exists in the original, we need to create a uninitialized source,
+							// else a later read of the property would result in a source being created with
+							// the value of the original item at that index.
+							other_s = source(UNINITIALIZED);
+							sources.set(i + '', other_s);
+						}
+					}
+				}
+
+				// If we haven't yet created a source for this property, we need to ensure
+				// we do so otherwise if we read it later, then the write won't be tracked and
+				// the heuristics of effects will be different vs if we had read the proxied
+				// object property before writing to that property.
+				if (s === undefined) {
+					if (!has || get_descriptor(target, prop)?.writable) {
+						s = source(undefined);
+						set(s, proxy(value, metadata));
+						sources.set(prop, s);
+					}
+				} else {
+					has = s.v !== UNINITIALIZED;
+					set(s, proxy(value, metadata));
+				}
+
+				var descriptor = Reflect.getOwnPropertyDescriptor(target, prop);
+
+				// Set the new value before updating any signals so that any listeners get the new value
+				if (descriptor?.set) {
+					descriptor.set.call(receiver, value);
+				}
+
+				if (!has) {
+					// If we have mutated an array directly, we might need to
+					// signal that length has also changed. Do it before updating metadata
+					// to ensure that iterating over the array as a result of a metadata update
+					// will not cause the length to be out of sync.
+					if (is_proxied_array && typeof prop === 'string') {
+						var ls = /** @type {Source<number>} */ (sources.get('length'));
+						var n = Number(prop);
+
+						if (Number.isInteger(n) && n >= ls.v) {
+							set(ls, n + 1);
+						}
+					}
+
+					update_version(version);
+				}
+
+				return true;
+			},
+
+			ownKeys(target) {
+				get(version);
+
+				var own_keys = Reflect.ownKeys(target).filter((key) => {
+					var source = sources.get(key);
+					return source === undefined || source.v !== UNINITIALIZED;
+				});
+
+				for (var [key, source] of sources) {
+					if (source.v !== UNINITIALIZED && !(key in target)) {
+						own_keys.push(key);
+					}
+				}
+
+				return own_keys;
+			},
+
+			setPrototypeOf() {
+				state_prototype_fixed();
+			}
+		});
+	}
+
+	/**
+	 * @param {Source<number>} signal
+	 * @param {1 | -1} [d]
+	 */
+	function update_version(signal, d = 1) {
+		set(signal, signal.v + d);
+	}
+
+	/**
+	 * @param {any} value
+	 */
+	function get_proxied_value(value) {
+		if (value !== null && typeof value === 'object' && STATE_SYMBOL in value) {
+			return value[STATE_SYMBOL];
+		}
+
+		return value;
+	}
+
+	/**
+	 * @param {any} a
+	 * @param {any} b
+	 */
+	function is(a, b) {
+		return Object.is(get_proxied_value(a), get_proxied_value(b));
+	}
+
+	/** @import { TemplateNode } from '#client' */
+
+	// export these for reference in the compiled code, making global name deduplication unnecessary
+	/** @type {Window} */
+	var $window;
+
+	/** @type {boolean} */
+	var is_firefox;
+
+	/** @type {() => Node | null} */
+	var first_child_getter;
+	/** @type {() => Node | null} */
+	var next_sibling_getter;
+
+	/**
+	 * Initialize these lazily to avoid issues when using the runtime in a server context
+	 * where these globals are not available while avoiding a separate server entry point
+	 */
+	function init_operations() {
+		if ($window !== undefined) {
+			return;
+		}
+
+		$window = window;
+		is_firefox = /Firefox/.test(navigator.userAgent);
+
+		var element_prototype = Element.prototype;
+		var node_prototype = Node.prototype;
+
+		// @ts-ignore
+		first_child_getter = get_descriptor(node_prototype, 'firstChild').get;
+		// @ts-ignore
+		next_sibling_getter = get_descriptor(node_prototype, 'nextSibling').get;
+
+		// the following assignments improve perf of lookups on DOM nodes
+		// @ts-expect-error
+		element_prototype.__click = undefined;
+		// @ts-expect-error
+		element_prototype.__className = '';
+		// @ts-expect-error
+		element_prototype.__attributes = null;
+		// @ts-expect-error
+		element_prototype.__styles = null;
+		// @ts-expect-error
+		element_prototype.__e = undefined;
+
+		// @ts-expect-error
+		Text.prototype.__t = undefined;
+	}
+
+	/**
+	 * @param {string} value
+	 * @returns {Text}
+	 */
+	function create_text(value = '') {
+		return document.createTextNode(value);
+	}
+
+	/**
+	 * @template {Node} N
+	 * @param {N} node
+	 * @returns {Node | null}
+	 */
+	/*@__NO_SIDE_EFFECTS__*/
+	function get_first_child(node) {
+		return first_child_getter.call(node);
+	}
+
+	/**
+	 * @template {Node} N
+	 * @param {N} node
+	 * @returns {Node | null}
+	 */
+	/*@__NO_SIDE_EFFECTS__*/
+	function get_next_sibling(node) {
+		return next_sibling_getter.call(node);
+	}
+
+	/**
+	 * Don't mark this as side-effect-free, hydration needs to walk all nodes
+	 * @template {Node} N
+	 * @param {N} node
+	 * @param {boolean} is_text
+	 * @returns {Node | null}
+	 */
+	function child(node, is_text) {
+		{
+			return get_first_child(node);
+		}
+	}
+
+	/**
+	 * Don't mark this as side-effect-free, hydration needs to walk all nodes
+	 * @param {DocumentFragment | TemplateNode[]} fragment
+	 * @param {boolean} is_text
+	 * @returns {Node | null}
+	 */
+	function first_child(fragment, is_text) {
+		{
+			// when not hydrating, `fragment` is a `DocumentFragment` (the result of calling `open_frag`)
+			var first = /** @type {DocumentFragment} */ (get_first_child(/** @type {Node} */ (fragment)));
+
+			// TODO prevent user comments with the empty string when preserveComments is true
+			if (first instanceof Comment && first.data === '') return get_next_sibling(first);
+
+			return first;
+		}
+	}
+
+	/**
+	 * Don't mark this as side-effect-free, hydration needs to walk all nodes
+	 * @param {TemplateNode} node
+	 * @param {number} count
+	 * @param {boolean} is_text
+	 * @returns {Node | null}
+	 */
+	function sibling(node, count = 1, is_text = false) {
+		let next_sibling = node;
+
+		while (count--) {
+			next_sibling = /** @type {TemplateNode} */ (get_next_sibling(next_sibling));
+		}
+
+		{
+			return next_sibling;
+		}
+	}
+
+	/**
+	 * @template {Node} N
+	 * @param {N} node
+	 * @returns {void}
+	 */
+	function clear_text_content(node) {
+		node.textContent = '';
+	}
+
+	/** @import { Derived, Effect } from '#client' */
+
+	/**
+	 * @template V
+	 * @param {() => V} fn
+	 * @returns {Derived<V>}
+	 */
+	/*#__NO_SIDE_EFFECTS__*/
+	function derived(fn) {
+		var flags = DERIVED | DIRTY;
+		var parent_derived =
+			active_reaction !== null && (active_reaction.f & DERIVED) !== 0
+				? /** @type {Derived} */ (active_reaction)
+				: null;
+
+		if (active_effect === null || (parent_derived !== null && (parent_derived.f & UNOWNED) !== 0)) {
+			flags |= UNOWNED;
+		} else {
+			// Since deriveds are evaluated lazily, any effects created inside them are
+			// created too late to ensure that the parent effect is added to the tree
+			active_effect.f |= EFFECT_HAS_DERIVED;
+		}
+
+		/** @type {Derived<V>} */
+		const signal = {
+			ctx: component_context,
+			deps: null,
+			effects: null,
+			equals,
+			f: flags,
+			fn,
+			reactions: null,
+			rv: 0,
+			v: /** @type {V} */ (null),
+			wv: 0,
+			parent: parent_derived ?? active_effect
+		};
+
+		return signal;
+	}
+
+	/**
+	 * @template V
+	 * @param {() => V} fn
+	 * @returns {Derived<V>}
+	 */
+	/*#__NO_SIDE_EFFECTS__*/
+	function derived_safe_equal(fn) {
+		const signal = derived(fn);
+		signal.equals = safe_equals;
+		return signal;
+	}
+
+	/**
+	 * @param {Derived} derived
+	 * @returns {void}
+	 */
+	function destroy_derived_effects(derived) {
+		var effects = derived.effects;
+
+		if (effects !== null) {
+			derived.effects = null;
+
+			for (var i = 0; i < effects.length; i += 1) {
+				destroy_effect(/** @type {Effect} */ (effects[i]));
+			}
+		}
+	}
+
+	/**
+	 * @param {Derived} derived
+	 * @returns {Effect | null}
+	 */
+	function get_derived_parent_effect(derived) {
+		var parent = derived.parent;
+		while (parent !== null) {
+			if ((parent.f & DERIVED) === 0) {
+				return /** @type {Effect} */ (parent);
+			}
+			parent = parent.parent;
+		}
+		return null;
+	}
+
+	/**
+	 * @template T
+	 * @param {Derived} derived
+	 * @returns {T}
+	 */
+	function execute_derived(derived) {
+		var value;
+		var prev_active_effect = active_effect;
+
+		set_active_effect(get_derived_parent_effect(derived));
+
+		{
+			try {
+				destroy_derived_effects(derived);
+				value = update_reaction(derived);
+			} finally {
+				set_active_effect(prev_active_effect);
+			}
+		}
+
+		return value;
+	}
+
+	/**
+	 * @param {Derived} derived
+	 * @returns {void}
+	 */
+	function update_derived(derived) {
+		var value = execute_derived(derived);
+		var status =
+			(skip_reaction || (derived.f & UNOWNED) !== 0) && derived.deps !== null ? MAYBE_DIRTY : CLEAN;
+
+		set_signal_status(derived, status);
+
+		if (!derived.equals(value)) {
+			derived.v = value;
+			derived.wv = increment_write_version();
+		}
+	}
+
+	/** @import { ComponentContext, ComponentContextLegacy, Derived, Effect, TemplateNode, TransitionManager } from '#client' */
+
+	/**
+	 * @param {'$effect' | '$effect.pre' | '$inspect'} rune
+	 */
+	function validate_effect(rune) {
+		if (active_effect === null && active_reaction === null) {
+			effect_orphan();
+		}
+
+		if (active_reaction !== null && (active_reaction.f & UNOWNED) !== 0 && active_effect === null) {
+			effect_in_unowned_derived();
+		}
+
+		if (is_destroying_effect) {
+			effect_in_teardown();
+		}
+	}
+
+	/**
+	 * @param {Effect} effect
+	 * @param {Effect} parent_effect
+	 */
+	function push_effect(effect, parent_effect) {
+		var parent_last = parent_effect.last;
+		if (parent_last === null) {
+			parent_effect.last = parent_effect.first = effect;
+		} else {
+			parent_last.next = effect;
+			effect.prev = parent_last;
+			parent_effect.last = effect;
+		}
+	}
+
+	/**
+	 * @param {number} type
+	 * @param {null | (() => void | (() => void))} fn
+	 * @param {boolean} sync
+	 * @param {boolean} push
+	 * @returns {Effect}
+	 */
+	function create_effect(type, fn, sync, push = true) {
+		var is_root = (type & ROOT_EFFECT) !== 0;
+		var parent_effect = active_effect;
+
+		/** @type {Effect} */
+		var effect = {
+			ctx: component_context,
+			deps: null,
+			nodes_start: null,
+			nodes_end: null,
+			f: type | DIRTY,
+			first: null,
+			fn,
+			last: null,
+			next: null,
+			parent: is_root ? null : parent_effect,
+			prev: null,
+			teardown: null,
+			transitions: null,
+			wv: 0
+		};
+
+		if (sync) {
+			var previously_flushing_effect = is_flushing_effect;
+
+			try {
+				set_is_flushing_effect(true);
+				update_effect(effect);
+				effect.f |= EFFECT_RAN;
+			} catch (e) {
+				destroy_effect(effect);
+				throw e;
+			} finally {
+				set_is_flushing_effect(previously_flushing_effect);
+			}
+		} else if (fn !== null) {
+			schedule_effect(effect);
+		}
+
+		// if an effect has no dependencies, no DOM and no teardown function,
+		// don't bother adding it to the effect tree
+		var inert =
+			sync &&
+			effect.deps === null &&
+			effect.first === null &&
+			effect.nodes_start === null &&
+			effect.teardown === null &&
+			(effect.f & (EFFECT_HAS_DERIVED | BOUNDARY_EFFECT)) === 0;
+
+		if (!inert && !is_root && push) {
+			if (parent_effect !== null) {
+				push_effect(effect, parent_effect);
+			}
+
+			// if we're in a derived, add the effect there too
+			if (active_reaction !== null && (active_reaction.f & DERIVED) !== 0) {
+				var derived = /** @type {Derived} */ (active_reaction);
+				(derived.effects ??= []).push(effect);
+			}
+		}
+
+		return effect;
+	}
+
+	/**
+	 * @param {() => void} fn
+	 */
+	function teardown(fn) {
+		const effect = create_effect(RENDER_EFFECT, null, false);
+		set_signal_status(effect, CLEAN);
+		effect.teardown = fn;
+		return effect;
+	}
+
+	/**
+	 * Internal representation of `$effect(...)`
+	 * @param {() => void | (() => void)} fn
+	 */
+	function user_effect(fn) {
+		validate_effect();
+
+		// Non-nested `$effect(...)` in a component should be deferred
+		// until the component is mounted
+		var defer =
+			active_effect !== null &&
+			(active_effect.f & BRANCH_EFFECT) !== 0 &&
+			component_context !== null &&
+			!component_context.m;
+
+		if (defer) {
+			var context = /** @type {ComponentContext} */ (component_context);
+			(context.e ??= []).push({
+				fn,
+				effect: active_effect,
+				reaction: active_reaction
+			});
+		} else {
+			var signal = effect(fn);
+			return signal;
+		}
+	}
+
+	/**
+	 * Internal representation of `$effect.pre(...)`
+	 * @param {() => void | (() => void)} fn
+	 * @returns {Effect}
+	 */
+	function user_pre_effect(fn) {
+		validate_effect();
+		return render_effect(fn);
+	}
+
+	/**
+	 * An effect root whose children can transition out
+	 * @param {() => void} fn
+	 * @returns {(options?: { outro?: boolean }) => Promise<void>}
+	 */
+	function component_root(fn) {
+		const effect = create_effect(ROOT_EFFECT, fn, true);
+
+		return (options = {}) => {
+			return new Promise((fulfil) => {
+				if (options.outro) {
+					pause_effect(effect, () => {
+						destroy_effect(effect);
+						fulfil(undefined);
+					});
+				} else {
+					destroy_effect(effect);
+					fulfil(undefined);
+				}
+			});
+		};
+	}
+
+	/**
+	 * @param {() => void | (() => void)} fn
+	 * @returns {Effect}
+	 */
+	function effect(fn) {
+		return create_effect(EFFECT, fn, false);
+	}
+
+	/**
+	 * @param {() => void | (() => void)} fn
+	 * @returns {Effect}
+	 */
+	function render_effect(fn) {
+		return create_effect(RENDER_EFFECT, fn, true);
+	}
+
+	/**
+	 * @param {(...expressions: any) => void | (() => void)} fn
+	 * @param {Array<() => any>} thunks
+	 * @returns {Effect}
+	 */
+	function template_effect(fn, thunks = [], d = derived) {
+		const deriveds = thunks.map(d);
+		const effect = () => fn(...deriveds.map(get));
+
+		return block(effect);
+	}
+
+	/**
+	 * @param {(() => void)} fn
+	 * @param {number} flags
+	 */
+	function block(fn, flags = 0) {
+		return create_effect(RENDER_EFFECT | BLOCK_EFFECT | flags, fn, true);
+	}
+
+	/**
+	 * @param {(() => void)} fn
+	 * @param {boolean} [push]
+	 */
+	function branch(fn, push = true) {
+		return create_effect(RENDER_EFFECT | BRANCH_EFFECT, fn, true, push);
+	}
+
+	/**
+	 * @param {Effect} effect
+	 */
+	function execute_effect_teardown(effect) {
+		var teardown = effect.teardown;
+		if (teardown !== null) {
+			const previously_destroying_effect = is_destroying_effect;
+			const previous_reaction = active_reaction;
+			set_is_destroying_effect(true);
+			set_active_reaction(null);
+			try {
+				teardown.call(null);
+			} finally {
+				set_is_destroying_effect(previously_destroying_effect);
+				set_active_reaction(previous_reaction);
+			}
+		}
+	}
+
+	/**
+	 * @param {Effect} signal
+	 * @param {boolean} remove_dom
+	 * @returns {void}
+	 */
+	function destroy_effect_children(signal, remove_dom = false) {
+		var effect = signal.first;
+		signal.first = signal.last = null;
+
+		while (effect !== null) {
+			var next = effect.next;
+			destroy_effect(effect, remove_dom);
+			effect = next;
+		}
+	}
+
+	/**
+	 * @param {Effect} signal
+	 * @returns {void}
+	 */
+	function destroy_block_effect_children(signal) {
+		var effect = signal.first;
+
+		while (effect !== null) {
+			var next = effect.next;
+			if ((effect.f & BRANCH_EFFECT) === 0) {
+				destroy_effect(effect);
+			}
+			effect = next;
+		}
+	}
+
+	/**
+	 * @param {Effect} effect
+	 * @param {boolean} [remove_dom]
+	 * @returns {void}
+	 */
+	function destroy_effect(effect, remove_dom = true) {
+		var removed = false;
+
+		if ((remove_dom || (effect.f & HEAD_EFFECT) !== 0) && effect.nodes_start !== null) {
+			/** @type {TemplateNode | null} */
+			var node = effect.nodes_start;
+			var end = effect.nodes_end;
+
+			while (node !== null) {
+				/** @type {TemplateNode | null} */
+				var next = node === end ? null : /** @type {TemplateNode} */ (get_next_sibling(node));
+
+				node.remove();
+				node = next;
+			}
+
+			removed = true;
+		}
+
+		destroy_effect_children(effect, remove_dom && !removed);
+		remove_reactions(effect, 0);
+		set_signal_status(effect, DESTROYED);
+
+		var transitions = effect.transitions;
+
+		if (transitions !== null) {
+			for (const transition of transitions) {
+				transition.stop();
+			}
+		}
+
+		execute_effect_teardown(effect);
+
+		var parent = effect.parent;
+
+		// If the parent doesn't have any children, then skip this work altogether
+		if (parent !== null && parent.first !== null) {
+			unlink_effect(effect);
+		}
+
+		// `first` and `child` are nulled out in destroy_effect_children
+		// we don't null out `parent` so that error propagation can work correctly
+		effect.next =
+			effect.prev =
+			effect.teardown =
+			effect.ctx =
+			effect.deps =
+			effect.fn =
+			effect.nodes_start =
+			effect.nodes_end =
+				null;
+	}
+
+	/**
+	 * Detach an effect from the effect tree, freeing up memory and
+	 * reducing the amount of work that happens on subsequent traversals
+	 * @param {Effect} effect
+	 */
+	function unlink_effect(effect) {
+		var parent = effect.parent;
+		var prev = effect.prev;
+		var next = effect.next;
+
+		if (prev !== null) prev.next = next;
+		if (next !== null) next.prev = prev;
+
+		if (parent !== null) {
+			if (parent.first === effect) parent.first = next;
+			if (parent.last === effect) parent.last = prev;
+		}
+	}
+
+	/**
+	 * When a block effect is removed, we don't immediately destroy it or yank it
+	 * out of the DOM, because it might have transitions. Instead, we 'pause' it.
+	 * It stays around (in memory, and in the DOM) until outro transitions have
+	 * completed, and if the state change is reversed then we _resume_ it.
+	 * A paused effect does not update, and the DOM subtree becomes inert.
+	 * @param {Effect} effect
+	 * @param {() => void} [callback]
+	 */
+	function pause_effect(effect, callback) {
+		/** @type {TransitionManager[]} */
+		var transitions = [];
+
+		pause_children(effect, transitions, true);
+
+		run_out_transitions(transitions, () => {
+			destroy_effect(effect);
+			if (callback) callback();
+		});
+	}
+
+	/**
+	 * @param {TransitionManager[]} transitions
+	 * @param {() => void} fn
+	 */
+	function run_out_transitions(transitions, fn) {
+		var remaining = transitions.length;
+		if (remaining > 0) {
+			var check = () => --remaining || fn();
+			for (var transition of transitions) {
+				transition.out(check);
+			}
+		} else {
+			fn();
+		}
+	}
+
+	/**
+	 * @param {Effect} effect
+	 * @param {TransitionManager[]} transitions
+	 * @param {boolean} local
+	 */
+	function pause_children(effect, transitions, local) {
+		if ((effect.f & INERT) !== 0) return;
+		effect.f ^= INERT;
+
+		if (effect.transitions !== null) {
+			for (const transition of effect.transitions) {
+				if (transition.is_global || local) {
+					transitions.push(transition);
+				}
+			}
+		}
+
+		var child = effect.first;
+
+		while (child !== null) {
+			var sibling = child.next;
+			var transparent = (child.f & EFFECT_TRANSPARENT) !== 0 || (child.f & BRANCH_EFFECT) !== 0;
+			// TODO we don't need to call pause_children recursively with a linked list in place
+			// it's slightly more involved though as we have to account for `transparent` changing
+			// through the tree.
+			pause_children(child, transitions, transparent ? local : false);
+			child = sibling;
+		}
+	}
+
+	/**
+	 * The opposite of `pause_effect`. We call this if (for example)
+	 * `x` becomes falsy then truthy: `{#if x}...{/if}`
+	 * @param {Effect} effect
+	 */
+	function resume_effect(effect) {
+		resume_children(effect, true);
+	}
+
+	/**
+	 * @param {Effect} effect
+	 * @param {boolean} local
+	 */
+	function resume_children(effect, local) {
+		if ((effect.f & INERT) === 0) return;
+		effect.f ^= INERT;
+
+		// Ensure the effect is marked as clean again so that any dirty child
+		// effects can schedule themselves for execution
+		if ((effect.f & CLEAN) === 0) {
+			effect.f ^= CLEAN;
+		}
+
+		// If a dependency of this effect changed while it was paused,
+		// schedule the effect to update
+		if (check_dirtiness(effect)) {
+			set_signal_status(effect, DIRTY);
+			schedule_effect(effect);
+		}
+
+		var child = effect.first;
+
+		while (child !== null) {
+			var sibling = child.next;
+			var transparent = (child.f & EFFECT_TRANSPARENT) !== 0 || (child.f & BRANCH_EFFECT) !== 0;
+			// TODO we don't need to call resume_children recursively with a linked list in place
+			// it's slightly more involved though as we have to account for `transparent` changing
+			// through the tree.
+			resume_children(child, transparent ? local : false);
+			child = sibling;
+		}
+
+		if (effect.transitions !== null) {
+			for (const transition of effect.transitions) {
+				if (transition.is_global || local) {
+					transition.in();
+				}
+			}
+		}
+	}
+
+	let is_micro_task_queued$1 = false;
+
+	/** @type {Array<() => void>} */
+	let current_queued_micro_tasks = [];
+
+	function process_micro_tasks() {
+		is_micro_task_queued$1 = false;
+		const tasks = current_queued_micro_tasks.slice();
+		current_queued_micro_tasks = [];
+		run_all(tasks);
+	}
+
+	/**
+	 * @param {() => void} fn
+	 */
+	function queue_micro_task(fn) {
+		if (!is_micro_task_queued$1) {
+			is_micro_task_queued$1 = true;
+			queueMicrotask(process_micro_tasks);
+		}
+		current_queued_micro_tasks.push(fn);
+	}
+
+	/**
+	 * Synchronously run any queued tasks.
+	 */
+	function flush_tasks() {
+		if (is_micro_task_queued$1) {
+			process_micro_tasks();
+		}
+	}
+
+	/** @import { ComponentContext, Derived, Effect, Reaction, Signal, Source, Value } from '#client' */
+
+	const FLUSH_MICROTASK = 0;
+	const FLUSH_SYNC = 1;
+	let is_throwing_error = false;
+
+	// Used for controlling the flush of effects.
+	let scheduler_mode = FLUSH_MICROTASK;
+	// Used for handling scheduling
+	let is_micro_task_queued = false;
+
+	/** @type {Effect | null} */
+	let last_scheduled_effect = null;
+
+	let is_flushing_effect = false;
+	let is_destroying_effect = false;
+
+	/** @param {boolean} value */
+	function set_is_flushing_effect(value) {
+		is_flushing_effect = value;
+	}
+
+	/** @param {boolean} value */
+	function set_is_destroying_effect(value) {
+		is_destroying_effect = value;
+	}
+
+	// Handle effect queues
+
+	/** @type {Effect[]} */
+	let queued_root_effects = [];
+
+	let flush_count = 0;
+	/** @type {Effect[]} Stack of effects, dev only */
+	let dev_effect_stack = [];
+	// Handle signal reactivity tree dependencies and reactions
+
+	/** @type {null | Reaction} */
+	let active_reaction = null;
+
+	let untracking = false;
+
+	/** @param {null | Reaction} reaction */
+	function set_active_reaction(reaction) {
+		active_reaction = reaction;
+	}
+
+	/** @type {null | Effect} */
+	let active_effect = null;
+
+	/** @param {null | Effect} effect */
+	function set_active_effect(effect) {
+		active_effect = effect;
+	}
+
+	/**
+	 * When sources are created within a derived, we record them so that we can safely allow
+	 * local mutations to these sources without the side-effect error being invoked unnecessarily.
+	 * @type {null | Source[]}
+	 */
+	let derived_sources = null;
+
+	/**
+	 * @param {Source[] | null} sources
+	 */
+	function set_derived_sources(sources) {
+		derived_sources = sources;
+	}
+
+	/**
+	 * The dependencies of the reaction that is currently being executed. In many cases,
+	 * the dependencies are unchanged between runs, and so this will be `null` unless
+	 * and until a new dependency is accessed — we track this via `skipped_deps`
+	 * @type {null | Value[]}
+	 */
+	let new_deps = null;
+
+	let skipped_deps = 0;
+
+	/**
+	 * Tracks writes that the effect it's executed in doesn't listen to yet,
+	 * so that the dependency can be added to the effect later on if it then reads it
+	 * @type {null | Source[]}
+	 */
+	let untracked_writes = null;
+
+	/** @param {null | Source[]} value */
+	function set_untracked_writes(value) {
+		untracked_writes = value;
+	}
+
+	/**
+	 * @type {number} Used by sources and deriveds for handling updates.
+	 * Version starts from 1 so that unowned deriveds differentiate between a created effect and a run one for tracing
+	 **/
+	let write_version = 1;
+
+	/** @type {number} Used to version each read of a source of derived to avoid duplicating depedencies inside a reaction */
+	let read_version = 0;
+
+	// If we are working with a get() chain that has no active container,
+	// to prevent memory leaks, we skip adding the reaction.
+	let skip_reaction = false;
+	// Handle collecting all signals which are read during a specific time frame
+	/** @type {Set<Value> | null} */
+	let captured_signals = null;
+
+	function increment_write_version() {
+		return ++write_version;
+	}
+
+	/**
+	 * Determines whether a derived or effect is dirty.
+	 * If it is MAYBE_DIRTY, will set the status to CLEAN
+	 * @param {Reaction} reaction
+	 * @returns {boolean}
+	 */
+	function check_dirtiness(reaction) {
+		var flags = reaction.f;
+
+		if ((flags & DIRTY) !== 0) {
+			return true;
+		}
+
+		if ((flags & MAYBE_DIRTY) !== 0) {
+			var dependencies = reaction.deps;
+			var is_unowned = (flags & UNOWNED) !== 0;
+
+			if (dependencies !== null) {
+				var i;
+				var dependency;
+				var is_disconnected = (flags & DISCONNECTED) !== 0;
+				var is_unowned_connected = is_unowned && active_effect !== null && !skip_reaction;
+				var length = dependencies.length;
+
+				// If we are working with a disconnected or an unowned signal that is now connected (due to an active effect)
+				// then we need to re-connect the reaction to the dependency
+				if (is_disconnected || is_unowned_connected) {
+					var derived = /** @type {Derived} */ (reaction);
+					var parent = derived.parent;
+
+					for (i = 0; i < length; i++) {
+						dependency = dependencies[i];
+
+						// We always re-add all reactions (even duplicates) if the derived was
+						// previously disconnected, however we don't if it was unowned as we
+						// de-duplicate dependencies in that case
+						if (is_disconnected || !dependency?.reactions?.includes(derived)) {
+							(dependency.reactions ??= []).push(derived);
+						}
+					}
+
+					if (is_disconnected) {
+						derived.f ^= DISCONNECTED;
+					}
+					// If the unowned derived is now fully connected to the graph again (it's unowned and reconnected, has a parent
+					// and the parent is not unowned), then we can mark it as connected again, removing the need for the unowned
+					// flag
+					if (is_unowned_connected && parent !== null && (parent.f & UNOWNED) === 0) {
+						derived.f ^= UNOWNED;
+					}
+				}
+
+				for (i = 0; i < length; i++) {
+					dependency = dependencies[i];
+
+					if (check_dirtiness(/** @type {Derived} */ (dependency))) {
+						update_derived(/** @type {Derived} */ (dependency));
+					}
+
+					if (dependency.wv > reaction.wv) {
+						return true;
+					}
+				}
+			}
+
+			// Unowned signals should never be marked as clean unless they
+			// are used within an active_effect without skip_reaction
+			if (!is_unowned || (active_effect !== null && !skip_reaction)) {
+				set_signal_status(reaction, CLEAN);
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * @param {unknown} error
+	 * @param {Effect} effect
+	 */
+	function propagate_error(error, effect) {
+		/** @type {Effect | null} */
+		var current = effect;
+
+		while (current !== null) {
+			if ((current.f & BOUNDARY_EFFECT) !== 0) {
+				try {
+					// @ts-expect-error
+					current.fn(error);
+					return;
+				} catch {
+					// Remove boundary flag from effect
+					current.f ^= BOUNDARY_EFFECT;
+				}
+			}
+
+			current = current.parent;
+		}
+
+		is_throwing_error = false;
+		throw error;
+	}
+
+	/**
+	 * @param {Effect} effect
+	 */
+	function should_rethrow_error(effect) {
+		return (
+			(effect.f & DESTROYED) === 0 &&
+			(effect.parent === null || (effect.parent.f & BOUNDARY_EFFECT) === 0)
+		);
+	}
+
+	/**
+	 * @param {unknown} error
+	 * @param {Effect} effect
+	 * @param {Effect | null} previous_effect
+	 * @param {ComponentContext | null} component_context
+	 */
+	function handle_error(error, effect, previous_effect, component_context) {
+		if (is_throwing_error) {
+			if (previous_effect === null) {
+				is_throwing_error = false;
+			}
+
+			if (should_rethrow_error(effect)) {
+				throw error;
+			}
+
+			return;
+		}
+
+		if (previous_effect !== null) {
+			is_throwing_error = true;
+		}
+
+		{
+			propagate_error(error, effect);
+			return;
+		}
+	}
+
+	/**
+	 * @param {Value} signal
+	 * @param {Effect} effect
+	 * @param {boolean} [root]
+	 */
+	function schedule_possible_effect_self_invalidation(signal, effect, root = true) {
+		var reactions = signal.reactions;
+		if (reactions === null) return;
+
+		for (var i = 0; i < reactions.length; i++) {
+			var reaction = reactions[i];
+			if ((reaction.f & DERIVED) !== 0) {
+				schedule_possible_effect_self_invalidation(/** @type {Derived} */ (reaction), effect, false);
+			} else if (effect === reaction) {
+				if (root) {
+					set_signal_status(reaction, DIRTY);
+				} else if ((reaction.f & CLEAN) !== 0) {
+					set_signal_status(reaction, MAYBE_DIRTY);
+				}
+				schedule_effect(/** @type {Effect} */ (reaction));
+			}
+		}
+	}
+
+	/**
+	 * @template V
+	 * @param {Reaction} reaction
+	 * @returns {V}
+	 */
+	function update_reaction(reaction) {
+		var previous_deps = new_deps;
+		var previous_skipped_deps = skipped_deps;
+		var previous_untracked_writes = untracked_writes;
+		var previous_reaction = active_reaction;
+		var previous_skip_reaction = skip_reaction;
+		var prev_derived_sources = derived_sources;
+		var previous_component_context = component_context;
+		var previous_untracking = untracking;
+		var flags = reaction.f;
+
+		new_deps = /** @type {null | Value[]} */ (null);
+		skipped_deps = 0;
+		untracked_writes = null;
+		active_reaction = (flags & (BRANCH_EFFECT | ROOT_EFFECT)) === 0 ? reaction : null;
+		skip_reaction =
+			(flags & UNOWNED) !== 0 &&
+			(!is_flushing_effect || previous_reaction === null || previous_untracking);
+
+		derived_sources = null;
+		set_component_context(reaction.ctx);
+		untracking = false;
+		read_version++;
+
+		try {
+			var result = /** @type {Function} */ (0, reaction.fn)();
+			var deps = reaction.deps;
+
+			if (new_deps !== null) {
+				var i;
+
+				remove_reactions(reaction, skipped_deps);
+
+				if (deps !== null && skipped_deps > 0) {
+					deps.length = skipped_deps + new_deps.length;
+					for (i = 0; i < new_deps.length; i++) {
+						deps[skipped_deps + i] = new_deps[i];
+					}
+				} else {
+					reaction.deps = deps = new_deps;
+				}
+
+				if (!skip_reaction) {
+					for (i = skipped_deps; i < deps.length; i++) {
+						(deps[i].reactions ??= []).push(reaction);
+					}
+				}
+			} else if (deps !== null && skipped_deps < deps.length) {
+				remove_reactions(reaction, skipped_deps);
+				deps.length = skipped_deps;
+			}
+
+			// If we're inside an effect and we have untracked writes, then we need to
+			// ensure that if any of those untracked writes result in re-invalidation
+			// of the current effect, then that happens accordingly
+			if (
+				is_runes() &&
+				untracked_writes !== null &&
+				!untracking &&
+				deps !== null &&
+				(reaction.f & (DERIVED | MAYBE_DIRTY | DIRTY)) === 0
+			) {
+				for (i = 0; i < /** @type {Source[]} */ (untracked_writes).length; i++) {
+					schedule_possible_effect_self_invalidation(
+						untracked_writes[i],
+						/** @type {Effect} */ (reaction)
+					);
+				}
+			}
+
+			// If we are returning to an previous reaction then
+			// we need to increment the read version to ensure that
+			// any dependencies in this reaction aren't marked with
+			// the same version
+			if (previous_reaction !== null) {
+				read_version++;
+			}
+
+			return result;
+		} finally {
+			new_deps = previous_deps;
+			skipped_deps = previous_skipped_deps;
+			untracked_writes = previous_untracked_writes;
+			active_reaction = previous_reaction;
+			skip_reaction = previous_skip_reaction;
+			derived_sources = prev_derived_sources;
+			set_component_context(previous_component_context);
+			untracking = previous_untracking;
+		}
+	}
+
+	/**
+	 * @template V
+	 * @param {Reaction} signal
+	 * @param {Value<V>} dependency
+	 * @returns {void}
+	 */
+	function remove_reaction(signal, dependency) {
+		let reactions = dependency.reactions;
+		if (reactions !== null) {
+			var index = index_of.call(reactions, signal);
+			if (index !== -1) {
+				var new_length = reactions.length - 1;
+				if (new_length === 0) {
+					reactions = dependency.reactions = null;
+				} else {
+					// Swap with last element and then remove.
+					reactions[index] = reactions[new_length];
+					reactions.pop();
+				}
+			}
+		}
+		// If the derived has no reactions, then we can disconnect it from the graph,
+		// allowing it to either reconnect in the future, or be GC'd by the VM.
+		if (
+			reactions === null &&
+			(dependency.f & DERIVED) !== 0 &&
+			// Destroying a child effect while updating a parent effect can cause a dependency to appear
+			// to be unused, when in fact it is used by the currently-updating parent. Checking `new_deps`
+			// allows us to skip the expensive work of disconnecting and immediately reconnecting it
+			(new_deps === null || !new_deps.includes(dependency))
+		) {
+			set_signal_status(dependency, MAYBE_DIRTY);
+			// If we are working with a derived that is owned by an effect, then mark it as being
+			// disconnected.
+			if ((dependency.f & (UNOWNED | DISCONNECTED)) === 0) {
+				dependency.f ^= DISCONNECTED;
+			}
+			// Disconnect any reactions owned by this reaction
+			destroy_derived_effects(/** @type {Derived} **/ (dependency));
+			remove_reactions(/** @type {Derived} **/ (dependency), 0);
+		}
+	}
+
+	/**
+	 * @param {Reaction} signal
+	 * @param {number} start_index
+	 * @returns {void}
+	 */
+	function remove_reactions(signal, start_index) {
+		var dependencies = signal.deps;
+		if (dependencies === null) return;
+
+		for (var i = start_index; i < dependencies.length; i++) {
+			remove_reaction(signal, dependencies[i]);
+		}
+	}
+
+	/**
+	 * @param {Effect} effect
+	 * @returns {void}
+	 */
+	function update_effect(effect) {
+		var flags = effect.f;
+
+		if ((flags & DESTROYED) !== 0) {
+			return;
+		}
+
+		set_signal_status(effect, CLEAN);
+
+		var previous_effect = active_effect;
+		var previous_component_context = component_context;
+
+		active_effect = effect;
+
+		try {
+			if ((flags & BLOCK_EFFECT) !== 0) {
+				destroy_block_effect_children(effect);
+			} else {
+				destroy_effect_children(effect);
+			}
+
+			execute_effect_teardown(effect);
+			var teardown = update_reaction(effect);
+			effect.teardown = typeof teardown === 'function' ? teardown : null;
+			effect.wv = write_version;
+
+			var deps = effect.deps;
+
+			// In DEV, we need to handle a case where $inspect.trace() might
+			// incorrectly state a source dependency has not changed when it has.
+			// That's beacuse that source was changed by the same effect, causing
+			// the versions to match. We can avoid this by incrementing the version
+			var dep; if (DEV && tracing_mode_flag && (effect.f & DIRTY) !== 0 && deps !== null) ;
+
+			if (DEV) ;
+		} catch (error) {
+			handle_error(error, effect, previous_effect, previous_component_context || effect.ctx);
+		} finally {
+			active_effect = previous_effect;
+		}
+	}
+
+	function infinite_loop_guard() {
+		if (flush_count > 1000) {
+			flush_count = 0;
+			try {
+				effect_update_depth_exceeded();
+			} catch (error) {
+				// Try and handle the error so it can be caught at a boundary, that's
+				// if there's an effect available from when it was last scheduled
+				if (last_scheduled_effect !== null) {
+					{
+						handle_error(error, last_scheduled_effect, null);
+					}
+				} else {
+					throw error;
+				}
+			}
+		}
+		flush_count++;
+	}
+
+	/**
+	 * @param {Array<Effect>} root_effects
+	 * @returns {void}
+	 */
+	function flush_queued_root_effects(root_effects) {
+		var length = root_effects.length;
+		if (length === 0) {
+			return;
+		}
+		infinite_loop_guard();
+
+		var previously_flushing_effect = is_flushing_effect;
+		is_flushing_effect = true;
+
+		try {
+			for (var i = 0; i < length; i++) {
+				var effect = root_effects[i];
+
+				if ((effect.f & CLEAN) === 0) {
+					effect.f ^= CLEAN;
+				}
+
+				var collected_effects = process_effects(effect);
+				flush_queued_effects(collected_effects);
+			}
+		} finally {
+			is_flushing_effect = previously_flushing_effect;
+		}
+	}
+
+	/**
+	 * @param {Array<Effect>} effects
+	 * @returns {void}
+	 */
+	function flush_queued_effects(effects) {
+		var length = effects.length;
+		if (length === 0) return;
+
+		for (var i = 0; i < length; i++) {
+			var effect = effects[i];
+
+			if ((effect.f & (DESTROYED | INERT)) === 0) {
+				try {
+					if (check_dirtiness(effect)) {
+						update_effect(effect);
+
+						// Effects with no dependencies or teardown do not get added to the effect tree.
+						// Deferred effects (e.g. `$effect(...)`) _are_ added to the tree because we
+						// don't know if we need to keep them until they are executed. Doing the check
+						// here (rather than in `update_effect`) allows us to skip the work for
+						// immediate effects.
+						if (effect.deps === null && effect.first === null && effect.nodes_start === null) {
+							if (effect.teardown === null) {
+								// remove this effect from the graph
+								unlink_effect(effect);
+							} else {
+								// keep the effect in the graph, but free up some memory
+								effect.fn = null;
+							}
+						}
+					}
+				} catch (error) {
+					handle_error(error, effect, null, effect.ctx);
+				}
+			}
+		}
+	}
+
+	function process_deferred() {
+		is_micro_task_queued = false;
+		if (flush_count > 1001) {
+			return;
+		}
+		const previous_queued_root_effects = queued_root_effects;
+		queued_root_effects = [];
+		flush_queued_root_effects(previous_queued_root_effects);
+
+		if (!is_micro_task_queued) {
+			flush_count = 0;
+			last_scheduled_effect = null;
+		}
+	}
+
+	/**
+	 * @param {Effect} signal
+	 * @returns {void}
+	 */
+	function schedule_effect(signal) {
+		if (scheduler_mode === FLUSH_MICROTASK) {
+			if (!is_micro_task_queued) {
+				is_micro_task_queued = true;
+				queueMicrotask(process_deferred);
+			}
+		}
+
+		last_scheduled_effect = signal;
+
+		var effect = signal;
+
+		while (effect.parent !== null) {
+			effect = effect.parent;
+			var flags = effect.f;
+
+			if ((flags & (ROOT_EFFECT | BRANCH_EFFECT)) !== 0) {
+				if ((flags & CLEAN) === 0) return;
+				effect.f ^= CLEAN;
+			}
+		}
+
+		queued_root_effects.push(effect);
+	}
+
+	/**
+	 *
+	 * This function both runs render effects and collects user effects in topological order
+	 * from the starting effect passed in. Effects will be collected when they match the filtered
+	 * bitwise flag passed in only. The collected effects array will be populated with all the user
+	 * effects to be flushed.
+	 *
+	 * @param {Effect} effect
+	 * @returns {Effect[]}
+	 */
+	function process_effects(effect) {
+		/** @type {Effect[]} */
+		var effects = [];
+
+		var current_effect = effect.first;
+
+		main_loop: while (current_effect !== null) {
+			var flags = current_effect.f;
+			var is_branch = (flags & BRANCH_EFFECT) !== 0;
+			var is_skippable_branch = is_branch && (flags & CLEAN) !== 0;
+			var sibling = current_effect.next;
+
+			if (!is_skippable_branch && (flags & INERT) === 0) {
+				if ((flags & EFFECT) !== 0) {
+					effects.push(current_effect);
+				} else if (is_branch) {
+					current_effect.f ^= CLEAN;
+				} else {
+					// Ensure we set the effect to be the active reaction
+					// to ensure that unowned deriveds are correctly tracked
+					// because we're flushing the current effect
+					var previous_active_reaction = active_reaction;
+					try {
+						active_reaction = current_effect;
+						if (check_dirtiness(current_effect)) {
+							update_effect(current_effect);
+						}
+					} catch (error) {
+						handle_error(error, current_effect, null, current_effect.ctx);
+					} finally {
+						active_reaction = previous_active_reaction;
+					}
+				}
+
+				var child = current_effect.first;
+
+				if (child !== null) {
+					current_effect = child;
+					continue;
+				}
+			}
+
+			if (sibling === null) {
+				let parent = current_effect.parent;
+
+				while (parent !== null) {
+					if (effect === parent) {
+						break main_loop;
+					}
+					var parent_sibling = parent.next;
+					if (parent_sibling !== null) {
+						current_effect = parent_sibling;
+						continue main_loop;
+					}
+					parent = parent.parent;
+				}
+			}
+
+			current_effect = sibling;
+		}
+
+		return effects;
+	}
+
+	/**
+	 * Internal version of `flushSync` with the option to not flush previous effects.
+	 * Returns the result of the passed function, if given.
+	 * @param {() => any} [fn]
+	 * @returns {any}
+	 */
+	function flush_sync(fn) {
+		var previous_scheduler_mode = scheduler_mode;
+		var previous_queued_root_effects = queued_root_effects;
+
+		try {
+			infinite_loop_guard();
+
+			/** @type {Effect[]} */
+			const root_effects = [];
+
+			scheduler_mode = FLUSH_SYNC;
+			queued_root_effects = root_effects;
+			is_micro_task_queued = false;
+
+			flush_queued_root_effects(previous_queued_root_effects);
+
+			var result = fn?.();
+
+			flush_tasks();
+			if (queued_root_effects.length > 0 || root_effects.length > 0) {
+				flush_sync();
+			}
+
+			flush_count = 0;
+			last_scheduled_effect = null;
+			if (DEV) ;
+
+			return result;
+		} finally {
+			scheduler_mode = previous_scheduler_mode;
+			queued_root_effects = previous_queued_root_effects;
+		}
+	}
+
+	/**
+	 * @template V
+	 * @param {Value<V>} signal
+	 * @returns {V}
+	 */
+	function get(signal) {
+		var flags = signal.f;
+		var is_derived = (flags & DERIVED) !== 0;
+
+		if (captured_signals !== null) {
+			captured_signals.add(signal);
+		}
+
+		// Register the dependency on the current reaction signal.
+		if (active_reaction !== null && !untracking) {
+			if (derived_sources !== null && derived_sources.includes(signal)) {
+				state_unsafe_local_read();
+			}
+			var deps = active_reaction.deps;
+			if (signal.rv < read_version) {
+				signal.rv = read_version;
+				// If the signal is accessing the same dependencies in the same
+				// order as it did last time, increment `skipped_deps`
+				// rather than updating `new_deps`, which creates GC cost
+				if (new_deps === null && deps !== null && deps[skipped_deps] === signal) {
+					skipped_deps++;
+				} else if (new_deps === null) {
+					new_deps = [signal];
+				} else if (!skip_reaction || !new_deps.includes(signal)) {
+					// Normally we can push duplicated dependencies to `new_deps`, but if we're inside
+					// an unowned derived because skip_reaction is true, then we need to ensure that
+					// we don't have duplicates
+					new_deps.push(signal);
+				}
+			}
+		} else if (
+			is_derived &&
+			/** @type {Derived} */ (signal).deps === null &&
+			/** @type {Derived} */ (signal).effects === null
+		) {
+			var derived = /** @type {Derived} */ (signal);
+			var parent = derived.parent;
+
+			if (parent !== null && (parent.f & UNOWNED) === 0) {
+				// If the derived is owned by another derived then mark it as unowned
+				// as the derived value might have been referenced in a different context
+				// since and thus its parent might not be its true owner anymore
+				derived.f ^= UNOWNED;
+			}
+		}
+
+		if (is_derived) {
+			derived = /** @type {Derived} */ (signal);
+
+			if (check_dirtiness(derived)) {
+				update_derived(derived);
+			}
+		}
+
+		return signal.v;
+	}
+
+	/**
+	 * Capture an array of all the signals that are read when `fn` is called
+	 * @template T
+	 * @param {() => T} fn
+	 */
+	function capture_signals(fn) {
+		var previous_captured_signals = captured_signals;
+		captured_signals = new Set();
+
+		var captured = captured_signals;
+		var signal;
+
+		try {
+			untrack(fn);
+			if (previous_captured_signals !== null) {
+				for (signal of captured_signals) {
+					previous_captured_signals.add(signal);
+				}
+			}
+		} finally {
+			captured_signals = previous_captured_signals;
+		}
+
+		return captured;
+	}
+
+	/**
+	 * Invokes a function and captures all signals that are read during the invocation,
+	 * then invalidates them.
+	 * @param {() => any} fn
+	 */
+	function invalidate_inner_signals(fn) {
+		var captured = capture_signals(() => untrack(fn));
+
+		for (var signal of captured) {
+			// Go one level up because derived signals created as part of props in legacy mode
+			if ((signal.f & LEGACY_DERIVED_PROP) !== 0) {
+				for (const dep of /** @type {Derived} */ (signal).deps || []) {
+					if ((dep.f & DERIVED) === 0) {
+						// Use internal_set instead of set here and below to avoid mutation validation
+						internal_set(dep, dep.v);
+					}
+				}
+			} else {
+				internal_set(signal, signal.v);
+			}
+		}
+	}
+
+	/**
+	 * When used inside a [`$derived`](https://svelte.dev/docs/svelte/$derived) or [`$effect`](https://svelte.dev/docs/svelte/$effect),
+	 * any state read inside `fn` will not be treated as a dependency.
+	 *
+	 * ```ts
+	 * $effect(() => {
+	 *   // this will run when `data` changes, but not when `time` changes
+	 *   save(data, {
+	 *     timestamp: untrack(() => time)
+	 *   });
+	 * });
+	 * ```
+	 * @template T
+	 * @param {() => T} fn
+	 * @returns {T}
+	 */
+	function untrack(fn) {
+		var previous_untracking = untracking;
+		try {
+			untracking = true;
+			return fn();
+		} finally {
+			untracking = previous_untracking;
+		}
+	}
+
+	const STATUS_MASK = -7169;
+
+	/**
+	 * @param {Signal} signal
+	 * @param {number} status
+	 * @returns {void}
+	 */
+	function set_signal_status(signal, status) {
+		signal.f = (signal.f & STATUS_MASK) | status;
+	}
+
+	/**
+	 * Possibly traverse an object and read all its properties so that they're all reactive in case this is `$state`.
+	 * Does only check first level of an object for performance reasons (heuristic should be good for 99% of all cases).
+	 * @param {any} value
+	 * @returns {void}
+	 */
+	function deep_read_state(value) {
+		if (typeof value !== 'object' || !value || value instanceof EventTarget) {
+			return;
+		}
+
+		if (STATE_SYMBOL in value) {
+			deep_read(value);
+		} else if (!Array.isArray(value)) {
+			for (let key in value) {
+				const prop = value[key];
+				if (typeof prop === 'object' && prop && STATE_SYMBOL in prop) {
+					deep_read(prop);
+				}
+			}
+		}
+	}
+
+	/**
+	 * Deeply traverse an object and read all its properties
+	 * so that they're all reactive in case this is `$state`
+	 * @param {any} value
+	 * @param {Set<any>} visited
+	 * @returns {void}
+	 */
+	function deep_read(value, visited = new Set()) {
+		if (
+			typeof value === 'object' &&
+			value !== null &&
+			// We don't want to traverse DOM elements
+			!(value instanceof EventTarget) &&
+			!visited.has(value)
+		) {
+			visited.add(value);
+			// When working with a possible SvelteDate, this
+			// will ensure we capture changes to it.
+			if (value instanceof Date) {
+				value.getTime();
+			}
+			for (let key in value) {
+				try {
+					deep_read(value[key], visited);
+				} catch (e) {
+					// continue
+				}
+			}
+			const proto = get_prototype_of(value);
+			if (
+				proto !== Object.prototype &&
+				proto !== Array.prototype &&
+				proto !== Map.prototype &&
+				proto !== Set.prototype &&
+				proto !== Date.prototype
+			) {
+				const descriptors = get_descriptors(proto);
+				for (let key in descriptors) {
+					const get = descriptors[key].get;
+					if (get) {
+						try {
+							get.call(value);
+						} catch (e) {
+							// continue
+						}
+					}
+				}
+			}
+		}
+	}
+
+	/**
+	 * Subset of delegated events which should be passive by default.
+	 * These two are already passive via browser defaults on window, document and body.
+	 * But since
+	 * - we're delegating them
+	 * - they happen often
+	 * - they apply to mobile which is generally less performant
+	 * we're marking them as passive by default for other elements, too.
+	 */
+	const PASSIVE_EVENTS = ['touchstart', 'touchmove'];
+
+	/**
+	 * Returns `true` if `name` is a passive event
+	 * @param {string} name
+	 */
+	function is_passive_event(name) {
+		return PASSIVE_EVENTS.includes(name);
+	}
+
+	let listening_to_form_reset = false;
+
+	function add_form_reset_listener() {
+		if (!listening_to_form_reset) {
+			listening_to_form_reset = true;
+			document.addEventListener(
+				'reset',
+				(evt) => {
+					// Needs to happen one tick later or else the dom properties of the form
+					// elements have not updated to their reset values yet
+					Promise.resolve().then(() => {
+						if (!evt.defaultPrevented) {
+							for (const e of /**@type {HTMLFormElement} */ (evt.target).elements) {
+								// @ts-expect-error
+								e.__on_r?.();
+							}
+						}
+					});
+				},
+				// In the capture phase to guarantee we get noticed of it (no possiblity of stopPropagation)
+				{ capture: true }
+			);
+		}
+	}
+
+	/**
+	 * @template T
+	 * @param {() => T} fn
+	 */
+	function without_reactive_context(fn) {
+		var previous_reaction = active_reaction;
+		var previous_effect = active_effect;
+		set_active_reaction(null);
+		set_active_effect(null);
+		try {
+			return fn();
+		} finally {
+			set_active_reaction(previous_reaction);
+			set_active_effect(previous_effect);
+		}
+	}
+
+	/**
+	 * Listen to the given event, and then instantiate a global form reset listener if not already done,
+	 * to notify all bindings when the form is reset
+	 * @param {HTMLElement} element
+	 * @param {string} event
+	 * @param {(is_reset?: true) => void} handler
+	 * @param {(is_reset?: true) => void} [on_reset]
+	 */
+	function listen_to_event_and_reset_event(element, event, handler, on_reset = handler) {
+		element.addEventListener(event, () => without_reactive_context(handler));
+		// @ts-expect-error
+		const prev = element.__on_r;
+		if (prev) {
+			// special case for checkbox that can have multiple binds (group & checked)
+			// @ts-expect-error
+			element.__on_r = () => {
+				prev();
+				on_reset(true);
+			};
+		} else {
+			// @ts-expect-error
+			element.__on_r = () => on_reset(true);
+		}
+
+		add_form_reset_listener();
+	}
+
+	/** @import { Location } from 'locate-character' */
+
+	/** @type {Set<string>} */
+	const all_registered_events = new Set();
+
+	/** @type {Set<(events: Array<string>) => void>} */
+	const root_event_handles = new Set();
+
+	/**
+	 * @param {string} event_name
+	 * @param {EventTarget} dom
+	 * @param {EventListener} [handler]
+	 * @param {AddEventListenerOptions} [options]
+	 */
+	function create_event(event_name, dom, handler, options = {}) {
+		/**
+		 * @this {EventTarget}
+		 */
+		function target_handler(/** @type {Event} */ event) {
+			if (!options.capture) {
+				// Only call in the bubble phase, else delegated events would be called before the capturing events
+				handle_event_propagation.call(dom, event);
+			}
+			if (!event.cancelBubble) {
+				return without_reactive_context(() => {
+					return handler?.call(this, event);
+				});
+			}
+		}
+
+		// Chrome has a bug where pointer events don't work when attached to a DOM element that has been cloned
+		// with cloneNode() and the DOM element is disconnected from the document. To ensure the event works, we
+		// defer the attachment till after it's been appended to the document. TODO: remove this once Chrome fixes
+		// this bug. The same applies to wheel events and touch events.
+		if (
+			event_name.startsWith('pointer') ||
+			event_name.startsWith('touch') ||
+			event_name === 'wheel'
+		) {
+			queue_micro_task(() => {
+				dom.addEventListener(event_name, target_handler, options);
+			});
+		} else {
+			dom.addEventListener(event_name, target_handler, options);
+		}
+
+		return target_handler;
+	}
+
+	/**
+	 * @param {string} event_name
+	 * @param {Element} dom
+	 * @param {EventListener} [handler]
+	 * @param {boolean} [capture]
+	 * @param {boolean} [passive]
+	 * @returns {void}
+	 */
+	function event(event_name, dom, handler, capture, passive) {
+		var options = { capture, passive };
+		var target_handler = create_event(event_name, dom, handler, options);
+
+		// @ts-ignore
+		if (dom === document.body || dom === window || dom === document) {
+			teardown(() => {
+				dom.removeEventListener(event_name, target_handler, options);
+			});
+		}
+	}
+
+	/**
+	 * @this {EventTarget}
+	 * @param {Event} event
+	 * @returns {void}
+	 */
+	function handle_event_propagation(event) {
+		var handler_element = this;
+		var owner_document = /** @type {Node} */ (handler_element).ownerDocument;
+		var event_name = event.type;
+		var path = event.composedPath?.() || [];
+		var current_target = /** @type {null | Element} */ (path[0] || event.target);
+
+		// composedPath contains list of nodes the event has propagated through.
+		// We check __root to skip all nodes below it in case this is a
+		// parent of the __root node, which indicates that there's nested
+		// mounted apps. In this case we don't want to trigger events multiple times.
+		var path_idx = 0;
+
+		// @ts-expect-error is added below
+		var handled_at = event.__root;
+
+		if (handled_at) {
+			var at_idx = path.indexOf(handled_at);
+			if (
+				at_idx !== -1 &&
+				(handler_element === document || handler_element === /** @type {any} */ (window))
+			) {
+				// This is the fallback document listener or a window listener, but the event was already handled
+				// -> ignore, but set handle_at to document/window so that we're resetting the event
+				// chain in case someone manually dispatches the same event object again.
+				// @ts-expect-error
+				event.__root = handler_element;
+				return;
+			}
+
+			// We're deliberately not skipping if the index is higher, because
+			// someone could create an event programmatically and emit it multiple times,
+			// in which case we want to handle the whole propagation chain properly each time.
+			// (this will only be a false negative if the event is dispatched multiple times and
+			// the fallback document listener isn't reached in between, but that's super rare)
+			var handler_idx = path.indexOf(handler_element);
+			if (handler_idx === -1) {
+				// handle_idx can theoretically be -1 (happened in some JSDOM testing scenarios with an event listener on the window object)
+				// so guard against that, too, and assume that everything was handled at this point.
+				return;
+			}
+
+			if (at_idx <= handler_idx) {
+				path_idx = at_idx;
+			}
+		}
+
+		current_target = /** @type {Element} */ (path[path_idx] || event.target);
+		// there can only be one delegated event per element, and we either already handled the current target,
+		// or this is the very first target in the chain which has a non-delegated listener, in which case it's safe
+		// to handle a possible delegated event on it later (through the root delegation listener for example).
+		if (current_target === handler_element) return;
+
+		// Proxy currentTarget to correct target
+		define_property(event, 'currentTarget', {
+			configurable: true,
+			get() {
+				return current_target || owner_document;
+			}
+		});
+
+		// This started because of Chromium issue https://chromestatus.com/feature/5128696823545856,
+		// where removal or moving of of the DOM can cause sync `blur` events to fire, which can cause logic
+		// to run inside the current `active_reaction`, which isn't what we want at all. However, on reflection,
+		// it's probably best that all event handled by Svelte have this behaviour, as we don't really want
+		// an event handler to run in the context of another reaction or effect.
+		var previous_reaction = active_reaction;
+		var previous_effect = active_effect;
+		set_active_reaction(null);
+		set_active_effect(null);
+
+		try {
+			/**
+			 * @type {unknown}
+			 */
+			var throw_error;
+			/**
+			 * @type {unknown[]}
+			 */
+			var other_errors = [];
+
+			while (current_target !== null) {
+				/** @type {null | Element} */
+				var parent_element =
+					current_target.assignedSlot ||
+					current_target.parentNode ||
+					/** @type {any} */ (current_target).host ||
+					null;
+
+				try {
+					// @ts-expect-error
+					var delegated = current_target['__' + event_name];
+
+					if (delegated !== undefined && !(/** @type {any} */ (current_target).disabled)) {
+						if (is_array(delegated)) {
+							var [fn, ...data] = delegated;
+							fn.apply(current_target, [event, ...data]);
+						} else {
+							delegated.call(current_target, event);
+						}
+					}
+				} catch (error) {
+					if (throw_error) {
+						other_errors.push(error);
+					} else {
+						throw_error = error;
+					}
+				}
+				if (event.cancelBubble || parent_element === handler_element || parent_element === null) {
+					break;
+				}
+				current_target = parent_element;
+			}
+
+			if (throw_error) {
+				for (let error of other_errors) {
+					// Throw the rest of the errors, one-by-one on a microtask
+					queueMicrotask(() => {
+						throw error;
+					});
+				}
+				throw throw_error;
+			}
+		} finally {
+			// @ts-expect-error is used above
+			event.__root = handler_element;
+			// @ts-ignore remove proxy on currentTarget
+			delete event.currentTarget;
+			set_active_reaction(previous_reaction);
+			set_active_effect(previous_effect);
+		}
+	}
+
+	/** @param {string} html */
+	function create_fragment_from_html(html) {
+		var elem = document.createElement('template');
+		elem.innerHTML = html;
+		return elem.content;
+	}
+
+	/** @import { Effect, TemplateNode } from '#client' */
+
+	/**
+	 * @param {TemplateNode} start
+	 * @param {TemplateNode | null} end
+	 */
+	function assign_nodes(start, end) {
+		var effect = /** @type {Effect} */ (active_effect);
+		if (effect.nodes_start === null) {
+			effect.nodes_start = start;
+			effect.nodes_end = end;
+		}
+	}
+
+	/**
+	 * @param {string} content
+	 * @param {number} flags
+	 * @returns {() => Node | Node[]}
+	 */
+	/*#__NO_SIDE_EFFECTS__*/
+	function template(content, flags) {
+		var is_fragment = (flags & TEMPLATE_FRAGMENT) !== 0;
+		var use_import_node = (flags & TEMPLATE_USE_IMPORT_NODE) !== 0;
+
+		/** @type {Node} */
+		var node;
+
+		/**
+		 * Whether or not the first item is a text/element node. If not, we need to
+		 * create an additional comment node to act as `effect.nodes.start`
+		 */
+		var has_start = !content.startsWith('<!>');
+
+		return () => {
+
+			if (node === undefined) {
+				node = create_fragment_from_html(has_start ? content : '<!>' + content);
+				if (!is_fragment) node = /** @type {Node} */ (get_first_child(node));
+			}
+
+			var clone = /** @type {TemplateNode} */ (
+				use_import_node || is_firefox ? document.importNode(node, true) : node.cloneNode(true)
+			);
+
+			if (is_fragment) {
+				var start = /** @type {TemplateNode} */ (get_first_child(clone));
+				var end = /** @type {TemplateNode} */ (clone.lastChild);
+
+				assign_nodes(start, end);
+			} else {
+				assign_nodes(clone, clone);
+			}
+
+			return clone;
+		};
+	}
+
+	/**
+	 * Don't mark this as side-effect-free, hydration needs to walk all nodes
+	 * @param {any} value
+	 */
+	function text(value = '') {
+		{
+			var t = create_text(value + '');
+			assign_nodes(t, t);
+			return t;
+		}
+	}
+
+	function comment() {
+
+		var frag = document.createDocumentFragment();
+		var start = document.createComment('');
+		var anchor = create_text();
+		frag.append(start, anchor);
+
+		assign_nodes(start, anchor);
+
+		return frag;
+	}
+
+	/**
+	 * Assign the created (or in hydration mode, traversed) dom elements to the current block
+	 * and insert the elements into the dom (in client mode).
+	 * @param {Text | Comment | Element} anchor
+	 * @param {DocumentFragment | Element} dom
+	 */
+	function append(anchor, dom) {
+
+		if (anchor === null) {
+			// edge case — void `<svelte:element>` with content
+			return;
+		}
+
+		anchor.before(/** @type {Node} */ (dom));
+	}
+
+	/** @import { ComponentContext, Effect, TemplateNode } from '#client' */
+	/** @import { Component, ComponentType, SvelteComponent, MountOptions } from '../../index.js' */
+
+	/**
+	 * @param {Element} text
+	 * @param {string} value
+	 * @returns {void}
+	 */
+	function set_text(text, value) {
+		// For objects, we apply string coercion (which might make things like $state array references in the template reactive) before diffing
+		var str = value == null ? '' : typeof value === 'object' ? value + '' : value;
+		// @ts-expect-error
+		if (str !== (text.__t ??= text.nodeValue)) {
+			// @ts-expect-error
+			text.__t = str;
+			text.nodeValue = str + '';
+		}
+	}
+
+	/**
+	 * Mounts a component to the given target and returns the exports and potentially the props (if compiled with `accessors: true`) of the component.
+	 * Transitions will play during the initial render unless the `intro` option is set to `false`.
+	 *
+	 * @template {Record<string, any>} Props
+	 * @template {Record<string, any>} Exports
+	 * @param {ComponentType<SvelteComponent<Props>> | Component<Props, Exports, any>} component
+	 * @param {MountOptions<Props>} options
+	 * @returns {Exports}
+	 */
+	function mount(component, options) {
+		return _mount(component, options);
+	}
+
+	/** @type {Map<string, number>} */
+	const document_listeners = new Map();
+
+	/**
+	 * @template {Record<string, any>} Exports
+	 * @param {ComponentType<SvelteComponent<any>> | Component<any>} Component
+	 * @param {MountOptions} options
+	 * @returns {Exports}
+	 */
+	function _mount(Component, { target, anchor, props = {}, events, context, intro = true }) {
+		init_operations();
+
+		var registered_events = new Set();
+
+		/** @param {Array<string>} events */
+		var event_handle = (events) => {
+			for (var i = 0; i < events.length; i++) {
+				var event_name = events[i];
+
+				if (registered_events.has(event_name)) continue;
+				registered_events.add(event_name);
+
+				var passive = is_passive_event(event_name);
+
+				// Add the event listener to both the container and the document.
+				// The container listener ensures we catch events from within in case
+				// the outer content stops propagation of the event.
+				target.addEventListener(event_name, handle_event_propagation, { passive });
+
+				var n = document_listeners.get(event_name);
+
+				if (n === undefined) {
+					// The document listener ensures we catch events that originate from elements that were
+					// manually moved outside of the container (e.g. via manual portals).
+					document.addEventListener(event_name, handle_event_propagation, { passive });
+					document_listeners.set(event_name, 1);
+				} else {
+					document_listeners.set(event_name, n + 1);
+				}
+			}
+		};
+
+		event_handle(array_from(all_registered_events));
+		root_event_handles.add(event_handle);
+
+		/** @type {Exports} */
+		// @ts-expect-error will be defined because the render effect runs synchronously
+		var component = undefined;
+
+		var unmount = component_root(() => {
+			var anchor_node = anchor ?? target.appendChild(create_text());
+
+			branch(() => {
+				if (context) {
+					push({});
+					var ctx = /** @type {ComponentContext} */ (component_context);
+					ctx.c = context;
+				}
+
+				if (events) {
+					// We can't spread the object or else we'd lose the state proxy stuff, if it is one
+					/** @type {any} */ (props).$$events = events;
+				}
+				// @ts-expect-error the public typings are not what the actual function looks like
+				component = Component(anchor_node, props) || {};
+
+				if (context) {
+					pop();
+				}
+			});
+
+			return () => {
+				for (var event_name of registered_events) {
+					target.removeEventListener(event_name, handle_event_propagation);
+
+					var n = /** @type {number} */ (document_listeners.get(event_name));
+
+					if (--n === 0) {
+						document.removeEventListener(event_name, handle_event_propagation);
+						document_listeners.delete(event_name);
+					} else {
+						document_listeners.set(event_name, n);
+					}
+				}
+
+				root_event_handles.delete(event_handle);
+
+				if (anchor_node !== anchor) {
+					anchor_node.parentNode?.removeChild(anchor_node);
+				}
+			};
+		});
+
+		mounted_components.set(component, unmount);
+		return component;
+	}
+
+	/**
+	 * References of the components that were mounted or hydrated.
+	 * Uses a `WeakMap` to avoid memory leaks.
+	 */
+	let mounted_components = new WeakMap();
+
+	/** @import { Effect, Source, TemplateNode } from '#client' */
+
+	const PENDING = 0;
+	const THEN = 1;
+	const CATCH = 2;
+
+	/**
+	 * @template V
+	 * @param {TemplateNode} node
+	 * @param {(() => Promise<V>)} get_input
+	 * @param {null | ((anchor: Node) => void)} pending_fn
+	 * @param {null | ((anchor: Node, value: Source<V>) => void)} then_fn
+	 * @param {null | ((anchor: Node, error: unknown) => void)} catch_fn
+	 * @returns {void}
+	 */
+	function await_block(node, get_input, pending_fn, then_fn, catch_fn) {
+
+		var anchor = node;
+		var runes = is_runes();
+		var active_component_context = component_context;
+
+		/** @type {V | Promise<V> | typeof UNINITIALIZED} */
+		var input = UNINITIALIZED;
+
+		/** @type {Effect | null} */
+		var pending_effect;
+
+		/** @type {Effect | null} */
+		var then_effect;
+
+		/** @type {Effect | null} */
+		var catch_effect;
+
+		var input_source = (runes ? source : mutable_source)(/** @type {V} */ (undefined));
+		var error_source = (runes ? source : mutable_source)(undefined);
+		var resolved = false;
+
+		/**
+		 * @param {PENDING | THEN | CATCH} state
+		 * @param {boolean} restore
+		 */
+		function update(state, restore) {
+			resolved = true;
+
+			if (restore) {
+				set_active_effect(effect);
+				set_active_reaction(effect); // TODO do we need both?
+				set_component_context(active_component_context);
+			}
+
+			try {
+				if (state === PENDING && pending_fn) ;
+
+				if (state === THEN && then_fn) {
+					if (then_effect) resume_effect(then_effect);
+					else then_effect = branch(() => then_fn(anchor, input_source));
+				}
+
+				if (state === CATCH && catch_fn) ;
+
+				if (state !== PENDING && pending_effect) {
+					pause_effect(pending_effect, () => (pending_effect = null));
+				}
+
+				if (state !== THEN && then_effect) {
+					pause_effect(then_effect, () => (then_effect = null));
+				}
+
+				if (state !== CATCH && catch_effect) {
+					pause_effect(catch_effect, () => (catch_effect = null));
+				}
+			} finally {
+				if (restore) {
+					set_component_context(null);
+					set_active_reaction(null);
+					set_active_effect(null);
+
+					// without this, the DOM does not update until two ticks after the promise
+					// resolves, which is unexpected behaviour (and somewhat irksome to test)
+					flush_sync();
+				}
+			}
+		}
+
+		var effect = block(() => {
+			if (input === (input = get_input())) return;
+
+			if (is_promise(input)) {
+				var promise = input;
+
+				resolved = false;
+
+				promise.then(
+					(value) => {
+						if (promise !== input) return;
+						// we technically could use `set` here since it's on the next microtick
+						// but let's use internal_set for consistency and just to be safe
+						internal_set(input_source, value);
+						update(THEN, true);
+					},
+					(error) => {
+						if (promise !== input) return;
+						// we technically could use `set` here since it's on the next microtick
+						// but let's use internal_set for consistency and just to be safe
+						internal_set(error_source, error);
+						update(CATCH, true);
+						{
+							// Rethrow the error if no catch block exists
+							throw error_source.v;
+						}
+					}
+				);
+
+				{
+					// Wait a microtask before checking if we should show the pending state as
+					// the promise might have resolved by the next microtask.
+					queue_micro_task(() => {
+						if (!resolved) update(PENDING, true);
+					});
+				}
+			} else {
+				internal_set(input_source, input);
+				update(THEN, false);
+			}
+
+			// Set the input to something else, in order to disable the promise callbacks
+			return () => (input = UNINITIALIZED);
+		});
+	}
+
+	/** @import { Effect, TemplateNode } from '#client' */
+
+	/**
+	 * @param {TemplateNode} node
+	 * @param {(branch: (fn: (anchor: Node) => void, flag?: boolean) => void) => void} fn
+	 * @param {boolean} [elseif] True if this is an `{:else if ...}` block rather than an `{#if ...}`, as that affects which transitions are considered 'local'
+	 * @returns {void}
+	 */
+	function if_block(node, fn, elseif = false) {
+
+		var anchor = node;
+
+		/** @type {Effect | null} */
+		var consequent_effect = null;
+
+		/** @type {Effect | null} */
+		var alternate_effect = null;
+
+		/** @type {UNINITIALIZED | boolean | null} */
+		var condition = UNINITIALIZED;
+
+		var flags = elseif ? EFFECT_TRANSPARENT : 0;
+
+		var has_branch = false;
+
+		const set_branch = (/** @type {(anchor: Node) => void} */ fn, flag = true) => {
+			has_branch = true;
+			update_branch(flag, fn);
+		};
+
+		const update_branch = (
+			/** @type {boolean | null} */ new_condition,
+			/** @type {null | ((anchor: Node) => void)} */ fn
+		) => {
+			if (condition === (condition = new_condition)) return;
+
+			if (condition) {
+				if (consequent_effect) {
+					resume_effect(consequent_effect);
+				} else if (fn) {
+					consequent_effect = branch(() => fn(anchor));
+				}
+
+				if (alternate_effect) {
+					pause_effect(alternate_effect, () => {
+						alternate_effect = null;
+					});
+				}
+			} else {
+				if (alternate_effect) {
+					resume_effect(alternate_effect);
+				} else if (fn) {
+					alternate_effect = branch(() => fn(anchor));
+				}
+
+				if (consequent_effect) {
+					pause_effect(consequent_effect, () => {
+						consequent_effect = null;
+					});
+				}
+			}
+		};
+
+		block(() => {
+			has_branch = false;
+			fn(set_branch);
+			if (!has_branch) {
+				update_branch(null, null);
+			}
+		}, flags);
+	}
+
+	/** @import { EachItem, EachState, Effect, MaybeSource, Source, TemplateNode, TransitionManager, Value } from '#client' */
+
+	/**
+	 * @param {any} _
+	 * @param {number} i
+	 */
+	function index(_, i) {
+		return i;
+	}
+
+	/**
+	 * Pause multiple effects simultaneously, and coordinate their
+	 * subsequent destruction. Used in each blocks
+	 * @param {EachState} state
+	 * @param {EachItem[]} items
+	 * @param {null | Node} controlled_anchor
+	 * @param {Map<any, EachItem>} items_map
+	 */
+	function pause_effects(state, items, controlled_anchor, items_map) {
+		/** @type {TransitionManager[]} */
+		var transitions = [];
+		var length = items.length;
+
+		for (var i = 0; i < length; i++) {
+			pause_children(items[i].e, transitions, true);
+		}
+
+		var is_controlled = length > 0 && transitions.length === 0 && controlled_anchor !== null;
+		// If we have a controlled anchor, it means that the each block is inside a single
+		// DOM element, so we can apply a fast-path for clearing the contents of the element.
+		if (is_controlled) {
+			var parent_node = /** @type {Element} */ (
+				/** @type {Element} */ (controlled_anchor).parentNode
+			);
+			clear_text_content(parent_node);
+			parent_node.append(/** @type {Element} */ (controlled_anchor));
+			items_map.clear();
+			link(state, items[0].prev, items[length - 1].next);
+		}
+
+		run_out_transitions(transitions, () => {
+			for (var i = 0; i < length; i++) {
+				var item = items[i];
+				if (!is_controlled) {
+					items_map.delete(item.k);
+					link(state, item.prev, item.next);
+				}
+				destroy_effect(item.e, !is_controlled);
+			}
+		});
+	}
+
+	/**
+	 * @template V
+	 * @param {Element | Comment} node The next sibling node, or the parent node if this is a 'controlled' block
+	 * @param {number} flags
+	 * @param {() => V[]} get_collection
+	 * @param {(value: V, index: number) => any} get_key
+	 * @param {(anchor: Node, item: MaybeSource<V>, index: MaybeSource<number>) => void} render_fn
+	 * @param {null | ((anchor: Node) => void)} fallback_fn
+	 * @returns {void}
+	 */
+	function each(node, flags, get_collection, get_key, render_fn, fallback_fn = null) {
+		var anchor = node;
+
+		/** @type {EachState} */
+		var state = { flags, items: new Map(), first: null };
+
+		var is_controlled = (flags & EACH_IS_CONTROLLED) !== 0;
+
+		if (is_controlled) {
+			var parent_node = /** @type {Element} */ (node);
+
+			anchor = parent_node.appendChild(create_text());
+		}
+
+		/** @type {Effect | null} */
+		var fallback = null;
+
+		var was_empty = false;
+
+		// TODO: ideally we could use derived for runes mode but because of the ability
+		// to use a store which can be mutated, we can't do that here as mutating a store
+		// will still result in the collection array being the same from the store
+		var each_array = derived_safe_equal(() => {
+			var collection = get_collection();
+
+			return is_array(collection) ? collection : collection == null ? [] : array_from(collection);
+		});
+
+		block(() => {
+			var array = get(each_array);
+			var length = array.length;
+
+			if (was_empty && length === 0) {
+				// ignore updates if the array is empty,
+				// and it already was empty on previous run
+				return;
+			}
+			was_empty = length === 0;
+
+			{
+				reconcile(array, state, anchor, render_fn, flags, get_key, get_collection);
+			}
+
+			if (fallback_fn !== null) {
+				if (length === 0) {
+					if (fallback) {
+						resume_effect(fallback);
+					} else {
+						fallback = branch(() => fallback_fn(anchor));
+					}
+				} else if (fallback !== null) {
+					pause_effect(fallback, () => {
+						fallback = null;
+					});
+				}
+			}
+
+			// When we mount the each block for the first time, the collection won't be
+			// connected to this effect as the effect hasn't finished running yet and its deps
+			// won't be assigned. However, it's possible that when reconciling the each block
+			// that a mutation occurred and it's made the collection MAYBE_DIRTY, so reading the
+			// collection again can provide consistency to the reactive graph again as the deriveds
+			// will now be `CLEAN`.
+			get(each_array);
+		});
+	}
+
+	/**
+	 * Add, remove, or reorder items output by an each block as its input changes
+	 * @template V
+	 * @param {Array<V>} array
+	 * @param {EachState} state
+	 * @param {Element | Comment | Text} anchor
+	 * @param {(anchor: Node, item: MaybeSource<V>, index: number | Source<number>, collection: () => V[]) => void} render_fn
+	 * @param {number} flags
+	 * @param {(value: V, index: number) => any} get_key
+	 * @param {() => V[]} get_collection
+	 * @returns {void}
+	 */
+	function reconcile(array, state, anchor, render_fn, flags, get_key, get_collection) {
+		var is_animated = (flags & EACH_IS_ANIMATED) !== 0;
+		var should_update = (flags & (EACH_ITEM_REACTIVE | EACH_INDEX_REACTIVE)) !== 0;
+
+		var length = array.length;
+		var items = state.items;
+		var first = state.first;
+		var current = first;
+
+		/** @type {undefined | Set<EachItem>} */
+		var seen;
+
+		/** @type {EachItem | null} */
+		var prev = null;
+
+		/** @type {undefined | Set<EachItem>} */
+		var to_animate;
+
+		/** @type {EachItem[]} */
+		var matched = [];
+
+		/** @type {EachItem[]} */
+		var stashed = [];
+
+		/** @type {V} */
+		var value;
+
+		/** @type {any} */
+		var key;
+
+		/** @type {EachItem | undefined} */
+		var item;
+
+		/** @type {number} */
+		var i;
+
+		if (is_animated) {
+			for (i = 0; i < length; i += 1) {
+				value = array[i];
+				key = get_key(value, i);
+				item = items.get(key);
+
+				if (item !== undefined) {
+					item.a?.measure();
+					(to_animate ??= new Set()).add(item);
+				}
+			}
+		}
+
+		for (i = 0; i < length; i += 1) {
+			value = array[i];
+			key = get_key(value, i);
+			item = items.get(key);
+
+			if (item === undefined) {
+				var child_anchor = current ? /** @type {TemplateNode} */ (current.e.nodes_start) : anchor;
+
+				prev = create_item(
+					child_anchor,
+					state,
+					prev,
+					prev === null ? state.first : prev.next,
+					value,
+					key,
+					i,
+					render_fn,
+					flags,
+					get_collection
+				);
+
+				items.set(key, prev);
+
+				matched = [];
+				stashed = [];
+
+				current = prev.next;
+				continue;
+			}
+
+			if (should_update) {
+				update_item(item, value, i, flags);
+			}
+
+			if ((item.e.f & INERT) !== 0) {
+				resume_effect(item.e);
+				if (is_animated) {
+					item.a?.unfix();
+					(to_animate ??= new Set()).delete(item);
+				}
+			}
+
+			if (item !== current) {
+				if (seen !== undefined && seen.has(item)) {
+					if (matched.length < stashed.length) {
+						// more efficient to move later items to the front
+						var start = stashed[0];
+						var j;
+
+						prev = start.prev;
+
+						var a = matched[0];
+						var b = matched[matched.length - 1];
+
+						for (j = 0; j < matched.length; j += 1) {
+							move(matched[j], start, anchor);
+						}
+
+						for (j = 0; j < stashed.length; j += 1) {
+							seen.delete(stashed[j]);
+						}
+
+						link(state, a.prev, b.next);
+						link(state, prev, a);
+						link(state, b, start);
+
+						current = start;
+						prev = b;
+						i -= 1;
+
+						matched = [];
+						stashed = [];
+					} else {
+						// more efficient to move earlier items to the back
+						seen.delete(item);
+						move(item, current, anchor);
+
+						link(state, item.prev, item.next);
+						link(state, item, prev === null ? state.first : prev.next);
+						link(state, prev, item);
+
+						prev = item;
+					}
+
+					continue;
+				}
+
+				matched = [];
+				stashed = [];
+
+				while (current !== null && current.k !== key) {
+					// If the each block isn't inert and an item has an effect that is already inert,
+					// skip over adding it to our seen Set as the item is already being handled
+					if ((current.e.f & INERT) === 0) {
+						(seen ??= new Set()).add(current);
+					}
+					stashed.push(current);
+					current = current.next;
+				}
+
+				if (current === null) {
+					continue;
+				}
+
+				item = current;
+			}
+
+			matched.push(item);
+			prev = item;
+			current = item.next;
+		}
+
+		if (current !== null || seen !== undefined) {
+			var to_destroy = seen === undefined ? [] : array_from(seen);
+
+			while (current !== null) {
+				// If the each block isn't inert, then inert effects are currently outroing and will be removed once the transition is finished
+				if ((current.e.f & INERT) === 0) {
+					to_destroy.push(current);
+				}
+				current = current.next;
+			}
+
+			var destroy_length = to_destroy.length;
+
+			if (destroy_length > 0) {
+				var controlled_anchor = (flags & EACH_IS_CONTROLLED) !== 0 && length === 0 ? anchor : null;
+
+				if (is_animated) {
+					for (i = 0; i < destroy_length; i += 1) {
+						to_destroy[i].a?.measure();
+					}
+
+					for (i = 0; i < destroy_length; i += 1) {
+						to_destroy[i].a?.fix();
+					}
+				}
+
+				pause_effects(state, to_destroy, controlled_anchor, items);
+			}
+		}
+
+		if (is_animated) {
+			queue_micro_task(() => {
+				if (to_animate === undefined) return;
+				for (item of to_animate) {
+					item.a?.apply();
+				}
+			});
+		}
+
+		/** @type {Effect} */ (active_effect).first = state.first && state.first.e;
+		/** @type {Effect} */ (active_effect).last = prev && prev.e;
+	}
+
+	/**
+	 * @param {EachItem} item
+	 * @param {any} value
+	 * @param {number} index
+	 * @param {number} type
+	 * @returns {void}
+	 */
+	function update_item(item, value, index, type) {
+		if ((type & EACH_ITEM_REACTIVE) !== 0) {
+			internal_set(item.v, value);
+		}
+
+		if ((type & EACH_INDEX_REACTIVE) !== 0) {
+			internal_set(/** @type {Value<number>} */ (item.i), index);
+		} else {
+			item.i = index;
+		}
+	}
+
+	/**
+	 * @template V
+	 * @param {Node} anchor
+	 * @param {EachState} state
+	 * @param {EachItem | null} prev
+	 * @param {EachItem | null} next
+	 * @param {V} value
+	 * @param {unknown} key
+	 * @param {number} index
+	 * @param {(anchor: Node, item: V | Source<V>, index: number | Value<number>, collection: () => V[]) => void} render_fn
+	 * @param {number} flags
+	 * @param {() => V[]} get_collection
+	 * @returns {EachItem}
+	 */
+	function create_item(
+		anchor,
+		state,
+		prev,
+		next,
+		value,
+		key,
+		index,
+		render_fn,
+		flags,
+		get_collection
+	) {
+		var reactive = (flags & EACH_ITEM_REACTIVE) !== 0;
+		var mutable = (flags & EACH_ITEM_IMMUTABLE) === 0;
+
+		var v = reactive ? (mutable ? mutable_source(value) : source(value)) : value;
+		var i = (flags & EACH_INDEX_REACTIVE) === 0 ? index : source(index);
+
+		/** @type {EachItem} */
+		var item = {
+			i,
+			v,
+			k: key,
+			a: null,
+			// @ts-expect-error
+			e: null,
+			prev,
+			next
+		};
+
+		try {
+			item.e = branch(() => render_fn(anchor, v, i, get_collection), hydrating);
+
+			item.e.prev = prev && prev.e;
+			item.e.next = next && next.e;
+
+			if (prev === null) {
+				state.first = item;
+			} else {
+				prev.next = item;
+				prev.e.next = item.e;
+			}
+
+			if (next !== null) {
+				next.prev = item;
+				next.e.prev = item.e;
+			}
+
+			return item;
+		} finally {
+		}
+	}
+
+	/**
+	 * @param {EachItem} item
+	 * @param {EachItem | null} next
+	 * @param {Text | Element | Comment} anchor
+	 */
+	function move(item, next, anchor) {
+		var end = item.next ? /** @type {TemplateNode} */ (item.next.e.nodes_start) : anchor;
+
+		var dest = next ? /** @type {TemplateNode} */ (next.e.nodes_start) : anchor;
+		var node = /** @type {TemplateNode} */ (item.e.nodes_start);
+
+		while (node !== end) {
+			var next_node = /** @type {TemplateNode} */ (get_next_sibling(node));
+			dest.before(node);
+			node = next_node;
+		}
+	}
+
+	/**
+	 * @param {EachState} state
+	 * @param {EachItem | null} prev
+	 * @param {EachItem | null} next
+	 */
+	function link(state, prev, next) {
+		if (prev === null) {
+			state.first = next;
+		} else {
+			prev.next = next;
+			prev.e.next = next && next.e;
+		}
+
+		if (next !== null) {
+			next.prev = prev;
+			next.e.prev = prev && prev.e;
+		}
+	}
+
+	/**
+	 * Sets the `selected` attribute on an `option` element.
+	 * Not set through the property because that doesn't reflect to the DOM,
+	 * which means it wouldn't be taken into account when a form is reset.
+	 * @param {HTMLOptionElement} element
+	 * @param {boolean} selected
+	 */
+	function set_selected(element, selected) {
+		if (selected) {
+			// The selected option could've changed via user selection, and
+			// setting the value without this check would set it back.
+			if (!element.hasAttribute('selected')) {
+				element.setAttribute('selected', '');
+			}
+		} else {
+			element.removeAttribute('selected');
+		}
+	}
+
+	/**
+	 * @param {Element} element
+	 * @param {string} attribute
+	 * @param {string | null} value
+	 * @param {boolean} [skip_warning]
+	 */
+	function set_attribute(element, attribute, value, skip_warning) {
+		// @ts-expect-error
+		var attributes = (element.__attributes ??= {});
+
+		if (attributes[attribute] === (attributes[attribute] = value)) return;
+
+		if (attribute === 'style' && '__styles' in element) {
+			// reset styles to force style: directive to update
+			element.__styles = {};
+		}
+
+		if (attribute === 'loading') {
+			// @ts-expect-error
+			element[LOADING_ATTR_SYMBOL] = value;
+		}
+
+		if (value == null) {
+			element.removeAttribute(attribute);
+		} else if (typeof value !== 'string' && get_setters(element).includes(attribute)) {
+			// @ts-ignore
+			element[attribute] = value;
+		} else {
+			element.setAttribute(attribute, value);
+		}
+	}
+
+	/** @type {Map<string, string[]>} */
+	var setters_cache = new Map();
+
+	/** @param {Element} element */
+	function get_setters(element) {
+		var setters = setters_cache.get(element.nodeName);
+		if (setters) return setters;
+		setters_cache.set(element.nodeName, (setters = []));
+
+		var descriptors;
+		var proto = element; // In the case of custom elements there might be setters on the instance
+		var element_proto = Element.prototype;
+
+		// Stop at Element, from there on there's only unnecessary setters we're not interested in
+		// Do not use contructor.name here as that's unreliable in some browser environments
+		while (element_proto !== proto) {
+			descriptors = get_descriptors(proto);
+
+			for (var key in descriptors) {
+				if (descriptors[key].set) {
+					setters.push(key);
+				}
+			}
+
+			proto = get_prototype_of(proto);
+		}
+
+		return setters;
+	}
+
+	/**
+	 * @param {HTMLInputElement} input
+	 * @param {() => unknown} get
+	 * @param {(value: unknown) => void} set
+	 * @returns {void}
+	 */
+	function bind_value(input, get, set = get) {
+		var runes = is_runes();
+
+		listen_to_event_and_reset_event(input, 'input', (is_reset) => {
+
+			/** @type {any} */
+			var value = is_reset ? input.defaultValue : input.value;
+			value = is_numberlike_input(input) ? to_number(value) : value;
+			set(value);
+
+			// In runes mode, respect any validation in accessors (doesn't apply in legacy mode,
+			// because we use mutable state which ensures the render effect always runs)
+			if (runes && value !== (value = get())) {
+				var start = input.selectionStart;
+				var end = input.selectionEnd;
+
+				// the value is coerced on assignment
+				input.value = value ?? '';
+
+				// Restore selection
+				if (end !== null) {
+					input.selectionStart = start;
+					input.selectionEnd = Math.min(end, input.value.length);
+				}
+			}
+		});
+
+		if (
+			// If we are hydrating and the value has since changed,
+			// then use the updated value from the input instead.
+			// If defaultValue is set, then value == defaultValue
+			// TODO Svelte 6: remove input.value check and set to empty string?
+			(untrack(get) == null && input.value)
+		) {
+			set(is_numberlike_input(input) ? to_number(input.value) : input.value);
+		}
+
+		render_effect(() => {
+
+			var value = get();
+
+			if (is_numberlike_input(input) && value === to_number(input.value)) {
+				// handles 0 vs 00 case (see https://github.com/sveltejs/svelte/issues/9959)
+				return;
+			}
+
+			if (input.type === 'date' && !value && !input.value) {
+				// Handles the case where a temporarily invalid date is set (while typing, for example with a leading 0 for the day)
+				// and prevents this state from clearing the other parts of the date input (see https://github.com/sveltejs/svelte/issues/7897)
+				return;
+			}
+
+			// don't set the value of the input if it's the same to allow
+			// minlength to work properly
+			if (value !== input.value) {
+				// @ts-expect-error the value is coerced on assignment
+				input.value = value ?? '';
+			}
+		});
+	}
+
+	/**
+	 * @param {HTMLInputElement} input
+	 */
+	function is_numberlike_input(input) {
+		var type = input.type;
+		return type === 'number' || type === 'range';
+	}
+
+	/**
+	 * @param {string} value
+	 */
+	function to_number(value) {
+		return value === '' ? null : +value;
+	}
+
+	/**
+	 * Selects the correct option(s) (depending on whether this is a multiple select)
+	 * @template V
+	 * @param {HTMLSelectElement} select
+	 * @param {V} value
+	 * @param {boolean} [mounting]
+	 */
+	function select_option(select, value, mounting) {
+		if (select.multiple) {
+			return select_options(select, value);
+		}
+
+		for (var option of select.options) {
+			var option_value = get_option_value(option);
+			if (is(option_value, value)) {
+				option.selected = true;
+				return;
+			}
+		}
+
+		if (!mounting || value !== undefined) {
+			select.selectedIndex = -1; // no option should be selected
+		}
+	}
+
+	/**
+	 * Selects the correct option(s) if `value` is given,
+	 * and then sets up a mutation observer to sync the
+	 * current selection to the dom when it changes. Such
+	 * changes could for example occur when options are
+	 * inside an `#each` block.
+	 * @template V
+	 * @param {HTMLSelectElement} select
+	 * @param {() => V} [get_value]
+	 */
+	function init_select(select, get_value) {
+		effect(() => {
+
+			var observer = new MutationObserver(() => {
+				// @ts-ignore
+				var value = select.__value;
+				select_option(select, value);
+				// Deliberately don't update the potential binding value,
+				// the model should be preserved unless explicitly changed
+			});
+
+			observer.observe(select, {
+				// Listen to option element changes
+				childList: true,
+				subtree: true, // because of <optgroup>
+				// Listen to option element value attribute changes
+				// (doesn't get notified of select value changes,
+				// because that property is not reflected as an attribute)
+				attributes: true,
+				attributeFilter: ['value']
+			});
+
+			return () => {
+				observer.disconnect();
+			};
+		});
+	}
+
+	/**
+	 * @param {HTMLSelectElement} select
+	 * @param {() => unknown} get
+	 * @param {(value: unknown) => void} set
+	 * @returns {void}
+	 */
+	function bind_select_value(select, get, set = get) {
+		var mounting = true;
+
+		listen_to_event_and_reset_event(select, 'change', (is_reset) => {
+			var query = is_reset ? '[selected]' : ':checked';
+			/** @type {unknown} */
+			var value;
+
+			if (select.multiple) {
+				value = [].map.call(select.querySelectorAll(query), get_option_value);
+			} else {
+				/** @type {HTMLOptionElement | null} */
+				var selected_option =
+					select.querySelector(query) ??
+					// will fall back to first non-disabled option if no option is selected
+					select.querySelector('option:not([disabled])');
+				value = selected_option && get_option_value(selected_option);
+			}
+
+			set(value);
+		});
+
+		// Needs to be an effect, not a render_effect, so that in case of each loops the logic runs after the each block has updated
+		effect(() => {
+			var value = get();
+			select_option(select, value, mounting);
+
+			// Mounting and value undefined -> take selection from dom
+			if (mounting && value === undefined) {
+				/** @type {HTMLOptionElement | null} */
+				var selected_option = select.querySelector(':checked');
+				if (selected_option !== null) {
+					value = get_option_value(selected_option);
+					set(value);
+				}
+			}
+
+			// @ts-ignore
+			select.__value = value;
+			mounting = false;
+		});
+
+		// don't pass get_value, we already initialize it in the effect above
+		init_select(select);
+	}
+
+	/**
+	 * @template V
+	 * @param {HTMLSelectElement} select
+	 * @param {V} value
+	 */
+	function select_options(select, value) {
+		for (var option of select.options) {
+			// @ts-ignore
+			option.selected = ~value.indexOf(get_option_value(option));
+		}
+	}
+
+	/** @param {HTMLOptionElement} option */
+	function get_option_value(option) {
+		// __value only exists if the <option> has a value attribute
+		if ('__value' in option) {
+			return option.__value;
+		} else {
+			return option.value;
+		}
+	}
+
+	/** @import { ComponentContextLegacy } from '#client' */
+
+	/**
+	 * Legacy-mode only: Call `onMount` callbacks and set up `beforeUpdate`/`afterUpdate` effects
+	 * @param {boolean} [immutable]
+	 */
+	function init(immutable = false) {
+		const context = /** @type {ComponentContextLegacy} */ (component_context);
+
+		const callbacks = context.l.u;
+		if (!callbacks) return;
+
+		let props = () => deep_read_state(context.s);
+
+		if (immutable) {
+			let version = 0;
+			let prev = /** @type {Record<string, any>} */ ({});
+
+			// In legacy immutable mode, before/afterUpdate only fire if the object identity of a prop changes
+			const d = derived(() => {
+				let changed = false;
+				const props = context.s;
+				for (const key in props) {
+					if (props[key] !== prev[key]) {
+						prev[key] = props[key];
+						changed = true;
+					}
+				}
+				if (changed) version++;
+				return version;
+			});
+
+			props = () => get(d);
+		}
+
+		// beforeUpdate
+		if (callbacks.b.length) {
+			user_pre_effect(() => {
+				observe_all(context, props);
+				run_all(callbacks.b);
+			});
+		}
+
+		// onMount (must run before afterUpdate)
+		user_effect(() => {
+			const fns = untrack(() => callbacks.m.map(run));
+			return () => {
+				for (const fn of fns) {
+					if (typeof fn === 'function') {
+						fn();
+					}
+				}
+			};
+		});
+
+		// afterUpdate
+		if (callbacks.a.length) {
+			user_effect(() => {
+				observe_all(context, props);
+				run_all(callbacks.a);
+			});
+		}
+	}
+
+	/**
+	 * Invoke the getter of all signals associated with a component
+	 * so they can be registered to the effect this function is called in.
+	 * @param {ComponentContextLegacy} context
+	 * @param {(() => void)} props
+	 */
+	function observe_all(context, props) {
+		if (context.l.s) {
+			for (const signal of context.l.s) get(signal);
+		}
+
+		props();
+	}
+
+	/** @import { StoreReferencesContainer } from '#client' */
+	/** @import { Store } from '#shared' */
+
+	/**
+	 * Whether or not the prop currently being read is a store binding, as in
+	 * `<Child bind:x={$y} />`. If it is, we treat the prop as mutable even in
+	 * runes mode, and skip `binding_property_non_reactive` validation
+	 */
+	let is_store_binding = false;
+
+	/**
+	 * Returns a tuple that indicates whether `fn()` reads a prop that is a store binding.
+	 * Used to prevent `binding_property_non_reactive` validation false positives and
+	 * ensure that these props are treated as mutable even in runes mode
+	 * @template T
+	 * @param {() => T} fn
+	 * @returns {[T, boolean]}
+	 */
+	function capture_store_binding(fn) {
+		var previous_is_store_binding = is_store_binding;
+
+		try {
+			is_store_binding = false;
+			return [fn(), is_store_binding];
+		} finally {
+			is_store_binding = previous_is_store_binding;
+		}
+	}
+
+	/** @import { Source } from './types.js' */
+
+	/**
+	 * This function is responsible for synchronizing a possibly bound prop with the inner component state.
+	 * It is used whenever the compiler sees that the component writes to the prop, or when it has a default prop_value.
+	 * @template V
+	 * @param {Record<string, unknown>} props
+	 * @param {string} key
+	 * @param {number} flags
+	 * @param {V | (() => V)} [fallback]
+	 * @returns {(() => V | ((arg: V) => V) | ((arg: V, mutation: boolean) => V))}
+	 */
+	function prop(props, key, flags, fallback) {
+		var immutable = (flags & PROPS_IS_IMMUTABLE) !== 0;
+		var runes = !legacy_mode_flag || (flags & PROPS_IS_RUNES) !== 0;
+		var bindable = (flags & PROPS_IS_BINDABLE) !== 0;
+		var lazy = (flags & PROPS_IS_LAZY_INITIAL) !== 0;
+		var is_store_sub = false;
+		var prop_value;
+
+		if (bindable) {
+			[prop_value, is_store_sub] = capture_store_binding(() => /** @type {V} */ (props[key]));
+		} else {
+			prop_value = /** @type {V} */ (props[key]);
+		}
+
+		// Can be the case when someone does `mount(Component, props)` with `let props = $state({...})`
+		// or `createClassComponent(Component, props)`
+		var is_entry_props = STATE_SYMBOL in props || LEGACY_PROPS in props;
+
+		var setter =
+			(bindable &&
+				(get_descriptor(props, key)?.set ??
+					(is_entry_props && key in props && ((v) => (props[key] = v))))) ||
+			undefined;
+
+		var fallback_value = /** @type {V} */ (fallback);
+		var fallback_dirty = true;
+		var fallback_used = false;
+
+		var get_fallback = () => {
+			fallback_used = true;
+			if (fallback_dirty) {
+				fallback_dirty = false;
+				if (lazy) {
+					fallback_value = untrack(/** @type {() => V} */ (fallback));
+				} else {
+					fallback_value = /** @type {V} */ (fallback);
+				}
+			}
+
+			return fallback_value;
+		};
+
+		if (prop_value === undefined && fallback !== undefined) {
+			if (setter && runes) {
+				props_invalid_value();
+			}
+
+			prop_value = get_fallback();
+			if (setter) setter(prop_value);
+		}
+
+		/** @type {() => V} */
+		var getter;
+		if (runes) {
+			getter = () => {
+				var value = /** @type {V} */ (props[key]);
+				if (value === undefined) return get_fallback();
+				fallback_dirty = true;
+				fallback_used = false;
+				return value;
+			};
+		} else {
+			// Svelte 4 did not trigger updates when a primitive value was updated to the same value.
+			// Replicate that behavior through using a derived
+			var derived_getter = (immutable ? derived : derived_safe_equal)(
+				() => /** @type {V} */ (props[key])
+			);
+			derived_getter.f |= LEGACY_DERIVED_PROP;
+			getter = () => {
+				var value = get(derived_getter);
+				if (value !== undefined) fallback_value = /** @type {V} */ (undefined);
+				return value === undefined ? fallback_value : value;
+			};
+		}
+
+		// easy mode — prop is never written to
+		if ((flags & PROPS_IS_UPDATED) === 0) {
+			return getter;
+		}
+
+		// intermediate mode — prop is written to, but the parent component had
+		// `bind:foo` which means we can just call `$$props.foo = value` directly
+		if (setter) {
+			var legacy_parent = props.$$legacy;
+			return function (/** @type {any} */ value, /** @type {boolean} */ mutation) {
+				if (arguments.length > 0) {
+					// We don't want to notify if the value was mutated and the parent is in runes mode.
+					// In that case the state proxy (if it exists) should take care of the notification.
+					// If the parent is not in runes mode, we need to notify on mutation, too, that the prop
+					// has changed because the parent will not be able to detect the change otherwise.
+					if (!runes || !mutation || legacy_parent || is_store_sub) {
+						/** @type {Function} */ (setter)(mutation ? getter() : value);
+					}
+					return value;
+				} else {
+					return getter();
+				}
+			};
+		}
+
+		// hard mode. this is where it gets ugly — the value in the child should
+		// synchronize with the parent, but it should also be possible to temporarily
+		// set the value to something else locally.
+		var from_child = false;
+		var was_from_child = false;
+
+		// The derived returns the current value. The underlying mutable
+		// source is written to from various places to persist this value.
+		var inner_current_value = mutable_source(prop_value);
+		var current_value = derived(() => {
+			var parent_value = getter();
+			var child_value = get(inner_current_value);
+
+			if (from_child) {
+				from_child = false;
+				was_from_child = true;
+				return child_value;
+			}
+
+			was_from_child = false;
+			return (inner_current_value.v = parent_value);
+		});
+
+		if (!immutable) current_value.equals = safe_equals;
+
+		return function (/** @type {any} */ value, /** @type {boolean} */ mutation) {
+			// legacy nonsense — need to ensure the source is invalidated when necessary
+			// also needed for when handling inspect logic so we can inspect the correct source signal
+			if (captured_signals !== null) {
+				// set this so that we don't reset to the parent value if `d`
+				// is invalidated because of `invalidate_inner_signals` (rather
+				// than because the parent or child value changed)
+				from_child = was_from_child;
+				// invoke getters so that signals are picked up by `invalidate_inner_signals`
+				getter();
+				get(inner_current_value);
+			}
+
+			if (arguments.length > 0) {
+				const new_value = mutation ? get(current_value) : runes && bindable ? proxy(value) : value;
+
+				if (!current_value.equals(new_value)) {
+					from_child = true;
+					set(inner_current_value, new_value);
+					// To ensure the fallback value is consistent when used with proxies, we
+					// update the local fallback_value, but only if the fallback is actively used
+					if (fallback_used && fallback_value !== undefined) {
+						fallback_value = new_value;
+					}
+					untrack(() => get(current_value)); // force a synchronisation immediately
+				}
+
+				return value;
+			}
+			return get(current_value);
+		};
+	}
+
+	/** @import { ComponentContext, ComponentContextLegacy } from '#client' */
+	/** @import { EventDispatcher } from './index.js' */
+	/** @import { NotFunction } from './internal/types.js' */
+
+	/**
+	 * The `onMount` function schedules a callback to run as soon as the component has been mounted to the DOM.
+	 * It must be called during the component's initialisation (but doesn't need to live *inside* the component;
+	 * it can be called from an external module).
+	 *
+	 * If a function is returned _synchronously_ from `onMount`, it will be called when the component is unmounted.
+	 *
+	 * `onMount` does not run inside [server-side components](https://svelte.dev/docs/svelte/svelte-server#render).
+	 *
+	 * @template T
+	 * @param {() => NotFunction<T> | Promise<NotFunction<T>> | (() => any)} fn
+	 * @returns {void}
+	 */
+	function onMount(fn) {
+		if (component_context === null) {
+			lifecycle_outside_component();
+		}
+
+		if (legacy_mode_flag && component_context.l !== null) {
+			init_update_callbacks(component_context).m.push(fn);
+		} else {
+			user_effect(() => {
+				const cleanup = untrack(fn);
+				if (typeof cleanup === 'function') return /** @type {() => void} */ (cleanup);
+			});
+		}
+	}
+
+	/**
+	 * Legacy-mode: Init callbacks object for onMount/beforeUpdate/afterUpdate
+	 * @param {ComponentContext} context
+	 */
+	function init_update_callbacks(context) {
+		var l = /** @type {ComponentContextLegacy} */ (context).l;
+		return (l.u ??= { a: [], b: [], m: [] });
+	}
+
+	// generated during release, do not modify
+
+	const PUBLIC_VERSION = '5';
+
+	if (typeof window !== 'undefined')
+		// @ts-ignore
+		(window.__svelte ||= { v: new Set() }).v.add(PUBLIC_VERSION);
+
+	enable_legacy_mode_flag();
+
+	var root = template(`<img alt="Product">`);
+
+	function SirvImage($$anchor, $$props) {
+		let width = prop($$props, 'width', 8, 100);
+		let height = prop($$props, 'height', 8, 100);
+		let quality = prop($$props, 'quality', 8, 90);
+		let src = prop($$props, 'src', 8, "");
+		let displayHeight = prop($$props, 'displayHeight', 24, height);
+		let displayWidth = prop($$props, 'displayWidth', 24, width);
+		var img = root();
+
+		template_effect(() => {
+			set_attribute(img, 'src', `${src() ?? ''}?w=${width() ?? ''}&h=${height() ?? ''}&q=${quality() ?? ''}`);
+			set_attribute(img, 'width', displayWidth());
+			set_attribute(img, 'height', displayHeight());
+		});
+
+		append($$anchor, img);
+	}
+
+	var history$4 = "History";
+	var ready$4 = "Ready";
+	var shipped$4 = "Shipped";
+	var name$4 = "Name";
+	var phone$4 = "Phone";
+	var update$4 = "Update";
+	var type$4 = "Type";
+	var size$4 = "Size";
+	var color$4 = "Color";
+	var customer_balance$4 = "Bank Transfer";
+	var paid$4 = "Payment Completed";
+	var black$4 = "Black";
+	var add$4 = "Add";
+	var status$4 = "Status";
+	var message$4 = "Message";
+	var order_placed$4 = "Order Placed";
+	var in_preparation$4 = "Order in Preparation";
+	var ready_to_ship$4 = "Order Ready to Ship";
+	var delivered$4 = "Order Delivered";
+	var canceled$4 = "Order Canceled";
+	var edit$4 = "Edit";
+	var save$4 = "Save";
+	var tracking_details$4 = "Tracking";
+	var courier$4 = "Courier";
+	var number_of_packages$4 = "Number of Packages";
+	var tracking_links$4 = "Tracking Links";
+	var refunded$4 = "Refunded";
+	var receipt$4 = "Receipt";
+	var en = {
+		"order-summary": "Order Summary",
+		"order-details": "Order Details",
+		"order-status": "Order Status",
+		"payment-method": "Payment Method",
+		"payment-status": "Payment Status",
+		"shipping-cost": "Shipping Cost",
+		"order-total": "Order Total",
+		"customer-details": "Customer Details",
+		"shipping-address": "Shipping Address",
+		history: history$4,
+		ready: ready$4,
+		"in-preparation": "In Preparation",
+		"waiting-product": "Waiting for Product Delivery",
+		"to-be-shipped": "To Be Shipped",
+		shipped: shipped$4,
+		name: name$4,
+		phone: phone$4,
+		"mob-number": "Mobile Number",
+		update: update$4,
+		type: type$4,
+		size: size$4,
+		"payment-type": "Payment Type",
+		"three-installments": "Three Monthly Installments, 0% Interest",
+		"start-date": "Start Date",
+		"end-date": "End Date",
+		"installment-amount": "Installment Amount",
+		color: color$4,
+		customer_balance: customer_balance$4,
+		paid: paid$4,
+		black: black$4,
+		"add-tracking": "Add Tracking",
+		"tracking-number": "Tracking Number",
+		"add-event": "Add Event",
+		add: add$4,
+		status: status$4,
+		message: message$4,
+		order_placed: order_placed$4,
+		in_preparation: in_preparation$4,
+		ready_to_ship: ready_to_ship$4,
+		delivered: delivered$4,
+		canceled: canceled$4,
+		edit: edit$4,
+		save: save$4,
+		tracking_details: tracking_details$4,
+		courier: courier$4,
+		number_of_packages: number_of_packages$4,
+		tracking_links: tracking_links$4,
+		refunded: refunded$4,
+		receipt: receipt$4
+	};
+
+	var history$3 = "Storico";
+	var ready$3 = "Pronto";
+	var shipped$3 = "Spedito";
+	var name$3 = "Nome";
+	var phone$3 = "Telefono";
+	var update$3 = "Aggiorna";
+	var type$3 = "Tipo";
+	var size$3 = "Taglia";
+	var color$3 = "Colore";
+	var customer_balance$3 = "Bonifico Bancario";
+	var paid$3 = "Pagamento completato";
+	var black$3 = "Nero";
+	var add$3 = "Aggiungi";
+	var status$3 = "Stato";
+	var message$3 = "Messaggio";
+	var order_placed$3 = "Ordine confermato";
+	var in_preparation$3 = "Ordine in preparazione";
+	var ready_to_ship$3 = "Ordine pronto per essere spedito";
+	var delivered$3 = "Ordine consegnato";
+	var canceled$3 = "Ordine cancellato";
+	var edit$3 = "Modifica";
+	var save$3 = "Salva";
+	var tracking_details$3 = "Tracking";
+	var courier$3 = "Corriere";
+	var number_of_packages$3 = "Numero Colli";
+	var tracking_links$3 = "Link di Tracking";
+	var refunded$3 = "Rimborsato";
+	var receipt$3 = "Ricevuta";
+	var it = {
+		"order-summary": "Riepilogo Ordine",
+		"order-details": "Dettagli Ordine",
+		"order-status": "Stato dell'Ordine",
+		"payment-method": "Metodo di Pagamento",
+		"payment-status": "Stato del Pagamento",
+		"shipping-cost": "Costo di Spedizione",
+		"order-total": "Totale Ordine",
+		"customer-details": "Dettagli Cliente",
+		"shipping-address": "Indirizzo di Spedizione",
+		history: history$3,
+		ready: ready$3,
+		"in-preparation": "In preparazione",
+		"waiting-product": "In attesa della consegna del prodotto",
+		"to-be-shipped": "Da spedire",
+		shipped: shipped$3,
+		name: name$3,
+		phone: phone$3,
+		"mob-number": "Numero di telefono cellulare",
+		update: update$3,
+		type: type$3,
+		size: size$3,
+		"payment-type": "Tipo di pagamento",
+		"three-installments": "Tre rate mensili tasso zero",
+		"start-date": "Data di inizio",
+		"end-date": "Data di fine",
+		"installment-amount": "Importo della rata",
+		color: color$3,
+		customer_balance: customer_balance$3,
+		paid: paid$3,
+		black: black$3,
+		"add-tracking": "Aggiungi Tracking",
+		"tracking-number": "Numero di Tracking",
+		"add-event": "Aggiungi evento",
+		add: add$3,
+		status: status$3,
+		message: message$3,
+		order_placed: order_placed$3,
+		in_preparation: in_preparation$3,
+		ready_to_ship: ready_to_ship$3,
+		delivered: delivered$3,
+		canceled: canceled$3,
+		edit: edit$3,
+		save: save$3,
+		tracking_details: tracking_details$3,
+		courier: courier$3,
+		number_of_packages: number_of_packages$3,
+		tracking_links: tracking_links$3,
+		refunded: refunded$3,
+		receipt: receipt$3
+	};
+
+	var history$2 = "Historial";
+	var ready$2 = "Listo";
+	var shipped$2 = "Enviado";
+	var name$2 = "Nombre";
+	var phone$2 = "Teléfono";
+	var update$2 = "Actualizar";
+	var type$2 = "Tipo";
+	var size$2 = "Talla";
+	var color$2 = "Color";
+	var customer_balance$2 = "Transferencia bancaria";
+	var paid$2 = "Pago completado";
+	var black$2 = "Negro";
+	var add$2 = "Añadir";
+	var status$2 = "Estado";
+	var message$2 = "Mensaje";
+	var order_placed$2 = "Pedido confirmado";
+	var in_preparation$2 = "Pedido en preparación";
+	var ready_to_ship$2 = "Pedido listo para enviar";
+	var delivered$2 = "Pedido entregado";
+	var canceled$2 = "Pedido cancelado";
+	var edit$2 = "Editar";
+	var save$2 = "Guardar";
+	var tracking_details$2 = "Seguimiento";
+	var courier$2 = "Mensajero";
+	var number_of_packages$2 = "Número de paquetes";
+	var tracking_links$2 = "Enlaces de seguimiento";
+	var refunded$2 = "Reembolsado";
+	var receipt$2 = "Recibo";
+	var es = {
+		"order-summary": "Resumen del pedido",
+		"order-details": "Detalles del pedido",
+		"order-status": "Estado del pedido",
+		"payment-method": "Método de pago",
+		"payment-status": "Estado del pago",
+		"shipping-cost": "Costo de envío",
+		"order-total": "Total del pedido",
+		"customer-details": "Datos del cliente",
+		"shipping-address": "Dirección de envío",
+		history: history$2,
+		ready: ready$2,
+		"in-preparation": "En preparación",
+		"waiting-product": "Esperando entrega del producto",
+		"to-be-shipped": "Por enviar",
+		shipped: shipped$2,
+		name: name$2,
+		phone: phone$2,
+		"mob-number": "Número de móvil",
+		update: update$2,
+		type: type$2,
+		size: size$2,
+		"payment-type": "Tipo de pago",
+		"three-installments": "Tres cuotas mensuales sin interés",
+		"start-date": "Fecha de inicio",
+		"end-date": "Fecha de fin",
+		"installment-amount": "Importe de la cuota",
+		color: color$2,
+		customer_balance: customer_balance$2,
+		paid: paid$2,
+		black: black$2,
+		"add-tracking": "Añadir seguimiento",
+		"tracking-number": "Número de seguimiento",
+		"add-event": "Añadir evento",
+		add: add$2,
+		status: status$2,
+		message: message$2,
+		order_placed: order_placed$2,
+		in_preparation: in_preparation$2,
+		ready_to_ship: ready_to_ship$2,
+		delivered: delivered$2,
+		canceled: canceled$2,
+		edit: edit$2,
+		save: save$2,
+		tracking_details: tracking_details$2,
+		courier: courier$2,
+		number_of_packages: number_of_packages$2,
+		tracking_links: tracking_links$2,
+		refunded: refunded$2,
+		receipt: receipt$2
+	};
+
+	var history$1 = "Verlauf";
+	var ready$1 = "Bereit";
+	var shipped$1 = "Versendet";
+	var name$1 = "Name";
+	var phone$1 = "Telefon";
+	var update$1 = "Aktualisieren";
+	var type$1 = "Typ";
+	var size$1 = "Größe";
+	var color$1 = "Farbe";
+	var customer_balance$1 = "Banküberweisung";
+	var paid$1 = "Zahlung abgeschlossen";
+	var black$1 = "Schwarz";
+	var add$1 = "Hinzufügen";
+	var status$1 = "Status";
+	var message$1 = "Nachricht";
+	var order_placed$1 = "Bestellung aufgegeben";
+	var in_preparation$1 = "Bestellung in Vorbereitung";
+	var ready_to_ship$1 = "Bestellung versandbereit";
+	var delivered$1 = "Bestellung geliefert";
+	var canceled$1 = "Bestellung storniert";
+	var edit$1 = "Bearbeiten";
+	var save$1 = "Speichern";
+	var tracking_details$1 = "Sendungsverfolgung";
+	var courier$1 = "Versanddienst";
+	var number_of_packages$1 = "Anzahl der Pakete";
+	var tracking_links$1 = "Tracking-Links";
+	var refunded$1 = "Erstattet";
+	var receipt$1 = "Quittung";
+	var de = {
+		"order-summary": "Bestellübersicht",
+		"order-details": "Bestelldetails",
+		"order-status": "Bestellstatus",
+		"payment-method": "Zahlungsmethode",
+		"payment-status": "Zahlungsstatus",
+		"shipping-cost": "Versandkosten",
+		"order-total": "Gesamtbetrag",
+		"customer-details": "Kundendetails",
+		"shipping-address": "Lieferadresse",
+		history: history$1,
+		ready: ready$1,
+		"in-preparation": "In Vorbereitung",
+		"waiting-product": "Wartet auf Produktlieferung",
+		"to-be-shipped": "Versandbereit",
+		shipped: shipped$1,
+		name: name$1,
+		phone: phone$1,
+		"mob-number": "Handynummer",
+		update: update$1,
+		type: type$1,
+		size: size$1,
+		"payment-type": "Zahlungsart",
+		"three-installments": "Drei monatliche Raten, 0% Zinsen",
+		"start-date": "Anfangsdatum",
+		"end-date": "Enddatum",
+		"installment-amount": "Ratenbetrag",
+		color: color$1,
+		customer_balance: customer_balance$1,
+		paid: paid$1,
+		black: black$1,
+		"add-tracking": "Tracking hinzufügen",
+		"tracking-number": "Sendungsnummer",
+		"add-event": "Ereignis hinzufügen",
+		add: add$1,
+		status: status$1,
+		message: message$1,
+		order_placed: order_placed$1,
+		in_preparation: in_preparation$1,
+		ready_to_ship: ready_to_ship$1,
+		delivered: delivered$1,
+		canceled: canceled$1,
+		edit: edit$1,
+		save: save$1,
+		tracking_details: tracking_details$1,
+		courier: courier$1,
+		number_of_packages: number_of_packages$1,
+		tracking_links: tracking_links$1,
+		refunded: refunded$1,
+		receipt: receipt$1
+	};
+
+	var history = "Historique";
+	var ready = "Prêt";
+	var shipped = "Expédié";
+	var name = "Nom";
+	var phone = "Téléphone";
+	var update = "Mettre à jour";
+	var type = "Type";
+	var size = "Taille";
+	var color = "Couleur";
+	var customer_balance = "Virement bancaire";
+	var paid = "Paiement effectué";
+	var black = "Noir";
+	var add = "Ajouter";
+	var status = "Statut";
+	var message = "Message";
+	var order_placed = "Commande confirmée";
+	var in_preparation = "Commande en préparation";
+	var ready_to_ship = "Commande prête à être expédiée";
+	var delivered = "Commande livrée";
+	var canceled = "Commande annulée";
+	var edit = "Modifier";
+	var save = "Enregistrer";
+	var tracking_details = "Suivi";
+	var courier = "Transporteur";
+	var number_of_packages = "Nombre de colis";
+	var tracking_links = "Liens de suivi";
+	var refunded = "Remboursé";
+	var receipt = "Reçu";
+	var fr = {
+		"order-summary": "Récapitulatif de la commande",
+		"order-details": "Détails de la commande",
+		"order-status": "Statut de la commande",
+		"payment-method": "Méthode de paiement",
+		"payment-status": "Statut du paiement",
+		"shipping-cost": "Frais de livraison",
+		"order-total": "Total de la commande",
+		"customer-details": "Détails du client",
+		"shipping-address": "Adresse de livraison",
+		history: history,
+		ready: ready,
+		"in-preparation": "En préparation",
+		"waiting-product": "En attente de la livraison du produit",
+		"to-be-shipped": "À expédier",
+		shipped: shipped,
+		name: name,
+		phone: phone,
+		"mob-number": "Numéro de téléphone mobile",
+		update: update,
+		type: type,
+		size: size,
+		"payment-type": "Type de paiement",
+		"three-installments": "Trois mensualités sans intérêt",
+		"start-date": "Date de début",
+		"end-date": "Date de fin",
+		"installment-amount": "Montant de la mensualité",
+		color: color,
+		customer_balance: customer_balance,
+		paid: paid,
+		black: black,
+		"add-tracking": "Ajouter un suivi",
+		"tracking-number": "Numéro de suivi",
+		"add-event": "Ajouter un événement",
+		add: add,
+		status: status,
+		message: message,
+		order_placed: order_placed,
+		in_preparation: in_preparation,
+		ready_to_ship: ready_to_ship,
+		delivered: delivered,
+		canceled: canceled,
+		edit: edit,
+		save: save,
+		tracking_details: tracking_details,
+		courier: courier,
+		number_of_packages: number_of_packages,
+		tracking_links: tracking_links,
+		refunded: refunded,
+		receipt: receipt
+	};
+
+	const languages = {
+	  it: it,
+	  en: en,
+	  es: es,
+	  de: de,
+	  fr: fr,
+	};
+
+	function getPreferredLanguage() {
+	  return navigator.language.substring(0, 2);
+	}
+
+	function translate(preferredLanguage) {
+	  preferredLanguage = getPreferredLanguage();
+	  return function translate(str) {
+	    if (languages[preferredLanguage]) {
+	      return languages[preferredLanguage][str];
+	    } else {
+	      return en[str];
+	    }
+	  };
+	}
+
+	let t = translate();
+
+	var root_2 = template(`<h1 class="title">Order not found</h1>`);
+	var root_3 = template(`<div class="sloader-container"><span class="sloader"></span> <h3 class="is-size-5">Please wait</h3></div>`);
+	var root_7 = template(`<li> </li>`);
+	var root_6 = template(`<ul></ul>`);
+	var root_5 = template(`<li><div class="columns is-align-items-center"><div class="column"><!> <div class="column"><h4 class="title has-text-info is-size-4"> </h4> <!> <p class="is-size-5"> </p></div></div></div></li>`);
+	var root_8 = template(`<li> </li>`);
+	var root_10 = template(`<a class="has-text-info" target="_blank"> </a>`);
+	var root_9 = template(`<div class="field"><!></div>`);
+	var root_11 = template(`<form class="form mt-5"><div class="columns"><div class="column"><div class="select is-info"><select name="order-status" id="order-status"><option> </option><option> </option><option> </option><option> </option><option> </option><option> </option><option> </option><option> </option></select></div></div> <div class="column"><button type="button" class="button is-info has-text-white"> </button></div></div></form>`);
+	var root_12 = template(`<h2 class="title mt-6"> </h2> <h2 class="title has-text-info has-text-weight-bold"> </h2>`, 1);
+	var root_13 = template(`<li> </li>`);
+	var root_17 = template(`<option> </option>`);
+	var root_16 = template(`<div class="select"><select></select></div> <input class="input mt-2" type="text"> <button class="button is-success mt-2"> </button>`, 1);
+	var root_19 = template(`<button class="button is-warning mt-3"> </button> <button class="button is-info mt-3 ml-3"> </button>`, 1);
+	var root_18 = template(`<strong class="has-text-info"> </strong> <p class="mt-2"> </p> <!>`, 1);
+	var root_15 = template(`<li class="mb-2 py-3"><span class="has-text-grey is-size-6"> </span> <br> <!></li>`);
+	var root_22 = template(`<li><a target="_blank"> </a></li>`);
+	var root_23 = template(`<button class="button is-info mt-3 has-text-white">Invia mail di tracking</button>`);
+	var root_21 = template(`<div class="field"><label class="label"> </label> <p class="is-size-5"> </p></div> <div class="field"><label class="label"> </label> <p> </p></div> <div class="field"><label class="label"> </label> <ul></ul></div> <!>`, 1);
+	var root_20 = template(`<h2 class="title mt-6"> </h2> <!>`, 1);
+	var root_25 = template(`<option> </option>`);
+	var root_26 = template(`<option> </option>`);
+	var root_27 = template(`<li><a target="_blank"> </a> <button class="button is-small is-danger ml-2"> </button></li>`);
+	var root_24 = template(`<div class="field my-6"><label class="label"> </label> <div class="select"><select><option disabled selected> </option><!></select></div> <input class="input mt-2" type="text"> <button class="button is-info mt-2"> </button></div> <div class="tracking-section"><h2 class="title">Tracking</h2> <div class="field"><label class="label">Corriere</label> <div class="select"><select></select></div></div> <div class="field"><label class="label">Id spedizione</label> <input class="input" type="number" min="1"></div> <div class="field"><label class="label">Numero colli</label> <input class="input" type="number" min="1"></div> <div class="field"><label class="label">Link di tracking</label> <ul></ul> <input class="input mt-2" type="text"> <button class="button is-info mt-2"> </button></div> <button class="button is-success mt-4">Salva Tracking</button></div>`, 1);
+	var root_4 = template(`<div class="columns"><div class="column is-half"><h2 class="title mt-6 px-5"> </h2> <div class="box"><ul><!> <li><hr class="spacer"> <div class="column"><h4 class="title has-text-info is-size-4 mt-5"> </h4> <p class="my-3 is-size-5"> </p></div></li></ul></div></div> <div class="column px-6"><h2 class="title mt-6"> </h2> <ul><li> </li> <!> <li> <span class="has-text-info has-text-weight-bold"> </span></li> <li><!></li></ul> <!> <h2 class="title mt-6"> </h2> <ul><li> </li> <!> <li> </li> <li> </li></ul> <h2 class="title mt-6"> </h2> <ul><li> </li> <li> </li> <li> </li> <li> <!></li> <li> </li></ul> <h2 class="title mt-5"> </h2> <ul></ul> <!> <!></div></div>`);
+
+	function PreOrder2($$anchor, $$props) {
+		push($$props, false);
+
+		// --- inizio modifica per cookie-based admin access ---
+		const ADMIN_TOKEN = "kettleblazeadmin01"; // <— sostituisci con la stringa desiderata
+
+		function getCookie(name) {
+			const match = document.cookie.match("(^|;)\\s*" + name + "=([^;]+)");
+
+			return match ? decodeURIComponent(match.pop()) : "";
+		}
+
+		let isLocal = mutable_state(false);
+		// --- fine modifica ---
+		let isUpdating = mutable_state(false);
+		let order = mutable_state(null);
+		let errorOrNotFound = mutable_state(false);
+		let event$1 = mutable_state({});
+		let orderStatus = mutable_state("");
+
+		let tracking = mutable_state({
+			courier: "",
+			packages: 1,
+			tracking_links: [],
+			shipment_id: -1,
+			delivered: false
+		});
+
+		let newTrackingLink = mutable_state("");
+		let editingIndex = mutable_state();
+		let editedEvent = mutable_state({ status: "", message: "" });
+
+		const statusOptions = [
+			"order_placed",
+			"refunded",
+			"in_preparation",
+			"ready_to_ship",
+			"shipped",
+			"delivered",
+			"canceled"
+		];
+
+		const courierOptions = [
+			"BRT",
+			"DPD",
+			"UPS",
+			"FedEx",
+			"PosteItaliane",
+			"InPost"
+		];
+
+		function updateTrackingLink(url, nuovoTracking) {
+			return url.replace("loc=it_IT", "loc=en_GB").replace(/tracknum=[^&]+/, `tracknum=${nuovoTracking}`);
+		}
+
+		async function setupTracking() {
+			const infoSped = await fetch(`http://localhost:8080/info-spedizione/${get(tracking).shipment_id}`).then((res) => res.json());
+
+			mutate(tracking, get(tracking).courier = infoSped.corriere);
+
+			let links = [];
+
+			for (let collo of infoSped.colli) {
+				let link = updateTrackingLink(infoSped.trackLink, collo.tracking);
+
+				links.push(link);
+			}
+
+			mutate(tracking, get(tracking).packages = links.length);
+			mutate(tracking, get(tracking).tracking_links = links);
+		}
+
+		async function sendTrackingNotificaton() {
+			const response = await fetch(`http://localhost:8080/send-tracking-email/${get(order).orderId}`, {
+				method: "GET",
+				headers: { "Content-Type": "application/json" }
+			});
+
+			if (response.ok) {
+				alert("Email inviata con successo!");
+			} else {
+				alert("Errore nell'invio dell'email.");
+			}
+		}
+
+		async function sendNotificationEmail(eventId, type = "event") {
+			if (!get(order)) return;
+
+			const emailPayload = {
+				orderId: get(order).orderId,
+				historyIndex: eventId,
+				type
+			};
+
+			try {
+				const response = await fetch(`http://localhost:8080/send-notification`, {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify(emailPayload)
+				});
+
+				if (response.ok) {
+					alert("Email inviata con successo!");
+				} else {
+					alert("Errore nell'invio dell'email.");
+				}
+			} catch(error) {
+				console.error("Errore nell'invio dell'email:", error);
+				alert("Errore imprevisto. Riprova.");
+			}
+		}
+
+		function formatCurrency(price, currency) {
+			return new Intl.NumberFormat("en-IT", {
+				style: "currency",
+				currency: currency || "EUR",
+				maximumFractionDigits: 2
+			}).format(price / 100);
+		}
+
+		function updateOrderStatus() {
+			set(isUpdating, true);
+			mutate(order, get(order).status = get(orderStatus));
+			updateOrder().then(() => setTimeout(() => set(isUpdating, false), 1000));
+		}
+
+		async function getOrder() {
+			const params = new URLSearchParams(window.location.search);
+			const lang = getPreferredLanguage();
+			const o = await fetch(`http://localhost:8080/orders/${params.get("id")}/${lang}`, { method: "GET" }).then((r) => r.ok ? r.json() : null);
+
+			if (!o) {
+				set(errorOrNotFound, true);
+			} else {
+				set(orderStatus, o.status);
+			}
+
+			set(order, o);
+		}
+
+		async function updateOrder() {
+			if (!get(order)) return;
+
+			await fetch(`http://localhost:8080/order2/${get(order).orderId}`, {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify(get(order))
+			});
+		}
+
+		function addHistoryEvent() {
+			if (get(event$1).status && get(event$1).message) {
+				const newEvent = {
+					timestamp: new Date(),
+					status: get(event$1).status,
+					message: get(event$1).message
+				};
+
+				get(order).history.push(newEvent);
+				set(order, get(order));
+				updateOrder();
+				set(event$1, { status: "", message: "" });
+			}
+		}
+
+		function editHistoryEvent(index) {
+			set(editingIndex, index);
+			set(editedEvent, { ...get(order).history[index] });
+		}
+
+		function saveHistoryEvent(index) {
+			mutate(order, get(order).history[index] = get(editedEvent));
+			updateOrder().then(() => sendNotificationEmail(get(editedEvent)));
+			set(editingIndex, null);
+		}
+
+		function addTrackingLink() {
+			if (get(newTrackingLink)) {
+				get(tracking).tracking_links.push(get(newTrackingLink));
+				set(tracking, get(tracking));
+				set(newTrackingLink, "");
+			}
+		}
+
+		function updateTracking() {
+			if (!get(order)) return;
+			mutate(order, get(order).tracking = { ...get(tracking) });
+			updateOrder(); //.then(() => sendNotificationEmail(order.orderId, "tracking"));
+		}
+
+		function calculateTotal(order) {
+			let sum = order.cart.items.reduce((acc, item) => acc + 100 * item.final_price * item.quantity, 0);
+
+			return formatCurrency(sum, order.payment.currency);
+		}
+
+		async function getReceiptUrl() {
+			if (!get(order) || !get(order).payment || !get(order).payment.stripe_payment_intent) {
+				return { url: "N/A" };
+			}
+
+			const response = await fetch(`http://localhost:8080/receipt-url/${get(order).payment.stripe_payment_intent}`, {
+				method: "GET",
+				headers: { "Content-Type": "application/json" }
+			});
+
+			if (response.ok) {
+				const data = await response.json();
+
+				return { url: data.url };
+			} else {
+				return { url: "N/A" };
+			}
+		}
+
+		onMount(() => {
+			// Determina admin access via cookie
+			set(isLocal, getCookie("kbadmin341") === ADMIN_TOKEN);
+			getOrder();
+		});
+
+		init();
+
+		var fragment = comment();
+		var node = first_child(fragment);
+
+		{
+			var consequent_1 = ($$anchor) => {
+				var fragment_1 = comment();
+				var node_1 = first_child(fragment_1);
+
+				{
+					var consequent = ($$anchor) => {
+						var h1 = root_2();
+
+						append($$anchor, h1);
+					};
+
+					var alternate = ($$anchor) => {
+						var div = root_3();
+
+						append($$anchor, div);
+					};
+
+					if_block(node_1, ($$render) => {
+						if (get(errorOrNotFound)) $$render(consequent); else $$render(alternate, false);
+					});
+				}
+
+				append($$anchor, fragment_1);
+			};
+
+			var alternate_3 = ($$anchor) => {
+				var div_1 = root_4();
+				var div_2 = child(div_1);
+				var h2 = child(div_2);
+				var text$1 = child(h2);
+
+				var div_3 = sibling(h2, 2);
+				var ul = child(div_3);
+				var node_2 = child(ul);
+
+				each(node_2, 1, () => get(order).cart.items, index, ($$anchor, item) => {
+					var li = root_5();
+					var div_4 = child(li);
+					var div_5 = child(div_4);
+					var node_3 = child(div_5);
+
+					SirvImage(node_3, {
+						get src() {
+							return `https://kettleblaze.sirv.com/orders/${get(item).sku ?? ''}.jpg`;
+						},
+						width: '480',
+						height: '480',
+						displayWidth: '120',
+						displayHeight: '120',
+						quality: '98'
+					});
+
+					var div_6 = sibling(node_3, 2);
+					var h4 = child(div_6);
+					var text_1 = child(h4);
+
+					var node_4 = sibling(h4, 2);
+
+					{
+						var consequent_2 = ($$anchor) => {
+							var ul_1 = root_6();
+
+							each(ul_1, 5, () => Object.entries(get(item).selected_attributes), index, ($$anchor, $$item) => {
+								let name = () => get($$item)[0];
+								let value = () => get($$item)[1];
+								var li_1 = root_7();
+								var text_2 = child(li_1);
+
+								template_effect(
+									($0, $1) => set_text(text_2, `${$0 ?? ''}: ${$1 ?? ''}`),
+									[
+										() => t(name()),
+										() => name() === "size" ? value() : t(value()) || value()
+									],
+									derived_safe_equal
+								);
+
+								append($$anchor, li_1);
+							});
+							append($$anchor, ul_1);
+						};
+
+						if_block(node_4, ($$render) => {
+							if (Object.keys(get(item).selected_attributes ?? {}).length > 0) $$render(consequent_2);
+						});
+					}
+
+					var p = sibling(node_4, 2);
+					var text_3 = child(p);
+
+					template_effect(
+						($0) => {
+							set_text(text_1, `${get(item).quantity ?? ''} x ${get(item).name.it ?? ''}`);
+							set_text(text_3, $0);
+						},
+						[
+							() => formatCurrency(get(item).final_price * 100, get(item).currency)
+						],
+						derived_safe_equal
+					);
+
+					append($$anchor, li);
+				});
+
+				var li_2 = sibling(node_2, 2);
+				var div_7 = sibling(child(li_2), 2);
+				var h4_1 = child(div_7);
+				var text_4 = child(h4_1);
+
+				var p_1 = sibling(h4_1, 2);
+				var text_5 = child(p_1);
+
+				var div_8 = sibling(div_2, 2);
+				var h2_1 = child(div_8);
+				var text_6 = child(h2_1);
+
+				var ul_2 = sibling(h2_1, 2);
+				var li_3 = child(ul_2);
+				var text_7 = child(li_3);
+
+				var node_5 = sibling(li_3, 2);
+
+				{
+					var consequent_3 = ($$anchor) => {
+						var li_4 = root_8();
+						var text_8 = child(li_4);
+						template_effect(($0) => set_text(text_8, `${$0 ?? ''}: ${get(order).payment.method ?? ''}`), [() => t("payment-method")], derived_safe_equal);
+						append($$anchor, li_4);
+					};
+
+					if_block(node_5, ($$render) => {
+						if (get(order).payment.method) $$render(consequent_3);
+					});
+				}
+
+				var li_5 = sibling(node_5, 2);
+				var text_9 = child(li_5);
+				var span = sibling(text_9);
+				var text_10 = child(span);
+
+				var li_6 = sibling(li_5, 2);
+				var node_6 = child(li_6);
+
+				{
+					var consequent_4 = ($$anchor) => {
+						var div_9 = root_9();
+						var node_7 = child(div_9);
+
+						await_block(node_7, getReceiptUrl, null, ($$anchor, response) => {
+							var a = root_10();
+							var text_11 = child(a);
+
+							template_effect(
+								($0) => {
+									set_attribute(a, 'href', get(response).url);
+									set_text(text_11, `🔗 ${$0 ?? ''}`);
+								},
+								[() => t("receipt")],
+								derived_safe_equal
+							);
+
+							append($$anchor, a);
+						});
+						append($$anchor, div_9);
+					};
+
+					if_block(node_6, ($$render) => {
+						if (get(order).payment.status === "paid") $$render(consequent_4);
+					});
+				}
+
+				var node_8 = sibling(ul_2, 2);
+
+				{
+					var consequent_5 = ($$anchor) => {
+						var form = root_11();
+						var div_10 = child(form);
+						var div_11 = child(div_10);
+						var div_12 = child(div_11);
+						var select = child(div_12);
+
+						template_effect(() => {
+							get(orderStatus);
+
+							invalidate_inner_signals(() => {
+								get(isUpdating);
+							});
+						});
+
+						var option = child(select);
+
+						option.value = null == (option.__value = 'paid') ? '' : 'paid';
+
+						var text_12 = child(option);
+
+						var option_1 = sibling(option);
+
+						option_1.value = null == (option_1.__value = 'ready') ? '' : 'ready';
+
+						var text_13 = child(option_1);
+
+						var option_2 = sibling(option_1);
+
+						option_2.value = null == (option_2.__value = 'in-preparation') ? '' : 'in-preparation';
+
+						var text_14 = child(option_2);
+
+						var option_3 = sibling(option_2);
+
+						option_3.value = null == (option_3.__value = 'waiting-product') ? '' : 'waiting-product';
+
+						var text_15 = child(option_3);
+
+						var option_4 = sibling(option_3);
+
+						option_4.value = null == (option_4.__value = 'to-be-shipped') ? '' : 'to-be-shipped';
+
+						var text_16 = child(option_4);
+
+						var option_5 = sibling(option_4);
+
+						option_5.value = null == (option_5.__value = 'shipped') ? '' : 'shipped';
+
+						var text_17 = child(option_5);
+
+						var option_6 = sibling(option_5);
+
+						option_6.value = null == (option_6.__value = 'refunded') ? '' : 'refunded';
+
+						var text_18 = child(option_6);
+
+						var option_7 = sibling(option_6);
+
+						option_7.value = null == (option_7.__value = 'delivered') ? '' : 'delivered';
+
+						var text_19 = child(option_7);
+
+						var div_13 = sibling(div_11, 2);
+						var button = child(div_13);
+						var text_20 = child(button);
+
+						template_effect(
+							($0, $1, $2, $3, $4, $5, $6, $7, $8) => {
+								select.disabled = get(isUpdating) ? "disabled" : "";
+								set_selected(option, get(orderStatus) === "paid");
+								set_text(text_12, $0);
+								set_selected(option_1, get(orderStatus) === "ready");
+								set_text(text_13, $1);
+								set_selected(option_2, get(orderStatus) === "in-preparation");
+								set_text(text_14, $2);
+								set_selected(option_3, get(orderStatus) === "waiting-product");
+								set_text(text_15, $3);
+								set_selected(option_4, get(orderStatus) === "to-be-shipped");
+								set_text(text_16, $4);
+								set_selected(option_5, get(orderStatus) === "shipped");
+								set_text(text_17, $5);
+								set_selected(option_6, get(orderStatus) === "refunded");
+								set_text(text_18, $6);
+								set_selected(option_7, get(orderStatus) === "delivered");
+								set_text(text_19, $7);
+								set_text(text_20, $8);
+							},
+							[
+								() => t("paid"),
+								() => t("ready"),
+								() => t("in-preparation"),
+								() => t("waiting-product"),
+								() => t("to-be-shipped"),
+								() => t("shipped"),
+								() => t("refunded"),
+								() => t("delivered"),
+								() => t("update")
+							],
+							derived_safe_equal
+						);
+
+						bind_select_value(select, () => get(orderStatus), ($$value) => set(orderStatus, $$value));
+						event('click', button, updateOrderStatus);
+						append($$anchor, form);
+					};
+
+					var alternate_1 = ($$anchor) => {
+						var fragment_2 = root_12();
+						var h2_2 = first_child(fragment_2);
+						var text_21 = child(h2_2);
+
+						var h2_3 = sibling(h2_2, 2);
+						var text_22 = child(h2_3);
+
+						template_effect(
+							($0, $1) => {
+								set_text(text_21, $0);
+								set_text(text_22, $1);
+							},
+							[
+								() => t("order-status"),
+								() => t(get(order).status)
+							],
+							derived_safe_equal
+						);
+
+						append($$anchor, fragment_2);
+					};
+
+					if_block(node_8, ($$render) => {
+						if (get(isLocal)) $$render(consequent_5); else $$render(alternate_1, false);
+					});
+				}
+
+				var h2_4 = sibling(node_8, 2);
+				var text_23 = child(h2_4);
+
+				var ul_3 = sibling(h2_4, 2);
+				var li_7 = child(ul_3);
+				var text_24 = child(li_7);
+
+				var node_9 = sibling(li_7, 2);
+
+				{
+					var consequent_6 = ($$anchor) => {
+						var li_8 = root_13();
+						var text_25 = child(li_8);
+						template_effect(() => set_text(text_25, `Codice fiscale: ${get(order).customerData.fiscal_code ?? ''}`));
+						append($$anchor, li_8);
+					};
+
+					if_block(node_9, ($$render) => {
+						if (get(order).customerData.fiscal_code) $$render(consequent_6);
+					});
+				}
+
+				var li_9 = sibling(node_9, 2);
+				var text_26 = child(li_9);
+
+				var li_10 = sibling(li_9, 2);
+				var text_27 = child(li_10);
+
+				var h2_5 = sibling(ul_3, 2);
+				var text_28 = child(h2_5);
+
+				var ul_4 = sibling(h2_5, 2);
+				var li_11 = child(ul_4);
+				var text_29 = child(li_11);
+
+				var li_12 = sibling(li_11, 2);
+				var text_30 = child(li_12);
+
+				var li_13 = sibling(li_12, 2);
+				var text_31 = child(li_13);
+
+				var li_14 = sibling(li_13, 2);
+				var text_32 = child(li_14);
+				var node_10 = sibling(text_32);
+
+				{
+					var consequent_7 = ($$anchor) => {
+						var text_33 = text();
+
+						template_effect(() => set_text(text_33, `(${get(order).customerData.address.state ?? ''})`));
+						append($$anchor, text_33);
+					};
+
+					if_block(node_10, ($$render) => {
+						if (get(order).customerData.address.state) $$render(consequent_7);
+					});
+				}
+
+				var li_15 = sibling(li_14, 2);
+				var text_34 = child(li_15);
+
+				var h2_6 = sibling(ul_4, 2);
+				var text_35 = child(h2_6);
+
+				var ul_5 = sibling(h2_6, 2);
+
+				each(ul_5, 5, () => get(order).history, index, ($$anchor, historyEvent, index$1) => {
+					var li_16 = root_15();
+					var span_1 = child(li_16);
+					var text_36 = child(span_1);
+
+					var node_11 = sibling(span_1, 4);
+
+					{
+						var consequent_8 = ($$anchor) => {
+							var fragment_4 = root_16();
+							var div_14 = first_child(fragment_4);
+							var select_1 = child(div_14);
+
+							template_effect(() => {
+								get(editedEvent);
+
+								invalidate_inner_signals(() => {
+								});
+							});
+
+							each(select_1, 5, () => statusOptions, index, ($$anchor, status) => {
+								var option_8 = root_17();
+								var option_8_value = {};
+								var text_37 = child(option_8);
+
+								template_effect(
+									($0) => {
+										if (option_8_value !== (option_8_value = get(status))) {
+											option_8.value = null == (option_8.__value = get(status)) ? '' : get(status);
+										}
+
+										set_text(text_37, $0);
+									},
+									[() => t(get(status))],
+									derived_safe_equal
+								);
+
+								append($$anchor, option_8);
+							});
+
+							var input = sibling(div_14, 2);
+
+							var button_1 = sibling(input, 2);
+							var text_38 = child(button_1);
+							template_effect(($0) => set_text(text_38, $0), [() => t("save")], derived_safe_equal);
+							bind_select_value(select_1, () => get(editedEvent).status, ($$value) => mutate(editedEvent, get(editedEvent).status = $$value));
+							bind_value(input, () => get(editedEvent).message, ($$value) => mutate(editedEvent, get(editedEvent).message = $$value));
+							event('click', button_1, () => saveHistoryEvent(index$1));
+							append($$anchor, fragment_4);
+						};
+
+						var alternate_2 = ($$anchor) => {
+							var fragment_5 = root_18();
+							var strong = first_child(fragment_5);
+							var text_39 = child(strong);
+
+							var p_2 = sibling(strong, 2);
+							var text_40 = child(p_2);
+
+							var node_12 = sibling(p_2, 2);
+
+							{
+								var consequent_9 = ($$anchor) => {
+									var fragment_6 = root_19();
+									var button_2 = first_child(fragment_6);
+									var text_41 = child(button_2);
+
+									var button_3 = sibling(button_2, 2);
+									var text_42 = child(button_3);
+
+									template_effect(
+										($0, $1) => {
+											set_text(text_41, $0);
+											set_text(text_42, `📧 ${$1 ?? ''}`);
+										},
+										[
+											() => t("edit"),
+											() => t("send-notification")
+										],
+										derived_safe_equal
+									);
+
+									event('click', button_2, () => editHistoryEvent(index$1));
+									event('click', button_3, () => sendNotificationEmail(index$1));
+									append($$anchor, fragment_6);
+								};
+
+								if_block(node_12, ($$render) => {
+									if (get(isLocal)) $$render(consequent_9);
+								});
+							}
+
+							template_effect(
+								($0) => {
+									set_text(text_39, $0);
+									set_text(text_40, get(historyEvent).message);
+								},
+								[() => t(get(historyEvent).status)],
+								derived_safe_equal
+							);
+
+							append($$anchor, fragment_5);
+						};
+
+						if_block(node_11, ($$render) => {
+							if (get(editingIndex) === index$1) $$render(consequent_8); else $$render(alternate_2, false);
+						});
+					}
+
+					template_effect(
+						($0) => set_text(text_36, $0),
+						[
+							() => new Date(get(historyEvent).timestamp).toLocaleString("it-IT", {
+								year: "numeric",
+								month: "2-digit",
+								day: "2-digit",
+								hour: "2-digit",
+								minute: "2-digit",
+								second: "2-digit"
+							})
+						],
+						derived_safe_equal
+					);
+
+					append($$anchor, li_16);
+				});
+
+				var node_13 = sibling(ul_5, 2);
+
+				{
+					var consequent_11 = ($$anchor) => {
+						var fragment_7 = root_20();
+						var h2_7 = first_child(fragment_7);
+						var text_43 = child(h2_7);
+
+						var node_14 = sibling(h2_7, 2);
+
+						each(node_14, 1, () => get(order).tracking, index, ($$anchor, tracking, $$index_5, $$array) => {
+							var fragment_8 = root_21();
+							var div_15 = first_child(fragment_8);
+							var label = child(div_15);
+							var text_44 = child(label);
+
+							var p_3 = sibling(label, 2);
+							var text_45 = child(p_3);
+
+							var div_16 = sibling(div_15, 2);
+							var label_1 = child(div_16);
+							var text_46 = child(label_1);
+
+							var p_4 = sibling(label_1, 2);
+							var text_47 = child(p_4);
+
+							var div_17 = sibling(div_16, 2);
+							var label_2 = child(div_17);
+							var text_48 = child(label_2);
+
+							var ul_6 = sibling(label_2, 2);
+
+							each(ul_6, 5, () => get(tracking).tracking_links, index, ($$anchor, link) => {
+								var li_17 = root_22();
+								var a_1 = child(li_17);
+								var text_49 = child(a_1);
+
+								template_effect(() => {
+									set_attribute(a_1, 'href', get(link));
+									set_text(text_49, get(link));
+								});
+
+								append($$anchor, li_17);
+							});
+
+							var node_15 = sibling(div_17, 2);
+
+							{
+								var consequent_10 = ($$anchor) => {
+									var button_4 = root_23();
+
+									event('click', button_4, sendTrackingNotificaton);
+									append($$anchor, button_4);
+								};
+
+								if_block(node_15, ($$render) => {
+									if (get(isLocal)) $$render(consequent_10);
+								});
+							}
+
+							template_effect(
+								($0, $1, $2) => {
+									set_text(text_44, $0);
+									set_text(text_45, get(tracking).courier);
+									set_text(text_46, `${$1 ?? ''}:`);
+									set_text(text_47, get(tracking).packages);
+									set_text(text_48, $2);
+								},
+								[
+									() => t("courier"),
+									() => t("number_of_packages"),
+									() => t("tracking_links")
+								],
+								derived_safe_equal
+							);
+
+							append($$anchor, fragment_8);
+						});
+
+						template_effect(($0) => set_text(text_43, $0), [() => t("tracking_details")], derived_safe_equal);
+						append($$anchor, fragment_7);
+					};
+
+					if_block(node_13, ($$render) => {
+						if (get(order).tracking.length > 0) $$render(consequent_11);
+					});
+				}
+
+				var node_16 = sibling(node_13, 2);
+
+				{
+					var consequent_12 = ($$anchor) => {
+						var fragment_9 = root_24();
+						var div_18 = first_child(fragment_9);
+						var label_3 = child(div_18);
+						var text_50 = child(label_3);
+
+						var div_19 = sibling(label_3, 2);
+						var select_2 = child(div_19);
+
+						template_effect(() => {
+							get(event$1);
+
+							invalidate_inner_signals(() => {
+							});
+						});
+
+						var option_9 = child(select_2);
+
+						option_9.value = null == (option_9.__value = '') ? '' : '';
+
+						var text_51 = child(option_9);
+
+						var node_17 = sibling(option_9);
+
+						each(node_17, 1, () => statusOptions, index, ($$anchor, status) => {
+							var option_10 = root_25();
+							var option_10_value = {};
+							var text_52 = child(option_10);
+
+							template_effect(
+								($0) => {
+									if (option_10_value !== (option_10_value = get(status))) {
+										option_10.value = null == (option_10.__value = get(status)) ? '' : get(status);
+									}
+
+									set_text(text_52, $0);
+								},
+								[() => t(get(status))],
+								derived_safe_equal
+							);
+
+							append($$anchor, option_10);
+						});
+
+						var input_1 = sibling(div_19, 2);
+
+						var button_5 = sibling(input_1, 2);
+						var text_53 = child(button_5);
+
+						var div_20 = sibling(div_18, 2);
+						var div_21 = sibling(child(div_20), 2);
+						var div_22 = sibling(child(div_21), 2);
+						var select_3 = child(div_22);
+
+						template_effect(() => {
+							get(tracking);
+
+							invalidate_inner_signals(() => {
+							});
+						});
+
+						each(select_3, 5, () => courierOptions, index, ($$anchor, courier) => {
+							var option_11 = root_26();
+							var option_11_value = {};
+							var text_54 = child(option_11);
+
+							template_effect(() => {
+								if (option_11_value !== (option_11_value = get(courier))) {
+									option_11.value = null == (option_11.__value = get(courier)) ? '' : get(courier);
+								}
+
+								set_text(text_54, get(courier));
+							});
+
+							append($$anchor, option_11);
+						});
+
+						var div_23 = sibling(div_21, 2);
+						var input_2 = sibling(child(div_23), 2);
+
+						var div_24 = sibling(div_23, 2);
+						var input_3 = sibling(child(div_24), 2);
+
+						var div_25 = sibling(div_24, 2);
+						var ul_7 = sibling(child(div_25), 2);
+
+						each(ul_7, 5, () => get(tracking).tracking_links, index, ($$anchor, link, index) => {
+							var li_18 = root_27();
+							var a_2 = child(li_18);
+							var text_55 = child(a_2);
+
+							var button_6 = sibling(a_2, 2);
+							var text_56 = child(button_6);
+
+							template_effect(
+								($0) => {
+									set_attribute(a_2, 'href', get(link));
+									set_text(text_55, get(link));
+									set_text(text_56, $0);
+								},
+								[() => t("remove")],
+								derived_safe_equal
+							);
+
+							event('click', button_6, () => get(tracking).tracking_links.splice(index, 1));
+							append($$anchor, li_18);
+						});
+
+						var input_4 = sibling(ul_7, 2);
+
+						var button_7 = sibling(input_4, 2);
+						var text_57 = child(button_7);
+
+						var button_8 = sibling(div_25, 2);
+
+						template_effect(
+							($0, $1, $2, $3, $4) => {
+								set_text(text_50, $0);
+								set_text(text_51, $1);
+								set_attribute(input_1, 'placeholder', $2);
+								set_text(text_53, $3);
+								set_attribute(input_4, 'placeholder', $4);
+								set_text(text_57, $3);
+							},
+							[
+								() => t("add-event"),
+								() => t("select-status"),
+								() => t("message"),
+								() => t("add"),
+								() => t("add-tracking-link")
+							],
+							derived_safe_equal
+						);
+
+						bind_select_value(select_2, () => get(event$1).status, ($$value) => mutate(event$1, get(event$1).status = $$value));
+						bind_value(input_1, () => get(event$1).message, ($$value) => mutate(event$1, get(event$1).message = $$value));
+						event('click', button_5, addHistoryEvent);
+						bind_select_value(select_3, () => get(tracking).courier, ($$value) => mutate(tracking, get(tracking).courier = $$value));
+						event('change', input_2, setupTracking);
+						bind_value(input_2, () => get(tracking).shipment_id, ($$value) => mutate(tracking, get(tracking).shipment_id = $$value));
+						bind_value(input_3, () => get(tracking).packages, ($$value) => mutate(tracking, get(tracking).packages = $$value));
+						bind_value(input_4, () => get(newTrackingLink), ($$value) => set(newTrackingLink, $$value));
+						event('click', button_7, addTrackingLink);
+						event('click', button_8, updateTracking);
+						append($$anchor, fragment_9);
+					};
+
+					if_block(node_16, ($$render) => {
+						if (get(isLocal)) $$render(consequent_12);
+					});
+				}
+
+				template_effect(
+					(
+						$0,
+						$1,
+						$2,
+						$3,
+						$4,
+						$5,
+						$6,
+						$7,
+						$8,
+						$9
+					) => {
+						set_text(text$1, $0);
+						set_text(text_4, $1);
+						set_text(text_5, $2);
+						set_text(text_6, $3);
+						set_text(text_7, `Id: ${get(order).orderId ?? ''}`);
+						set_text(text_9, `${$4 ?? ''}: `);
+						set_text(text_10, get(order).payment.status);
+						set_text(text_23, $5);
+						set_text(text_24, `${$6 ?? ''}: ${get(order).customerData.name ?? ''}`);
+						set_text(text_26, `${$7 ?? ''}:${get(order).customerData.phone ?? ''}`);
+						set_text(text_27, `Email: ${get(order).customerData.email ?? ''}`);
+						set_text(text_28, $8);
+						set_text(text_29, get(order).customerData.name);
+						set_text(text_30, get(order).customerData.address.line1);
+						set_text(text_31, get(order).customerData.address.line2);
+						set_text(text_32, `${get(order).customerData.address.city ?? ''}, ${get(order).customerData.address.postal_code ?? ''}`);
+						set_text(text_34, get(order).customerData.address.country);
+						set_text(text_35, $9);
+					},
+					[
+						() => t("order-summary"),
+						() => t("order-total"),
+						() => calculateTotal(get(order)),
+						() => t("order-details"),
+						() => t("payment-status"),
+						() => t("customer-details"),
+						() => t("name"),
+						() => t("phone"),
+						() => t("shipping-address"),
+						() => t("order-history")
+					],
+					derived_safe_equal
+				);
+
+				append($$anchor, div_1);
+			};
+
+			if_block(node, ($$render) => {
+				if (!get(order)) $$render(consequent_1); else $$render(alternate_3, false);
+			});
+		}
+
+		append($$anchor, fragment);
+		pop();
+	}
+
+	let preOrderApp2 = mount(PreOrder2, {
+	  target: document.getElementById("preorder-app"),
+	});
+
+	return preOrderApp2;
+
+})();
