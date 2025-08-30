@@ -4748,18 +4748,20 @@ var preOrdersApp = (function () {
 	var root_12 = template(`<h2 class="title mt-6"> </h2> <h2 class="title has-text-info has-text-weight-bold"> </h2>`, 1);
 	var root_13 = template(`<li> </li>`);
 	var root_17 = template(`<option> </option>`);
-	var root_16 = template(`<div class="select"><select></select></div> <input class="input mt-2" type="text"> <button class="button is-success mt-2"> </button>`, 1);
-	var root_19 = template(`<button class="button is-warning mt-3"> </button> <button class="button is-info mt-3 ml-3"> </button>`, 1);
-	var root_18 = template(`<strong class="has-text-info"> </strong> <p class="mt-2"> </p> <!>`, 1);
+	var root_18 = template(`<option> </option>`);
+	var root_16 = template(`<div class="select"><select></select></div> <input class="input mt-2" type="text"> <div class="select mt-2"><select><option> </option><!></select></div> <button class="button is-success mt-2"> </button>`, 1);
+	var root_20 = template(`<button class="button is-warning mt-3"> </button> <button class="button is-info mt-3 ml-3"> </button>`, 1);
+	var root_19 = template(`<strong class="has-text-info"> </strong> <p class="mt-2"> </p> <!>`, 1);
 	var root_15 = template(`<li class="mb-2 py-3"><span class="has-text-grey is-size-6"> </span> <br> <!></li>`);
-	var root_22 = template(`<li><a target="_blank"> </a></li>`);
-	var root_23 = template(`<button class="button is-info mt-3 has-text-white">Invia mail di tracking</button>`);
-	var root_21 = template(`<div class="field"><label class="label"> </label> <p class="is-size-5"> </p></div> <div class="field"><label class="label"> </label> <p> </p></div> <div class="field"><label class="label"> </label> <ul></ul></div> <!>`, 1);
-	var root_20 = template(`<h2 class="title mt-6"> </h2> <!>`, 1);
-	var root_25 = template(`<option> </option>`);
+	var root_23 = template(`<li><a target="_blank"> </a></li>`);
+	var root_24 = template(`<button class="button is-info mt-3 has-text-white">Invia mail di tracking</button>`);
+	var root_22 = template(`<div class="field"><label class="label"> </label> <p class="is-size-5"> </p></div> <div class="field"><label class="label"> </label> <p> </p></div> <div class="field"><label class="label"> </label> <ul></ul></div> <!>`, 1);
+	var root_21 = template(`<h2 class="title mt-6"> </h2> <!>`, 1);
 	var root_26 = template(`<option> </option>`);
-	var root_27 = template(`<li><a target="_blank"> </a> <button class="button is-small is-danger ml-2"> </button></li>`);
-	var root_24 = template(`<div class="field my-6"><label class="label"> </label> <div class="select"><select><option disabled selected> </option><!></select></div> <input class="input mt-2" type="text"> <button class="button is-info mt-2"> </button></div> <div class="tracking-section"><h2 class="title">Tracking</h2> <div class="field"><label class="label">Corriere</label> <div class="select"><select></select></div></div> <div class="field"><label class="label">Id spedizione</label> <input class="input" type="number" min="1"></div> <div class="field"><label class="label">Numero colli</label> <input class="input" type="number" min="1"></div> <div class="field"><label class="label">Link di tracking</label> <ul></ul> <input class="input mt-2" type="text"> <button class="button is-info mt-2"> </button></div> <button class="button is-success mt-4">Salva Tracking</button></div>`, 1);
+	var root_27 = template(`<option> </option>`);
+	var root_28 = template(`<option> </option>`);
+	var root_29 = template(`<li><a target="_blank"> </a> <button class="button is-small is-danger ml-2"> </button></li>`);
+	var root_25 = template(`<div class="field my-6"><label class="label"> </label> <div class="select"><select><option disabled selected> </option><!></select></div> <input class="input mt-2" type="text"> <div class="select mt-2"><select><option> </option><!></select></div> <button class="button is-info mt-2"> </button></div> <div class="tracking-section"><h2 class="title">Tracking</h2> <div class="field"><label class="label">Corriere</label> <div class="select"><select></select></div></div> <div class="field"><label class="label">Id spedizione</label> <input class="input" type="number" min="1"></div> <div class="field"><label class="label">Numero colli</label> <input class="input" type="number" min="1"></div> <div class="field"><label class="label">Link di tracking</label> <ul></ul> <input class="input mt-2" type="text"> <button class="button is-info mt-2"> </button></div> <button class="button is-success mt-4">Salva Tracking</button></div>`, 1);
 	var root_4 = template(`<div class="columns"><div class="column is-half"><h2 class="title mt-6 px-5"> </h2> <div class="box"><ul><!> <li><hr class="spacer"> <div class="column"><h4 class="title has-text-info is-size-4 mt-5"> </h4> <p class="my-3 is-size-5"> </p></div></li></ul></div></div> <div class="column px-6"><h2 class="title mt-6"> </h2> <ul><li> </li> <!> <li> <span class="has-text-info has-text-weight-bold"> </span></li> <li><!></li></ul> <!> <h2 class="title mt-6"> </h2> <ul><li> </li> <!> <li> </li> <li> </li></ul> <h2 class="title mt-6"> </h2> <ul><li> </li> <li> </li> <li> </li> <li> <!></li> <li> </li></ul> <h2 class="title mt-5"> </h2> <ul></ul> <!> <!></div></div>`);
 
 	function PreOrder2($$anchor, $$props) {
@@ -4804,6 +4806,43 @@ var preOrdersApp = (function () {
 			"canceled"
 		];
 
+		// --- Estensione: messaggi precompilati per eventi ---
+		const MESSAGE_TEMPLATES_BY_LANG = {
+			it: [
+				"Il tuo ordine è in preparazione.",
+				"Il tuo ordine è pronto per essere spedito.",
+				"Il tuo ordine è stato spedito."
+			],
+			en: [
+				"Your order is being prepared.",
+				"Your order is ready to ship.",
+				"Your order has been shipped."
+			],
+			de: [
+				"Ihre Bestellung wird vorbereitet.",
+				"Ihre Bestellung ist versandfertig.",
+				"Ihre Bestellung wurde versandt."
+			],
+			fr: [
+				"Votre commande est en préparation.",
+				"Votre commande est prête à être expédiée.",
+				"Votre commande a été expédiée."
+			],
+			es: [
+				"Tu pedido está en preparación.",
+				"Tu pedido está listo para enviar.",
+				"Tu pedido ha sido enviado."
+			],
+			pl: [
+				"Twoje zamówienie jest przygotowywane.",
+				"Twoje zamówienie jest gotowe do wysyłki.",
+				"Twoje zamówienie zostało wysłane."
+			]
+		};
+
+		let precompiledMessages = MESSAGE_TEMPLATES_BY_LANG[getPreferredLanguage()] || MESSAGE_TEMPLATES_BY_LANG.it;
+
+		// --- Fine estensione ---
 		const courierOptions = [
 			"BRT",
 			"DPD",
@@ -5406,38 +5445,82 @@ var preOrdersApp = (function () {
 
 							var input = sibling(div_14, 2);
 
-							var button_1 = sibling(input, 2);
-							var text_38 = child(button_1);
-							template_effect(($0) => set_text(text_38, $0), [() => t("save")], derived_safe_equal);
+							var div_15 = sibling(input, 2);
+							var select_2 = child(div_15);
+							var option_9 = child(select_2);
+
+							option_9.value = null == (option_9.__value = '') ? '' : '';
+
+							var text_38 = child(option_9);
+
+							var node_12 = sibling(option_9);
+
+							each(node_12, 1, () => precompiledMessages, index, ($$anchor, msg) => {
+								var option_10 = root_18();
+								var option_10_value = {};
+								var text_39 = child(option_10);
+
+								template_effect(() => {
+									if (option_10_value !== (option_10_value = get(msg))) {
+										option_10.value = null == (option_10.__value = get(msg)) ? '' : get(msg);
+									}
+
+									set_text(text_39, get(msg));
+								});
+
+								append($$anchor, option_10);
+							});
+
+							var button_1 = sibling(div_15, 2);
+							var text_40 = child(button_1);
+
+							template_effect(
+								($0, $1) => {
+									set_text(text_38, $0);
+									set_text(text_40, $1);
+								},
+								[
+									() => t("select") || "Seleziona messaggio precompilato",
+									() => t("save")
+								],
+								derived_safe_equal
+							);
+
 							bind_select_value(select_1, () => get(editedEvent).status, ($$value) => mutate(editedEvent, get(editedEvent).status = $$value));
 							bind_value(input, () => get(editedEvent).message, ($$value) => mutate(editedEvent, get(editedEvent).message = $$value));
+
+							event('change', select_2, (e) => {
+								if (e.target.value) mutate(editedEvent, get(editedEvent).message = e.target.value);
+								e.target.value = "";
+							});
+
 							event('click', button_1, () => saveHistoryEvent(index$1));
 							append($$anchor, fragment_4);
 						};
 
 						var alternate_2 = ($$anchor) => {
-							var fragment_5 = root_18();
+							var fragment_5 = root_19();
 							var strong = first_child(fragment_5);
-							var text_39 = child(strong);
+							var text_41 = child(strong);
 
 							var p_2 = sibling(strong, 2);
-							var text_40 = child(p_2);
+							var text_42 = child(p_2);
 
-							var node_12 = sibling(p_2, 2);
+							var node_13 = sibling(p_2, 2);
 
 							{
 								var consequent_9 = ($$anchor) => {
-									var fragment_6 = root_19();
+									var fragment_6 = root_20();
 									var button_2 = first_child(fragment_6);
-									var text_41 = child(button_2);
+									var text_43 = child(button_2);
 
 									var button_3 = sibling(button_2, 2);
-									var text_42 = child(button_3);
+									var text_44 = child(button_3);
 
 									template_effect(
 										($0, $1) => {
-											set_text(text_41, $0);
-											set_text(text_42, `📧 ${$1 ?? ''}`);
+											set_text(text_43, $0);
+											set_text(text_44, `📧 ${$1 ?? ''}`);
 										},
 										[
 											() => t("edit"),
@@ -5451,15 +5534,15 @@ var preOrdersApp = (function () {
 									append($$anchor, fragment_6);
 								};
 
-								if_block(node_12, ($$render) => {
+								if_block(node_13, ($$render) => {
 									if (get(isLocal)) $$render(consequent_9);
 								});
 							}
 
 							template_effect(
 								($0) => {
-									set_text(text_39, $0);
-									set_text(text_40, get(historyEvent).message);
+									set_text(text_41, $0);
+									set_text(text_42, get(historyEvent).message);
 								},
 								[() => t(get(historyEvent).status)],
 								derived_safe_equal
@@ -5491,73 +5574,73 @@ var preOrdersApp = (function () {
 					append($$anchor, li_16);
 				});
 
-				var node_13 = sibling(ul_5, 2);
+				var node_14 = sibling(ul_5, 2);
 
 				{
 					var consequent_11 = ($$anchor) => {
-						var fragment_7 = root_20();
+						var fragment_7 = root_21();
 						var h2_7 = first_child(fragment_7);
-						var text_43 = child(h2_7);
+						var text_45 = child(h2_7);
 
-						var node_14 = sibling(h2_7, 2);
+						var node_15 = sibling(h2_7, 2);
 
-						each(node_14, 1, () => get(order).tracking, index, ($$anchor, tracking, $$index_5, $$array) => {
-							var fragment_8 = root_21();
-							var div_15 = first_child(fragment_8);
-							var label = child(div_15);
-							var text_44 = child(label);
+						each(node_15, 1, () => get(order).tracking, index, ($$anchor, tracking, $$index_6, $$array) => {
+							var fragment_8 = root_22();
+							var div_16 = first_child(fragment_8);
+							var label = child(div_16);
+							var text_46 = child(label);
 
 							var p_3 = sibling(label, 2);
-							var text_45 = child(p_3);
-
-							var div_16 = sibling(div_15, 2);
-							var label_1 = child(div_16);
-							var text_46 = child(label_1);
-
-							var p_4 = sibling(label_1, 2);
-							var text_47 = child(p_4);
+							var text_47 = child(p_3);
 
 							var div_17 = sibling(div_16, 2);
-							var label_2 = child(div_17);
-							var text_48 = child(label_2);
+							var label_1 = child(div_17);
+							var text_48 = child(label_1);
+
+							var p_4 = sibling(label_1, 2);
+							var text_49 = child(p_4);
+
+							var div_18 = sibling(div_17, 2);
+							var label_2 = child(div_18);
+							var text_50 = child(label_2);
 
 							var ul_6 = sibling(label_2, 2);
 
 							each(ul_6, 5, () => get(tracking).tracking_links, index, ($$anchor, link) => {
-								var li_17 = root_22();
+								var li_17 = root_23();
 								var a_1 = child(li_17);
-								var text_49 = child(a_1);
+								var text_51 = child(a_1);
 
 								template_effect(() => {
 									set_attribute(a_1, 'href', get(link));
-									set_text(text_49, get(link));
+									set_text(text_51, get(link));
 								});
 
 								append($$anchor, li_17);
 							});
 
-							var node_15 = sibling(div_17, 2);
+							var node_16 = sibling(div_18, 2);
 
 							{
 								var consequent_10 = ($$anchor) => {
-									var button_4 = root_23();
+									var button_4 = root_24();
 
 									event('click', button_4, sendTrackingNotificaton);
 									append($$anchor, button_4);
 								};
 
-								if_block(node_15, ($$render) => {
+								if_block(node_16, ($$render) => {
 									if (get(isLocal)) $$render(consequent_10);
 								});
 							}
 
 							template_effect(
 								($0, $1, $2) => {
-									set_text(text_44, $0);
-									set_text(text_45, get(tracking).courier);
-									set_text(text_46, `${$1 ?? ''}:`);
-									set_text(text_47, get(tracking).packages);
-									set_text(text_48, $2);
+									set_text(text_46, $0);
+									set_text(text_47, get(tracking).courier);
+									set_text(text_48, `${$1 ?? ''}:`);
+									set_text(text_49, get(tracking).packages);
+									set_text(text_50, $2);
 								},
 								[
 									() => t("courier"),
@@ -5570,26 +5653,26 @@ var preOrdersApp = (function () {
 							append($$anchor, fragment_8);
 						});
 
-						template_effect(($0) => set_text(text_43, $0), [() => t("tracking_details")], derived_safe_equal);
+						template_effect(($0) => set_text(text_45, $0), [() => t("tracking_details")], derived_safe_equal);
 						append($$anchor, fragment_7);
 					};
 
-					if_block(node_13, ($$render) => {
+					if_block(node_14, ($$render) => {
 						if (get(order).tracking.length > 0) $$render(consequent_11);
 					});
 				}
 
-				var node_16 = sibling(node_13, 2);
+				var node_17 = sibling(node_14, 2);
 
 				{
 					var consequent_12 = ($$anchor) => {
-						var fragment_9 = root_24();
-						var div_18 = first_child(fragment_9);
-						var label_3 = child(div_18);
-						var text_50 = child(label_3);
+						var fragment_9 = root_25();
+						var div_19 = first_child(fragment_9);
+						var label_3 = child(div_19);
+						var text_52 = child(label_3);
 
-						var div_19 = sibling(label_3, 2);
-						var select_2 = child(div_19);
+						var div_20 = sibling(label_3, 2);
+						var select_3 = child(div_20);
 
 						template_effect(() => {
 							get(event$1);
@@ -5598,43 +5681,69 @@ var preOrdersApp = (function () {
 							});
 						});
 
-						var option_9 = child(select_2);
+						var option_11 = child(select_3);
 
-						option_9.value = null == (option_9.__value = '') ? '' : '';
+						option_11.value = null == (option_11.__value = '') ? '' : '';
 
-						var text_51 = child(option_9);
+						var text_53 = child(option_11);
 
-						var node_17 = sibling(option_9);
+						var node_18 = sibling(option_11);
 
-						each(node_17, 1, () => statusOptions, index, ($$anchor, status) => {
-							var option_10 = root_25();
-							var option_10_value = {};
-							var text_52 = child(option_10);
+						each(node_18, 1, () => statusOptions, index, ($$anchor, status) => {
+							var option_12 = root_26();
+							var option_12_value = {};
+							var text_54 = child(option_12);
 
 							template_effect(
 								($0) => {
-									if (option_10_value !== (option_10_value = get(status))) {
-										option_10.value = null == (option_10.__value = get(status)) ? '' : get(status);
+									if (option_12_value !== (option_12_value = get(status))) {
+										option_12.value = null == (option_12.__value = get(status)) ? '' : get(status);
 									}
 
-									set_text(text_52, $0);
+									set_text(text_54, $0);
 								},
 								[() => t(get(status))],
 								derived_safe_equal
 							);
 
-							append($$anchor, option_10);
+							append($$anchor, option_12);
 						});
 
-						var input_1 = sibling(div_19, 2);
+						var input_1 = sibling(div_20, 2);
 
-						var button_5 = sibling(input_1, 2);
-						var text_53 = child(button_5);
+						var div_21 = sibling(input_1, 2);
+						var select_4 = child(div_21);
+						var option_13 = child(select_4);
 
-						var div_20 = sibling(div_18, 2);
-						var div_21 = sibling(child(div_20), 2);
-						var div_22 = sibling(child(div_21), 2);
-						var select_3 = child(div_22);
+						option_13.value = null == (option_13.__value = '') ? '' : '';
+
+						var text_55 = child(option_13);
+
+						var node_19 = sibling(option_13);
+
+						each(node_19, 1, () => precompiledMessages, index, ($$anchor, msg) => {
+							var option_14 = root_27();
+							var option_14_value = {};
+							var text_56 = child(option_14);
+
+							template_effect(() => {
+								if (option_14_value !== (option_14_value = get(msg))) {
+									option_14.value = null == (option_14.__value = get(msg)) ? '' : get(msg);
+								}
+
+								set_text(text_56, get(msg));
+							});
+
+							append($$anchor, option_14);
+						});
+
+						var button_5 = sibling(div_21, 2);
+						var text_57 = child(button_5);
+
+						var div_22 = sibling(div_19, 2);
+						var div_23 = sibling(child(div_22), 2);
+						var div_24 = sibling(child(div_23), 2);
+						var select_5 = child(div_24);
 
 						template_effect(() => {
 							get(tracking);
@@ -5643,44 +5752,44 @@ var preOrdersApp = (function () {
 							});
 						});
 
-						each(select_3, 5, () => courierOptions, index, ($$anchor, courier) => {
-							var option_11 = root_26();
-							var option_11_value = {};
-							var text_54 = child(option_11);
+						each(select_5, 5, () => courierOptions, index, ($$anchor, courier) => {
+							var option_15 = root_28();
+							var option_15_value = {};
+							var text_58 = child(option_15);
 
 							template_effect(() => {
-								if (option_11_value !== (option_11_value = get(courier))) {
-									option_11.value = null == (option_11.__value = get(courier)) ? '' : get(courier);
+								if (option_15_value !== (option_15_value = get(courier))) {
+									option_15.value = null == (option_15.__value = get(courier)) ? '' : get(courier);
 								}
 
-								set_text(text_54, get(courier));
+								set_text(text_58, get(courier));
 							});
 
-							append($$anchor, option_11);
+							append($$anchor, option_15);
 						});
 
-						var div_23 = sibling(div_21, 2);
-						var input_2 = sibling(child(div_23), 2);
+						var div_25 = sibling(div_23, 2);
+						var input_2 = sibling(child(div_25), 2);
 
-						var div_24 = sibling(div_23, 2);
-						var input_3 = sibling(child(div_24), 2);
+						var div_26 = sibling(div_25, 2);
+						var input_3 = sibling(child(div_26), 2);
 
-						var div_25 = sibling(div_24, 2);
-						var ul_7 = sibling(child(div_25), 2);
+						var div_27 = sibling(div_26, 2);
+						var ul_7 = sibling(child(div_27), 2);
 
 						each(ul_7, 5, () => get(tracking).tracking_links, index, ($$anchor, link, index) => {
-							var li_18 = root_27();
+							var li_18 = root_29();
 							var a_2 = child(li_18);
-							var text_55 = child(a_2);
+							var text_59 = child(a_2);
 
 							var button_6 = sibling(a_2, 2);
-							var text_56 = child(button_6);
+							var text_60 = child(button_6);
 
 							template_effect(
 								($0) => {
 									set_attribute(a_2, 'href', get(link));
-									set_text(text_55, get(link));
-									set_text(text_56, $0);
+									set_text(text_59, get(link));
+									set_text(text_60, $0);
 								},
 								[() => t("remove")],
 								derived_safe_equal
@@ -5693,33 +5802,41 @@ var preOrdersApp = (function () {
 						var input_4 = sibling(ul_7, 2);
 
 						var button_7 = sibling(input_4, 2);
-						var text_57 = child(button_7);
+						var text_61 = child(button_7);
 
-						var button_8 = sibling(div_25, 2);
+						var button_8 = sibling(div_27, 2);
 
 						template_effect(
-							($0, $1, $2, $3, $4) => {
-								set_text(text_50, $0);
-								set_text(text_51, $1);
+							($0, $1, $2, $3, $4, $5) => {
+								set_text(text_52, $0);
+								set_text(text_53, $1);
 								set_attribute(input_1, 'placeholder', $2);
-								set_text(text_53, $3);
-								set_attribute(input_4, 'placeholder', $4);
-								set_text(text_57, $3);
+								set_text(text_55, $3);
+								set_text(text_57, $4);
+								set_attribute(input_4, 'placeholder', $5);
+								set_text(text_61, $4);
 							},
 							[
 								() => t("add-event"),
 								() => t("select-status"),
 								() => t("message"),
+								() => t("select") || "Seleziona messaggio precompilato",
 								() => t("add"),
 								() => t("add-tracking-link")
 							],
 							derived_safe_equal
 						);
 
-						bind_select_value(select_2, () => get(event$1).status, ($$value) => mutate(event$1, get(event$1).status = $$value));
+						bind_select_value(select_3, () => get(event$1).status, ($$value) => mutate(event$1, get(event$1).status = $$value));
 						bind_value(input_1, () => get(event$1).message, ($$value) => mutate(event$1, get(event$1).message = $$value));
+
+						event('change', select_4, (e) => {
+							if (e.target.value) mutate(event$1, get(event$1).message = e.target.value);
+							e.target.value = "";
+						});
+
 						event('click', button_5, addHistoryEvent);
-						bind_select_value(select_3, () => get(tracking).courier, ($$value) => mutate(tracking, get(tracking).courier = $$value));
+						bind_select_value(select_5, () => get(tracking).courier, ($$value) => mutate(tracking, get(tracking).courier = $$value));
 						event('change', input_2, setupTracking);
 						bind_value(input_2, () => get(tracking).shipment_id, ($$value) => mutate(tracking, get(tracking).shipment_id = $$value));
 						bind_value(input_3, () => get(tracking).packages, ($$value) => mutate(tracking, get(tracking).packages = $$value));
@@ -5729,7 +5846,7 @@ var preOrdersApp = (function () {
 						append($$anchor, fragment_9);
 					};
 
-					if_block(node_16, ($$render) => {
+					if_block(node_17, ($$render) => {
 						if (get(isLocal)) $$render(consequent_12);
 					});
 				}

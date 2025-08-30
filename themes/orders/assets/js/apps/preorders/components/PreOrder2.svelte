@@ -38,6 +38,42 @@
     "delivered",
     "canceled",
   ];
+  // --- Estensione: messaggi precompilati per eventi ---
+  const MESSAGE_TEMPLATES_BY_LANG = {
+    it: [
+      "Il tuo ordine è in preparazione.",
+      "Il tuo ordine è pronto per essere spedito.",
+      "Il tuo ordine è stato spedito."
+    ],
+    en: [
+      "Your order is being prepared.",
+      "Your order is ready to ship.",
+      "Your order has been shipped."
+    ],
+    de: [
+      "Ihre Bestellung wird vorbereitet.",
+      "Ihre Bestellung ist versandfertig.",
+      "Ihre Bestellung wurde versandt."
+    ],
+    fr: [
+      "Votre commande est en préparation.",
+      "Votre commande est prête à être expédiée.",
+      "Votre commande a été expédiée."
+    ],
+    es: [
+      "Tu pedido está en preparación.",
+      "Tu pedido está listo para enviar.",
+      "Tu pedido ha sido enviado."
+    ],
+    pl: [
+      "Twoje zamówienie jest przygotowywane.",
+      "Twoje zamówienie jest gotowe do wysyłki.",
+      "Twoje zamówienie zostało wysłane."
+    ]
+  };
+  let precompiledMessages = MESSAGE_TEMPLATES_BY_LANG[getPreferredLanguage()] || MESSAGE_TEMPLATES_BY_LANG.it;
+  // --- Fine estensione ---
+
   const courierOptions = [
     "BRT",
     "DPD",
@@ -428,6 +464,14 @@
                 type="text"
                 bind:value={editedEvent.message}
               />
+              <div class="select mt-2">
+                <select on:change={(e) => { if (e.target.value) editedEvent.message = e.target.value; e.target.value=""; }}>
+                  <option value="">{T("select") || "Seleziona messaggio precompilato"}</option>
+                  {#each precompiledMessages as msg}
+                    <option value={msg}>{msg}</option>
+                  {/each}
+                </select>
+              </div>
               <button
                 class="button is-success mt-2"
                 on:click={() => saveHistoryEvent(index)}
@@ -505,6 +549,14 @@
             placeholder={T("message")}
             bind:value={event.message}
           />
+          <div class="select mt-2">
+            <select on:change={(e) => { if (e.target.value) event.message = e.target.value; e.target.value=""; }}>
+              <option value="">{T("select") || "Seleziona messaggio precompilato"}</option>
+              {#each precompiledMessages as msg}
+                <option value={msg}>{msg}</option>
+              {/each}
+            </select>
+          </div>
           <button class="button is-info mt-2" on:click={addHistoryEvent}
             >{T("add")}</button
           >
