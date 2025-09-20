@@ -2,7 +2,15 @@
   import { onMount } from "svelte";
   import SirvImage from "./SirvImage.svelte";
   import { translate as T, getPreferredLanguage } from "../i18n/utils.js";
+  import ShareBlazeBanner from "./ShareBlazeBanner.svelte";
 
+  const SHAREBLAZE_SKUS = [
+    "prod_N1V8kEQDCAc5SY",
+    "prod_D1V8kEQDCAc5SY",
+    "prod_D2V8kEQDCAc5SY",
+  ];
+
+  export let uploadUrl = "/account/orders/{id}/shareblaze";
   // --- inizio modifica per cookie-based admin access ---
   const ADMIN_TOKEN = "kettleblazeadmin01"; // <— sostituisci con la stringa desiderata
 
@@ -43,35 +51,37 @@
     it: [
       "Il tuo ordine è in preparazione.",
       "Il tuo ordine è pronto per essere spedito.",
-      "Il tuo ordine è stato spedito."
+      "Il tuo ordine è stato spedito.",
     ],
     en: [
       "Your order is being prepared.",
       "Your order is ready to ship.",
-      "Your order has been shipped."
+      "Your order has been shipped.",
     ],
     de: [
       "Ihre Bestellung wird vorbereitet.",
       "Ihre Bestellung ist versandfertig.",
-      "Ihre Bestellung wurde versandt."
+      "Ihre Bestellung wurde versandt.",
     ],
     fr: [
       "Votre commande est en préparation.",
       "Votre commande est prête à être expédiée.",
-      "Votre commande a été expédiée."
+      "Votre commande a été expédiée.",
     ],
     es: [
       "Tu pedido está en preparación.",
       "Tu pedido está listo para enviar.",
-      "Tu pedido ha sido enviado."
+      "Tu pedido ha sido enviado.",
     ],
     pl: [
       "Twoje zamówienie jest przygotowywane.",
       "Twoje zamówienie jest gotowe do wysyłki.",
-      "Twoje zamówienie zostało wysłane."
-    ]
+      "Twoje zamówienie zostało wysłane.",
+    ],
   };
-  let precompiledMessages = MESSAGE_TEMPLATES_BY_LANG[getPreferredLanguage()] || MESSAGE_TEMPLATES_BY_LANG.it;
+  let precompiledMessages =
+    MESSAGE_TEMPLATES_BY_LANG[getPreferredLanguage()] ||
+    MESSAGE_TEMPLATES_BY_LANG.it;
   // --- Fine estensione ---
 
   const courierOptions = [
@@ -181,6 +191,11 @@
       orderStatus = o.status;
     }
 
+    if (o && o.cart && o.cart.items) {
+      // ordiniamo per prezzo finale decrescente
+      o.cart.items.sort((a, b) => b.final_price - a.final_price);
+    }
+
     order = o;
   }
 
@@ -257,6 +272,26 @@
     }
   }
 
+  // handler per l’evento submit dal figlio
+  function handleShareBlazeSubmit(e) {
+    const data = e.detail; // { orderId, platform, handle, link, file, reward, lang, hashtag, ts }
+
+    // TODO: invia a tua API (es. /api/shareblaze/upload)
+    // - se data.file presente, usa FormData e multipart
+    // - altrimenti invia JSON con link
+    // fetch(...)
+
+    // Mostra notifica/aggiorna stato a schermo
+    console.log("ShareBlaze payload", data);
+  }
+
+  // opzionale: mostrare regole in una modal o ancorare alla sezione FAQ
+  function openRules() {
+    // scroll/ancora/modal
+    const rules = document.getElementById("shareblaze-rules");
+    if (rules) rules.scrollIntoView({ behavior: "smooth" });
+  }
+
   onMount(() => {
     // Determina admin access via cookie
     isLocal = getCookie("kbadmin341") === ADMIN_TOKEN;
@@ -276,6 +311,19 @@
 {:else}
   <div class="columns">
     <div class="column is-half">
+      <!--
+      {#if order.cart.items.find((product) => SHAREBLAZE_SKUS.includes(product.sku))}
+        <ShareBlazeBanner
+          lang={getPreferredLanguage()}
+          orderId={order.orderId}
+          {uploadUrl}
+          products={["Flexibell 2", "Magneti-X"]}
+          isEligible={true}
+          on:submit={handleShareBlazeSubmit}
+          on:rules={openRules}
+        />
+      {/if}
+    -->
       <h2 class="title mt-6 px-5">{T("order-summary")}</h2>
       <div class="box">
         <ul>
@@ -435,6 +483,7 @@
         </li>
         <li>{order.customerData.address.country}</li>
       </ul>
+
       <h2 class="title mt-5">{T("order-history")}</h2>
       <ul>
         {#each order.history as historyEvent, index}
@@ -465,8 +514,15 @@
                 bind:value={editedEvent.message}
               />
               <div class="select mt-2">
-                <select on:change={(e) => { if (e.target.value) editedEvent.message = e.target.value; e.target.value=""; }}>
-                  <option value="">{T("select") || "Seleziona messaggio precompilato"}</option>
+                <select
+                  on:change={(e) => {
+                    if (e.target.value) editedEvent.message = e.target.value;
+                    e.target.value = "";
+                  }}
+                >
+                  <option value=""
+                    >{T("select") || "Seleziona messaggio precompilato"}</option
+                  >
                   {#each precompiledMessages as msg}
                     <option value={msg}>{msg}</option>
                   {/each}
@@ -550,8 +606,15 @@
             bind:value={event.message}
           />
           <div class="select mt-2">
-            <select on:change={(e) => { if (e.target.value) event.message = e.target.value; e.target.value=""; }}>
-              <option value="">{T("select") || "Seleziona messaggio precompilato"}</option>
+            <select
+              on:change={(e) => {
+                if (e.target.value) event.message = e.target.value;
+                e.target.value = "";
+              }}
+            >
+              <option value=""
+                >{T("select") || "Seleziona messaggio precompilato"}</option
+              >
               {#each precompiledMessages as msg}
                 <option value={msg}>{msg}</option>
               {/each}

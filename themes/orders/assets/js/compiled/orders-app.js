@@ -4767,6 +4767,7 @@ var preOrdersApp = (function () {
 	function PreOrder2($$anchor, $$props) {
 		push($$props, false);
 
+		prop($$props, 'uploadUrl', 8, "/account/orders/{id}/shareblaze");
 		// --- inizio modifica per cookie-based admin access ---
 		const ADMIN_TOKEN = "kettleblazeadmin01"; // <— sostituisci con la stringa desiderata
 
@@ -4936,6 +4937,11 @@ var preOrdersApp = (function () {
 				set(errorOrNotFound, true);
 			} else {
 				set(orderStatus, o.status);
+			}
+
+			if (o && o.cart && o.cart.items) {
+				// ordiniamo per prezzo finale decrescente
+				o.cart.items.sort((a, b) => b.final_price - a.final_price);
 			}
 
 			set(order, o);
@@ -5177,19 +5183,19 @@ var preOrdersApp = (function () {
 						var node_7 = child(div_9);
 
 						await_block(node_7, getReceiptUrl, null, ($$anchor, response) => {
-							var a = root_10();
-							var text_11 = child(a);
+							var a_1 = root_10();
+							var text_11 = child(a_1);
 
 							template_effect(
 								($0) => {
-									set_attribute(a, 'href', get(response).url);
+									set_attribute(a_1, 'href', get(response).url);
 									set_text(text_11, `🔗 ${$0 ?? ''}`);
 								},
 								[() => t("receipt")],
 								derived_safe_equal
 							);
 
-							append($$anchor, a);
+							append($$anchor, a_1);
 						});
 						append($$anchor, div_9);
 					};
@@ -5608,11 +5614,11 @@ var preOrdersApp = (function () {
 
 							each(ul_6, 5, () => get(tracking).tracking_links, index, ($$anchor, link) => {
 								var li_17 = root_23();
-								var a_1 = child(li_17);
-								var text_51 = child(a_1);
+								var a_2 = child(li_17);
+								var text_51 = child(a_2);
 
 								template_effect(() => {
-									set_attribute(a_1, 'href', get(link));
+									set_attribute(a_2, 'href', get(link));
 									set_text(text_51, get(link));
 								});
 
@@ -5779,15 +5785,15 @@ var preOrdersApp = (function () {
 
 						each(ul_7, 5, () => get(tracking).tracking_links, index, ($$anchor, link, index) => {
 							var li_18 = root_29();
-							var a_2 = child(li_18);
-							var text_59 = child(a_2);
+							var a_3 = child(li_18);
+							var text_59 = child(a_3);
 
-							var button_6 = sibling(a_2, 2);
+							var button_6 = sibling(a_3, 2);
 							var text_60 = child(button_6);
 
 							template_effect(
 								($0) => {
-									set_attribute(a_2, 'href', get(link));
+									set_attribute(a_3, 'href', get(link));
 									set_text(text_59, get(link));
 									set_text(text_60, $0);
 								},
