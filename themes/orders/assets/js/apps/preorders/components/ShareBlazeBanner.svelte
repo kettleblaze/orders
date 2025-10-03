@@ -19,7 +19,7 @@
 
   let hideSuccessOverlay = false;
   const dispatch = createEventDispatcher();
- 
+
   const i18n = {
     it: {
       title: "#ShareBlaze",
@@ -60,6 +60,10 @@
       gymdry: "la salvietta da palestra GymDry",
       chargeback: "il chargeback da € 5,00",
       coupon: "il coupon da € 10,00",
+      reward_blazebands: "Polsini BlazeBands",
+      reward_gymdry: "Salvietta GymDry",
+      reward_hexapad: "Base per kettlebell HexaPad",
+      reward_tshirt: "T-Shirt con logo Kettleblaze",
     },
 
     en: {
@@ -100,6 +104,12 @@
       gymdry: "GymDry workout towel",
       chargeback: "the € 5.00 chargeback",
       coupon: "the € 10.00 coupon",
+      reward_blazebands: "BlazeBands wristbands",
+      reward_gymdry: "GymDry towel",
+      reward_hexapad: "HexaPad kettlebell base",
+      reward_tshirt: "Kettleblaze logo T-shirt",
+      urlRules:
+        "https://kettleblaze.store/en/blog/shareblaze-referral-kettlebell-magnetix-flexibell2",
     },
 
     fr: {
@@ -141,6 +151,12 @@
       gymdry: "la serviette de sport GymDry",
       chargeback: "le remboursement de 5,00 €",
       coupon: "le coupon de 10,00 €",
+      reward_blazebands: "Bracelets BlazeBands",
+      reward_gymdry: "Serviette de sport GymDry",
+      reward_hexapad: "Base pour kettlebell HexaPad",
+      reward_tshirt: "T-shirt avec logo Kettleblaze",
+      urlRules:
+        "https://kettleblaze.store/en/blog/shareblaze-referral-kettlebell-magnetix-flexibell2",
     },
 
     de: {
@@ -182,6 +198,12 @@
       gymdry: "GymDry Trainingshandtuch",
       chargeback: "die Rückerstattung von 5,00 €",
       coupon: "den Gutschein über 10,00 €",
+      reward_blazebands: "BlazeBands Handgelenkbänder",
+      reward_gymdry: "GymDry Handtuch",
+      reward_hexapad: "HexaPad Kettlebell-Basis",
+      reward_tshirt: "Kettleblaze Logo-T-Shirt",
+      urlRules:
+        "https://kettleblaze.store/en/blog/shareblaze-referral-kettlebell-magnetix-flexibell2",
     },
 
     es: {
@@ -223,6 +245,12 @@
       gymdry: "la toalla de gimnasio GymDry",
       chargeback: "el reembolso de 5,00 €",
       coupon: "el cupón de 10,00 €",
+      reward_blazebands: "Muñequeras BlazeBands",
+      reward_gymdry: "Toalla GymDry",
+      reward_hexapad: "Base para kettlebell HexaPad",
+      reward_tshirt: "Camiseta con logo Kettleblaze",
+      urlRules:
+        "https://kettleblaze.store/en/blog/shareblaze-referral-kettlebell-magnetix-flexibell2",
     },
 
     pl: {
@@ -264,6 +292,12 @@
       gymdry: "ręcznik treningowy GymDry",
       chargeback: "zwrot 5,00 €",
       coupon: "kupon 10,00 €",
+      reward_blazebands: "Opaski BlazeBands",
+      reward_gymdry: "Ręcznik GymDry",
+      reward_hexapad: "Podstawka pod kettlebell HexaPad",
+      reward_tshirt: "Koszulka z logo Kettleblaze",
+      urlRules:
+        "https://kettleblaze.store/en/blog/shareblaze-referral-kettlebell-magnetix-flexibell2",
     },
   };
 
@@ -388,10 +422,14 @@
   const CLOUD_NAME = "dnhclxe7k";
   const UPLOAD_PRESET = "ml_default"; // unsigned o signed preset già configurato
   const FOLDER = "shareblaze"; // es. "shareblaze" o "kettleblaze/shareblaze"
-  const API_STATUS_URL = "https://kettleblaze-store-server.fly.dev/shareblaze-order-upload/status"; // GET ?orderId=...
-  const API_SAVE_URL = "https://kettleblaze-store-server.fly.dev/shareblaze-order-upload"; // POST
-  const API_UPDATE_URL = "https://kettleblaze-store-server.fly.dev/shareblaze-order-update"; // POST
-  const API_DELETE_URL = "https://kettleblaze-store-server.fly.dev/shareblaze-delete-video"; // DELETE
+  const API_STATUS_URL =
+    "https://kettleblaze-store-server.fly.dev/shareblaze-order-upload/status"; // GET ?orderId=...
+  const API_SAVE_URL =
+    "https://kettleblaze-store-server.fly.dev/shareblaze-order-upload"; // POST
+  const API_UPDATE_URL =
+    "https://kettleblaze-store-server.fly.dev/shareblaze-order-update"; // POST
+  const API_DELETE_URL =
+    "https://kettleblaze-store-server.fly.dev/shareblaze-delete-video"; // DELETE
   let hasOrderVideo = false; // 🔸 server dice se c’è già un video
   let uploadBtnEl; // se vuoi bindare il pulsante esistente
   let widget; // istanza upload widget
@@ -742,25 +780,25 @@
                 value="blazebands"
                 required
               />
-              Polsini BlazeBands
+              {T.reward_blazebands}
             </label>
           </div>
           <div class="control">
             <label class="radio">
               <input type="radio" bind:group={chosenGift} value="gymdry" />
-              Salvietta GymDry
+              {T.reward_gymdry}
             </label>
           </div>
           <div class="control">
             <label class="radio">
               <input type="radio" bind:group={chosenGift} value="t_shirt" />
-              T-Shirt Kettleblaze
+              {T.reward_tshirt}
             </label>
           </div>
           <div class="control">
             <label class="radio">
               <input type="radio" bind:group={chosenGift} value="hexapad" />
-              HexaPad
+              {T.reward_hexapad}
             </label>
           </div>
         </div>

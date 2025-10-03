@@ -5111,7 +5111,7 @@ var preOrdersApp = (function () {
 	var root_10$1 = template(`<option> </option>`);
 	var root_11$1 = template(`<div class="field"><label class="label"> </label> <div class="file is-fullwidth"><label class="file-label"><input class="file-input" type="file" accept=".mp4,.mov,video/*"> <span class="file-cta"><span class="file-label"> </span></span></label></div></div>`);
 	var root_12$1 = template(`<p class="my-5"> </p>`);
-	var root_13$1 = template(`<div class="field mt-3"><label class="label">Seleziona il tuo omaggio</label> <div class="control"><label class="radio"><input type="radio" required> Polsini BlazeBands</label></div> <div class="control"><label class="radio"><input type="radio"> Salvietta GymDry</label></div> <div class="control"><label class="radio"><input type="radio"> T-Shirt Kettleblaze</label></div> <div class="control"><label class="radio"><input type="radio"> HexaPad</label></div></div>`);
+	var root_13$1 = template(`<div class="field mt-3"><label class="label">Seleziona il tuo omaggio</label> <div class="control"><label class="radio"><input type="radio" required> </label></div> <div class="control"><label class="radio"><input type="radio"> </label></div> <div class="control"><label class="radio"><input type="radio"> </label></div> <div class="control"><label class="radio"><input type="radio"> </label></div></div>`);
 	var root = template(`<!> <!> <div><div class="modal-background"></div> <div class="modal-card"><header class="modal-card-head"><p class="modal-card-title"> </p> <button class="delete" aria-label="close"></button></header> <section class="modal-card-body"><!> <div class="field"><label class="label"> </label> <div class="control"><div class="select is-fullwidth"><select><option disabled selected>—</option><!></select></div></div></div> <div class="field"><label class="label"> </label> <div class="control"><input class="input" type="text" placeholder="@tuo_handle"></div></div> <div class="field"><label class="label"> </label> <div class="control"><input class="input" type="url" placeholder="https://…"></div></div> <!> <div class="field"><label class="label"> </label> <div class="control"><div class="select is-fullwidth"><select><option disabled selected>—</option><option> </option><option> </option><option> </option></select></div></div></div> <!> <p class="help"> </p> <div class="field mt-3"><label class="checkbox"><input type="checkbox"> <span class="ml-2"> </span></label></div></section> <footer class="modal-card-foot"><button class="button is-primary"> </button> <button class="button">Close</button></footer></div></div>`, 1);
 
 	function ShareBlazeBanner($$anchor, $$props) {
@@ -5172,7 +5172,11 @@ var preOrdersApp = (function () {
 				t_shirt: "la t-shirt con logo kettleblaze",
 				gymdry: "la salvietta da palestra GymDry",
 				chargeback: "il chargeback da € 5,00",
-				coupon: "il coupon da € 10,00"
+				coupon: "il coupon da € 10,00",
+				reward_blazebands: "Polsini BlazeBands",
+				reward_gymdry: "Salvietta GymDry",
+				reward_hexapad: "Base per kettlebell HexaPad",
+				reward_tshirt: "T-Shirt con logo Kettleblaze"
 			},
 			en: {
 				title: "#ShareBlaze",
@@ -5208,7 +5212,12 @@ var preOrdersApp = (function () {
 				t_shirt: "Kettleblaze logo T-shirt",
 				gymdry: "GymDry workout towel",
 				chargeback: "the € 5.00 chargeback",
-				coupon: "the € 10.00 coupon"
+				coupon: "the € 10.00 coupon",
+				reward_blazebands: "BlazeBands wristbands",
+				reward_gymdry: "GymDry towel",
+				reward_hexapad: "HexaPad kettlebell base",
+				reward_tshirt: "Kettleblaze logo T-shirt",
+				urlRules: "https://kettleblaze.store/en/blog/shareblaze-referral-kettlebell-magnetix-flexibell2"
 			},
 			fr: {
 				title: "#ShareBlaze",
@@ -5244,7 +5253,12 @@ var preOrdersApp = (function () {
 				t_shirt: "le T-shirt logo Kettleblaze",
 				gymdry: "la serviette de sport GymDry",
 				chargeback: "le remboursement de 5,00 €",
-				coupon: "le coupon de 10,00 €"
+				coupon: "le coupon de 10,00 €",
+				reward_blazebands: "Bracelets BlazeBands",
+				reward_gymdry: "Serviette de sport GymDry",
+				reward_hexapad: "Base pour kettlebell HexaPad",
+				reward_tshirt: "T-shirt avec logo Kettleblaze",
+				urlRules: "https://kettleblaze.store/en/blog/shareblaze-referral-kettlebell-magnetix-flexibell2"
 			},
 			de: {
 				title: "#ShareBlaze",
@@ -5280,7 +5294,12 @@ var preOrdersApp = (function () {
 				t_shirt: "Kettleblaze Logo-T-Shirt",
 				gymdry: "GymDry Trainingshandtuch",
 				chargeback: "die Rückerstattung von 5,00 €",
-				coupon: "den Gutschein über 10,00 €"
+				coupon: "den Gutschein über 10,00 €",
+				reward_blazebands: "BlazeBands Handgelenkbänder",
+				reward_gymdry: "GymDry Handtuch",
+				reward_hexapad: "HexaPad Kettlebell-Basis",
+				reward_tshirt: "Kettleblaze Logo-T-Shirt",
+				urlRules: "https://kettleblaze.store/en/blog/shareblaze-referral-kettlebell-magnetix-flexibell2"
 			},
 			es: {
 				title: "#ShareBlaze",
@@ -5316,7 +5335,12 @@ var preOrdersApp = (function () {
 				t_shirt: "la camiseta con logo Kettleblaze",
 				gymdry: "la toalla de gimnasio GymDry",
 				chargeback: "el reembolso de 5,00 €",
-				coupon: "el cupón de 10,00 €"
+				coupon: "el cupón de 10,00 €",
+				reward_blazebands: "Muñequeras BlazeBands",
+				reward_gymdry: "Toalla GymDry",
+				reward_hexapad: "Base para kettlebell HexaPad",
+				reward_tshirt: "Camiseta con logo Kettleblaze",
+				urlRules: "https://kettleblaze.store/en/blog/shareblaze-referral-kettlebell-magnetix-flexibell2"
 			},
 			pl: {
 				title: "#ShareBlaze",
@@ -5352,7 +5376,12 @@ var preOrdersApp = (function () {
 				t_shirt: "koszulka z logo Kettleblaze",
 				gymdry: "ręcznik treningowy GymDry",
 				chargeback: "zwrot 5,00 €",
-				coupon: "kupon 10,00 €"
+				coupon: "kupon 10,00 €",
+				reward_blazebands: "Opaski BlazeBands",
+				reward_gymdry: "Ręcznik GymDry",
+				reward_hexapad: "Podstawka pod kettlebell HexaPad",
+				reward_tshirt: "Koszulka z logo Kettleblaze",
+				urlRules: "https://kettleblaze.store/en/blog/shareblaze-referral-kettlebell-magnetix-flexibell2"
 			}
 		};
 
@@ -5484,10 +5513,10 @@ var preOrdersApp = (function () {
 		const CLOUD_NAME = "dnhclxe7k";
 		const UPLOAD_PRESET = "ml_default"; // unsigned o signed preset già configurato
 		const FOLDER = "shareblaze"; // es. "shareblaze" o "kettleblaze/shareblaze"
-		const API_STATUS_URL = "http://localhost:8080/shareblaze-order-upload/status"; // GET ?orderId=...
-		const API_SAVE_URL = "http://localhost:8080/shareblaze-order-upload"; // POST
-		const API_UPDATE_URL = "http://localhost:8080/shareblaze-order-update"; // POST
-		const API_DELETE_URL = "http://localhost:8080/shareblaze-delete-video"; // DELETE
+		const API_STATUS_URL = "https://kettleblaze-store-server.fly.dev/shareblaze-order-upload/status"; // GET ?orderId=...
+		const API_SAVE_URL = "https://kettleblaze-store-server.fly.dev/shareblaze-order-upload"; // POST
+		const API_UPDATE_URL = "https://kettleblaze-store-server.fly.dev/shareblaze-order-update"; // POST
+		const API_DELETE_URL = "https://kettleblaze-store-server.fly.dev/shareblaze-delete-video"; // DELETE
 		let hasOrderVideo = mutable_state(false); // 🔸 server dice se c’è già un video
 		let uploadBtnEl = mutable_state(); // se vuoi bindare il pulsante esistente
 		let widget; // istanza upload widget
@@ -5955,20 +5984,36 @@ var preOrdersApp = (function () {
 				var input_3 = child(label_6);
 				input_3.value = null == (input_3.__value = 'blazebands') ? '' : 'blazebands';
 
+				var text_19 = sibling(input_3);
+
 				var div_26 = sibling(div_25, 2);
 				var label_7 = child(div_26);
 				var input_4 = child(label_7);
 				input_4.value = null == (input_4.__value = 'gymdry') ? '' : 'gymdry';
+
+				var text_20 = sibling(input_4);
 
 				var div_27 = sibling(div_26, 2);
 				var label_8 = child(div_27);
 				var input_5 = child(label_8);
 				input_5.value = null == (input_5.__value = 't_shirt') ? '' : 't_shirt';
 
+				var text_21 = sibling(input_5);
+
 				var div_28 = sibling(div_27, 2);
 				var label_9 = child(div_28);
 				var input_6 = child(label_9);
 				input_6.value = null == (input_6.__value = 'hexapad') ? '' : 'hexapad';
+
+				var text_22 = sibling(input_6);
+
+				template_effect(() => {
+					set_text(text_19, ` ${T.reward_blazebands}`);
+					set_text(text_20, ` ${T.reward_gymdry}`);
+					set_text(text_21, ` ${T.reward_tshirt}`);
+					set_text(text_22, ` ${T.reward_hexapad}`);
+				});
+
 				bind_group(binding_group, [], input_3, () => get(chosenGift), ($$value) => set(chosenGift, $$value));
 				bind_group(binding_group, [], input_4, () => get(chosenGift), ($$value) => set(chosenGift, $$value));
 				bind_group(binding_group, [], input_5, () => get(chosenGift), ($$value) => set(chosenGift, $$value));
@@ -5982,18 +6027,18 @@ var preOrdersApp = (function () {
 		}
 
 		var p_5 = sibling(node_10, 2);
-		var text_19 = child(p_5);
+		var text_23 = child(p_5);
 
 		var div_29 = sibling(p_5, 2);
 		var label_10 = child(div_29);
 		var input_7 = child(label_10);
 
 		var span_3 = sibling(input_7, 2);
-		var text_20 = child(span_3);
+		var text_24 = child(span_3);
 
 		var footer = sibling(section, 2);
 		var button_5 = child(footer);
-		var text_21 = child(button_5);
+		var text_25 = child(button_5);
 
 		var button_6 = sibling(button_5, 2);
 
@@ -6007,9 +6052,9 @@ var preOrdersApp = (function () {
 			set_text(text_16, T.r1);
 			set_text(text_17, T.r2);
 			set_text(text_18, T.r3);
-			set_text(text_19, T.required);
-			set_text(text_20, T.agree);
-			set_text(text_21, T.submit);
+			set_text(text_23, T.required);
+			set_text(text_24, T.agree);
+			set_text(text_25, T.submit);
 		});
 
 		event('click', div_9, closeModal);
