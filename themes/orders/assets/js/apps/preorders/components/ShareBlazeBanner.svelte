@@ -388,10 +388,10 @@
   const CLOUD_NAME = "dnhclxe7k";
   const UPLOAD_PRESET = "ml_default"; // unsigned o signed preset già configurato
   const FOLDER = "shareblaze"; // es. "shareblaze" o "kettleblaze/shareblaze"
-  const API_STATUS_URL = "http://localhost:8080/shareblaze-order-upload/status"; // GET ?orderId=...
-  const API_SAVE_URL = "http://localhost:8080/shareblaze-order-upload"; // POST
-  const API_UPDATE_URL = "http://localhost:8080/shareblaze-order-update"; // POST
-  const API_DELETE_URL = "http://localhost:8080/shareblaze-delete-video"; // DELETE
+  const API_STATUS_URL = "https://kettleblaze-store-server.fly.dev/shareblaze-order-upload/status"; // GET ?orderId=...
+  const API_SAVE_URL = "https://kettleblaze-store-server.fly.dev/shareblaze-order-upload"; // POST
+  const API_UPDATE_URL = "https://kettleblaze-store-server.fly.dev/shareblaze-order-update"; // POST
+  const API_DELETE_URL = "https://kettleblaze-store-server.fly.dev/shareblaze-delete-video"; // DELETE
   let hasOrderVideo = false; // 🔸 server dice se c’è già un video
   let uploadBtnEl; // se vuoi bindare il pulsante esistente
   let widget; // istanza upload widget
