@@ -101,3 +101,11 @@ iframe {
   text-align: center;
   font-size: 1.2rem;
 }
+
+body {
+  &.modal-open {
+    position: fixed;
+    width: 100%;
+    overflow: hidden;
+  }
+}

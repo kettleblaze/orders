@@ -75,7 +75,7 @@
       urlRules:
         "https://kettleblaze.store/en/blog/shareblaze-referral-kettlebell-magnetix-flexibell2",
       dismiss: "Not now",
-      modalTitle: "Send your #ShareBlaze submission",
+      modalTitle: "Send your #ShareBlaze<br>submission",
       fieldPlatform: "Platform",
       fieldHandle: "Username/Handle (opt.)",
       fieldLink: "Video link (if public)",
@@ -122,7 +122,7 @@
       urlRules:
         "https://kettleblaze.store/en/blog/shareblaze-referral-kettlebell-magnetix-flexibell2",
       dismiss: "Pas maintenant",
-      modalTitle: "Envoyer ta contribution #ShareBlaze",
+      modalTitle: "Envoyer ta contribution<br>#ShareBlaze",
       fieldPlatform: "Plateforme",
       fieldHandle: "Nom d’utilisateur/Handle (facult.)",
       fieldLink: "Lien de la vidéo (si publique)",
@@ -169,7 +169,7 @@
       urlRules:
         "https://kettleblaze.store/en/blog/shareblaze-referral-kettlebell-magnetix-flexibell2",
       dismiss: "Nicht jetzt",
-      modalTitle: "Deinen #ShareBlaze-Beitrag senden",
+      modalTitle: "Deinen #ShareBlaze-Beitrag<br>senden",
       fieldPlatform: "Plattform",
       fieldHandle: "Benutzername/Handle (optional)",
       fieldLink: "Videolink (falls öffentlich)",
@@ -216,7 +216,7 @@
       urlRules:
         "https://kettleblaze.store/en/blog/shareblaze-referral-kettlebell-magnetix-flexibell2",
       dismiss: "Ahora no",
-      modalTitle: "Enviar contribución #ShareBlaze",
+      modalTitle: "Enviar contribución<br>#ShareBlaze",
       fieldPlatform: "Plataforma",
       fieldHandle: "Usuario/Handle (opc.)",
       fieldLink: "Enlace del vídeo (si es público)",
@@ -263,7 +263,7 @@
       urlRules:
         "https://kettleblaze.store/en/blog/shareblaze-referral-kettlebell-magnetix-flexibell2",
       dismiss: "Nie teraz",
-      modalTitle: "Wyślij zgłoszenie #ShareBlaze",
+      modalTitle: "Wyślij zgłoszenie<br>#ShareBlaze",
       fieldPlatform: "Platforma",
       fieldHandle: "Nazwa użytkownika/Handle (opc.)",
       fieldLink: "Link do filmu (jeśli publiczny)",
@@ -330,7 +330,7 @@
   }
 
   function openModal() {
-    document.body.style = "overflow-y:hidden;";
+    document.body.classList.add("modal-open");
     if (window.tidioChatApi) {
       window.tidioChatApi.hide();
     }
@@ -340,7 +340,7 @@
   }
 
   async function closeModal() {
-    document.body.style = "overflow-y:hidden;";
+    document.body.classList.remove("modal-open");
     if (hasOrderVideo) {
       await deleteOrderVideo();
       hasOrderVideo = false;
@@ -688,7 +688,7 @@
   <div class="modal-background" on:click={closeModal}></div>
   <div class="modal-card">
     <header class="modal-card-head">
-      <p class="modal-card-title">{T.modalTitle}</p>
+      <p class="modal-card-title">{@html T.modalTitle}</p>
       <button class="delete" aria-label="close" on:click={closeModal}></button>
     </header>
     <section class="modal-card-body">

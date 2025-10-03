@@ -5112,7 +5112,7 @@ var preOrdersApp = (function () {
 	var root_11$1 = template(`<div class="field"><label class="label"> </label> <div class="file is-fullwidth"><label class="file-label"><input class="file-input" type="file" accept=".mp4,.mov,video/*"> <span class="file-cta"><span class="file-label"> </span></span></label></div></div>`);
 	var root_12$1 = template(`<p class="my-5"> </p>`);
 	var root_13$1 = template(`<div class="field mt-3"><label class="label">Seleziona il tuo omaggio</label> <div class="control"><label class="radio"><input type="radio" required> </label></div> <div class="control"><label class="radio"><input type="radio"> </label></div> <div class="control"><label class="radio"><input type="radio"> </label></div> <div class="control"><label class="radio"><input type="radio"> </label></div></div>`);
-	var root = template(`<!> <!> <div><div class="modal-background"></div> <div class="modal-card"><header class="modal-card-head"><p class="modal-card-title"> </p> <button class="delete" aria-label="close"></button></header> <section class="modal-card-body"><!> <div class="field"><label class="label"> </label> <div class="control"><div class="select is-fullwidth"><select><option disabled selected>—</option><!></select></div></div></div> <div class="field"><label class="label"> </label> <div class="control"><input class="input" type="text" placeholder="@tuo_handle"></div></div> <div class="field"><label class="label"> </label> <div class="control"><input class="input" type="url" placeholder="https://…"></div></div> <!> <div class="field"><label class="label"> </label> <div class="control"><div class="select is-fullwidth"><select><option disabled selected>—</option><option> </option><option> </option><option> </option></select></div></div></div> <!> <p class="help"> </p> <div class="field mt-3"><label class="checkbox"><input type="checkbox"> <span class="ml-2"> </span></label></div></section> <footer class="modal-card-foot"><button class="button is-primary"> </button> <button class="button">Close</button></footer></div></div>`, 1);
+	var root = template(`<!> <!> <div><div class="modal-background"></div> <div class="modal-card"><header class="modal-card-head"><p class="modal-card-title"><!></p> <button class="delete" aria-label="close"></button></header> <section class="modal-card-body"><!> <div class="field"><label class="label"> </label> <div class="control"><div class="select is-fullwidth"><select><option disabled selected>—</option><!></select></div></div></div> <div class="field"><label class="label"> </label> <div class="control"><input class="input" type="text" placeholder="@tuo_handle"></div></div> <div class="field"><label class="label"> </label> <div class="control"><input class="input" type="url" placeholder="https://…"></div></div> <!> <div class="field"><label class="label"> </label> <div class="control"><div class="select is-fullwidth"><select><option disabled selected>—</option><option> </option><option> </option><option> </option></select></div></div></div> <!> <p class="help"> </p> <div class="field mt-3"><label class="checkbox"><input type="checkbox"> <span class="ml-2"> </span></label></div></section> <footer class="modal-card-foot"><button class="button is-primary"> </button> <button class="button">Close</button></footer></div></div>`, 1);
 
 	function ShareBlazeBanner($$anchor, $$props) {
 		push($$props, false);
@@ -5186,7 +5186,7 @@ var preOrdersApp = (function () {
 				ctaRules: "Read the rules",
 				urlRules: "https://kettleblaze.store/en/blog/shareblaze-referral-kettlebell-magnetix-flexibell2",
 				dismiss: "Not now",
-				modalTitle: "Send your #ShareBlaze submission",
+				modalTitle: "Send your #ShareBlaze<br>submission",
 				fieldPlatform: "Platform",
 				fieldHandle: "Username/Handle (opt.)",
 				fieldLink: "Video link (if public)",
@@ -5227,7 +5227,7 @@ var preOrdersApp = (function () {
 				ctaRules: "Lire les règles",
 				urlRules: "https://kettleblaze.store/en/blog/shareblaze-referral-kettlebell-magnetix-flexibell2",
 				dismiss: "Pas maintenant",
-				modalTitle: "Envoyer ta contribution #ShareBlaze",
+				modalTitle: "Envoyer ta contribution<br>#ShareBlaze",
 				fieldPlatform: "Plateforme",
 				fieldHandle: "Nom d’utilisateur/Handle (facult.)",
 				fieldLink: "Lien de la vidéo (si publique)",
@@ -5268,7 +5268,7 @@ var preOrdersApp = (function () {
 				ctaRules: "Regeln lesen",
 				urlRules: "https://kettleblaze.store/en/blog/shareblaze-referral-kettlebell-magnetix-flexibell2",
 				dismiss: "Nicht jetzt",
-				modalTitle: "Deinen #ShareBlaze-Beitrag senden",
+				modalTitle: "Deinen #ShareBlaze-Beitrag<br>senden",
 				fieldPlatform: "Plattform",
 				fieldHandle: "Benutzername/Handle (optional)",
 				fieldLink: "Videolink (falls öffentlich)",
@@ -5309,7 +5309,7 @@ var preOrdersApp = (function () {
 				ctaRules: "Leer las reglas",
 				urlRules: "https://kettleblaze.store/en/blog/shareblaze-referral-kettlebell-magnetix-flexibell2",
 				dismiss: "Ahora no",
-				modalTitle: "Enviar contribución #ShareBlaze",
+				modalTitle: "Enviar contribución<br>#ShareBlaze",
 				fieldPlatform: "Plataforma",
 				fieldHandle: "Usuario/Handle (opc.)",
 				fieldLink: "Enlace del vídeo (si es público)",
@@ -5350,7 +5350,7 @@ var preOrdersApp = (function () {
 				ctaRules: "Przeczytaj zasady",
 				urlRules: "https://kettleblaze.store/en/blog/shareblaze-referral-kettlebell-magnetix-flexibell2",
 				dismiss: "Nie teraz",
-				modalTitle: "Wyślij zgłoszenie #ShareBlaze",
+				modalTitle: "Wyślij zgłoszenie<br>#ShareBlaze",
 				fieldPlatform: "Platforma",
 				fieldHandle: "Nazwa użytkownika/Handle (opc.)",
 				fieldLink: "Link do filmu (jeśli publiczny)",
@@ -5406,7 +5406,7 @@ var preOrdersApp = (function () {
 		});
 
 		function openModal() {
-			document.body.style = "overflow-y:hidden;";
+			document.body.classList.add("modal-open");
 
 			if (window.tidioChatApi) {
 				window.tidioChatApi.hide();
@@ -5418,7 +5418,7 @@ var preOrdersApp = (function () {
 		}
 
 		async function closeModal() {
-			document.body.style = "overflow-y:hidden;";
+			document.body.classList.remove("modal-open");
 
 			if (get(hasOrderVideo)) {
 				await deleteOrderVideo();
@@ -5822,29 +5822,31 @@ var preOrdersApp = (function () {
 		var div_10 = sibling(div_9, 2);
 		var header = child(div_10);
 		var p_3 = child(header);
-		var text_6 = child(p_3);
+		var node_7 = child(p_3);
+
+		html(node_7, () => T.modalTitle);
 
 		var button_4 = sibling(p_3, 2);
 
 		var section = sibling(header, 2);
-		var node_7 = child(section);
+		var node_8 = child(section);
 
 		{
 			var consequent_5 = ($$anchor) => {
 				var div_11 = root_9$1();
-				var text_7 = child(div_11);
-				template_effect(() => set_text(text_7, get(errorMsg)));
+				var text_6 = child(div_11);
+				template_effect(() => set_text(text_6, get(errorMsg)));
 				append($$anchor, div_11);
 			};
 
-			if_block(node_7, ($$render) => {
+			if_block(node_8, ($$render) => {
 				if (get(errorMsg)) $$render(consequent_5);
 			});
 		}
 
-		var div_12 = sibling(node_7, 2);
+		var div_12 = sibling(node_8, 2);
 		var label = child(div_12);
-		var text_8 = child(label);
+		var text_7 = child(label);
 
 		var div_13 = sibling(label, 2);
 		var div_14 = child(div_13);
@@ -5862,12 +5864,12 @@ var preOrdersApp = (function () {
 
 		option.value = null == (option.__value = '') ? '' : '';
 
-		var node_8 = sibling(option);
+		var node_9 = sibling(option);
 
-		each(node_8, 1, showPlatforms, index, ($$anchor, p) => {
+		each(node_9, 1, showPlatforms, index, ($$anchor, p) => {
 			var option_1 = root_10$1();
 			var option_1_value = {};
-			var text_9 = child(option_1);
+			var text_8 = child(option_1);
 
 			template_effect(
 				($0) => {
@@ -5875,7 +5877,7 @@ var preOrdersApp = (function () {
 						option_1.value = null == (option_1.__value = get(p)) ? '' : get(p);
 					}
 
-					set_text(text_9, $0);
+					set_text(text_8, $0);
 				},
 				[() => platformsLabel(get(p))],
 				derived_safe_equal
@@ -5886,25 +5888,25 @@ var preOrdersApp = (function () {
 
 		var div_15 = sibling(div_12, 2);
 		var label_1 = child(div_15);
-		var text_10 = child(label_1);
+		var text_9 = child(label_1);
 
 		var div_16 = sibling(label_1, 2);
 		var input = child(div_16);
 
 		var div_17 = sibling(div_15, 2);
 		var label_2 = child(div_17);
-		var text_11 = child(label_2);
+		var text_10 = child(label_2);
 
 		var div_18 = sibling(label_2, 2);
 		var input_1 = child(div_18);
 
-		var node_9 = sibling(div_17, 2);
+		var node_10 = sibling(div_17, 2);
 
 		{
 			var consequent_6 = ($$anchor) => {
 				var div_19 = root_11$1();
 				var label_3 = child(div_19);
-				var text_12 = child(label_3);
+				var text_11 = child(label_3);
 
 				var div_20 = sibling(label_3, 2);
 				var label_4 = child(div_20);
@@ -5914,11 +5916,11 @@ var preOrdersApp = (function () {
 
 				var span_1 = sibling(input_2, 2);
 				var span_2 = child(span_1);
-				var text_13 = child(span_2);
+				var text_12 = child(span_2);
 
 				template_effect(() => {
-					set_text(text_12, T.fieldFile);
-					set_text(text_13, T.upload);
+					set_text(text_11, T.fieldFile);
+					set_text(text_12, T.upload);
 				});
 
 				event('click', input_2, preventDefault(handleUploadClick));
@@ -5927,19 +5929,19 @@ var preOrdersApp = (function () {
 
 			var alternate_2 = ($$anchor) => {
 				var p_4 = root_12$1();
-				var text_14 = child(p_4);
-				template_effect(() => set_text(text_14, T.upload_confirmation));
+				var text_13 = child(p_4);
+				template_effect(() => set_text(text_13, T.upload_confirmation));
 				append($$anchor, p_4);
 			};
 
-			if_block(node_9, ($$render) => {
+			if_block(node_10, ($$render) => {
 				if (!get(hasOrderVideo)) $$render(consequent_6); else $$render(alternate_2, false);
 			});
 		}
 
-		var div_21 = sibling(node_9, 2);
+		var div_21 = sibling(node_10, 2);
 		var label_5 = child(div_21);
-		var text_15 = child(label_5);
+		var text_14 = child(label_5);
 
 		var div_22 = sibling(label_5, 2);
 		var div_23 = child(div_22);
@@ -5960,21 +5962,21 @@ var preOrdersApp = (function () {
 
 		option_3.value = null == (option_3.__value = 'gift') ? '' : 'gift';
 
-		var text_16 = child(option_3);
+		var text_15 = child(option_3);
 
 		var option_4 = sibling(option_3);
 
 		option_4.value = null == (option_4.__value = 'chargeback') ? '' : 'chargeback';
 
-		var text_17 = child(option_4);
+		var text_16 = child(option_4);
 
 		var option_5 = sibling(option_4);
 
 		option_5.value = null == (option_5.__value = 'coupon') ? '' : 'coupon';
 
-		var text_18 = child(option_5);
+		var text_17 = child(option_5);
 
-		var node_10 = sibling(div_21, 2);
+		var node_11 = sibling(div_21, 2);
 
 		{
 			var consequent_7 = ($$anchor) => {
@@ -5984,34 +5986,34 @@ var preOrdersApp = (function () {
 				var input_3 = child(label_6);
 				input_3.value = null == (input_3.__value = 'blazebands') ? '' : 'blazebands';
 
-				var text_19 = sibling(input_3);
+				var text_18 = sibling(input_3);
 
 				var div_26 = sibling(div_25, 2);
 				var label_7 = child(div_26);
 				var input_4 = child(label_7);
 				input_4.value = null == (input_4.__value = 'gymdry') ? '' : 'gymdry';
 
-				var text_20 = sibling(input_4);
+				var text_19 = sibling(input_4);
 
 				var div_27 = sibling(div_26, 2);
 				var label_8 = child(div_27);
 				var input_5 = child(label_8);
 				input_5.value = null == (input_5.__value = 't_shirt') ? '' : 't_shirt';
 
-				var text_21 = sibling(input_5);
+				var text_20 = sibling(input_5);
 
 				var div_28 = sibling(div_27, 2);
 				var label_9 = child(div_28);
 				var input_6 = child(label_9);
 				input_6.value = null == (input_6.__value = 'hexapad') ? '' : 'hexapad';
 
-				var text_22 = sibling(input_6);
+				var text_21 = sibling(input_6);
 
 				template_effect(() => {
-					set_text(text_19, ` ${T.reward_blazebands}`);
-					set_text(text_20, ` ${T.reward_gymdry}`);
-					set_text(text_21, ` ${T.reward_tshirt}`);
-					set_text(text_22, ` ${T.reward_hexapad}`);
+					set_text(text_18, ` ${T.reward_blazebands}`);
+					set_text(text_19, ` ${T.reward_gymdry}`);
+					set_text(text_20, ` ${T.reward_tshirt}`);
+					set_text(text_21, ` ${T.reward_hexapad}`);
 				});
 
 				bind_group(binding_group, [], input_3, () => get(chosenGift), ($$value) => set(chosenGift, $$value));
@@ -6021,40 +6023,39 @@ var preOrdersApp = (function () {
 				append($$anchor, div_24);
 			};
 
-			if_block(node_10, ($$render) => {
+			if_block(node_11, ($$render) => {
 				if (get(reward) === "gift") $$render(consequent_7);
 			});
 		}
 
-		var p_5 = sibling(node_10, 2);
-		var text_23 = child(p_5);
+		var p_5 = sibling(node_11, 2);
+		var text_22 = child(p_5);
 
 		var div_29 = sibling(p_5, 2);
 		var label_10 = child(div_29);
 		var input_7 = child(label_10);
 
 		var span_3 = sibling(input_7, 2);
-		var text_24 = child(span_3);
+		var text_23 = child(span_3);
 
 		var footer = sibling(section, 2);
 		var button_5 = child(footer);
-		var text_25 = child(button_5);
+		var text_24 = child(button_5);
 
 		var button_6 = sibling(button_5, 2);
 
 		template_effect(() => {
 			set_class(div_8, "modal " + (get(showModal) ? "is-active" : ""));
-			set_text(text_6, T.modalTitle);
-			set_text(text_8, `${T.fieldPlatform}*`);
-			set_text(text_10, T.fieldHandle);
-			set_text(text_11, T.fieldLink);
-			set_text(text_15, T.rewardTitle);
-			set_text(text_16, T.r1);
-			set_text(text_17, T.r2);
-			set_text(text_18, T.r3);
-			set_text(text_23, T.required);
-			set_text(text_24, T.agree);
-			set_text(text_25, T.submit);
+			set_text(text_7, `${T.fieldPlatform}*`);
+			set_text(text_9, T.fieldHandle);
+			set_text(text_10, T.fieldLink);
+			set_text(text_14, T.rewardTitle);
+			set_text(text_15, T.r1);
+			set_text(text_16, T.r2);
+			set_text(text_17, T.r3);
+			set_text(text_22, T.required);
+			set_text(text_23, T.agree);
+			set_text(text_24, T.submit);
 		});
 
 		event('click', div_9, closeModal);
