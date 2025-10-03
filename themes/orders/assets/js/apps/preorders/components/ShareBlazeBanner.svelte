@@ -22,7 +22,7 @@
 
   const i18n = {
     it: {
-      title: "#ShareBlaze",
+      title: "👉🏻 Partecipa a #ShareBlaze",
       subtitle:
         "Condividi il tuo video con {products} e ricevi una ricompensa garantita.",
       ctaUpload: "Carica il tuo video",
@@ -67,7 +67,7 @@
     },
 
     en: {
-      title: "#ShareBlaze",
+      title: "👉🏻 Join #ShareBlaze",
       subtitle: "Share your video with {products} and get a guaranteed reward.",
       ctaUpload: "Upload your video",
       ctaGoToForm: "Go to the form",
@@ -113,7 +113,7 @@
     },
 
     fr: {
-      title: "#ShareBlaze",
+      title: "👉🏻 Participe à #ShareBlaze",
       subtitle:
         "Partage ta vidéo avec {products} et reçois une récompense garantie.",
       ctaUpload: "Envoie ta vidéo",
@@ -160,7 +160,7 @@
     },
 
     de: {
-      title: "#ShareBlaze",
+      title: "👉🏻 Mach mit bei #ShareBlaze",
       subtitle:
         "Teile dein Video mit {products} und erhalte eine garantierte Belohnung.",
       ctaUpload: "Dein Video hochladen",
@@ -207,7 +207,7 @@
     },
 
     es: {
-      title: "#ShareBlaze",
+      title: "👉🏻 Participa en #ShareBlaze",
       subtitle:
         "Comparte tu vídeo con {products} y recibe una recompensa garantizada.",
       ctaUpload: "Sube tu vídeo",
@@ -254,7 +254,7 @@
     },
 
     pl: {
-      title: "#ShareBlaze",
+      title: "👉🏻 Weź udział w #ShareBlaze",
       subtitle:
         "Udostępnij swój film z {products} i odbierz gwarantowaną nagrodę.",
       ctaUpload: "Prześlij swój film",
@@ -616,10 +616,12 @@
       </svg>
     </button>
 
-    <div class="columns is-variable is-1 is-vcentered is-multiline">
-      <div class="column is-narrow mb-3">
+    <div class="colums is-variable is-1 is-vcentered is-multiline">
+      <div class="is-variable is-1 is-vcentered is-multiline mb-3">
         <span class="tag is-danger is-light is-medium">#ShareBlaze</span>
       </div>
+    </div>
+    <div class="columns is-variable is-1 is-vcentered is-multiline">
       {#if !isComplete}
         <div class="column body-col is-12-mobile is-7-tablet is-7-desktop">
           <h3 class="title is-5 m-0">{T.title}</h3>

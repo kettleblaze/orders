@@ -5105,7 +5105,7 @@ var preOrdersApp = (function () {
 	var root_5 = template(`<button class="button is-info is-light"> </button>`);
 	var root_6$1 = template(`<button class="button is-primary"> </button>`);
 	var root_7$1 = template(`<p class="mb-5"><!></p>`);
-	var root_1 = template(`<div class="box shareblaze-banner"><button class="expand-btn"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M7.41 8.41 12 13l4.59-4.59L18 9.83 12 15.83 6 9.83z"></path></svg></button> <div class="columns is-variable is-1 is-vcentered is-multiline"><div class="column is-narrow mb-3"><span class="tag is-danger is-light is-medium">#ShareBlaze</span></div> <!> <div class="column actions-col is-12-mobile has-text-right-tablet mt-5"><div class="buttons is-right is-flex is-flex-wrap-wrap is-justify-content-flex-start is-justify-content-flex-end-tablet"><!> <button class="button is-white is-light"> </button></div></div></div></div>`);
+	var root_1 = template(`<div class="box shareblaze-banner"><button class="expand-btn"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M7.41 8.41 12 13l4.59-4.59L18 9.83 12 15.83 6 9.83z"></path></svg></button> <div class="colums is-variable is-1 is-vcentered is-multiline"><div class="is-variable is-1 is-vcentered is-multiline mb-3"><span class="tag is-danger is-light is-medium">#ShareBlaze</span></div></div> <div class="columns is-variable is-1 is-vcentered is-multiline"><!> <div class="column actions-col is-12-mobile has-text-right-tablet mt-5"><div class="buttons is-right is-flex is-flex-wrap-wrap is-justify-content-flex-start is-justify-content-flex-end-tablet"><!> <button class="button is-white is-light"> </button></div></div></div></div>`);
 	var root_8$1 = template(`<div class="success-overlay"><div class="notification is-success is-light"> </div></div>`);
 	var root_9$1 = template(`<div class="notification is-danger is-light"> </div>`);
 	var root_10$1 = template(`<option> </option>`);
@@ -5139,7 +5139,7 @@ var preOrdersApp = (function () {
 
 		const i18n = {
 			it: {
-				title: "#ShareBlaze",
+				title: "👉🏻 Partecipa a #ShareBlaze",
 				subtitle: "Condividi il tuo video con {products} e ricevi una ricompensa garantita.",
 				ctaUpload: "Carica il tuo video",
 				ctaGoToForm: "Vai al modulo",
@@ -5179,7 +5179,7 @@ var preOrdersApp = (function () {
 				reward_tshirt: "T-Shirt con logo Kettleblaze"
 			},
 			en: {
-				title: "#ShareBlaze",
+				title: "👉🏻 Join #ShareBlaze",
 				subtitle: "Share your video with {products} and get a guaranteed reward.",
 				ctaUpload: "Upload your video",
 				ctaGoToForm: "Go to the form",
@@ -5220,7 +5220,7 @@ var preOrdersApp = (function () {
 				urlRules: "https://kettleblaze.store/en/blog/shareblaze-referral-kettlebell-magnetix-flexibell2"
 			},
 			fr: {
-				title: "#ShareBlaze",
+				title: "👉🏻 Participe à #ShareBlaze",
 				subtitle: "Partage ta vidéo avec {products} et reçois une récompense garantie.",
 				ctaUpload: "Envoie ta vidéo",
 				ctaGoToForm: "Accéder au formulaire",
@@ -5261,7 +5261,7 @@ var preOrdersApp = (function () {
 				urlRules: "https://kettleblaze.store/en/blog/shareblaze-referral-kettlebell-magnetix-flexibell2"
 			},
 			de: {
-				title: "#ShareBlaze",
+				title: "👉🏻 Mach mit bei #ShareBlaze",
 				subtitle: "Teile dein Video mit {products} und erhalte eine garantierte Belohnung.",
 				ctaUpload: "Dein Video hochladen",
 				ctaGoToForm: "Zum Formular",
@@ -5302,7 +5302,7 @@ var preOrdersApp = (function () {
 				urlRules: "https://kettleblaze.store/en/blog/shareblaze-referral-kettlebell-magnetix-flexibell2"
 			},
 			es: {
-				title: "#ShareBlaze",
+				title: "👉🏻 Participa en #ShareBlaze",
 				subtitle: "Comparte tu vídeo con {products} y recibe una recompensa garantizada.",
 				ctaUpload: "Sube tu vídeo",
 				ctaGoToForm: "Ir al formulario",
@@ -5343,7 +5343,7 @@ var preOrdersApp = (function () {
 				urlRules: "https://kettleblaze.store/en/blog/shareblaze-referral-kettlebell-magnetix-flexibell2"
 			},
 			pl: {
-				title: "#ShareBlaze",
+				title: "👉🏻 Weź udział w #ShareBlaze",
 				subtitle: "Udostępnij swój film z {products} i odbierz gwarantowaną nagrodę.",
 				ctaUpload: "Prześlij swój film",
 				ctaGoToForm: "Przejdź do formularza",
@@ -5690,8 +5690,8 @@ var preOrdersApp = (function () {
 			var consequent_3 = ($$anchor) => {
 				var div = root_1();
 				var button = child(div);
-				var div_1 = sibling(button, 2);
-				var node_1 = sibling(child(div_1), 2);
+				var div_1 = sibling(button, 4);
+				var node_1 = child(div_1);
 
 				{
 					var consequent = ($$anchor) => {
