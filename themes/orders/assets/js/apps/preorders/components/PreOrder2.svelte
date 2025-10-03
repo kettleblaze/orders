@@ -575,7 +575,8 @@
             <ul>
               {#each tracking.tracking_links as link, index}
                 <li>
-                  <a href={link} target="_blank">{link}</a>
+                  <a class="tracking-link" href={link} target="_blank">{link}</a
+                  >
                 </li>
               {/each}
             </ul>

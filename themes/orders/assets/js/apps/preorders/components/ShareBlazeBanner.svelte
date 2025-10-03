@@ -287,14 +287,12 @@
         </div>
       </div>
 
-      <div
-        class="column actions-col is-12-mobile has-text-right-tablet mt-5"
-      >
+      <div class="column actions-col is-12-mobile has-text-right-tablet mt-5">
         <div
           class="buttons is-right is-flex is-flex-wrap-wrap is-justify-content-flex-start is-justify-content-flex-end-tablet"
         >
           {#if uploadUrl}
-          <!--  <a class="button is-primary" href={uploadUrl}>{T.ctaGoToForm}</a>-->
+            <!--  <a class="button is-primary" href={uploadUrl}>{T.ctaGoToForm}</a>-->
             <button class="button is-info is-light" on:click={openModal}
               >{T.ctaUpload}</button
             >

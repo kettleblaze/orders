@@ -99,3 +99,8 @@ $beige-lighter: #eff0eb;
   border-top: 8px solid
     hsl(var(--bulma-info-h), var(--bulma-info-s), var(--bulma-info-l)) !important;
 }
+
+
+.tracking-link {
+  word-break: break-all;
+}

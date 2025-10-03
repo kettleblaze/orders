@@ -4753,7 +4753,7 @@ var preOrdersApp = (function () {
 	var root_20 = template(`<button class="button is-warning mt-3"> </button> <button class="button is-info mt-3 ml-3"> </button>`, 1);
 	var root_19 = template(`<strong class="has-text-info"> </strong> <p class="mt-2"> </p> <!>`, 1);
 	var root_15 = template(`<li class="mb-2 py-3"><span class="has-text-grey is-size-6"> </span> <br> <!></li>`);
-	var root_23 = template(`<li><a target="_blank"> </a></li>`);
+	var root_23 = template(`<li><a class="tracking-link" target="_blank"> </a></li>`);
 	var root_24 = template(`<button class="button is-info mt-3 has-text-white">Invia mail di tracking</button>`);
 	var root_22 = template(`<div class="field"><label class="label"> </label> <p class="is-size-5"> </p></div> <div class="field"><label class="label"> </label> <p> </p></div> <div class="field"><label class="label"> </label> <ul></ul></div> <!>`, 1);
 	var root_21 = template(`<h2 class="title mt-6"> </h2> <!>`, 1);
