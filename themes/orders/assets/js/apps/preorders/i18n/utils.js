@@ -17,7 +17,6 @@ function getPreferredLanguage() {
 }
 
 function translate(preferredLanguage) {
-  preferredLanguage = getPreferredLanguage();
   return function translate(str) {
     if (languages[preferredLanguage]) {
       return languages[preferredLanguage][str];
@@ -27,5 +26,4 @@ function translate(preferredLanguage) {
   };
 }
 
-let t = translate();
-export { t as translate, getPreferredLanguage };
+export { translate, getPreferredLanguage };

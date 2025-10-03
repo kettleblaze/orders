@@ -1,0 +1,103 @@
+.shareblaze-banner.compact {
+  padding: 0.75rem 1rem;
+}
+.shareblaze-banner .title.m-0 {
+  margin: 0;
+}
+.shareblaze-banner .buttons .button.is-text {
+  color: #7a7a7a;
+}
+.modal-card {
+  max-width: 720px;
+  width: calc(100% - 2rem);
+}
+
+.shareblaze-banner {
+  overflow: hidden;
+}
+.shareblaze-banner .columns {
+  gap: 0.75rem;
+}
+
+/* Evita che la colonna testo diventi troppo stretta su desktop */
+.shareblaze-banner .body-col {
+  min-width: 320px;
+}
+
+/* Spazio verticale fra bottoni quando vanno a capo */
+.shareblaze-banner .actions-col .buttons > .button {
+  margin-bottom: 0.5rem;
+}
+
+/* Su tablet+ riallinea i bottoni a destra */
+@media screen and (min-width: 769px) {
+  .shareblaze-banner .actions-col .buttons {
+    justify-content: flex-end;
+  }
+}
+
+/* ====== Expand/Collapse ====== */
+.shareblaze-banner {
+  position: relative;
+}
+.shareblaze-banner .expand-btn {
+  position: absolute;
+  top: 1.3rem;
+  right: 1.5rem;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent; /* mobile touch highlight */
+
+  padding: 0.25rem;
+  line-height: 1;
+  transform: rotateZ(0deg);
+  transform-origin: center center;
+  transition: transform 0.35s cubic-bezier(0.075, 0.82, 0.165, 1);
+  &[aria-expanded="true"] {
+    transform: rotateZ(180deg);
+  }
+}
+
+.shareblaze-banner .expand-btn {
+  outline: none;
+}
+
+.shareblaze-banner.collapsed .body-col > :not(h3) {
+  display: none !important;
+}
+.shareblaze-banner.collapsed .actions-col {
+  display: none !important;
+}
+
+// Upload su Cloudinary
+// z-index alto per sovrastare icona chat tidio
+iframe {
+  z-index: 3000000000;
+}
+
+.success-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6); /* backdrop scuro */
+  backdrop-filter: blur(5px); /* effetto sfocato */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000; /* sopra la modale (Bulma modals hanno z-index 40/50 circa) */
+  transition: opacity 0.35s cubic-bezier(0.075, 0.82, 0.165, 1);
+  opacity: 1;
+
+  &.hidden {
+    opacity: 0;
+  }
+}
+
+.success-overlay .notification {
+  max-width: 500px;
+  text-align: center;
+  font-size: 1.2rem;
+}

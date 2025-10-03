@@ -3663,6 +3663,57 @@ var preOrdersApp = (function () {
 		}
 	}
 
+	/** @import { Effect, TemplateNode } from '#client' */
+
+	/**
+	 * @param {Element | Text | Comment} node
+	 * @param {() => string} get_value
+	 * @param {boolean} svg
+	 * @param {boolean} mathml
+	 * @param {boolean} [skip_warning]
+	 * @returns {void}
+	 */
+	function html(node, get_value, svg, mathml, skip_warning) {
+		var anchor = node;
+
+		var value = '';
+
+		/** @type {Effect | undefined} */
+		var effect;
+
+		block(() => {
+			if (value === (value = get_value() ?? '')) {
+				return;
+			}
+
+			if (effect !== undefined) {
+				destroy_effect(effect);
+				effect = undefined;
+			}
+
+			if (value === '') return;
+
+			effect = branch(() => {
+
+				var html = value + '';
+
+				// Don't use create_fragment_with_script_from_html here because that would mean script tags are executed.
+				// @html is basically `.innerHTML = ...` and that doesn't execute scripts either due to security reasons.
+				/** @type {DocumentFragment | Element} */
+				var node = create_fragment_from_html(html);
+
+				assign_nodes(
+					/** @type {TemplateNode} */ (get_first_child(node)),
+					/** @type {TemplateNode} */ (node.lastChild)
+				);
+
+				{
+					anchor.before(node);
+				}
+			});
+		});
+	}
+
 	/**
 	 * Sets the `selected` attribute on an `option` element.
 	 * Not set through the property because that doesn't reflect to the DOM,
@@ -3745,6 +3796,61 @@ var preOrdersApp = (function () {
 	}
 
 	/**
+	 * @param {HTMLElement} dom
+	 * @param {string} value
+	 * @param {string} [hash]
+	 * @returns {void}
+	 */
+	function set_class(dom, value, hash) {
+		// @ts-expect-error need to add __className to patched prototype
+		var prev_class_name = dom.__className;
+		var next_class_name = to_class(value);
+
+		if (
+			prev_class_name !== next_class_name ||
+			(hydrating)
+		) {
+			// Removing the attribute when the value is only an empty string causes
+			// peformance issues vs simply making the className an empty string. So
+			// we should only remove the class if the the value is nullish.
+			if (value == null && true) {
+				dom.removeAttribute('class');
+			} else {
+				dom.className = next_class_name;
+			}
+
+			// @ts-expect-error need to add __className to patched prototype
+			dom.__className = next_class_name;
+		}
+	}
+
+	/**
+	 * @template V
+	 * @param {V} value
+	 * @param {string} [hash]
+	 * @returns {string | V}
+	 */
+	function to_class(value, hash) {
+		return (value == null ? '' : value) + ('');
+	}
+
+	/**
+	 * @param {Element} dom
+	 * @param {string} class_name
+	 * @param {boolean} value
+	 * @returns {void}
+	 */
+	function toggle_class(dom, class_name, value) {
+		if (value) {
+			if (dom.classList.contains(class_name)) return;
+			dom.classList.add(class_name);
+		} else {
+			if (!dom.classList.contains(class_name)) return;
+			dom.classList.remove(class_name);
+		}
+	}
+
+	/**
 	 * @param {HTMLInputElement} input
 	 * @param {() => unknown} get
 	 * @param {(value: unknown) => void} set
@@ -3809,6 +3915,133 @@ var preOrdersApp = (function () {
 				input.value = value ?? '';
 			}
 		});
+	}
+
+	/** @type {Set<HTMLInputElement[]>} */
+	const pending = new Set();
+
+	/**
+	 * @param {HTMLInputElement[]} inputs
+	 * @param {null | [number]} group_index
+	 * @param {HTMLInputElement} input
+	 * @param {() => unknown} get
+	 * @param {(value: unknown) => void} set
+	 * @returns {void}
+	 */
+	function bind_group(inputs, group_index, input, get, set = get) {
+		var is_checkbox = input.getAttribute('type') === 'checkbox';
+		var binding_group = inputs;
+
+		if (group_index !== null) {
+			for (var index of group_index) {
+				// @ts-expect-error
+				binding_group = binding_group[index] ??= [];
+			}
+		}
+
+		binding_group.push(input);
+
+		listen_to_event_and_reset_event(
+			input,
+			'change',
+			() => {
+				// @ts-ignore
+				var value = input.__value;
+
+				if (is_checkbox) {
+					value = get_binding_group_value(binding_group, value, input.checked);
+				}
+
+				set(value);
+			},
+			// TODO better default value handling
+			() => set(is_checkbox ? [] : null)
+		);
+
+		render_effect(() => {
+			var value = get();
+
+			if (is_checkbox) {
+				value = value || [];
+				// @ts-ignore
+				input.checked = value.includes(input.__value);
+			} else {
+				// @ts-ignore
+				input.checked = is(input.__value, value);
+			}
+		});
+
+		teardown(() => {
+			var index = binding_group.indexOf(input);
+
+			if (index !== -1) {
+				binding_group.splice(index, 1);
+			}
+		});
+
+		if (!pending.has(binding_group)) {
+			pending.add(binding_group);
+
+			queue_micro_task(() => {
+				// necessary to maintain binding group order in all insertion scenarios
+				binding_group.sort((a, b) => (a.compareDocumentPosition(b) === 4 ? -1 : 1));
+				pending.delete(binding_group);
+			});
+		}
+
+		queue_micro_task(() => {
+		});
+	}
+
+	/**
+	 * @param {HTMLInputElement} input
+	 * @param {() => unknown} get
+	 * @param {(value: unknown) => void} set
+	 * @returns {void}
+	 */
+	function bind_checked(input, get, set = get) {
+		listen_to_event_and_reset_event(input, 'change', (is_reset) => {
+			var value = is_reset ? input.defaultChecked : input.checked;
+			set(value);
+		});
+
+		if (
+			// If we are hydrating and the value has since changed,
+			// then use the update value from the input instead.
+			// If defaultChecked is set, then checked == defaultChecked
+			untrack(get) == null
+		) {
+			set(input.checked);
+		}
+
+		render_effect(() => {
+			var value = get();
+			input.checked = Boolean(value);
+		});
+	}
+
+	/**
+	 * @template V
+	 * @param {Array<HTMLInputElement>} group
+	 * @param {V} __value
+	 * @param {boolean} checked
+	 * @returns {V[]}
+	 */
+	function get_binding_group_value(group, __value, checked) {
+		var value = new Set();
+
+		for (var i = 0; i < group.length; i += 1) {
+			if (group[i].checked) {
+				// @ts-ignore
+				value.add(group[i].__value);
+			}
+		}
+
+		if (!checked) {
+			value.delete(__value);
+		}
+
+		return Array.from(value);
 	}
 
 	/**
@@ -3961,6 +4194,80 @@ var preOrdersApp = (function () {
 		} else {
 			return option.value;
 		}
+	}
+
+	/**
+	 * @param {any} bound_value
+	 * @param {Element} element_or_component
+	 * @returns {boolean}
+	 */
+	function is_bound_this(bound_value, element_or_component) {
+		return (
+			bound_value === element_or_component || bound_value?.[STATE_SYMBOL] === element_or_component
+		);
+	}
+
+	/**
+	 * @param {any} element_or_component
+	 * @param {(value: unknown, ...parts: unknown[]) => void} update
+	 * @param {(...parts: unknown[]) => unknown} get_value
+	 * @param {() => unknown[]} [get_parts] Set if the this binding is used inside an each block,
+	 * 										returns all the parts of the each block context that are used in the expression
+	 * @returns {void}
+	 */
+	function bind_this(element_or_component = {}, update, get_value, get_parts) {
+		effect(() => {
+			/** @type {unknown[]} */
+			var old_parts;
+
+			/** @type {unknown[]} */
+			var parts;
+
+			render_effect(() => {
+				old_parts = parts;
+				// We only track changes to the parts, not the value itself to avoid unnecessary reruns.
+				parts = [];
+
+				untrack(() => {
+					if (element_or_component !== get_value(...parts)) {
+						update(element_or_component, ...parts);
+						// If this is an effect rerun (cause: each block context changes), then nullfiy the binding at
+						// the previous position if it isn't already taken over by a different effect.
+						if (old_parts && is_bound_this(get_value(...old_parts), element_or_component)) {
+							update(null, ...old_parts);
+						}
+					}
+				});
+			});
+
+			return () => {
+				// We cannot use effects in the teardown phase, we we use a microtask instead.
+				queue_micro_task(() => {
+					if (parts && is_bound_this(get_value(...parts), element_or_component)) {
+						update(null, ...parts);
+					}
+				});
+			};
+		});
+
+		return element_or_component;
+	}
+
+	/** @import { ActionReturn } from 'svelte/action' */
+
+	/**
+	 * Substitute for the `preventDefault` event modifier
+	 * @deprecated
+	 * @param {(event: Event, ...args: Array<unknown>) => void} fn
+	 * @returns {(event: Event, ...args: unknown[]) => void}
+	 */
+	function preventDefault(fn) {
+		return function (...args) {
+			var event = /** @type {Event} */ (args[0]);
+			event.preventDefault();
+			// @ts-ignore
+			return fn?.apply(this, args);
+		};
 	}
 
 	/** @import { ComponentContextLegacy } from '#client' */
@@ -4273,6 +4580,66 @@ var preOrdersApp = (function () {
 	}
 
 	/**
+	 * @template [T=any]
+	 * @param {string} type
+	 * @param {T} [detail]
+	 * @param {any}params_0
+	 * @returns {CustomEvent<T>}
+	 */
+	function create_custom_event(type, detail, { bubbles = false, cancelable = false } = {}) {
+		return new CustomEvent(type, { detail, bubbles, cancelable });
+	}
+
+	/**
+	 * Creates an event dispatcher that can be used to dispatch [component events](https://svelte.dev/docs/svelte/legacy-on#Component-events).
+	 * Event dispatchers are functions that can take two arguments: `name` and `detail`.
+	 *
+	 * Component events created with `createEventDispatcher` create a
+	 * [CustomEvent](https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent).
+	 * These events do not [bubble](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/Events#Event_bubbling_and_capture).
+	 * The `detail` argument corresponds to the [CustomEvent.detail](https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent/detail)
+	 * property and can contain any type of data.
+	 *
+	 * The event dispatcher can be typed to narrow the allowed event names and the type of the `detail` argument:
+	 * ```ts
+	 * const dispatch = createEventDispatcher<{
+	 *  loaded: never; // does not take a detail argument
+	 *  change: string; // takes a detail argument of type string, which is required
+	 *  optional: number | null; // takes an optional detail argument of type number
+	 * }>();
+	 * ```
+	 *
+	 * @deprecated Use callback props and/or the `$host()` rune instead — see [migration guide](https://svelte.dev/docs/svelte/v5-migration-guide#Event-changes-Component-events)
+	 * @template {Record<string, any>} [EventMap = any]
+	 * @returns {EventDispatcher<EventMap>}
+	 */
+	function createEventDispatcher() {
+		const active_component_context = component_context;
+		if (active_component_context === null) {
+			lifecycle_outside_component();
+		}
+
+		return (type, detail, options) => {
+			const events = /** @type {Record<string, Function | Function[]>} */ (
+				active_component_context.s.$$events
+			)?.[/** @type {any} */ (type)];
+
+			if (events) {
+				const callbacks = is_array(events) ? events.slice() : [events];
+				// TODO are there situations where events could be dispatched
+				// in a server (non-DOM) environment?
+				const event = create_custom_event(/** @type {string} */ (type), detail, options);
+				for (const fn of callbacks) {
+					fn.call(active_component_context.x, event);
+				}
+				return !event.defaultPrevented;
+			}
+
+			return true;
+		};
+	}
+
+	/**
 	 * Legacy-mode: Init callbacks object for onMount/beforeUpdate/afterUpdate
 	 * @param {ComponentContext} context
 	 */
@@ -4291,7 +4658,7 @@ var preOrdersApp = (function () {
 
 	enable_legacy_mode_flag();
 
-	var root = template(`<img alt="Product">`);
+	var root$1 = template(`<img alt="Product">`);
 
 	function SirvImage($$anchor, $$props) {
 		let width = prop($$props, 'width', 8, 100);
@@ -4300,7 +4667,7 @@ var preOrdersApp = (function () {
 		let src = prop($$props, 'src', 8, "");
 		let displayHeight = prop($$props, 'displayHeight', 24, height);
 		let displayWidth = prop($$props, 'displayWidth', 24, width);
-		var img = root();
+		var img = root$1();
 
 		template_effect(() => {
 			set_attribute(img, 'src', `${src() ?? ''}?w=${width() ?? ''}&h=${height() ?? ''}&q=${quality() ?? ''}`);
@@ -4724,7 +5091,6 @@ var preOrdersApp = (function () {
 	}
 
 	function translate(preferredLanguage) {
-	  preferredLanguage = getPreferredLanguage();
 	  return function translate(str) {
 	    if (languages[preferredLanguage]) {
 	      return languages[preferredLanguage][str];
@@ -4734,40 +5100,971 @@ var preOrdersApp = (function () {
 	  };
 	}
 
-	let t = translate();
+	var root_3$1 = template(`<span class="tag is-light"> </span>`);
+	var root_2$1 = template(`<div class="column body-col is-12-mobile is-7-tablet is-7-desktop"><h3 class="title is-5 m-0"> </h3> <p class="subtitle is-6 mt-1"><!></p> <div class="tags mt-2"></div></div>`);
+	var root_5 = template(`<button class="button is-info is-light"> </button>`);
+	var root_6$1 = template(`<button class="button is-primary"> </button>`);
+	var root_7$1 = template(`<p class="mb-5"><!></p>`);
+	var root_1 = template(`<div class="box shareblaze-banner"><button class="expand-btn"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M7.41 8.41 12 13l4.59-4.59L18 9.83 12 15.83 6 9.83z"></path></svg></button> <div class="columns is-variable is-1 is-vcentered is-multiline"><div class="column is-narrow mb-3"><span class="tag is-danger is-light is-medium">#ShareBlaze</span></div> <!> <div class="column actions-col is-12-mobile has-text-right-tablet mt-5"><div class="buttons is-right is-flex is-flex-wrap-wrap is-justify-content-flex-start is-justify-content-flex-end-tablet"><!> <button class="button is-white is-light"> </button></div></div></div></div>`);
+	var root_8$1 = template(`<div class="success-overlay"><div class="notification is-success is-light"> </div></div>`);
+	var root_9$1 = template(`<div class="notification is-danger is-light"> </div>`);
+	var root_10$1 = template(`<option> </option>`);
+	var root_11$1 = template(`<div class="field"><label class="label"> </label> <div class="file is-fullwidth"><label class="file-label"><input class="file-input" type="file" accept=".mp4,.mov,video/*"> <span class="file-cta"><span class="file-label"> </span></span></label></div></div>`);
+	var root_12$1 = template(`<p class="my-5"> </p>`);
+	var root_13$1 = template(`<div class="field mt-3"><label class="label">Seleziona il tuo omaggio</label> <div class="control"><label class="radio"><input type="radio" required> Polsini BlazeBands</label></div> <div class="control"><label class="radio"><input type="radio"> Salvietta GymDry</label></div> <div class="control"><label class="radio"><input type="radio"> T-Shirt Kettleblaze</label></div> <div class="control"><label class="radio"><input type="radio"> HexaPad</label></div></div>`);
+	var root = template(`<!> <!> <div><div class="modal-background"></div> <div class="modal-card"><header class="modal-card-head"><p class="modal-card-title"> </p> <button class="delete" aria-label="close"></button></header> <section class="modal-card-body"><!> <div class="field"><label class="label"> </label> <div class="control"><div class="select is-fullwidth"><select><option disabled selected>—</option><!></select></div></div></div> <div class="field"><label class="label"> </label> <div class="control"><input class="input" type="text" placeholder="@tuo_handle"></div></div> <div class="field"><label class="label"> </label> <div class="control"><input class="input" type="url" placeholder="https://…"></div></div> <!> <div class="field"><label class="label"> </label> <div class="control"><div class="select is-fullwidth"><select><option disabled selected>—</option><option> </option><option> </option><option> </option></select></div></div></div> <!> <p class="help"> </p> <div class="field mt-3"><label class="checkbox"><input type="checkbox"> <span class="ml-2"> </span></label></div></section> <footer class="modal-card-foot"><button class="button is-primary"> </button> <button class="button">Close</button></footer></div></div>`, 1);
+
+	function ShareBlazeBanner($$anchor, $$props) {
+		push($$props, false);
+
+		const binding_group = [];
+		let lang = prop($$props, 'lang', 8);
+		let orderId = prop($$props, 'orderId', 8, "");
+		let order = prop($$props, 'order', 8);
+		let isEligible = prop($$props, 'isEligible', 8, true);
+		let compact = prop($$props, 'compact', 8, false);
+		let uploadUrl = prop($$props, 'uploadUrl', 8, "");
+		let products = prop($$props, 'products', 24, () => ["FlexiBell 2", "Magneti-X"]);
+
+		let showPlatforms = prop($$props, 'showPlatforms', 24, () => [
+			"Instagram",
+			"YouTube",
+			"Facebook",
+			"Reddit",
+			"TikTok"
+		]);
+
+		let hideSuccessOverlay = mutable_state(false);
+		createEventDispatcher();
+
+		const i18n = {
+			it: {
+				title: "#ShareBlaze",
+				subtitle: "Condividi il tuo video con {products} e ricevi una ricompensa garantita.",
+				ctaUpload: "Carica il tuo video",
+				ctaGoToForm: "Vai al modulo",
+				ctaRules: "Leggi le regole",
+				urlRules: "https://kettleblaze.store/en/blog/shareblaze-referral-kettlebell-magnetix-flexibell2",
+				dismiss: "Non ora",
+				modalTitle: "Invia contributo #ShareBlaze",
+				fieldPlatform: "Piattaforma",
+				fieldHandle: "Username/Handle (opz.)",
+				fieldLink: "Link del video (se pubblico)",
+				or: "oppure",
+				fieldFile: "Carica il file (MP4, MOV, max 200MB)*",
+				rewardTitle: "Scegli la tua ricompensa*",
+				r1: "Prodotto omaggio",
+				r2: "Chargeback di 5€",
+				r3: "Coupon sconto 10€",
+				agree: "Ho letto e accetto le regole del programma (entro 7 giorni dalla consegna, contenuti autentici e conformi).",
+				submit: "Invia",
+				required: "I campi contrassegnati con * sono obbligatori.",
+				success: "Grazie! Abbiamo ricevuto il tuo contributo.",
+				errPlatform: "Seleziona una piattaforma.",
+				errReward: "Seleziona una ricompensa.",
+				errLinkOrFile: "Inserisci un link oppure carica un file.",
+				errChosenGift: "Non hai scelto il tuo omaggio!",
+				upload_confirmation: "Video caricato correttamente!",
+				upload_greetings: 'Hai già caricato il tuo video in data {date}: grazie!!<br>Hai scelto come ricompensa: {chosenReward}.<br><ol class="is-size-6 mt-4 px-4" type="1"><li>Se si tratta di un prodotto omaggio verrà spedito a breve.</li><li> Se un coupon, lo riceverai a breve via email</li><li>Se invece è un chargeback verrà emesso a breve e entro pochi giorni lo vedrai accreditato nel metodo di pagamento utilizzato in questo ordine.</li></ol>',
+				upload: "Carica",
+				blazebands: "i polsini BlazeBands",
+				hexapad: "l'HexaPad",
+				t_shirt: "la t-shirt con logo kettleblaze",
+				gymdry: "la salvietta da palestra GymDry",
+				chargeback: "il chargeback da € 5,00",
+				coupon: "il coupon da € 10,00"
+			},
+			en: {
+				title: "#ShareBlaze",
+				subtitle: "Share your video with {products} and get a guaranteed reward.",
+				ctaUpload: "Upload your video",
+				ctaGoToForm: "Go to the form",
+				ctaRules: "Read the rules",
+				urlRules: "https://kettleblaze.store/en/blog/shareblaze-referral-kettlebell-magnetix-flexibell2",
+				dismiss: "Not now",
+				modalTitle: "Send your #ShareBlaze submission",
+				fieldPlatform: "Platform",
+				fieldHandle: "Username/Handle (opt.)",
+				fieldLink: "Video link (if public)",
+				or: "or",
+				fieldFile: "Upload file (MP4, MOV, max 200MB)*",
+				rewardTitle: "Choose your reward*",
+				r1: "Free gift",
+				r2: "€5 chargeback",
+				r3: "€10 discount coupon",
+				agree: "I have read and accept the program rules (within 7 days of delivery, authentic and compliant content).",
+				submit: "Send",
+				required: "Fields marked with * are required.",
+				success: "Thanks! We’ve received your submission.",
+				errPlatform: "Select a platform.",
+				errReward: "Select a reward.",
+				errLinkOrFile: "Enter a link or upload a file.",
+				errChosenGift: "You haven’t chosen your free gift!",
+				upload_confirmation: "Video successfully uploaded!",
+				upload_greetings: 'You already uploaded your video on {date}: thank you!!<br>You chose as your reward: {chosenReward}.<br><ol class="is-size-6 mt-4 px-4" type="1"><li>If it’s a free product, it will be shipped soon.</li><li>If it’s a coupon, you’ll receive it by email shortly.</li><li>If it’s a chargeback, it will be issued soon and within a few days you’ll see it credited to the payment method used for this order.</li></ol>',
+				upload: "Upload",
+				blazebands: "BlazeBands wristbands",
+				hexapad: "HexaPad",
+				t_shirt: "Kettleblaze logo T-shirt",
+				gymdry: "GymDry workout towel",
+				chargeback: "the € 5.00 chargeback",
+				coupon: "the € 10.00 coupon"
+			},
+			fr: {
+				title: "#ShareBlaze",
+				subtitle: "Partage ta vidéo avec {products} et reçois une récompense garantie.",
+				ctaUpload: "Envoie ta vidéo",
+				ctaGoToForm: "Accéder au formulaire",
+				ctaRules: "Lire les règles",
+				urlRules: "https://kettleblaze.store/en/blog/shareblaze-referral-kettlebell-magnetix-flexibell2",
+				dismiss: "Pas maintenant",
+				modalTitle: "Envoyer ta contribution #ShareBlaze",
+				fieldPlatform: "Plateforme",
+				fieldHandle: "Nom d’utilisateur/Handle (facult.)",
+				fieldLink: "Lien de la vidéo (si publique)",
+				or: "ou",
+				fieldFile: "Importer le fichier (MP4, MOV, 200 Mo max)*",
+				rewardTitle: "Choisis ta récompense*",
+				r1: "Cadeau gratuit",
+				r2: "Remboursement de 5 €",
+				r3: "Coupon de réduction de 10 €",
+				agree: "J’ai lu et j’accepte le règlement du programme (dans les 7 jours suivant la livraison, contenus authentiques et conformes).",
+				submit: "Envoyer",
+				required: "Les champs marqués d’un * sont obligatoires.",
+				success: "Merci ! Nous avons bien reçu ta contribution.",
+				errPlatform: "Sélectionne une plateforme.",
+				errReward: "Sélectionne une récompense.",
+				errLinkOrFile: "Saisis un lien ou importe un fichier.",
+				errChosenGift: "Tu n’as pas choisi ton cadeau !",
+				upload_confirmation: "Vidéo importée avec succès !",
+				upload_greetings: 'Tu as déjà téléversé ta vidéo le {date} : merci !!<br>Tu as choisi comme récompense : {chosenReward}.<br><ol class="is-size-6 mt-4 px-4" type="1"><li>S’il s’agit d’un produit cadeau, il sera expédié prochainement.</li><li>S’il s’agit d’un coupon, tu le recevras bientôt par e-mail.</li><li>S’il s’agit d’un remboursement, il sera émis prochainement et, sous quelques jours, tu le verras crédité sur le moyen de paiement utilisé pour cette commande.</li></ol>',
+				upload: "Téléverser",
+				blazebands: "les bracelets de poignet BlazeBands",
+				hexapad: "l’HexaPad",
+				t_shirt: "le T-shirt logo Kettleblaze",
+				gymdry: "la serviette de sport GymDry",
+				chargeback: "le remboursement de 5,00 €",
+				coupon: "le coupon de 10,00 €"
+			},
+			de: {
+				title: "#ShareBlaze",
+				subtitle: "Teile dein Video mit {products} und erhalte eine garantierte Belohnung.",
+				ctaUpload: "Dein Video hochladen",
+				ctaGoToForm: "Zum Formular",
+				ctaRules: "Regeln lesen",
+				urlRules: "https://kettleblaze.store/en/blog/shareblaze-referral-kettlebell-magnetix-flexibell2",
+				dismiss: "Nicht jetzt",
+				modalTitle: "Deinen #ShareBlaze-Beitrag senden",
+				fieldPlatform: "Plattform",
+				fieldHandle: "Benutzername/Handle (optional)",
+				fieldLink: "Videolink (falls öffentlich)",
+				or: "oder",
+				fieldFile: "Datei hochladen (MP4, MOV, max. 200 MB)*",
+				rewardTitle: "Wähle deine Belohnung*",
+				r1: "Gratisprodukt",
+				r2: "Rückerstattung von 5 €",
+				r3: "Gutschein über 10 €",
+				agree: "Ich habe die Programmregeln gelesen und akzeptiere sie (innerhalb von 7 Tagen nach Lieferung, authentische und konforme Inhalte).",
+				submit: "Senden",
+				required: "Mit * markierte Felder sind Pflichtfelder.",
+				success: "Danke! Wir haben deinen Beitrag erhalten.",
+				errPlatform: "Plattform auswählen.",
+				errReward: "Belohnung auswählen.",
+				errLinkOrFile: "Link angeben oder Datei hochladen.",
+				errChosenGift: "Du hast dein Gratisgeschenk nicht ausgewählt!",
+				upload_confirmation: "Video erfolgreich hochgeladen!",
+				upload_greetings: 'Du hast dein Video bereits am {date} hochgeladen: danke!!<br>Als Belohnung hast du gewählt: {chosenReward}.<br><ol class="is-size-6 mt-4 px-4" type="1"><li>Handelt es sich um ein Gratisprodukt, wird es in Kürze versendet.</li><li>Ist es ein Gutschein, erhältst du ihn bald per E-Mail.</li><li>Bei einer Rückerstattung wird diese zeitnah veranlasst und innerhalb weniger Tage auf die für diese Bestellung verwendete Zahlungsmethode gutgeschrieben.</li></ol>',
+				upload: "Hochladen",
+				blazebands: "BlazeBands-Handgelenkbänder",
+				hexapad: "HexaPad",
+				t_shirt: "Kettleblaze Logo-T-Shirt",
+				gymdry: "GymDry Trainingshandtuch",
+				chargeback: "die Rückerstattung von 5,00 €",
+				coupon: "den Gutschein über 10,00 €"
+			},
+			es: {
+				title: "#ShareBlaze",
+				subtitle: "Comparte tu vídeo con {products} y recibe una recompensa garantizada.",
+				ctaUpload: "Sube tu vídeo",
+				ctaGoToForm: "Ir al formulario",
+				ctaRules: "Leer las reglas",
+				urlRules: "https://kettleblaze.store/en/blog/shareblaze-referral-kettlebell-magnetix-flexibell2",
+				dismiss: "Ahora no",
+				modalTitle: "Enviar contribución #ShareBlaze",
+				fieldPlatform: "Plataforma",
+				fieldHandle: "Usuario/Handle (opc.)",
+				fieldLink: "Enlace del vídeo (si es público)",
+				or: "o",
+				fieldFile: "Sube el archivo (MP4, MOV, máx. 200 MB)*",
+				rewardTitle: "Elige tu recompensa*",
+				r1: "Producto de regalo",
+				r2: "Reembolso de 5 €",
+				r3: "Cupón de 10 €",
+				agree: "He leído y acepto las reglas del programa (dentro de 7 días desde la entrega, contenido auténtico y conforme).",
+				submit: "Enviar",
+				required: "Los campos marcados con * son obligatorios.",
+				success: "¡Gracias! Hemos recibido tu contribución.",
+				errPlatform: "Selecciona una plataforma.",
+				errReward: "Selecciona una recompensa.",
+				errLinkOrFile: "Introduce un enlace o sube un archivo.",
+				errChosenGift: "¡No has elegido tu regalo!",
+				upload_confirmation: "¡Vídeo subido correctamente!",
+				upload_greetings: 'Ya subiste tu vídeo el {date}: ¡gracias!<br>Elegiste como recompensa: {chosenReward}.<br><ol class="is-size-6 mt-4 px-4" type="1"><li>Si es un producto de regalo, se enviará en breve.</li><li>Si es un cupón, lo recibirás por correo en breve.</li><li>Si es un reembolso, se emitirá en breve y en unos días lo verás abonado en el método de pago usado en este pedido.</li></ol>',
+				upload: "Subir",
+				blazebands: "las muñequeras BlazeBands",
+				hexapad: "el HexaPad",
+				t_shirt: "la camiseta con logo Kettleblaze",
+				gymdry: "la toalla de gimnasio GymDry",
+				chargeback: "el reembolso de 5,00 €",
+				coupon: "el cupón de 10,00 €"
+			},
+			pl: {
+				title: "#ShareBlaze",
+				subtitle: "Udostępnij swój film z {products} i odbierz gwarantowaną nagrodę.",
+				ctaUpload: "Prześlij swój film",
+				ctaGoToForm: "Przejdź do formularza",
+				ctaRules: "Przeczytaj zasady",
+				urlRules: "https://kettleblaze.store/en/blog/shareblaze-referral-kettlebell-magnetix-flexibell2",
+				dismiss: "Nie teraz",
+				modalTitle: "Wyślij zgłoszenie #ShareBlaze",
+				fieldPlatform: "Platforma",
+				fieldHandle: "Nazwa użytkownika/Handle (opc.)",
+				fieldLink: "Link do filmu (jeśli publiczny)",
+				or: "albo",
+				fieldFile: "Prześlij plik (MP4, MOV, maks. 200 MB)*",
+				rewardTitle: "Wybierz nagrodę*",
+				r1: "Prezent gratis",
+				r2: "Zwrot 5 €",
+				r3: "Kupon rabatowy 10 €",
+				agree: "Przeczytałem(am) i akceptuję zasady programu (do 7 dni od doręczenia, treści autentyczne i zgodne).",
+				submit: "Wyślij",
+				required: "Pola oznaczone * są obowiązkowe.",
+				success: "Dziękujemy! Otrzymaliśmy Twoje zgłoszenie.",
+				errPlatform: "Wybierz platformę.",
+				errReward: "Wybierz nagrodę.",
+				errLinkOrFile: "Podaj link lub prześlij plik.",
+				errChosenGift: "Nie wybrałeś(aś) prezentu!",
+				upload_confirmation: "Wideo zostało pomyślnie przesłane!",
+				upload_greetings: 'Już przesłałeś(aś) swój film w dniu {date}: dziękujemy!!<br>Wybrana nagroda: {chosenReward}.<br><ol class="is-size-6 mt-4 px-4" type="1"><li>Jeśli to prezent, zostanie wkrótce wysłany.</li><li>Jeśli to kupon, wkrótce otrzymasz go e-mailem.</li><li>Jeśli to zwrot, zostanie on wkrótce zrealizowany i w ciągu kilku dni pojawi się na metodzie płatności użytej w tym zamówieniu.</li></ol>',
+				upload: "Prześlij",
+				blazebands: "opaski nadgarstkowe BlazeBands",
+				hexapad: "HexaPad",
+				t_shirt: "koszulka z logo Kettleblaze",
+				gymdry: "ręcznik treningowy GymDry",
+				chargeback: "zwrot 5,00 €",
+				coupon: "kupon 10,00 €"
+			}
+		};
+
+		const T = i18n[lang()] || i18n.it;
+		const keyLS = (orderId) => `kblz_shareblaze_dismissed_${orderId || "none"}`;
+		let dismissed = mutable_state(false);
+		let showModal = mutable_state(false);
+		// form state
+		let platform = mutable_state("");
+		let handle = mutable_state("");
+		let link = mutable_state("");
+		let reward = mutable_state("");
+		let agree = mutable_state(false);
+		let chosenGift = mutable_state("blazebands");
+		let successMsg = mutable_state("");
+		let errorMsg = mutable_state("");
+
+		onMount(() => {
+			const saved = localStorage.getItem(keyLS(orderId()));
+
+			set(dismissed, saved === "1");
+		});
+
+		function openModal() {
+			document.body.style = "overflow-y:hidden;";
+
+			if (window.tidioChatApi) {
+				window.tidioChatApi.hide();
+			}
+
+			set(showModal, true);
+			set(successMsg, "");
+			set(errorMsg, "");
+		}
+
+		async function closeModal() {
+			document.body.style = "overflow-y:hidden;";
+
+			if (get(hasOrderVideo)) {
+				await deleteOrderVideo();
+				set(hasOrderVideo, false);
+			}
+
+			set(showModal, false);
+
+			if (window.tidioChatApi) {
+				window.tidioChatApi.hide();
+			}
+		}
+
+		function validate() {
+			if (!get(platform)) return T.errPlatform;
+			if (!get(link)) return T.errLinkOrFile;
+			if (!get(hasOrderVideo)) return T.errLinkOrFile;
+			if (!get(reward)) return T.errReward;
+
+			if (get(reward) === "gift") {
+				if (!get(chosenGift)) return T.errChosenGift;
+			}
+
+			if (!get(agree)) return T.errReward; // overload: costringe a leggere regole
+			return "";
+		}
+
+		async function submitForm() {
+			set(errorMsg, validate());
+			if (get(errorMsg)) return;
+
+			// costruiamo payload e lo passiamo al parent
+			const payload = {
+				orderId: orderId(),
+				platform: get(platform),
+				username: get(handle)?.trim() || null,
+				video_url: get(link)?.trim() || null,
+				chosen_reward: get(reward) === "gift" ? get(chosenGift) : get(reward),
+				lang: order().lang,
+				accept_terms_and_condition: get(agree)
+			};
+
+			const r = await fetch(API_UPDATE_URL, {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify(payload)
+			}).then((resp) => {
+				return resp.json();
+			});
+
+			if (r) {
+				// opzionale: chiudi e mostra successo
+				set(successMsg, T.success);
+				await fetchOrderVideoStatus();
+
+				setTimeout(
+					() => {
+						set(showModal, false);
+
+						setTimeout(
+							() => {
+								set(hideSuccessOverlay, true);
+							},
+							1500
+						);
+					},
+					3000
+				);
+			}
+
+			// reset solo campi non-critici
+			set(platform, "");
+			set(handle, "");
+			set(link, "");
+			set(reward, "");
+			set(agree, false);
+			set(chosenGift, "blazebands");
+		}
+
+		function platformsLabel(p) {
+			return p;
+		}
+
+		// ====== UI: expand/collapse ======
+		let expanded = mutable_state(false); // inizialmente mostra solo l'header
+
+		const toggleExpand = () => {
+			set(expanded, !get(expanded));
+		};
+
+		// 🔐 Cloudinary config —> SOSTITUISCI con i tuoi
+		const CLOUD_NAME = "dnhclxe7k";
+		const UPLOAD_PRESET = "ml_default"; // unsigned o signed preset già configurato
+		const FOLDER = "shareblaze"; // es. "shareblaze" o "kettleblaze/shareblaze"
+		const API_STATUS_URL = "http://localhost:8080/shareblaze-order-upload/status"; // GET ?orderId=...
+		const API_SAVE_URL = "http://localhost:8080/shareblaze-order-upload"; // POST
+		const API_UPDATE_URL = "http://localhost:8080/shareblaze-order-update"; // POST
+		const API_DELETE_URL = "http://localhost:8080/shareblaze-delete-video"; // DELETE
+		let hasOrderVideo = mutable_state(false); // 🔸 server dice se c’è già un video
+		let uploadBtnEl = mutable_state(); // se vuoi bindare il pulsante esistente
+		let widget; // istanza upload widget
+		let widgetReady = false;
+		let isComplete = mutable_state(false);
+		let chosenReward = mutable_state("");
+		let shareDate = mutable_state(null);
+
+		async function fetchOrderVideoStatus() {
+			try {
+				const r = await fetch(`${API_STATUS_URL}?orderId=${encodeURIComponent(orderId())}`);
+				const j = await r.json();
+
+				set(hasOrderVideo, !!j?.hasVideo);
+				set(isComplete, j?.isComplete);
+				set(chosenReward, j?.chosenReward);
+				set(shareDate, new Date(j?.createdAt));
+			} catch(e) {
+				console.warn("Impossibile leggere stato video ordine:", e); // fallback: lasciare hasOrderVideo = false
+			}
+		}
+
+		async function deleteOrderVideo() {
+			try {
+				const r = await fetch(`${API_DELETE_URL}?orderId=${encodeURIComponent(orderId())}`, { method: "POST" });
+				const j = await r.json();
+
+				set(hasOrderVideo, !!j?.hasVideo);
+			} catch(e) {
+				console.warn("Impossibile eliminare il video:", e); // fallback: lasciare hasOrderVideo = false
+			}
+		}
+
+		function openUploadWidget() {
+			if (get(hasOrderVideo)) {
+				alert("È già stato caricato un video per questo ordine.");
+				return;
+			}
+
+			if (widgetReady && widget) widget.open();
+		}
+
+		function loadScript(src) {
+			return new Promise((resolve, reject) => {
+				if (document.querySelector(`script[src="${src}"]`)) return resolve();
+
+				const s = document.createElement("script");
+
+				s.src = src;
+				s.async = true;
+				s.onload = resolve;
+				s.onerror = reject;
+				document.head.appendChild(s);
+			});
+		}
+
+		async function registerVideoOnServer(info) {
+			const payload = {
+				orderId: orderId(),
+				video: {
+					url: info.secure_url,
+					publicId: info.public_id,
+					bytes: info.bytes,
+					duration: info.duration,
+					format: info.format,
+					width: info.width,
+					height: info.height,
+					// poster se già usi la funzione makePosterUrl:
+					// poster: makePosterUrl(info.public_id),
+					tags: [
+						"shareblaze",
+						`order_${orderId()}`,
+						order().lang
+					]
+				}
+			};
+
+			const res = await fetch(API_SAVE_URL, {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify(payload)
+			});
+
+			if (res.ok) {
+				set(hasOrderVideo, true); // 🔒 blocca altri upload
+				return;
+			}
+
+			// gestione conflitto: server dice che esiste già
+			if (res.status === 409) {
+				set(hasOrderVideo, true); // allinea stato UI
+
+				const j = await res.json().catch(() => ({}));
+
+				alert(j?.message || "Esiste già un video per questo ordine.");
+				return;
+			}
+
+			// altro errore
+			const j = await res.json().catch(() => ({}));
+
+			throw new Error(j?.error || "upload_register_failed");
+		}
+
+		onMount(async () => {
+			await fetchOrderVideoStatus();
+
+			if (!get(hasOrderVideo)) {
+				// 1) carico il widget in modo non bloccante
+				await loadScript("https://widget.cloudinary.com/v2.0/global/all.js");
+
+				// 2) creo il widget
+				widget = window.cloudinary.createUploadWidget(
+					{
+						cloudName: CLOUD_NAME,
+						uploadPreset: UPLOAD_PRESET,
+						sources: ["local", "camera", "url"],
+						multiple: false,
+						resourceType: "video",
+						folder: FOLDER,
+						tags: [
+							"shareblaze",
+							`order_${orderId()}`,
+							order().lang
+						].filter(Boolean),
+						context: {
+							order_id: orderId(),
+							source: "order-page",
+							lang: order().lang
+						},
+						clientAllowedFormats: ["mp4", "webm", "mov", "mkv"],
+						maxFileSize: 150 * 1024 * 1024, // 150MB, regola se serve
+						showPoweredBy: false
+					},
+					async (error, result) => {
+						if (error) {
+							console.error("Cloudinary widget error:", error);
+							return;
+						}
+
+						if (result?.event === "upload-added") ;
+
+						if (result?.event === "success") {
+							try {
+								await registerVideoOnServer(result.info);
+							} catch(e) {
+								console.error(e);
+								alert("Errore durante il salvataggio del video. Riprova più tardi.");
+							} finally {
+							}
+						}
+					}
+				);
+
+				widgetReady = true;
+			}
+		});
+
+		// Handler da attaccare al tuo pulsante se puoi modificare solo l'evento:
+		function handleUploadClick(e) {
+			e?.preventDefault?.();
+			openUploadWidget();
+		}
+
+		init();
+
+		var fragment = root();
+		var node = first_child(fragment);
+
+		{
+			var consequent_3 = ($$anchor) => {
+				var div = root_1();
+				var button = child(div);
+				var div_1 = sibling(button, 2);
+				var node_1 = sibling(child(div_1), 2);
+
+				{
+					var consequent = ($$anchor) => {
+						var div_2 = root_2$1();
+						var h3 = child(div_2);
+						var text = child(h3);
+
+						var p_1 = sibling(h3, 2);
+						var node_2 = child(p_1);
+
+						html(node_2, () => T.subtitle.replace("{products}", products().join(" & ")));
+
+						var div_3 = sibling(p_1, 2);
+
+						each(div_3, 5, showPlatforms, index, ($$anchor, p) => {
+							var span = root_3$1();
+							var text_1 = child(span);
+							template_effect(($0) => set_text(text_1, $0), [() => platformsLabel(get(p))], derived_safe_equal);
+							append($$anchor, span);
+						});
+						template_effect(() => set_text(text, T.title));
+						append($$anchor, div_2);
+					};
+
+					if_block(node_1, ($$render) => {
+						if (!get(isComplete)) $$render(consequent);
+					});
+				}
+
+				var div_4 = sibling(node_1, 2);
+				var div_5 = child(div_4);
+				var node_3 = child(div_5);
+
+				{
+					var consequent_2 = ($$anchor) => {
+						var fragment_1 = comment();
+						var node_4 = first_child(fragment_1);
+
+						{
+							var consequent_1 = ($$anchor) => {
+								var button_1 = root_5();
+								var text_2 = child(button_1);
+								template_effect(() => set_text(text_2, T.ctaUpload));
+								event('click', button_1, openModal);
+								append($$anchor, button_1);
+							};
+
+							var alternate = ($$anchor) => {
+								var button_2 = root_6$1();
+								var text_3 = child(button_2);
+								template_effect(() => set_text(text_3, T.ctaUpload));
+								event('click', button_2, openModal);
+								append($$anchor, button_2);
+							};
+
+							if_block(node_4, ($$render) => {
+								if (uploadUrl()) $$render(consequent_1); else $$render(alternate, false);
+							});
+						}
+
+						append($$anchor, fragment_1);
+					};
+
+					var alternate_1 = ($$anchor) => {
+						var p_2 = root_7$1();
+						var node_5 = child(p_2);
+
+						html(
+							node_5,
+							() => T.upload_greetings.replace("{date}", get(shareDate).toLocaleDateString("it-IT", {
+								day: "2-digit",
+								month: "2-digit",
+								year: "numeric"
+							})).replace("{chosenReward}", T[get(chosenReward)]));
+						append($$anchor, p_2);
+					};
+
+					if_block(node_3, ($$render) => {
+						if (!get(isComplete)) $$render(consequent_2); else $$render(alternate_1, false);
+					});
+				}
+
+				var button_3 = sibling(node_3, 2);
+				var text_4 = child(button_3);
+
+				template_effect(() => {
+					toggle_class(div, 'compact', compact());
+					toggle_class(div, 'collapsed', !get(expanded));
+					set_attribute(button, 'aria-label', get(expanded) ? T?.collapseLabel || "Comprimi" : T?.expandLabel || "Espandi");
+					set_attribute(button, 'aria-expanded', get(expanded));
+					set_attribute(button, 'title', get(expanded) ? T?.collapseLabel || "Comprimi" : T?.expandLabel || "Espandi");
+					set_text(text_4, T.ctaRules);
+				});
+
+				event('click', button, toggleExpand);
+				event('click', button_3, () => window.open(T.urlRules, "_blank"));
+				append($$anchor, div);
+			};
+
+			if_block(node, ($$render) => {
+				if (isEligible() && !get(dismissed)) $$render(consequent_3);
+			});
+		}
+
+		var node_6 = sibling(node, 2);
+
+		{
+			var consequent_4 = ($$anchor) => {
+				var div_6 = root_8$1();
+				var div_7 = child(div_6);
+				var text_5 = child(div_7);
+
+				template_effect(() => {
+					toggle_class(div_6, 'hidden', get(hideSuccessOverlay));
+					set_text(text_5, get(successMsg));
+				});
+
+				append($$anchor, div_6);
+			};
+
+			if_block(node_6, ($$render) => {
+				if (get(successMsg)) $$render(consequent_4);
+			});
+		}
+
+		var div_8 = sibling(node_6, 2);
+		var div_9 = child(div_8);
+		var div_10 = sibling(div_9, 2);
+		var header = child(div_10);
+		var p_3 = child(header);
+		var text_6 = child(p_3);
+
+		var button_4 = sibling(p_3, 2);
+
+		var section = sibling(header, 2);
+		var node_7 = child(section);
+
+		{
+			var consequent_5 = ($$anchor) => {
+				var div_11 = root_9$1();
+				var text_7 = child(div_11);
+				template_effect(() => set_text(text_7, get(errorMsg)));
+				append($$anchor, div_11);
+			};
+
+			if_block(node_7, ($$render) => {
+				if (get(errorMsg)) $$render(consequent_5);
+			});
+		}
+
+		var div_12 = sibling(node_7, 2);
+		var label = child(div_12);
+		var text_8 = child(label);
+
+		var div_13 = sibling(label, 2);
+		var div_14 = child(div_13);
+		var select = child(div_14);
+
+		template_effect(() => {
+			get(platform);
+
+			invalidate_inner_signals(() => {
+				showPlatforms();
+			});
+		});
+
+		var option = child(select);
+
+		option.value = null == (option.__value = '') ? '' : '';
+
+		var node_8 = sibling(option);
+
+		each(node_8, 1, showPlatforms, index, ($$anchor, p) => {
+			var option_1 = root_10$1();
+			var option_1_value = {};
+			var text_9 = child(option_1);
+
+			template_effect(
+				($0) => {
+					if (option_1_value !== (option_1_value = get(p))) {
+						option_1.value = null == (option_1.__value = get(p)) ? '' : get(p);
+					}
+
+					set_text(text_9, $0);
+				},
+				[() => platformsLabel(get(p))],
+				derived_safe_equal
+			);
+
+			append($$anchor, option_1);
+		});
+
+		var div_15 = sibling(div_12, 2);
+		var label_1 = child(div_15);
+		var text_10 = child(label_1);
+
+		var div_16 = sibling(label_1, 2);
+		var input = child(div_16);
+
+		var div_17 = sibling(div_15, 2);
+		var label_2 = child(div_17);
+		var text_11 = child(label_2);
+
+		var div_18 = sibling(label_2, 2);
+		var input_1 = child(div_18);
+
+		var node_9 = sibling(div_17, 2);
+
+		{
+			var consequent_6 = ($$anchor) => {
+				var div_19 = root_11$1();
+				var label_3 = child(div_19);
+				var text_12 = child(label_3);
+
+				var div_20 = sibling(label_3, 2);
+				var label_4 = child(div_20);
+				var input_2 = child(label_4);
+
+				bind_this(input_2, ($$value) => set(uploadBtnEl, $$value), () => get(uploadBtnEl));
+
+				var span_1 = sibling(input_2, 2);
+				var span_2 = child(span_1);
+				var text_13 = child(span_2);
+
+				template_effect(() => {
+					set_text(text_12, T.fieldFile);
+					set_text(text_13, T.upload);
+				});
+
+				event('click', input_2, preventDefault(handleUploadClick));
+				append($$anchor, div_19);
+			};
+
+			var alternate_2 = ($$anchor) => {
+				var p_4 = root_12$1();
+				var text_14 = child(p_4);
+				template_effect(() => set_text(text_14, T.upload_confirmation));
+				append($$anchor, p_4);
+			};
+
+			if_block(node_9, ($$render) => {
+				if (!get(hasOrderVideo)) $$render(consequent_6); else $$render(alternate_2, false);
+			});
+		}
+
+		var div_21 = sibling(node_9, 2);
+		var label_5 = child(div_21);
+		var text_15 = child(label_5);
+
+		var div_22 = sibling(label_5, 2);
+		var div_23 = child(div_22);
+		var select_1 = child(div_23);
+
+		template_effect(() => {
+			get(reward);
+
+			invalidate_inner_signals(() => {
+			});
+		});
+
+		var option_2 = child(select_1);
+
+		option_2.value = null == (option_2.__value = '') ? '' : '';
+
+		var option_3 = sibling(option_2);
+
+		option_3.value = null == (option_3.__value = 'gift') ? '' : 'gift';
+
+		var text_16 = child(option_3);
+
+		var option_4 = sibling(option_3);
+
+		option_4.value = null == (option_4.__value = 'chargeback') ? '' : 'chargeback';
+
+		var text_17 = child(option_4);
+
+		var option_5 = sibling(option_4);
+
+		option_5.value = null == (option_5.__value = 'coupon') ? '' : 'coupon';
+
+		var text_18 = child(option_5);
+
+		var node_10 = sibling(div_21, 2);
+
+		{
+			var consequent_7 = ($$anchor) => {
+				var div_24 = root_13$1();
+				var div_25 = sibling(child(div_24), 2);
+				var label_6 = child(div_25);
+				var input_3 = child(label_6);
+				input_3.value = null == (input_3.__value = 'blazebands') ? '' : 'blazebands';
+
+				var div_26 = sibling(div_25, 2);
+				var label_7 = child(div_26);
+				var input_4 = child(label_7);
+				input_4.value = null == (input_4.__value = 'gymdry') ? '' : 'gymdry';
+
+				var div_27 = sibling(div_26, 2);
+				var label_8 = child(div_27);
+				var input_5 = child(label_8);
+				input_5.value = null == (input_5.__value = 't_shirt') ? '' : 't_shirt';
+
+				var div_28 = sibling(div_27, 2);
+				var label_9 = child(div_28);
+				var input_6 = child(label_9);
+				input_6.value = null == (input_6.__value = 'hexapad') ? '' : 'hexapad';
+				bind_group(binding_group, [], input_3, () => get(chosenGift), ($$value) => set(chosenGift, $$value));
+				bind_group(binding_group, [], input_4, () => get(chosenGift), ($$value) => set(chosenGift, $$value));
+				bind_group(binding_group, [], input_5, () => get(chosenGift), ($$value) => set(chosenGift, $$value));
+				bind_group(binding_group, [], input_6, () => get(chosenGift), ($$value) => set(chosenGift, $$value));
+				append($$anchor, div_24);
+			};
+
+			if_block(node_10, ($$render) => {
+				if (get(reward) === "gift") $$render(consequent_7);
+			});
+		}
+
+		var p_5 = sibling(node_10, 2);
+		var text_19 = child(p_5);
+
+		var div_29 = sibling(p_5, 2);
+		var label_10 = child(div_29);
+		var input_7 = child(label_10);
+
+		var span_3 = sibling(input_7, 2);
+		var text_20 = child(span_3);
+
+		var footer = sibling(section, 2);
+		var button_5 = child(footer);
+		var text_21 = child(button_5);
+
+		var button_6 = sibling(button_5, 2);
+
+		template_effect(() => {
+			set_class(div_8, "modal " + (get(showModal) ? "is-active" : ""));
+			set_text(text_6, T.modalTitle);
+			set_text(text_8, `${T.fieldPlatform}*`);
+			set_text(text_10, T.fieldHandle);
+			set_text(text_11, T.fieldLink);
+			set_text(text_15, T.rewardTitle);
+			set_text(text_16, T.r1);
+			set_text(text_17, T.r2);
+			set_text(text_18, T.r3);
+			set_text(text_19, T.required);
+			set_text(text_20, T.agree);
+			set_text(text_21, T.submit);
+		});
+
+		event('click', div_9, closeModal);
+		event('click', button_4, closeModal);
+		bind_select_value(select, () => get(platform), ($$value) => set(platform, $$value));
+		bind_value(input, () => get(handle), ($$value) => set(handle, $$value));
+		bind_value(input_1, () => get(link), ($$value) => set(link, $$value));
+		bind_select_value(select_1, () => get(reward), ($$value) => set(reward, $$value));
+		bind_checked(input_7, () => get(agree), ($$value) => set(agree, $$value));
+		event('click', button_5, submitForm);
+		event('click', button_6, closeModal);
+		append($$anchor, fragment);
+		pop();
+	}
 
 	var root_2 = template(`<h1 class="title">Order not found</h1>`);
 	var root_3 = template(`<div class="sloader-container"><span class="sloader"></span> <h3 class="is-size-5">Please wait</h3></div>`);
-	var root_7 = template(`<li> </li>`);
-	var root_6 = template(`<ul></ul>`);
-	var root_5 = template(`<li><div class="columns is-align-items-center"><div class="column"><!> <div class="column"><h4 class="title has-text-info is-size-4"> </h4> <!> <p class="is-size-5"> </p></div></div></div></li>`);
 	var root_8 = template(`<li> </li>`);
-	var root_10 = template(`<a class="has-text-info" target="_blank"> </a>`);
-	var root_9 = template(`<div class="field"><!></div>`);
-	var root_11 = template(`<form class="form mt-5"><div class="columns"><div class="column"><div class="select is-info"><select name="order-status" id="order-status"><option> </option><option> </option><option> </option><option> </option><option> </option><option> </option><option> </option><option> </option></select></div></div> <div class="column"><button type="button" class="button is-info has-text-white"> </button></div></div></form>`);
-	var root_12 = template(`<h2 class="title mt-6"> </h2> <h2 class="title has-text-info has-text-weight-bold"> </h2>`, 1);
-	var root_13 = template(`<li> </li>`);
-	var root_17 = template(`<option> </option>`);
+	var root_7 = template(`<ul></ul>`);
+	var root_6 = template(`<li><div class="columns is-align-items-center"><div class="column"><!> <div class="column"><h4 class="title has-text-info is-size-4"> </h4> <!> <p class="is-size-5"> </p></div></div></div></li>`);
+	var root_9 = template(`<li> </li>`);
+	var root_11 = template(`<a class="has-text-info" target="_blank"> </a>`);
+	var root_10 = template(`<div class="field"><!></div>`);
+	var root_12 = template(`<form class="form mt-5"><div class="columns"><div class="column"><div class="select is-info"><select name="order-status" id="order-status"><option> </option><option> </option><option> </option><option> </option><option> </option><option> </option><option> </option><option> </option></select></div></div> <div class="column"><button type="button" class="button is-info has-text-white"> </button></div></div></form>`);
+	var root_13 = template(`<h2 class="title mt-6"> </h2> <h2 class="title has-text-info has-text-weight-bold"> </h2>`, 1);
+	var root_14 = template(`<li> </li>`);
 	var root_18 = template(`<option> </option>`);
-	var root_16 = template(`<div class="select"><select></select></div> <input class="input mt-2" type="text"> <div class="select mt-2"><select><option> </option><!></select></div> <button class="button is-success mt-2"> </button>`, 1);
-	var root_20 = template(`<button class="button is-warning mt-3"> </button> <button class="button is-info mt-3 ml-3"> </button>`, 1);
-	var root_19 = template(`<strong class="has-text-info"> </strong> <p class="mt-2"> </p> <!>`, 1);
-	var root_15 = template(`<li class="mb-2 py-3"><span class="has-text-grey is-size-6"> </span> <br> <!></li>`);
-	var root_23 = template(`<li><a class="tracking-link" target="_blank"> </a></li>`);
-	var root_24 = template(`<button class="button is-info mt-3 has-text-white">Invia mail di tracking</button>`);
-	var root_22 = template(`<div class="field"><label class="label"> </label> <p class="is-size-5"> </p></div> <div class="field"><label class="label"> </label> <p> </p></div> <div class="field"><label class="label"> </label> <ul></ul></div> <!>`, 1);
-	var root_21 = template(`<h2 class="title mt-6"> </h2> <!>`, 1);
-	var root_26 = template(`<option> </option>`);
+	var root_19 = template(`<option> </option>`);
+	var root_17 = template(`<div class="select"><select></select></div> <input class="input mt-2" type="text"> <div class="select mt-2"><select><option> </option><!></select></div> <button class="button is-success mt-2"> </button>`, 1);
+	var root_21 = template(`<button class="button is-warning mt-3"> </button> <button class="button is-info mt-3 ml-3"> </button>`, 1);
+	var root_20 = template(`<strong class="has-text-info"> </strong> <p class="mt-2"> </p> <!>`, 1);
+	var root_16 = template(`<li class="mb-2 py-3"><span class="has-text-grey is-size-6"> </span> <br> <!></li>`);
+	var root_24 = template(`<li><a class="tracking-link" target="_blank"> </a></li>`);
+	var root_25 = template(`<button class="button is-info mt-3 has-text-white">Invia mail di tracking</button>`);
+	var root_23 = template(`<div class="field"><label class="label"> </label> <p class="is-size-5"> </p></div> <div class="field"><label class="label"> </label> <p> </p></div> <div class="field"><label class="label"> </label> <ul></ul></div> <!>`, 1);
+	var root_22 = template(`<h2 class="title mt-6"> </h2> <!>`, 1);
 	var root_27 = template(`<option> </option>`);
 	var root_28 = template(`<option> </option>`);
-	var root_29 = template(`<li><a target="_blank"> </a> <button class="button is-small is-danger ml-2"> </button></li>`);
-	var root_25 = template(`<div class="field my-6"><label class="label"> </label> <div class="select"><select><option disabled selected> </option><!></select></div> <input class="input mt-2" type="text"> <div class="select mt-2"><select><option> </option><!></select></div> <button class="button is-info mt-2"> </button></div> <div class="tracking-section"><h2 class="title">Tracking</h2> <div class="field"><label class="label">Corriere</label> <div class="select"><select></select></div></div> <div class="field"><label class="label">Id spedizione</label> <input class="input" type="number" min="1"></div> <div class="field"><label class="label">Numero colli</label> <input class="input" type="number" min="1"></div> <div class="field"><label class="label">Link di tracking</label> <ul></ul> <input class="input mt-2" type="text"> <button class="button is-info mt-2"> </button></div> <button class="button is-success mt-4">Salva Tracking</button></div>`, 1);
-	var root_4 = template(`<div class="columns"><div class="column is-half"><h2 class="title mt-6 px-5"> </h2> <div class="box"><ul><!> <li><hr class="spacer"> <div class="column"><h4 class="title has-text-info is-size-4 mt-5"> </h4> <p class="my-3 is-size-5"> </p></div></li></ul></div></div> <div class="column px-6"><h2 class="title mt-6"> </h2> <ul><li> </li> <!> <li> <span class="has-text-info has-text-weight-bold"> </span></li> <li><!></li></ul> <!> <h2 class="title mt-6"> </h2> <ul><li> </li> <!> <li> </li> <li> </li></ul> <h2 class="title mt-6"> </h2> <ul><li> </li> <li> </li> <li> </li> <li> <!></li> <li> </li></ul> <h2 class="title mt-5"> </h2> <ul></ul> <!> <!></div></div>`);
+	var root_29 = template(`<option> </option>`);
+	var root_30 = template(`<li><a target="_blank"> </a> <button class="button is-small is-danger ml-2"> </button></li>`);
+	var root_26 = template(`<div class="field my-6"><label class="label"> </label> <div class="select"><select><option disabled selected> </option><!></select></div> <input class="input mt-2" type="text"> <div class="select mt-2"><select><option> </option><!></select></div> <button class="button is-info mt-2"> </button></div> <div class="tracking-section"><h2 class="title">Tracking</h2> <div class="field"><label class="label">Corriere</label> <div class="select"><select></select></div></div> <div class="field"><label class="label">Id spedizione</label> <input class="input" type="number" min="1"></div> <div class="field"><label class="label">Numero colli</label> <input class="input" type="number" min="1"></div> <div class="field"><label class="label">Link di tracking</label> <ul></ul> <input class="input mt-2" type="text"> <button class="button is-info mt-2"> </button></div> <button class="button is-success mt-4">Salva Tracking</button></div>`, 1);
+	var root_4 = template(`<div class="columns"><div class="column is-half"><!> <h2 class="title mt-6 px-5"> </h2> <div class="box"><ul><!> <li><hr class="spacer"> <div class="column"><h4 class="title has-text-info is-size-4 mt-5"> </h4> <p class="my-3 is-size-5"> </p></div></li></ul></div></div> <div class="column px-6"><h2 class="title mt-6"> </h2> <ul><li> </li> <!> <li> <span class="has-text-info has-text-weight-bold"> </span></li> <li><!></li></ul> <!> <h2 class="title mt-6"> </h2> <ul><li> </li> <!> <li> </li> <li> </li></ul> <h2 class="title mt-6"> </h2> <ul><li> </li> <li> </li> <li> </li> <li> <!></li> <li> </li></ul> <h2 class="title mt-5"> </h2> <ul></ul> <!> <!></div></div>`);
 
 	function PreOrder2($$anchor, $$props) {
 		push($$props, false);
 
-		prop($$props, 'uploadUrl', 8, "/account/orders/{id}/shareblaze");
+		let T = mutable_state();
+
+		const SHAREBLAZE_SKUS = [
+			"prod_N1V8kEQDCAc5SY",
+			"prod_D1V8kEQDCAc5SY",
+			"prod_D2V8kEQDCAc5SY"
+		];
+
+		let uploadUrl = prop($$props, 'uploadUrl', 8, "/account/orders/{id}/shareblaze");
 		// --- inizio modifica per cookie-based admin access ---
 		const ADMIN_TOKEN = "kettleblazeadmin01"; // <— sostituisci con la stringa desiderata
 
@@ -4944,6 +6241,7 @@ var preOrdersApp = (function () {
 				o.cart.items.sort((a, b) => b.final_price - a.final_price);
 			}
 
+			set(T, translate(o.language));
 			set(order, o);
 		}
 
@@ -5022,6 +6320,26 @@ var preOrdersApp = (function () {
 			}
 		}
 
+		// handler per l’evento submit dal figlio
+		function handleShareBlazeSubmit(e) {
+			const data = e.detail; // { orderId, platform, handle, link, file, reward, lang, hashtag, ts }
+
+			// TODO: invia a tua API (es. /api/shareblaze/upload)
+			// - se data.file presente, usa FormData e multipart
+			// - altrimenti invia JSON con link
+			// fetch(...)
+			// Mostra notifica/aggiorna stato a schermo
+			console.log("ShareBlaze payload", data);
+		}
+
+		// opzionale: mostrare regole in una modal o ancorare alla sezione FAQ
+		function openRules() {
+			// scroll/ancora/modal
+			const rules = document.getElementById("shareblaze-rules");
+
+			if (rules) rules.scrollIntoView({ behavior: "smooth" });
+		}
+
 		onMount(() => {
 			// Determina admin access via cookie
 			set(isLocal, getCookie("kbadmin341") === ADMIN_TOKEN);
@@ -5062,20 +6380,51 @@ var preOrdersApp = (function () {
 			var alternate_3 = ($$anchor) => {
 				var div_1 = root_4();
 				var div_2 = child(div_1);
-				var h2 = child(div_2);
+				var node_2 = child(div_2);
+
+				{
+					var consequent_2 = ($$anchor) => {
+						ShareBlazeBanner($$anchor, {
+							get lang() {
+								return get(order).language;
+							},
+							get orderId() {
+								return get(order).orderId;
+							},
+							get order() {
+								return get(order);
+							},
+							get uploadUrl() {
+								return uploadUrl();
+							},
+							products: ["Flexibell 2", "Magneti-X"],
+							isEligible: true,
+							$$events: {
+								submit: handleShareBlazeSubmit,
+								rules: openRules
+							}
+						});
+					};
+
+					if_block(node_2, ($$render) => {
+						if (get(order).cart.items.find((product) => SHAREBLAZE_SKUS.includes(product.sku))) $$render(consequent_2);
+					});
+				}
+
+				var h2 = sibling(node_2, 2);
 				var text$1 = child(h2);
 
 				var div_3 = sibling(h2, 2);
 				var ul = child(div_3);
-				var node_2 = child(ul);
+				var node_3 = child(ul);
 
-				each(node_2, 1, () => get(order).cart.items, index, ($$anchor, item) => {
-					var li = root_5();
+				each(node_3, 1, () => get(order).cart.items, index, ($$anchor, item) => {
+					var li = root_6();
 					var div_4 = child(li);
 					var div_5 = child(div_4);
-					var node_3 = child(div_5);
+					var node_4 = child(div_5);
 
-					SirvImage(node_3, {
+					SirvImage(node_4, {
 						get src() {
 							return `https://kettleblaze.sirv.com/orders/${get(item).sku ?? ''}.jpg`;
 						},
@@ -5086,27 +6435,27 @@ var preOrdersApp = (function () {
 						quality: '98'
 					});
 
-					var div_6 = sibling(node_3, 2);
+					var div_6 = sibling(node_4, 2);
 					var h4 = child(div_6);
 					var text_1 = child(h4);
 
-					var node_4 = sibling(h4, 2);
+					var node_5 = sibling(h4, 2);
 
 					{
-						var consequent_2 = ($$anchor) => {
-							var ul_1 = root_6();
+						var consequent_3 = ($$anchor) => {
+							var ul_1 = root_7();
 
 							each(ul_1, 5, () => Object.entries(get(item).selected_attributes), index, ($$anchor, $$item) => {
 								let name = () => get($$item)[0];
 								let value = () => get($$item)[1];
-								var li_1 = root_7();
+								var li_1 = root_8();
 								var text_2 = child(li_1);
 
 								template_effect(
 									($0, $1) => set_text(text_2, `${$0 ?? ''}: ${$1 ?? ''}`),
 									[
-										() => t(name()),
-										() => name() === "size" ? value() : t(value()) || value()
+										() => get(T)(name()),
+										() => name() === "size" ? value() : get(T)(value()) || value()
 									],
 									derived_safe_equal
 								);
@@ -5116,17 +6465,17 @@ var preOrdersApp = (function () {
 							append($$anchor, ul_1);
 						};
 
-						if_block(node_4, ($$render) => {
-							if (Object.keys(get(item).selected_attributes ?? {}).length > 0) $$render(consequent_2);
+						if_block(node_5, ($$render) => {
+							if (Object.keys(get(item).selected_attributes ?? {}).length > 0) $$render(consequent_3);
 						});
 					}
 
-					var p = sibling(node_4, 2);
+					var p = sibling(node_5, 2);
 					var text_3 = child(p);
 
 					template_effect(
 						($0) => {
-							set_text(text_1, `${get(item).quantity ?? ''} x ${get(item).name.it ?? ''}`);
+							set_text(text_1, `${get(item).quantity ?? ''} x ${get(item).name[get(order).language] ?? ''}`);
 							set_text(text_3, $0);
 						},
 						[
@@ -5138,7 +6487,7 @@ var preOrdersApp = (function () {
 					append($$anchor, li);
 				});
 
-				var li_2 = sibling(node_2, 2);
+				var li_2 = sibling(node_3, 2);
 				var div_7 = sibling(child(li_2), 2);
 				var h4_1 = child(div_7);
 				var text_4 = child(h4_1);
@@ -5154,36 +6503,36 @@ var preOrdersApp = (function () {
 				var li_3 = child(ul_2);
 				var text_7 = child(li_3);
 
-				var node_5 = sibling(li_3, 2);
+				var node_6 = sibling(li_3, 2);
 
 				{
-					var consequent_3 = ($$anchor) => {
-						var li_4 = root_8();
+					var consequent_4 = ($$anchor) => {
+						var li_4 = root_9();
 						var text_8 = child(li_4);
-						template_effect(($0) => set_text(text_8, `${$0 ?? ''}: ${get(order).payment.method ?? ''}`), [() => t("payment-method")], derived_safe_equal);
+						template_effect(($0) => set_text(text_8, `${$0 ?? ''}: ${get(order).payment.method ?? ''}`), [() => get(T)("payment-method")], derived_safe_equal);
 						append($$anchor, li_4);
 					};
 
-					if_block(node_5, ($$render) => {
-						if (get(order).payment.method) $$render(consequent_3);
+					if_block(node_6, ($$render) => {
+						if (get(order).payment.method) $$render(consequent_4);
 					});
 				}
 
-				var li_5 = sibling(node_5, 2);
+				var li_5 = sibling(node_6, 2);
 				var text_9 = child(li_5);
 				var span = sibling(text_9);
 				var text_10 = child(span);
 
 				var li_6 = sibling(li_5, 2);
-				var node_6 = child(li_6);
+				var node_7 = child(li_6);
 
 				{
-					var consequent_4 = ($$anchor) => {
-						var div_9 = root_9();
-						var node_7 = child(div_9);
+					var consequent_5 = ($$anchor) => {
+						var div_9 = root_10();
+						var node_8 = child(div_9);
 
-						await_block(node_7, getReceiptUrl, null, ($$anchor, response) => {
-							var a_1 = root_10();
+						await_block(node_8, getReceiptUrl, null, ($$anchor, response) => {
+							var a_1 = root_11();
 							var text_11 = child(a_1);
 
 							template_effect(
@@ -5191,7 +6540,7 @@ var preOrdersApp = (function () {
 									set_attribute(a_1, 'href', get(response).url);
 									set_text(text_11, `🔗 ${$0 ?? ''}`);
 								},
-								[() => t("receipt")],
+								[() => get(T)("receipt")],
 								derived_safe_equal
 							);
 
@@ -5200,16 +6549,16 @@ var preOrdersApp = (function () {
 						append($$anchor, div_9);
 					};
 
-					if_block(node_6, ($$render) => {
-						if (get(order).payment.status === "paid") $$render(consequent_4);
+					if_block(node_7, ($$render) => {
+						if (get(order).payment.status === "paid") $$render(consequent_5);
 					});
 				}
 
-				var node_8 = sibling(ul_2, 2);
+				var node_9 = sibling(ul_2, 2);
 
 				{
-					var consequent_5 = ($$anchor) => {
-						var form = root_11();
+					var consequent_6 = ($$anchor) => {
+						var form = root_12();
 						var div_10 = child(form);
 						var div_11 = child(div_10);
 						var div_12 = child(div_11);
@@ -5220,6 +6569,7 @@ var preOrdersApp = (function () {
 
 							invalidate_inner_signals(() => {
 								get(isUpdating);
+								get(T);
 							});
 						});
 
@@ -5297,15 +6647,15 @@ var preOrdersApp = (function () {
 								set_text(text_20, $8);
 							},
 							[
-								() => t("paid"),
-								() => t("ready"),
-								() => t("in-preparation"),
-								() => t("waiting-product"),
-								() => t("to-be-shipped"),
-								() => t("shipped"),
-								() => t("refunded"),
-								() => t("delivered"),
-								() => t("update")
+								() => get(T)("paid"),
+								() => get(T)("ready"),
+								() => get(T)("in-preparation"),
+								() => get(T)("waiting-product"),
+								() => get(T)("to-be-shipped"),
+								() => get(T)("shipped"),
+								() => get(T)("refunded"),
+								() => get(T)("delivered"),
+								() => get(T)("update")
 							],
 							derived_safe_equal
 						);
@@ -5316,8 +6666,8 @@ var preOrdersApp = (function () {
 					};
 
 					var alternate_1 = ($$anchor) => {
-						var fragment_2 = root_12();
-						var h2_2 = first_child(fragment_2);
+						var fragment_3 = root_13();
+						var h2_2 = first_child(fragment_3);
 						var text_21 = child(h2_2);
 
 						var h2_3 = sibling(h2_2, 2);
@@ -5329,43 +6679,43 @@ var preOrdersApp = (function () {
 								set_text(text_22, $1);
 							},
 							[
-								() => t("order-status"),
-								() => t(get(order).status)
+								() => get(T)("order-status"),
+								() => get(T)(get(order).status)
 							],
 							derived_safe_equal
 						);
 
-						append($$anchor, fragment_2);
+						append($$anchor, fragment_3);
 					};
 
-					if_block(node_8, ($$render) => {
-						if (get(isLocal)) $$render(consequent_5); else $$render(alternate_1, false);
+					if_block(node_9, ($$render) => {
+						if (get(isLocal)) $$render(consequent_6); else $$render(alternate_1, false);
 					});
 				}
 
-				var h2_4 = sibling(node_8, 2);
+				var h2_4 = sibling(node_9, 2);
 				var text_23 = child(h2_4);
 
 				var ul_3 = sibling(h2_4, 2);
 				var li_7 = child(ul_3);
 				var text_24 = child(li_7);
 
-				var node_9 = sibling(li_7, 2);
+				var node_10 = sibling(li_7, 2);
 
 				{
-					var consequent_6 = ($$anchor) => {
-						var li_8 = root_13();
+					var consequent_7 = ($$anchor) => {
+						var li_8 = root_14();
 						var text_25 = child(li_8);
 						template_effect(() => set_text(text_25, `Codice fiscale: ${get(order).customerData.fiscal_code ?? ''}`));
 						append($$anchor, li_8);
 					};
 
-					if_block(node_9, ($$render) => {
-						if (get(order).customerData.fiscal_code) $$render(consequent_6);
+					if_block(node_10, ($$render) => {
+						if (get(order).customerData.fiscal_code) $$render(consequent_7);
 					});
 				}
 
-				var li_9 = sibling(node_9, 2);
+				var li_9 = sibling(node_10, 2);
 				var text_26 = child(li_9);
 
 				var li_10 = sibling(li_9, 2);
@@ -5386,18 +6736,18 @@ var preOrdersApp = (function () {
 
 				var li_14 = sibling(li_13, 2);
 				var text_32 = child(li_14);
-				var node_10 = sibling(text_32);
+				var node_11 = sibling(text_32);
 
 				{
-					var consequent_7 = ($$anchor) => {
+					var consequent_8 = ($$anchor) => {
 						var text_33 = text();
 
 						template_effect(() => set_text(text_33, `(${get(order).customerData.address.state ?? ''})`));
 						append($$anchor, text_33);
 					};
 
-					if_block(node_10, ($$render) => {
-						if (get(order).customerData.address.state) $$render(consequent_7);
+					if_block(node_11, ($$render) => {
+						if (get(order).customerData.address.state) $$render(consequent_8);
 					});
 				}
 
@@ -5410,27 +6760,28 @@ var preOrdersApp = (function () {
 				var ul_5 = sibling(h2_6, 2);
 
 				each(ul_5, 5, () => get(order).history, index, ($$anchor, historyEvent, index$1) => {
-					var li_16 = root_15();
+					var li_16 = root_16();
 					var span_1 = child(li_16);
 					var text_36 = child(span_1);
 
-					var node_11 = sibling(span_1, 4);
+					var node_12 = sibling(span_1, 4);
 
 					{
-						var consequent_8 = ($$anchor) => {
-							var fragment_4 = root_16();
-							var div_14 = first_child(fragment_4);
+						var consequent_9 = ($$anchor) => {
+							var fragment_5 = root_17();
+							var div_14 = first_child(fragment_5);
 							var select_1 = child(div_14);
 
 							template_effect(() => {
 								get(editedEvent);
 
 								invalidate_inner_signals(() => {
+									get(T);
 								});
 							});
 
 							each(select_1, 5, () => statusOptions, index, ($$anchor, status) => {
-								var option_8 = root_17();
+								var option_8 = root_18();
 								var option_8_value = {};
 								var text_37 = child(option_8);
 
@@ -5442,7 +6793,7 @@ var preOrdersApp = (function () {
 
 										set_text(text_37, $0);
 									},
-									[() => t(get(status))],
+									[() => get(T)(get(status))],
 									derived_safe_equal
 								);
 
@@ -5459,10 +6810,10 @@ var preOrdersApp = (function () {
 
 							var text_38 = child(option_9);
 
-							var node_12 = sibling(option_9);
+							var node_13 = sibling(option_9);
 
-							each(node_12, 1, () => precompiledMessages, index, ($$anchor, msg) => {
-								var option_10 = root_18();
+							each(node_13, 1, () => precompiledMessages, index, ($$anchor, msg) => {
+								var option_10 = root_19();
 								var option_10_value = {};
 								var text_39 = child(option_10);
 
@@ -5486,8 +6837,8 @@ var preOrdersApp = (function () {
 									set_text(text_40, $1);
 								},
 								[
-									() => t("select") || "Seleziona messaggio precompilato",
-									() => t("save")
+									() => get(T)("select") || "Seleziona messaggio precompilato",
+									() => get(T)("save")
 								],
 								derived_safe_equal
 							);
@@ -5501,23 +6852,23 @@ var preOrdersApp = (function () {
 							});
 
 							event('click', button_1, () => saveHistoryEvent(index$1));
-							append($$anchor, fragment_4);
+							append($$anchor, fragment_5);
 						};
 
 						var alternate_2 = ($$anchor) => {
-							var fragment_5 = root_19();
-							var strong = first_child(fragment_5);
+							var fragment_6 = root_20();
+							var strong = first_child(fragment_6);
 							var text_41 = child(strong);
 
 							var p_2 = sibling(strong, 2);
 							var text_42 = child(p_2);
 
-							var node_13 = sibling(p_2, 2);
+							var node_14 = sibling(p_2, 2);
 
 							{
-								var consequent_9 = ($$anchor) => {
-									var fragment_6 = root_20();
-									var button_2 = first_child(fragment_6);
+								var consequent_10 = ($$anchor) => {
+									var fragment_7 = root_21();
+									var button_2 = first_child(fragment_7);
 									var text_43 = child(button_2);
 
 									var button_3 = sibling(button_2, 2);
@@ -5529,19 +6880,19 @@ var preOrdersApp = (function () {
 											set_text(text_44, `📧 ${$1 ?? ''}`);
 										},
 										[
-											() => t("edit"),
-											() => t("send-notification")
+											() => get(T)("edit"),
+											() => get(T)("send-notification")
 										],
 										derived_safe_equal
 									);
 
 									event('click', button_2, () => editHistoryEvent(index$1));
 									event('click', button_3, () => sendNotificationEmail(index$1));
-									append($$anchor, fragment_6);
+									append($$anchor, fragment_7);
 								};
 
-								if_block(node_13, ($$render) => {
-									if (get(isLocal)) $$render(consequent_9);
+								if_block(node_14, ($$render) => {
+									if (get(isLocal)) $$render(consequent_10);
 								});
 							}
 
@@ -5550,15 +6901,17 @@ var preOrdersApp = (function () {
 									set_text(text_41, $0);
 									set_text(text_42, get(historyEvent).message);
 								},
-								[() => t(get(historyEvent).status)],
+								[
+									() => get(T)(get(historyEvent).status)
+								],
 								derived_safe_equal
 							);
 
-							append($$anchor, fragment_5);
+							append($$anchor, fragment_6);
 						};
 
-						if_block(node_11, ($$render) => {
-							if (get(editingIndex) === index$1) $$render(consequent_8); else $$render(alternate_2, false);
+						if_block(node_12, ($$render) => {
+							if (get(editingIndex) === index$1) $$render(consequent_9); else $$render(alternate_2, false);
 						});
 					}
 
@@ -5580,19 +6933,19 @@ var preOrdersApp = (function () {
 					append($$anchor, li_16);
 				});
 
-				var node_14 = sibling(ul_5, 2);
+				var node_15 = sibling(ul_5, 2);
 
 				{
-					var consequent_11 = ($$anchor) => {
-						var fragment_7 = root_21();
-						var h2_7 = first_child(fragment_7);
+					var consequent_12 = ($$anchor) => {
+						var fragment_8 = root_22();
+						var h2_7 = first_child(fragment_8);
 						var text_45 = child(h2_7);
 
-						var node_15 = sibling(h2_7, 2);
+						var node_16 = sibling(h2_7, 2);
 
-						each(node_15, 1, () => get(order).tracking, index, ($$anchor, tracking, $$index_6, $$array) => {
-							var fragment_8 = root_22();
-							var div_16 = first_child(fragment_8);
+						each(node_16, 1, () => get(order).tracking, index, ($$anchor, tracking, $$index_6, $$array) => {
+							var fragment_9 = root_23();
+							var div_16 = first_child(fragment_9);
 							var label = child(div_16);
 							var text_46 = child(label);
 
@@ -5613,7 +6966,7 @@ var preOrdersApp = (function () {
 							var ul_6 = sibling(label_2, 2);
 
 							each(ul_6, 5, () => get(tracking).tracking_links, index, ($$anchor, link) => {
-								var li_17 = root_23();
+								var li_17 = root_24();
 								var a_2 = child(li_17);
 								var text_51 = child(a_2);
 
@@ -5625,18 +6978,18 @@ var preOrdersApp = (function () {
 								append($$anchor, li_17);
 							});
 
-							var node_16 = sibling(div_18, 2);
+							var node_17 = sibling(div_18, 2);
 
 							{
-								var consequent_10 = ($$anchor) => {
-									var button_4 = root_24();
+								var consequent_11 = ($$anchor) => {
+									var button_4 = root_25();
 
 									event('click', button_4, sendTrackingNotificaton);
 									append($$anchor, button_4);
 								};
 
-								if_block(node_16, ($$render) => {
-									if (get(isLocal)) $$render(consequent_10);
+								if_block(node_17, ($$render) => {
+									if (get(isLocal)) $$render(consequent_11);
 								});
 							}
 
@@ -5649,31 +7002,31 @@ var preOrdersApp = (function () {
 									set_text(text_50, $2);
 								},
 								[
-									() => t("courier"),
-									() => t("number_of_packages"),
-									() => t("tracking_links")
+									() => get(T)("courier"),
+									() => get(T)("number_of_packages"),
+									() => get(T)("tracking_links")
 								],
 								derived_safe_equal
 							);
 
-							append($$anchor, fragment_8);
+							append($$anchor, fragment_9);
 						});
 
-						template_effect(($0) => set_text(text_45, $0), [() => t("tracking_details")], derived_safe_equal);
-						append($$anchor, fragment_7);
+						template_effect(($0) => set_text(text_45, $0), [() => get(T)("tracking_details")], derived_safe_equal);
+						append($$anchor, fragment_8);
 					};
 
-					if_block(node_14, ($$render) => {
-						if (get(order).tracking.length > 0) $$render(consequent_11);
+					if_block(node_15, ($$render) => {
+						if (get(order).tracking.length > 0) $$render(consequent_12);
 					});
 				}
 
-				var node_17 = sibling(node_14, 2);
+				var node_18 = sibling(node_15, 2);
 
 				{
-					var consequent_12 = ($$anchor) => {
-						var fragment_9 = root_25();
-						var div_19 = first_child(fragment_9);
+					var consequent_13 = ($$anchor) => {
+						var fragment_10 = root_26();
+						var div_19 = first_child(fragment_10);
 						var label_3 = child(div_19);
 						var text_52 = child(label_3);
 
@@ -5684,6 +7037,7 @@ var preOrdersApp = (function () {
 							get(event$1);
 
 							invalidate_inner_signals(() => {
+								get(T);
 							});
 						});
 
@@ -5693,10 +7047,10 @@ var preOrdersApp = (function () {
 
 						var text_53 = child(option_11);
 
-						var node_18 = sibling(option_11);
+						var node_19 = sibling(option_11);
 
-						each(node_18, 1, () => statusOptions, index, ($$anchor, status) => {
-							var option_12 = root_26();
+						each(node_19, 1, () => statusOptions, index, ($$anchor, status) => {
+							var option_12 = root_27();
 							var option_12_value = {};
 							var text_54 = child(option_12);
 
@@ -5708,7 +7062,7 @@ var preOrdersApp = (function () {
 
 									set_text(text_54, $0);
 								},
-								[() => t(get(status))],
+								[() => get(T)(get(status))],
 								derived_safe_equal
 							);
 
@@ -5725,10 +7079,10 @@ var preOrdersApp = (function () {
 
 						var text_55 = child(option_13);
 
-						var node_19 = sibling(option_13);
+						var node_20 = sibling(option_13);
 
-						each(node_19, 1, () => precompiledMessages, index, ($$anchor, msg) => {
-							var option_14 = root_27();
+						each(node_20, 1, () => precompiledMessages, index, ($$anchor, msg) => {
+							var option_14 = root_28();
 							var option_14_value = {};
 							var text_56 = child(option_14);
 
@@ -5759,7 +7113,7 @@ var preOrdersApp = (function () {
 						});
 
 						each(select_5, 5, () => courierOptions, index, ($$anchor, courier) => {
-							var option_15 = root_28();
+							var option_15 = root_29();
 							var option_15_value = {};
 							var text_58 = child(option_15);
 
@@ -5784,7 +7138,7 @@ var preOrdersApp = (function () {
 						var ul_7 = sibling(child(div_27), 2);
 
 						each(ul_7, 5, () => get(tracking).tracking_links, index, ($$anchor, link, index) => {
-							var li_18 = root_29();
+							var li_18 = root_30();
 							var a_3 = child(li_18);
 							var text_59 = child(a_3);
 
@@ -5797,7 +7151,7 @@ var preOrdersApp = (function () {
 									set_text(text_59, get(link));
 									set_text(text_60, $0);
 								},
-								[() => t("remove")],
+								[() => get(T)("remove")],
 								derived_safe_equal
 							);
 
@@ -5823,12 +7177,12 @@ var preOrdersApp = (function () {
 								set_text(text_61, $4);
 							},
 							[
-								() => t("add-event"),
-								() => t("select-status"),
-								() => t("message"),
-								() => t("select") || "Seleziona messaggio precompilato",
-								() => t("add"),
-								() => t("add-tracking-link")
+								() => get(T)("add-event"),
+								() => get(T)("select-status"),
+								() => get(T)("message"),
+								() => get(T)("select") || "Seleziona messaggio precompilato",
+								() => get(T)("add"),
+								() => get(T)("add-tracking-link")
 							],
 							derived_safe_equal
 						);
@@ -5849,11 +7203,11 @@ var preOrdersApp = (function () {
 						bind_value(input_4, () => get(newTrackingLink), ($$value) => set(newTrackingLink, $$value));
 						event('click', button_7, addTrackingLink);
 						event('click', button_8, updateTracking);
-						append($$anchor, fragment_9);
+						append($$anchor, fragment_10);
 					};
 
-					if_block(node_17, ($$render) => {
-						if (get(isLocal)) $$render(consequent_12);
+					if_block(node_18, ($$render) => {
+						if (get(isLocal)) $$render(consequent_13);
 					});
 				}
 
@@ -5890,16 +7244,16 @@ var preOrdersApp = (function () {
 						set_text(text_35, $9);
 					},
 					[
-						() => t("order-summary"),
-						() => t("order-total"),
+						() => get(T)("order-summary"),
+						() => get(T)("order-total"),
 						() => calculateTotal(get(order)),
-						() => t("order-details"),
-						() => t("payment-status"),
-						() => t("customer-details"),
-						() => t("name"),
-						() => t("phone"),
-						() => t("shipping-address"),
-						() => t("order-history")
+						() => get(T)("order-details"),
+						() => get(T)("payment-status"),
+						() => get(T)("customer-details"),
+						() => get(T)("name"),
+						() => get(T)("phone"),
+						() => get(T)("shipping-address"),
+						() => get(T)("order-history")
 					],
 					derived_safe_equal
 				);

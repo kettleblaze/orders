@@ -1,9 +1,10 @@
 <script lang="js">
   import { onMount } from "svelte";
   import SirvImage from "./SirvImage.svelte";
-  import { translate as T, getPreferredLanguage } from "../i18n/utils.js";
+  import { translate, getPreferredLanguage } from "../i18n/utils.js";
   import ShareBlazeBanner from "./ShareBlazeBanner.svelte";
 
+  let T;
   const SHAREBLAZE_SKUS = [
     "prod_N1V8kEQDCAc5SY",
     "prod_D1V8kEQDCAc5SY",
@@ -196,6 +197,7 @@
       o.cart.items.sort((a, b) => b.final_price - a.final_price);
     }
 
+    T = translate(o.language);
     order = o;
   }
 
@@ -311,11 +313,11 @@
 {:else}
   <div class="columns">
     <div class="column is-half">
-      <!--
-      {#if order.cart.items.find((product) => SHAREBLAZE_SKUS.includes(product.sku))}
+      {#if order.cart.items.find( (product) => SHAREBLAZE_SKUS.includes(product.sku) )}
         <ShareBlazeBanner
-          lang={getPreferredLanguage()}
+          lang={order.language}
           orderId={order.orderId}
+          {order}
           {uploadUrl}
           products={["Flexibell 2", "Magneti-X"]}
           isEligible={true}
@@ -323,7 +325,7 @@
           on:rules={openRules}
         />
       {/if}
-    -->
+
       <h2 class="title mt-6 px-5">{T("order-summary")}</h2>
       <div class="box">
         <ul>
@@ -341,7 +343,7 @@
                   ></SirvImage>
                   <div class="column">
                     <h4 class="title has-text-info is-size-4">
-                      {item.quantity} x {item.name.it}
+                      {item.quantity} x {item.name[order.language]}
                     </h4>
                     {#if Object.keys(item.selected_attributes ?? {}).length > 0}
                       <ul>

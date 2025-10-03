@@ -4464,7 +4464,6 @@ var preOrdersApp = (function () {
 	}
 
 	function translate(preferredLanguage) {
-	  preferredLanguage = getPreferredLanguage();
 	  return function translate(str) {
 	    if (languages[preferredLanguage]) {
 	      return languages[preferredLanguage][str];
@@ -4473,8 +4472,6 @@ var preOrdersApp = (function () {
 	    }
 	  };
 	}
-
-	let t = translate();
 
 	var root_2 = template(`<h1 class="title">Order not found</h1>`);
 	var root_3 = template(`<div class="sloader-container"><span class="sloader"></span> <h3 class="is-size-5">Please wait</h3></div>`);
@@ -4671,7 +4668,7 @@ var preOrdersApp = (function () {
 			}
 
 			if (pm.type === "customer_balance") {
-				type = t("customer_balance");
+				type = translate("customer_balance");
 			}
 
 			if (pm.wallet) {
@@ -4883,7 +4880,7 @@ var preOrdersApp = (function () {
 												var text_4 = child(li_1);
 
 												template_effect(($0, $1) => set_text(text_4, `${$0 ?? ''}: ${$1 ?? ''}`), [
-													() => t(get(extra).name),
+													() => translate(get(extra).name),
 													() => ucfirst(get(extra).value)
 												]);
 
@@ -4939,7 +4936,7 @@ var preOrdersApp = (function () {
 												set_text(text_7, $1);
 											},
 											[
-												() => t("shipping-cost"),
+												() => translate("shipping-cost"),
 												() => formatCurrency(get(order).shippingCost)
 											]
 										);
@@ -4966,7 +4963,7 @@ var preOrdersApp = (function () {
 										set_text(text_9, $1);
 									},
 									[
-										() => t("order-total"),
+										() => translate("order-total"),
 										() => calculateTotal(get(order))
 									]
 								);
@@ -5016,13 +5013,13 @@ var preOrdersApp = (function () {
 										set_text(text_16, `${$6 ?? ''}: ${$7 ?? ''}`);
 									},
 									[
-										() => t("payment-type"),
-										() => t("three-installments"),
-										() => t("start-date"),
+										() => translate("payment-type"),
+										() => translate("three-installments"),
+										() => translate("start-date"),
 										() => new Date(get(order).paymentMethod.subscription.start_date).toLocaleDateString(),
-										() => t("end-date"),
+										() => translate("end-date"),
 										() => new Date(get(order).paymentMethod.subscription.cancel_at).toLocaleDateString(),
-										() => t("installment-amount"),
+										() => translate("installment-amount"),
 										() => formatCurrency({
 											amount_total: get(order).paymentMethod.subscription.plan.amount,
 											currency: get(order).paymentMethod.subscription.plan.currency
@@ -5036,7 +5033,7 @@ var preOrdersApp = (function () {
 							var alternate_1 = ($$anchor) => {
 								var li_10 = root_15();
 								var text_17 = child(li_10);
-								template_effect(($0) => set_text(text_17, `${$0 ?? ''}: `), [() => t("payment-status")]);
+								template_effect(($0) => set_text(text_17, `${$0 ?? ''}: `), [() => translate("payment-status")]);
 								append($$anchor, li_10);
 							};
 
@@ -5107,12 +5104,12 @@ var preOrdersApp = (function () {
 										set_text(text_24, $5);
 									},
 									[
-										() => t("ready"),
-										() => t("in-preparation"),
-										() => t("waiting-product"),
-										() => t("to-be-shipped"),
-										() => t("shipped"),
-										() => t("update")
+										() => translate("ready"),
+										() => translate("in-preparation"),
+										() => translate("waiting-product"),
+										() => translate("to-be-shipped"),
+										() => translate("shipped"),
+										() => translate("update")
 									]
 								);
 
@@ -5158,7 +5155,7 @@ var preOrdersApp = (function () {
 								template_effect(
 									($0) => set_text(text_29, `${$0 ?? ''}:
               ${get(order).customer.phone ?? ''}`),
-									[() => t("phone")]
+									[() => translate("phone")]
 								);
 
 								append($$anchor, text_29);
@@ -5183,8 +5180,8 @@ var preOrdersApp = (function () {
 										set_text(text_30, $1);
 									},
 									[
-										() => t("mob-phone"),
-										() => t("update")
+										() => translate("mob-phone"),
+										() => translate("update")
 									]
 								);
 
@@ -5641,7 +5638,7 @@ var preOrdersApp = (function () {
 											event('click', button_7, () => removeParcel(index));
 											append($$anchor, li_24);
 										});
-										template_effect(($0) => set_text(text_59, $0), [() => t("tracking-details")]);
+										template_effect(($0) => set_text(text_59, $0), [() => translate("tracking-details")]);
 										append($$anchor, fragment_12);
 									};
 
@@ -5718,11 +5715,11 @@ var preOrdersApp = (function () {
 										set_text(text_58, $4);
 									},
 									[
-										() => t("add-tracking-info"),
-										() => t("courier"),
-										() => t("select-courier"),
-										() => t("tracking-number"),
-										() => t("add-tracking")
+										() => translate("add-tracking-info"),
+										() => translate("courier"),
+										() => translate("select-courier"),
+										() => translate("tracking-number"),
+										() => translate("add-tracking")
 									]
 								);
 
@@ -5755,15 +5752,15 @@ var preOrdersApp = (function () {
 								set_text(text_42, $8);
 							},
 							[
-								() => t("order-summary"),
-								() => t("order-details"),
-								() => t("payment-method"),
+								() => translate("order-summary"),
+								() => translate("order-details"),
+								() => translate("payment-method"),
 								() => displayPaymentMethod(get(order).paymentMethod),
-								() => t("order-status"),
-								() => t("customer-details"),
-								() => t("name"),
-								() => t("shipping-address"),
-								() => t("history")
+								() => translate("order-status"),
+								() => translate("customer-details"),
+								() => translate("name"),
+								() => translate("shipping-address"),
+								() => translate("history")
 							]
 						);
 

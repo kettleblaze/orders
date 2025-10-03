@@ -5,6 +5,8 @@ $brown: #757763;
 $beige-light: #d0d1cd;
 $beige-lighter: #eff0eb;
 
+@use "./shareblaze.scss";
+
 // Path to Bulma's sass folder
 @use "../../../../node_modules/bulma/sass" with (
   $family-primary: '"Poppins", sans-serif',
@@ -20,8 +22,10 @@ $beige-lighter: #eff0eb;
 @use "../../../../node_modules/bulma/sass/helpers/flexbox.scss";
 @use "../../../../node_modules/bulma/sass/utilities/mixins";
 
+
 // Import the Google Font
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+
 
 @include mixins.until(iv.$tablet) {
   :root {
@@ -99,7 +103,6 @@ $beige-lighter: #eff0eb;
   border-top: 8px solid
     hsl(var(--bulma-info-h), var(--bulma-info-s), var(--bulma-info-l)) !important;
 }
-
 
 .tracking-link {
   word-break: break-all;
