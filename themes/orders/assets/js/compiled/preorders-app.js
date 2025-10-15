@@ -4159,6 +4159,7 @@ var preOrdersApp = (function () {
 	var tracking_links$3 = "Link di Tracking";
 	var refunded$3 = "Rimborsato";
 	var receipt$3 = "Ricevuta";
+	var processing_return = "Reso in elaborazione";
 	var it = {
 		"order-summary": "Riepilogo Ordine",
 		"order-details": "Dettagli Ordine",
@@ -4208,7 +4209,8 @@ var preOrdersApp = (function () {
 		number_of_packages: number_of_packages$3,
 		tracking_links: tracking_links$3,
 		refunded: refunded$3,
-		receipt: receipt$3
+		receipt: receipt$3,
+		processing_return: processing_return
 	};
 
 	var history$2 = "Historial";

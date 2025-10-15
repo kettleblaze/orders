@@ -46,6 +46,7 @@
     "shipped",
     "delivered",
     "canceled",
+    "processing_return",
   ];
   // --- Estensione: messaggi precompilati per eventi ---
   const MESSAGE_TEMPLATES_BY_LANG = {
@@ -436,6 +437,11 @@
                   >
                   <option value="shipped" selected={orderStatus === "shipped"}
                     >{T("shipped")}</option
+                  >
+                  <option
+                    value="processing_return"
+                    selected={orderStatus === "processing_return"}
+                    >{T("processing_return")}</option
                   >
                   <option value="refunded" selected={orderStatus === "refunded"}
                     >{T("refunded")}</option
