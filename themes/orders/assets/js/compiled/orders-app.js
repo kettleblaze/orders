@@ -6239,11 +6239,12 @@ var preOrdersApp = (function () {
 			const emailPayload = {
 				orderId: get(order).orderId,
 				historyIndex: eventId,
-				type
+				type,
+				dev: false
 			};
 
 			try {
-				const response = await fetch(`http://localhost:8080/send-notification`, {
+				const response = await fetch(`http://localhost:8080/send-notification-email`, {
 					method: "POST",
 					headers: { "Content-Type": "application/json" },
 					body: JSON.stringify(emailPayload)

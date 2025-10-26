@@ -140,11 +140,12 @@
       orderId: order.orderId,
       historyIndex: eventId,
       type: type,
+      dev: false,
     };
 
     try {
       const response = await fetch(
-        `process.env.storeServer/send-notification`,
+        `process.env.storeServer/send-notification-email`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

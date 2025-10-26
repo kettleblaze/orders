@@ -16,7 +16,7 @@
         </ul>
     </div>
 </footer>
-{{- if eq .Type "order"}}
+{{- if .IsHome -}}
     {{- with resources.Get "js/compiled/orders-app.js"}}
     <script src="{{.RelPermalink}}" defer></script>
     {{- end }}
